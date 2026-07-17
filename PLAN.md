@@ -313,3 +313,15 @@ standalone implementation in this folder.
   re-ground the 3D scene on measured reality. NEXT (iter 15):
   implement v2 tier-2; check improve pass result + rerun verify;
   refresh scene screenshot in docs.
+- 2026-07-17 (iter 15): scene re-verified (PASS on attempt 2 — the
+  self-revising verify loop corrected its own counterexample);
+  measured-architecture screenshot pushed. T1 v2 implementation spec
+  COMPLETED (docs/t1-v2-design.md) incl. the two replay subtleties
+  (abstractMVars + fresh-mvar reopen for dangling mctx refs;
+  telescope-closure + target-beta for fvar-containing subgoal
+  queries) and two new v2-specific mutation probes. NEXT (iter 16,
+  fresh context): implement v2 from the spec — recording in
+  mkGeneratorNode?/SynthM.State, entry schema change, two-tier probe;
+  rebuild; run the extended battery incl. scoped-instance probe;
+  re-A/B Mathlib bootstrap modules (WithBot/InjSurj) expecting
+  tier-2 rescues.

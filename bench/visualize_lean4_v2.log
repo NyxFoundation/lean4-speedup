@@ -1,0 +1,34 @@
+
+visually visualize: lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g — ground-truth evidence + source-grounded 3D model
+  grounding the 3D pass in the gathered source architecture
+  seeding visual pass with 1 grounding/verification gap(s)
+visually improve: seeding from caller-provided reflection (refine loop)
+self-improve: /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+             history -> /home/gohan/.visually-3d/runs/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/improve-20260717-211913
+             driver   -> claude (visual feedback enabled)
+             up to 1 iteration(s)
+
+──────── iteration 1 / 1 ────────
+  rendered -> iter-01-render.png
+  claude done (thinking trace: iter-01-events.jsonl, 143 events)
+  parts: 59   score: 91/100
+  critique: The render reads well — a legible west-to-east pipeline on a rail, everything seated on the ground line, no opaque block swallowing a subsystem — so the remaining failure is fidelity, not legibility: the carried-over reflection demands the scene depict the MEASURED architecture and it depicted none of it. Nothing showed that the main thread is the critical path (~80% occupied), that async elaboration exists only for mvar-free theorem bodies while def/instance/inductive stay on the main line, that the kernel has two intake lanes (an async belt from workers, a blocking gate for inductives), or that meta caches are wiped at every command boundary. The parallel worker bays that idle at 30-45% were entirely absent, so the scene told the wrong performance story. Secondary defects: the SIDE view showed a large empty +Z half (now used by the worker bay pad), and expr_core/kernel spacing left no room for the intake gate the source requires.
+  + Added the worker-thread bay (worker_pad + worker_bays, spec threads:15, occupancy 30-45%) at z +4.4 — the underutilized parallel elaboration lane the profiling measured, modelled as ONE array part with multiplicity in spec rather than N boxes.
+  + Added async_fork on the rail at the elaborator's east face plus fork_chute to the bays: only single mvar-free `theorem` bodies divert (MutualDef.lean:1236); def/instance/structure/inductive stay on the main conveyor.
+  + Added async_belt + async_post returning checked theorem bodies to the kernel's top, and sync_gate — a blocking forged-steel gate across the main conveyor at the kernel's west face for inductives/structures (AddDecl.lean:129), giving the kernel the two intake lanes the source describes.
+  + Split the deck into deck_plate (copper, parser→environment: the serial main-thread conveyor, ~80% occupied) and deck_plate_back (brushed steel), so the critical path is visible as material, not prose.
+  + Added command_loop on an extended rear deck (the serial driver that wipes meta caches per command) and meta_cache, a tapered hopper beside the elaborator that is dumped at every command boundary and every addDecl (Elab/Command.lean:894-898; 91% duplicate instance derivations).
+  + Re-spaced expr_core (0.56 m wide), kernel (x −1.30) and tc_synth (x −2.05) to open clean gaps for the fork, chute and intake gate — no interpenetration anywhere on the line.
+  + Gave the measured parts spec blocks (occupancy, thread count, cache-wipe triggers, import cost) and folded the mmap'd compacted-region detail into olean_store.
+  · gap: The new +Z half (worker_pad, worker_bays, fork_chute, async_belt, async_post) has never been rendered — check the next ISO/TOP for the chute at x −2.76 threading between metavar_ctx (ends −3.05) and tc_synth (starts −2.65), and the belt at x −1.35 clearing tc_synth's −1.45 edge.
+  · gap: Verify in the next FRONT/SIDE render that async_belt's underside (y 2.50) actually lands on the kernel roof (y 2.50) and does not read as floating; if it does, drop a short hood box on the kernel's top face rather than lowering the belt into the block.
+  · gap: The kernel is still one 1.2 m box: consider a cutaway (remove its +Z wall) exposing the type-checker's whnf/defEq core, since it is the only ~6k-line trusted part and currently shows no interior.
+  · gap: Occupancy is currently carried only by material and spec text; consider a short vertical bar-gauge on the rail (main 80% vs workers 30-45%) if it can be done without becoming decoration.
+  · gap: flow_spine still implies a uniform bus; the measured pipeline is serial upstream and per-declaration downstream — consider splitting it at spine_post_mid so the frontend/back-end handover is visible.
+
+self-improve: done. Improved scene written to /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+             full history: /home/gohan/.visually-3d/runs/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/improve-20260717-211913
+             review change: git diff -- /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+             revert:        cp /home/gohan/.visually-3d/runs/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/improve-20260717-211913/iter-00.json /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+
+  ✓ visualize done. Next: visually verify lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g
