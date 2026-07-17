@@ -1,0 +1,187 @@
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release'　に入ります
+[  4%] Performing update step for 'cadical'
+-- Already at requested tag: rel-2.1.2
+[  8%] No patch step for 'cadical'
+[ 12%] No configure step for 'cadical'
+[ 16%] Performing build step for 'cadical'
+[ 20%] No install step for 'cadical'
+[ 25%] Completed 'cadical'
+[ 33%] Built target cadical
+[ 37%] Performing configure step for 'stage0'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- stage0 sha1: 24613e574a04b70bc2f9427f0e61e3832de53d50
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage0
+[ 41%] Performing build step for 'stage0'
+[  2%] Built target leanmain
+[  3%] Built target leanmanifest
+[  3%] Built target initialize
+[  5%] Built target leanshell
+[  7%] Built target constructions
+[  7%] Built target copy-leantar
+[ 19%] Built target util
+[ 31%] Built target library
+[ 31%] Built target leaninitialize
+[ 44%] Built target kernel
+[ 71%] Built target leanrt
+[ 98%] Built target leanrt_initial-exec
+[ 99%] Built target leancpp
+[100%] Built target leancpp_1
+[100%] Built target make_stdlib
+[100%] Built target Init_shared
+[100%] Built target leanshared
+[100%] Built target leanir
+[100%] Built target lake_shared
+[100%] Built target lean
+[100%] Built target leanchecker
+[100%] Built target lake
+[ 45%] No install step for 'stage0'
+[ 50%] Completed 'stage0'
+[ 66%] Built target stage0
+[ 70%] Performing configure step for 'stage1'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- git commit sha1: c0edb3d145bebf37a87e18ae0793a695ab5d2208
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1
+[ 87%] Built target stage1-configure
+[ 91%] Performing build step for 'stage1'
+[  0%] Built target leanmanifest
+[  3%] Built target leanmain
+[  3%] Built target initialize
+[  6%] Building CXX object CMakeFiles/leanshell.dir/util/shell.cpp.o
+[ 10%] Built target constructions
+[ 10%] Built target copy-cadical
+[ 10%] Built target copy-leantar
+[ 24%] Built target util
+[ 37%] Built target kernel
+[ 37%] Built target leaninitialize
+[ 41%] Building CXX object library/CMakeFiles/library.dir/module.cpp.o
+[ 41%] Building CXX object library/CMakeFiles/library.dir/util.cpp.o
+[ 44%] Building CXX object runtime/CMakeFiles/leanrt.dir/platform.cpp.o
+[ 44%] Building CXX object runtime/CMakeFiles/leanrt_initial-exec.dir/platform.cpp.o
+[ 44%] Linking CXX static library lib/temp/libleanshell.a
+[ 44%] Built target leanshell
+[ 44%] Linking CXX static library ../lib/lean/libleanrt.a
+[ 44%] Linking CXX static library libleanrt_initial-exec.a
+[ 68%] Built target leanrt
+[ 93%] Built target leanrt_initial-exec
+[100%] Built target library
+[100%] Linking CXX static library lib/lean/libleancpp.a
+[100%] Linking CXX static library lib/temp/libleancpp_1.a
+[100%] Built target leancpp_1
+[100%] Built target leancpp
+✔ [3420/5001] Built Lean.Meta.SynthInstance (1.7s)
+✔ [3421/5001] Built Lean.Meta.Tactic.Grind.Arith.Util (300ms)
+✔ [3423/5001] Built Lean.Meta.UnificationHint (407ms)
+✔ [3425/5001] Built Lean.Meta.Tactic.Grind.Arith.Cutsat.ToIntInfo (240ms)
+✔ [3427/5001] Built Lean.Meta.AppBuilder (783ms)
+✔ [3429/5001] Built Lean.Meta.StringLitProof (334ms)
+✔ [3430/5001] Built Lean.Meta.Order (337ms)
+✔ [3431/5001] Built Lean.Meta.Tactic.Simp.Arith.Nat.Simp (476ms)
+✔ [3432/5001] Built Lean.Meta.Tactic.Grind.EqResolution (683ms)
+✔ [3433/5001] Built Lean.Meta.Match.NamedPatterns (522ms)
+✔ [3438/5001] Built Lean.Meta.HaveTelescope (826ms)
+✔ [3443/5001] Built Lean.Meta.Coe (910ms)
+✔ [3445/5001] Built Lean.Meta.Tactic.BVDecide.Reflect.Basic (907ms)
+✔ [3447/5001] Built Lean.Meta.Eqns (1.1s)
+✔ [3449/5001] Built Lean.Meta.Tactic.Simp.Arith.Int.Basic (1.1s)
+✔ [3457/5001] Built Lean.Meta.Tactic.Util (952ms)
+✔ [3467/5001] Built Lean.Meta.Match.AltTelescopes (471ms)
+✔ [3471/5001] Built Lean.Meta.ArgsPacker (1.3s)
+✔ [3481/5001] Built Lean.Elab.Tactic.Omega.OmegaM (1.3s)
+✔ [3487/5001] Built Lean.Meta.Tactic.BVDecide.Reflect.ReifiedBVExpr (386ms)
+✔ [3489/5001] Built Lean.Meta.Structure (929ms)
+✔ [3491/5001] Built Lean.Meta.Match.Basic (791ms)
+✔ [3495/5001] Built Lean.Meta.Tactic.Simp.Arith.Int.Simp (570ms)
+✔ [3497/5001] Built Lean.Meta.SizeOf (1.6s)
+✔ [3499/5001] Built Lean.Meta.Tactic.Grind.Injection (345ms)
+✔ [3501/5001] Built Lean.Meta.Tactic.BVDecide.Reflect.ReifiedBVPred (420ms)
+✔ [3503/5001] Built Lean.PrettyPrinter.Delaborator.TopDownAnalyze (2.7s)
+✔ [3505/5001] Built Lean.Meta.Tactic.Assert (604ms)
+✔ [3507/5001] Built Lean.Meta.Tactic.Simp.Arith.Int (318ms)
+✔ [3509/5001] Built Lean.Meta.Tactic.Generalize (559ms)
+✔ [3511/5001] Built Lean.Meta.Tactic.BVDecide.Reflect.ReifiedBVLogical (352ms)
+✔ [3513/5001] Built Lean.Meta.Tactic.Induction (831ms)
+✔ [3515/5001] Built Lean.Meta.Tactic.Simp.Arith (225ms)
+✔ [3517/5001] Built Lean.Meta.WrapInstance (2.2s)
+✔ [3519/5001] Built Lean.Meta.Tactic.Replace (470ms)
+✔ [3521/5001] Built Lean.Meta.Tactic.BVDecide.Reflect.ReifiedLemmas (367ms)
+✔ [3523/5001] Built Lean.Meta.Tactic.Simp.SimpTheorems (1.6s)
+✔ [3525/5001] Built Lean.Elab.Tactic.Omega.Core (1.3s)
+✔ [3527/5001] Built Lean.Meta.Tactic.Subst (818ms)
+✔ [3529/5001] Built Lean.Meta.Tactic.Delta (318ms)
+✔ [3531/5001] Built Lean.Meta.Tactic.Symm (420ms)
+✔ [3533/5001] Built Lean.PrettyPrinter.Delaborator.Basic (1.1s)
+✔ [3535/5001] Built Lean.Meta.Match.CaseValues (267ms)
+✔ [3537/5001] Built Lean.Meta.Tactic.Injection (460ms)
+✔ [3539/5001] Built Lean.PrettyPrinter.Delaborator.Metavariable (383ms)
+✔ [3541/5001] Built Lean.Meta.Match.CaseArraySizes (286ms)
+✔ [3543/5001] Built Lean.Meta.Tactic.Lets (902ms)
+✔ [3545/5001] Built Lean.Meta.ExprDefEq (3.7s)
+✔ [3547/5001] Built Lean.Compiler.LCNF.ToLCNF (2.7s)
+✔ [3549/5001] Built Lean.Meta.Tactic.BVDecide.Reflect.Reify (952ms)
+✔ [3551/5001] Built Lean.Meta.Tactic.UnifyEq (345ms)
+✔ [3553/5001] Built Lean.Meta.CongrTheorems (792ms)
+✔ [3555/5001] Built Lean.Meta.Tactic.BVDecide.Reflect.SatAtBVLogical (248ms)
+✔ [3557/5001] Built Lean.Meta.Tactic.BVDecide.Reflect (218ms)
+✔ [3559/5001] Built Lean.Compiler.LCNF.ToDecl (518ms)
+✔ [3561/5001] Built Lean.Meta.SynthInstance:c.o (4.9s)
+✔ [3562/5001] Built Lean.Meta.Sym.SymM (716ms)
+✔ [3636/5001] Built Lean.Meta.Sym.SynthInstance (225ms)
+✔ [3640/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.FrameProc (184ms)
+✔ [3642/5001] Built Lean.Compiler.LCNF.Main (724ms)
+✔ [3644/5001] Built Lean.Compiler.LCNF (158ms)
+✔ [3646/5001] Built Lean.Meta.Tactic.Simp.Types (1.3s)
+✔ [3648/5001] Built Lean.Compiler.Main (209ms)
+✔ [3650/5001] Built Lean.Meta.Tactic.Simp.LoopProtection (285ms)
+✔ [3652/5001] Built Lean.Meta.Tactic.Grind.Arith.FieldNormNum (580ms)
+✔ [3654/5001] Built Lean.Compiler (142ms)
+✔ [3656/5001] Built Lean.Meta.Sym.Canon (800ms)
+✔ [3662/5001] Built Lean.Meta.Tactic.Simp.Simproc (870ms)
+✔ [3664/5001] Built Lean.Meta.Sym.Pattern (1.5s)
+✔ [3686/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.Util (217ms)
+✔ [3688/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.CtorIdx (210ms)
+✔ [3690/5001] Built Lean.Meta.Tactic.Simp.Attr (408ms)
+✔ [3692/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.Core (467ms)
+✔ [3694/5001] Built Lean.Meta.Sym.Simp.Discharger (353ms)
+✔ [3696/5001] Built Lean.Meta.Tactic.Grind.Util (594ms)
+✔ [3698/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.LatticeOp (494ms)
+✔ [3700/5001] Built Lean.Meta.Sym.Simp.Theorems (572ms)
+✔ [3708/5001] Built Lean.Elab.Tactic.BoolToPropSimps (244ms)
+✔ [3710/5001] Built Lean.Meta.Tactic.Simp.RegisterCommand (398ms)
+✔ [3712/5001] Built Lean.Meta.Tactic.Grind.AC.Var (237ms)
+✔ [3714/5001] Built Lean.Meta.Sym.Simp.App (799ms)
+✔ [3726/5001] Built Lean.Meta.Sym.Simp.Have (793ms)
+✔ [3734/5001] Built Lean.Meta.Tactic.Grind.Arith.Simproc (756ms)
+✔ [3736/5001] Built Lean.Meta.Tactic.NormCast (541ms)
+✔ [3738/5001] Built Lean.Meta.Tactic.Cbv.CbvEvalExt (428ms)
+✔ [3740/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.Nat (988ms)
+✔ [3742/5001] Built Lean.Meta.Sym.Simp.ControlFlow (426ms)
+✔ [3744/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.List (203ms)
+✔ [3746/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.Array (358ms)
+✔ [3748/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.Int (678ms)
+✔ [3750/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.Fin (795ms)
+✔ [3752/5001] Built Lean.Meta.Tactic.Cbv.ControlFlow (855ms)
+✔ [3754/5001] Built Lean.Meta.Tactic.Simp.Rewrite (2.1s)
+✔ [3756/5001] Built Lean.Meta.Sym.Simp.EvalGround (2.8s)
+✔ [3760/5001] Built Lean.Meta.Tactic.Grind.MatchDiscrOnly (280ms)
+✔ [3762/5001] Built Lean.PrettyPrinter.Delaborator.Builtins (5.3s)
+✔ [3764/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.UInt (1.9s)
+✔ [3766/5001] Built Lean.Meta.Tactic.Simp.BuiltinSimprocs.BitVec (1.2s)
+✔ [3768/5001] Built Lean.PrettyPrinter.Delaborator (150ms)

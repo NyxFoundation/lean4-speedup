@@ -325,3 +325,18 @@ standalone implementation in this folder.
   rebuild; run the extended battery incl. scoped-instance probe;
   re-A/B Mathlib bootstrap modules (WithBot/InjSurj) expecting
   tier-2 rescues.
+- 2026-07-17 (iter 16): T1 v2 IMPLEMENTED per spec (4th commit on the
+  lean4 branch): SynthM.State.queryLog records (abstractMVars subgoal,
+  global candidate names incl. EMPTY lists for failures) in
+  newSubgoal; main returns the log; entries carry queries;
+  instancesStillValid = tier-1 pointer / tier-2 replayQuery (mirrors
+  getInstances filtering: erased + isExporting, priority order);
+  shape entries telescope-close query types and beta to target fvars
+  at probe; empty-queries entries fail tier-2 (defensive); options
+  moved to top-of-file (forward-reference fix learned from v1 error).
+  New probes: M_v2_unrelated_class.lean (unrelated instance add must
+  tier-2-rescue class-D entry AND flip class-C failure),
+  M_v2_scoped.lean (scoped-instance `open` must invalidate). Rebuild
+  detached (bench/lean4_rebuild_v2.log). NEXT: full battery (probes,
+  determinism, Batteries A/B) + Mathlib bootstrap re-A/B
+  (WithBot/InjSurj — expecting tier-2 rescues this time).

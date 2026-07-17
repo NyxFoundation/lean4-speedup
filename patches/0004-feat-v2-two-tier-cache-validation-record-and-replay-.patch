@@ -1,0 +1,275 @@
+From c0edb3d145bebf37a87e18ae0793a695ab5d2208 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Fri, 17 Jul 2026 22:00:17 +0900
+Subject: [PATCH 4/4] =?UTF-8?q?feat:=20v2=20two-tier=20cache=20validation?=
+ =?UTF-8?q?=20=E2=80=94=20record-and-replay=20candidate=20lists?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Meta/SynthInstance.lean | 120 ++++++++++++++++++++++++-------
+ 1 file changed, 93 insertions(+), 27 deletions(-)
+
+diff --git a/src/Lean/Meta/SynthInstance.lean b/src/Lean/Meta/SynthInstance.lean
+index a0110a6..b8ecfdc 100644
+--- a/src/Lean/Meta/SynthInstance.lean
++++ b/src/Lean/Meta/SynthInstance.lean
+@@ -32,6 +32,16 @@ register_builtin_option backward.synthInstance.canonInstances : Bool := {
+   descr := "use optimization that relies on 'morally canonical' instances during type class resolution"
+ }
+ 
++register_builtin_option synthInstance.globalCache : Bool := {
++  defValue := true
++  descr := "(experiment) reuse type class resolutions across commands when the instance tables are unchanged"
++}
++
++register_builtin_option synthInstance.globalCache.shape : Bool := {
++  defValue := true
++  descr := "(experiment) additionally reuse type class resolutions across alpha-isomorphic local contexts"
++}
++
+ namespace SynthInstance
+ 
+ def getMaxHeartbeats (opts : Options) : Nat :=
+@@ -188,6 +198,10 @@ structure State where
+   generatorStack : Array GeneratorNode           := #[]
+   resumeStack    : Array (ConsumerNode × Answer) := #[]
+   tableEntries   : Std.HashMap Expr TableEntry   := {}
++  /-- (global-synth-cache v2) every global candidate list this derivation observed:
++  (mvar-abstracted subgoal type, global instance names after the erased/export
++  filters, in priority order). Used for tier-2 cache revalidation. -/
++  queryLog       : Array (AbstractMVarsResult × Array Name) := #[]
+ 
+ abbrev SynthM := ReaderT Context $ StateRefT State MetaM
+ 
+@@ -259,7 +273,17 @@ def mkGeneratorNode? (key mvar : Expr) : MetaM (Option GeneratorNode) := do
+   `key` must be `mkTableKey mctx mvarType`. -/
+ def newSubgoal (mctx : MetavarContext) (key : Expr) (mvar : Expr) (waiter : Waiter) : SynthM Unit :=
+   withMCtx mctx do withTraceNode' `Meta.synthInstance do
+-    match (← mkGeneratorNode? key mvar) with
++    let node? ← mkGeneratorNode? key mvar
++    -- (global-synth-cache v2) record the observed global candidate list, including
++    -- the empty one — a cached FAILURE must be invalidated when candidates appear.
++    if synthInstance.globalCache.get (← getOptions) then
++      let mvarType ← instantiateMVars (← inferType mvar)
++      let abst ← abstractMVars mvarType
++      let names := match node? with
++        | some node => node.instances.filterMap (·.val.constName?)
++        | none => #[]
++      modify fun s => { s with queryLog := s.queryLog.push (abst, names) }
++    match node? with
+     | none      => pure ((), m!"no instances for {key}")
+     | some node =>
+       let entry : TableEntry := { waiters := #[waiter] }
+@@ -672,7 +696,8 @@ partial def synth : SynthM (Option AbstractMVarsResult) := do
+   else
+     return none
+ 
+-def main (type : Expr) (maxResultSize : Nat) : MetaM (Option AbstractMVarsResult) :=
++def main (type : Expr) (maxResultSize : Nat) :
++    MetaM (Option AbstractMVarsResult × Array (AbstractMVarsResult × Array Name)) :=
+   withCurrHeartbeats do
+      let mvar ← mkFreshExprMVar type
+      let key  ← mkTableKey type
+@@ -680,7 +705,9 @@ def main (type : Expr) (maxResultSize : Nat) : MetaM (Option AbstractMVarsResult
+        newSubgoal (← getMCtx) key mvar Waiter.root
+        synth
+      tryCatchRuntimeEx
+-       (action.run { maxResultSize := maxResultSize, maxHeartbeats := getMaxHeartbeats (← getOptions) } |>.run' {})
++       (do
++         let (res, s) ← action.run { maxResultSize := maxResultSize, maxHeartbeats := getMaxHeartbeats (← getOptions) } |>.run {}
++         return (res, s.queryLog))
+        fun ex =>
+          if ex.isRuntime then
+            throwError "failed to synthesize{indentExpr type}\n{ex.toMessageData}{useDiagnosticMsg}"
+@@ -959,45 +986,78 @@ could unsoundly preserve the failure within that module. Disable with
+ `-DsynthInstance.globalCache=false` if this ever matters.
+ -/
+ 
+-register_builtin_option synthInstance.globalCache : Bool := {
+-  defValue := true
+-  descr := "(experiment) reuse type class resolutions across commands when the instance tables are unchanged"
+-}
+-
+ @[inline] private unsafe def sameObjImpl {α : Type} (a b : α) : Bool := ptrEq a b
+ /-- Runtime pointer identity; `false` in the logic, which can only cause a cache miss. -/
+ @[implemented_by sameObjImpl] private def sameObj {α : Type} (_a _b : α) : Bool := false
+ 
++/-- (v2) One recorded discrTree observation: mvar-abstracted subgoal type and the
++global candidate names (post erased/export filter, priority order). -/
++private abbrev QueryObs := AbstractMVarsResult × Array Name
++
+ private structure GlobalSynthCacheEntry where
+   instances        : Instances
+   defaultInstances : DefaultInstances
+   reducibilityExtra : SMap Name ReducibilityStatus
+   maxResultSize    : Nat
+   abstResult?      : Option AbstractMVarsResult
++  /-- (v2) the candidate lists this derivation observed; tier-2 validity witness -/
++  queries          : Array QueryObs := #[]
+ 
+ private builtin_initialize globalSynthCacheRef :
+     IO.Ref (PHashMap SynthInstanceCacheKey GlobalSynthCacheEntry) ← IO.mkRef {}
+ 
++/-- (v2 tier 2) Re-run the discrTree lookup for a recorded query and compare the
++global candidate list. Mirrors the filtering in `getInstances`. Mvars are reopened
++fresh so the discrTree sees the same star patterns as at record time. -/
++private def replayQuery (obs : QueryObs) : MetaM Bool := do
++  let (abst, expected) := obs
++  let (_, _, e) ← openAbstractMVarsResult abst
++  forallTelescopeReducing e fun _ ty => do
++    match ← isClass? ty with
++    | none => return expected.isEmpty
++    | some _ =>
++      let cands ← (← getGlobalInstancesIndex).getUnify ty
++      let cands := cands.insertionSort fun e₁ e₂ => e₁.priority < e₂.priority
++      let erased ← getErasedInstances
++      let env ← getEnv
++      let mut names : Array Name := #[]
++      for c in cands do
++        if let .const n _ := c.val then
++          unless erased.contains n do
++            unless env.isExporting && !env.contains n do
++              names := names.push n
++      return names == expected
++
++/-- (v2) Two-tier instance-table validity: pointer identity (tier 1), else replay
++the recorded candidate lists (tier 2) — sound under any table mutation path. -/
++private def instancesStillValid (instances : Instances) (queries : Array QueryObs) :
++    MetaM Bool := do
++  if sameObj instances (instanceExtension.getState (← getEnv)) then
++    return true
++  if queries.isEmpty then
++    return false -- recording was off or entry predates v2: cannot witness validity
++  queries.allM replayQuery
++
+ private def globalSynthCacheFind? (cacheKey : SynthInstanceCacheKey) (maxResultSize : Nat) :
+     MetaM (Option (Option AbstractMVarsResult)) := do
+   unless synthInstance.globalCache.get (← getOptions) do return none
+   let some e := (← globalSynthCacheRef.get).find? cacheKey | return none
+   let env ← getEnv
+-  unless sameObj e.instances (instanceExtension.getState env) do return none
++  unless e.maxResultSize == maxResultSize do return none
+   unless sameObj e.defaultInstances (defaultInstanceExtension.getState env) do return none
+   unless sameObj e.reducibilityExtra (reducibilityExtraExt.getState env) do return none
+-  unless e.maxResultSize == maxResultSize do return none
++  unless (← instancesStillValid e.instances e.queries) do return none
+   return some e.abstResult?
+ 
+ private def globalSynthCacheInsert (cacheKey : SynthInstanceCacheKey) (maxResultSize : Nat)
+-    (abstResult? : Option AbstractMVarsResult) : MetaM Unit := do
++    (abstResult? : Option AbstractMVarsResult) (queries : Array QueryObs) : MetaM Unit := do
+   unless synthInstance.globalCache.get (← getOptions) do return ()
+   let env ← getEnv
+   let e : GlobalSynthCacheEntry := {
+     instances := instanceExtension.getState env
+     defaultInstances := defaultInstanceExtension.getState env
+     reducibilityExtra := reducibilityExtraExt.getState env
+-    maxResultSize, abstResult? }
++    maxResultSize, abstResult?, queries }
+   globalSynthCacheRef.modify (·.insert cacheKey e)
+ 
+ /-!
+@@ -1015,11 +1075,6 @@ metavariables anywhere in the shape, results that escape the telescope, and
+ universe-polymorphic abstracted results.
+ -/
+ 
+-register_builtin_option synthInstance.globalCache.shape : Bool := {
+-  defValue := true
+-  descr := "(experiment) additionally reuse type class resolutions across alpha-isomorphic local contexts"
+-}
+-
+ private def eraseBinderNames : Expr → Expr
+   | .forallE _ d b i => .forallE .anonymous (eraseBinderNames d) (eraseBinderNames b) i
+   | .lam _ d b i     => .lam .anonymous (eraseBinderNames d) (eraseBinderNames b) i
+@@ -1043,6 +1098,9 @@ private structure ShapeEntry where
+   maxResultSize     : Nat
+   /-- `none` = synthesis failed; `some lam` = closed lambda over the telescope -/
+   resultLam?        : Option Expr
++  /-- (v2) recorded candidate lists, query types TELESCOPE-CLOSED (beta-apply to
++  the target fvars before replay) -/
++  queries           : Array QueryObs := #[]
+ 
+ private builtin_initialize shapeSynthCacheRef : IO.Ref (PHashMap ShapeKey ShapeEntry) ← IO.mkRef {}
+ 
+@@ -1077,35 +1135,43 @@ private def shapeSynthCacheFind? (shapeKey : ShapeKey) (fvars : Array Expr) (max
+     MetaM (Option (Option Expr)) := do
+   let some e := (← shapeSynthCacheRef.get).find? shapeKey | return none
+   let env ← getEnv
+-  unless sameObj e.instances (instanceExtension.getState env) do return none
++  unless e.maxResultSize == maxResultSize do return none
+   unless sameObj e.defaultInstances (defaultInstanceExtension.getState env) do return none
+   unless sameObj e.reducibilityExtra (reducibilityExtraExt.getState env) do return none
+-  unless e.maxResultSize == maxResultSize do return none
++  -- v2 two-tier check with query types re-opened in the TARGET telescope
++  let targetQueries := e.queries.map fun (a, ns) => ({ a with expr := a.expr.beta fvars }, ns)
++  unless (← instancesStillValid e.instances targetQueries) do return none
+   match e.resultLam? with
+   | none => return some none
+   | some lam => return some (some (lam.beta fvars))
+ 
+ private def shapeSynthCacheInsert (shapeKey : ShapeKey) (fvars : Array Expr)
+-    (maxResultSize : Nat) (result? : Option Expr) : MetaM Unit := do
++    (maxResultSize : Nat) (result? : Option Expr) (queries : Array QueryObs) : MetaM Unit := do
+   let resultLam? ← match result? with
+     | none => pure none
+     | some r =>
+       let lam ← mkLambdaFVars fvars r
+       if lam.hasFVar || lam.hasMVar then return () -- result escapes the telescope
+       pure (some lam)
++  -- telescope-close each recorded query type; bail if any escapes
++  let mut closedQueries : Array QueryObs := #[]
++  for (a, ns) in queries do
++    let lam ← mkLambdaFVars fvars a.expr
++    if lam.hasFVar then return () -- query mentions fvars outside the telescope
++    closedQueries := closedQueries.push ({ a with expr := lam }, ns)
+   let env ← getEnv
+   shapeSynthCacheRef.modify (·.insert shapeKey {
+     instances := instanceExtension.getState env
+     defaultInstances := defaultInstanceExtension.getState env
+     reducibilityExtra := reducibilityExtraExt.getState env
+-    maxResultSize, resultLam? })
++    maxResultSize, resultLam?, queries := closedQueries })
+ 
+ /-- Helper function for caching synthesized type class instances. -/
+-private def cacheResult (cacheKey : SynthInstanceCacheKey) (kind : PreprocessKind) (abstResult? : Option AbstractMVarsResult) (result? : Option Expr) (maxResultSize : Nat) : MetaM Unit := do
++private def cacheResult (cacheKey : SynthInstanceCacheKey) (kind : PreprocessKind) (abstResult? : Option AbstractMVarsResult) (result? : Option Expr) (maxResultSize : Nat) (queries : Array QueryObs) : MetaM Unit := do
+   -- **TODO**: simplify this function.
+   let store (v : Option AbstractMVarsResult) : MetaM Unit := do
+     modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey v }
+-    globalSynthCacheInsert cacheKey maxResultSize v
++    globalSynthCacheInsert cacheKey maxResultSize v queries
+   match abstResult? with
+   | none => store none
+   | some abstResult =>
+@@ -1161,7 +1227,7 @@ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : Met
+           trace[Meta.synthInstance] "result {result?} (shape cache)"
+           return result?
+       trace[Meta.synthInstance.cache] "new: {type}"
+-      let abstResult? ← withNewMCtxDepth (allowLevelAssignments := true) do
++      let (abstResult?, queries) ← withNewMCtxDepth (allowLevelAssignments := true) do
+         match kind with
+         | .noMVars =>
+           /-
+@@ -1188,13 +1254,13 @@ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : Met
+         | .mvarsOutputParams => SynthInstance.main (← preprocessOutParam type) maxResultSize
+       let result? ← applyAbstractResult? type abstResult?
+       trace[Meta.synthInstance] "result {result?}"
+-      cacheResult cacheKey kind abstResult? result? maxResultSize
++      cacheResult cacheKey kind abstResult? result? maxResultSize queries
+       if let some (shapeKey, fvars) := shape? then
+         match abstResult? with
+-        | none => shapeSynthCacheInsert shapeKey fvars maxResultSize none
++        | none => shapeSynthCacheInsert shapeKey fvars maxResultSize none queries
+         | some abstResult =>
+           if abstResult.numMVars == 0 && abstResult.paramNames.isEmpty then
+-            shapeSynthCacheInsert shapeKey fvars maxResultSize result?
++            shapeSynthCacheInsert shapeKey fvars maxResultSize result? queries
+       return result?
+ 
+ def synthInstance? (type : Expr) (maxResultSize? : Option Nat := none) : MetaM (Option Expr) := do profileitM Exception "typeclass inference" (← getOptions) (decl := type.getAppFn.constName?.getD .anonymous) do
+-- 
+2.53.0
+
