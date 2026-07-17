@@ -409,3 +409,17 @@ standalone implementation in this folder.
   orchestration in addAndFinalizeInductiveDecl behind
   Elab.asyncInductive (default false), rebuild, blocking/error
   probes, then 5-run-median A/B on BinomialHeap + String.Lemmas.
+- 2026-07-18 (iter 23): T2c piece 1b DONE — full RecursorVal builder
+  (rules rhs = fun params motive minor fields => minor fields; k=false
+  for no-index types; arity metadata) validated 7/7 BYTE-EXACT against
+  kernel output, still zero rebuilds. Consequence: the orchestration
+  can follow addDeclCore's exact eager-commit pattern (all infos from
+  validated builders; kernel confirms + commitCheckEnv), eliminating
+  the kernel-env-commit semantics risk. NEXT (iter 24): wire
+  addInductiveDeclAsync? into addAndFinalizeInductiveDecl behind
+  Elab.asyncInductive (default false): eligibility (single-ctor,
+  non-recursive via const-scan, no-index, non-module), three
+  addConstAsync handles (T/mk/rec) threading mainEnv, one kernel task
+  on a1.asyncEnv (prefix T), eager commits from builders, snapshot
+  task for error surfacing; then rebuild + blocking/error probes +
+  5-run-median A/B on BinomialHeap & String.Lemmas.

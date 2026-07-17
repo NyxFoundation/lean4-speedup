@@ -79,3 +79,71 @@ structure PropPure (p q : Prop) : Prop where
 #eval Elab.Command.liftTermElabM do
   for n in [``Prod, ``Subtype, ``PProd, ``And, ``PropPure, ``PropWithData, ``Sigma] do
     checkOne n
+
+/-! Piece 1b: full RecursorVal construction (rules + k) for the same class. -/
+
+def buildRecVal (indVal : InductiveVal) (ctorVal : ConstructorVal) :
+    MetaM RecursorVal := do
+  let (recType, recLevels) ← buildRecType indVal ctorVal
+  let us := indVal.levelParams.map Level.param
+  -- rhs = fun params motive minor fields => minor fields
+  let rhs ← forallTelescopeReducing indVal.type fun params _ => do
+    let ctorType ← instantiateForall ctorVal.type params
+    let indApp := mkAppN (mkConst indVal.name us) params
+    -- recompute elim sort the same way as buildRecType
+    let .sort resultLevel ← whnf (← inferType indApp) | throwError "?"
+    let largeElim ←
+      if resultLevel.isZero then
+        forallTelescopeReducing ctorType fun fields _ =>
+          fields.allM fun f => do isProp (← inferType f)
+      else pure true
+    let elimLevel := if largeElim then Level.param (recLevels.head!) else .zero
+    withLocalDecl `motive .implicit (← mkArrow indApp (mkSort elimLevel)) fun motive => do
+      let minorType ← forallTelescopeReducing ctorType fun fields _ => do
+        let ctorApp := mkAppN (mkConst ctorVal.name us) (params ++ fields)
+        mkForallFVars fields (mkApp motive ctorApp)
+      withLocalDecl `minor .default minorType fun minor => do
+        forallTelescopeReducing ctorType fun fields _ => do
+          mkLambdaFVars (params ++ #[motive, minor] ++ fields) (mkAppN minor fields)
+  -- K flag: Prop-valued, single ctor, zero fields (subsingleton eliminator à la Eq)?
+  let numFields := ctorVal.numFields
+  let isK := false -- no-index types are never K-like (K requires indices); kernel sets k only for Eq-style
+  return {
+    name := indVal.name ++ `rec
+    levelParams := recLevels
+    type := recType
+    all := indVal.all
+    numParams := indVal.numParams
+    numIndices := 0
+    numMotives := 1
+    numMinors := 1
+    rules := [{ ctor := ctorVal.name, nfields := numFields, rhs }]
+    k := isK
+    isUnsafe := indVal.isUnsafe
+  }
+
+def checkVal (n : Name) : MetaM Unit := do
+  let .inductInfo indVal ← getConstInfo n | throwError "not inductive"
+  let [ctorName] := indVal.ctors | throwError "not single-ctor"
+  let .ctorInfo ctorVal ← getConstInfo ctorName | throwError "?"
+  let mine ← buildRecVal indVal ctorVal
+  let .recInfo real ← getConstInfo (n ++ `rec) | throwError "no rec"
+  -- rename my levels to real's for comparison
+  let ren (e : Expr) := e.instantiateLevelParams mine.levelParams (real.levelParams.map Level.param)
+  let tyOk := ren mine.type == real.type
+  let kOk := mine.k == real.k
+  let rulesOk := mine.rules.length == real.rules.length &&
+    (mine.rules.zip real.rules).all fun (a, b) =>
+      a.ctor == b.ctor && a.nfields == b.nfields && ren a.rhs == b.rhs
+  let metaOk := mine.numParams == real.numParams && mine.numIndices == real.numIndices &&
+    mine.numMotives == real.numMotives && mine.numMinors == real.numMinors
+  if tyOk && kOk && rulesOk && metaOk then
+    logInfo m!"{n}: FULL RecursorVal EXACT MATCH"
+  else
+    logError m!"{n}: mismatch — type {tyOk} k {kOk} ({mine.k}/{real.k}) rules {rulesOk} meta {metaOk}"
+    unless rulesOk do
+      logError m!"  my rhs: {mine.rules.head!.rhs}\n  real rhs: {real.rules.head!.rhs}"
+
+#eval Elab.Command.liftTermElabM do
+  for n in [``Prod, ``Subtype, ``PProd, ``And, ``PropPure, ``PropWithData, ``Sigma] do
+    checkVal n
