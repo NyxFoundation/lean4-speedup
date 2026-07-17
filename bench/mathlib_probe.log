@@ -1,0 +1,85 @@
+info: plausible: cloning https://github.com/leanprover-community/plausible
+info: plausible: checking out revision 'b1c4a69a7e247ab7df20460212001673d74f08c0'
+info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision '0498c7c070c143a3bf7379f4d99a2c63bb9d9715'
+info: importGraph: cloning https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision '18a90119a5d316358fde6c86e0ca24e59212e32c'
+info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision 'b1436dc749e722c9920036b52cdc43b3451d0b69'
+info: aesop: cloning https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '57d3325be72a842920813bcb40f96a6f7393c185'
+info: Qq: cloning https://github.com/leanprover-community/quote4
+info: Qq: checking out revision 'ee41917ae11d38479fb8fb24745f7ca4bf0a784d'
+info: batteries: cloning https://github.com/leanprover-community/batteries
+info: batteries: checking out revision '45337c634fbcb2bb22fb45c9847faaa10d4d1b67'
+info: Cli: cloning https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision 'da07ca808b6718cb2aed14dba154e5a08b8f8ecf'
+✔ [1/20] Built Mathlib.Tactic.Linter.DirectoryDependency (593ms)
+✔ [2/20] Built Mathlib.Tactic.Linter.Header (562ms)
+✔ [3/20] Built Mathlib.Lean.Linter (461ms)
+✔ [4/20] Built Mathlib.Tactic.Lemma (460ms)
+✔ [5/20] Built Mathlib.Tactic.Linter.GlobalAttributeIn (528ms)
+✔ [6/20] Built Mathlib.Lean.Elab.Tactic.Meta (529ms)
+✔ [7/23] Built Mathlib.Tactic.Linter.AuxLemma (527ms)
+✔ [8/23] Built Mathlib.Tactic.Linter.Multigoal (582ms)
+✔ [9/23] Built Mathlib.Tactic.Linter.OldObtain (548ms)
+✔ [12/40] Built Mathlib.Tactic.AdaptationNote (662ms)
+✔ [13/40] Built Mathlib.Tactic.Linter.EmptyLine (693ms)
+✔ [14/40] Built Mathlib.Tactic.Linter.HashCommandLinter (671ms)
+✔ [15/40] Built Mathlib.Tactic.Linter.DeprecatedSyntaxLinter (842ms)
+✔ [16/40] Built Mathlib.Tactic.Linter.DocPrime (893ms)
+✔ [17/40] Built Mathlib.Tactic.Linter.DocString (867ms)
+✔ [18/40] Built Batteries.Lean.Position (379ms)
+✔ [19/40] Built Mathlib.Lean.ContextInfo (579ms)
+✔ [20/40] Built Mathlib.Lean.Environment (453ms)
+✔ [21/40] Built Mathlib.Tactic.Linter.PrivateModule (471ms)
+✔ [22/40] Built Batteries.Tactic.Unreachable (433ms)
+✔ [23/40] Built Batteries.Lean.Meta.Inaccessible (424ms)
+✔ [24/40] Built Batteries.Tactic.Lint.Basic (599ms)
+✔ [25/40] Built Mathlib.Tactic.Linter.UnusedTacticExtension (522ms)
+✔ [26/40] Built Mathlib.Tactic.DeclarationNames (513ms)
+✔ [27/40] Built Mathlib.Tactic.Linter.FlexibleLinter (1.3s)
+✔ [28/40] Built Mathlib.Lean.Expr.Basic (807ms)
+✔ [29/40] Built Mathlib.Tactic.Linter.Whitespace (794ms)
+✔ [30/40] Built Mathlib.Tactic.Linter.TacticDocumentation (339ms)
+✔ [31/40] Built Batteries.Tactic.Lint.Misc (481ms)
+✔ [32/40] Built Mathlib.Tactic.Linter.UnusedTactic (535ms)
+✔ [33/40] Built Mathlib.Tactic.TacticAnalysis (629ms)
+✔ [35/72] Built Mathlib.Lean.Elab.InfoTree (339ms)
+✔ [36/72] Built Mathlib.Tactic.Linter.Style (889ms)
+✔ [39/72] Built ImportGraph.Lean.Environment (252ms)
+✔ [40/72] Built Batteries.Lean.Syntax (218ms)
+✔ [41/72] Built ImportGraph.Imports.ImportGraph (328ms)
+✔ [42/72] Built ImportGraph.Graph.TransitiveClosure (298ms)
+✔ [43/72] Built Mathlib.Util.ParseCommand (406ms)
+✔ [44/72] Built Mathlib.Tactic.TypeStar (372ms)
+✔ [45/72] Built Batteries.Util.LibraryNote (483ms)
+✔ [46/72] Built Batteries.Tactic.Lint.TypeClass (480ms)
+✔ [47/72] Built ImportGraph.Imports.Redundant (321ms)
+✔ [48/72] Built ImportGraph.Imports.RequiredModules (507ms)
+✔ [49/72] Built Batteries.Tactic.OpenPrivate (670ms)
+✔ [50/72] Built Batteries.CodeAction.Deprecated (642ms)
+✔ [51/72] Built Mathlib.Tactic.Linter.UnusedInstancesInType (795ms)
+✔ [52/72] Built ImportGraph.Tools.ImportDiff (510ms)
+✔ [53/72] Built ImportGraph.Tools.MinImports (397ms)
+✔ [54/72] Built ImportGraph.Tools.RedundantImports (444ms)
+✔ [55/72] Built Batteries.Tactic.Lint.Frontend (1.1s)
+✔ [56/72] Built ImportGraph.Tools.FindHome (616ms)
+✔ [57/72] Built Batteries.Tactic.Lint.Simp (773ms)
+✔ [58/72] Built Mathlib.Tactic.MinImports (778ms)
+✔ [59/72] Built Batteries.Util.ProofWanted (1.3s)
+✔ [60/72] Built Batteries.Tactic.Alias (971ms)
+✔ [61/72] Built Batteries.Tactic.HelpCmd (1.2s)
+✔ [62/72] Built ImportGraph.Tools (340ms)
+✔ [63/72] Built Mathlib.Tactic.Linter.OverlappingInstances (1.0s)
+✔ [64/72] Built Batteries.Tactic.Lint (316ms)
+✔ [65/72] Built Batteries.Logic (350ms)
+✔ [66/72] Built Mathlib.Tactic.ExtractGoal (590ms)
+✔ [67/72] Built Mathlib.Tactic.Linter.Lint (400ms)
+✔ [68/72] Built Mathlib.Tactic.TacticAnalysis.Declarations (1.1s)
+✔ [69/72] Built Mathlib.Init (401ms)
+✔ [70/72] Built Mathlib.Lean.Meta.Simp (499ms)
+✔ [71/72] Built Mathlib.Tactic.Attr.Register (522ms)
+✔ [72/72] Built Mathlib.Logic.Basic (836ms)
+Build completed successfully (72 jobs).
+lake build Mathlib.Logic.Basic  37.15s user 11.91s system 225% cpu 21.788 total

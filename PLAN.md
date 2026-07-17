@@ -280,3 +280,19 @@ standalone implementation in this folder.
   size before another rebuild cycle. PIVOT: Mathlib-subset benchmark
   for T1's headline value (mathlib4 clone + compat probe with
   speedup-stage1 running in background).
+- 2026-07-17 (iter 13): MATHLIB RESULTS (356+~600 modules build under
+  patched 4.34-pre; deep build fails on API drift past
+  Algebra.Order.Field area). A/B on TC-heavy bootstrap modules:
+  Hom.Defs 287/282ms, WithBot 671/741ms (−9%), InjSurj 313/286ms —
+  ~no effect. EXPLANATION (mechanism now fully understood): these are
+  instance-DEFINING modules — nearly every command grows the instance
+  table, so the whole-table pointer stamp invalidates constantly.
+  Proof-heavy lemma files (Batteries List.Lemmas −47% TC) keep stable
+  tables. → T1 v2 DIRECTION: return to the original red/green design —
+  per-class version stamps + touched-class sets per derivation, so an
+  instance addition to class C only kills entries whose derivation
+  touched C. ALSO: v0's InjSurj slight regression suggests probe
+  overhead is nonzero; v2 should probe only after a fingerprint check.
+  Portfolio status: T1 (v2 design ready) | T2a/T2c (designs ready,
+  multi-const gap) | T3 down-weighted | T4 partially falsified |
+  T5/T6 unopened.

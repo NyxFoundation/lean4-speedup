@@ -120,6 +120,18 @@ Two findings drive the T2 inventions:
   1.31 s = 60 % of the module) → T2c: async inductive checking, design in
   [t2c-async-inductives.md](t2c-async-inductives.md).
 
+## 6. Mathlib A/B (iter 13)
+
+A ~1000-module Mathlib prefix builds under the patched toolchain. On
+TC-heavy *hierarchy-bootstrap* modules the cache shows ~no effect
+(Hom.Defs 287/282 ms; WithBot 671/741 ms; InjSurj 313/286 ms): these
+modules add instances nearly every command, so the whole-table pointer
+stamp invalidates continuously — while proof-heavy lemma files (the
+Batteries hot module) hold −34…47 % TC. This cleanly identifies **v2**:
+per-class version stamps + touched-class sets (the original red/green
+design), so instance growth in class C only invalidates derivations that
+touched C.
+
 ## Reproduce
 
 ```bash

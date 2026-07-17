@@ -1,3 +1,6 @@
 lean4/
 batteries/
 bench/prof_*.json
+mathlib4/
+bench/mathlib_field_build.log
+bench/mathlib_deps_build.log
