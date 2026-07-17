@@ -16,8 +16,8 @@ soundness probe, a determinism check, and an honest account of where it does
 | Finding | Evidence |
 |---|---|
 | **91 % of typeclass derivations in a hot proof-heavy module are duplicates** — Lean's Meta caches are per-command and wiped on every `addDecl` | [docs/benchmarks.md §3](docs/benchmarks.md) |
-| **Cross-command instance cache with pointer-identity invalidation** (experimental patch): 24× on synthetic duplicates, −47 % typeclass time on the hot module, sound (mutation probes) and deterministic | [docs/benchmarks.md §4](docs/benchmarks.md), [patches/](patches/) |
-| Scope limit found and explained: no effect on instance-*defining* modules (Mathlib algebra bootstrap) — motivates per-class versioning (v2) | [docs/benchmarks.md §6](docs/benchmarks.md) |
+| **Cross-command instance cache with pointer-identity invalidation** (experimental patch): 24× on synthetic duplicates, −47 % typeclass CPU on the hot module, sound (mutation probes), deterministic, with proven record-and-replay revalidation (v2) | [docs/benchmarks.md §4-7](docs/benchmarks.md), [patches/](patches/) |
+| **System-level finding**: typeclass work rides worker threads in async-era Lean, so the cache's CPU savings (−1 % corpus) don't move single-module wall time — the critical path is the main thread | [docs/benchmarks.md §7](docs/benchmarks.md) |
 | **The main thread is the critical path** (~80 % occupied while workers idle); async elaboration currently admits only single mvar-free `theorem`s | [docs/benchmarks.md §5](docs/benchmarks.md) |
 | **Kernel processing of inductives/structures is synchronous on the main thread** — 60 % of the critical path on well-founded-recursion-heavy modules | [docs/t2c-async-inductives.md](docs/t2c-async-inductives.md) |
 | Intra-module parallelism plateaus at ~2.4× regardless of cores (Amdahl serial fraction ≈ 40 %) | [docs/benchmarks.md §2](docs/benchmarks.md) |
