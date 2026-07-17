@@ -125,11 +125,19 @@ standalone implementation in this folder.
   while the kernel checks in background (same trust model as async
   theorem proofs). T2c-lite (smaller first step): async mutual defns —
   all infos already available, needs multi-const addConstAsync commit.
-  CAVEAT: Kernel share inside inductive/structure verified only for
-  BinomialHeap (1.31/1.52s); verify per-module before claiming the
-  full 28%. NEXT: attempt T2c-lite or T2c prototype; check whether
-  mkAuxConstructions actually needs kernel-produced recursor or can
-  use elaborator-constructed one.
+  CAVEAT resolved (iter 10): Kernel share verified per-module —
+  String.Lemmas inductive 0.77s Kernel; UnionFind/GeneralizeProofs
+  near-zero → T2c win is SPIKY, concentrated in WF-heavy modules,
+  which are the build-tail modules that gate parallel wall-clock.
+- 2026-07-17 (iter 10): T2c FEASIBILITY CONFIRMED, design written
+  (docs/t2c-async-inductives.md): addConstAsync already two-phase
+  (commitSignature/commitConst); kernel tasks auto-serialize on
+  env.checked; aux constructions need only the rec SIGNATURE (eager,
+  Lean-side ~150-line builder) — rules demand-join on the kernel task.
+  v0 scope: single non-mutual inductives, option Elab.asyncInductive,
+  fallback to sync elsewhere. Chart main-thread-by-command.svg added
+  to docs. NEXT (iter 11): implement the recursor-signature builder +
+  the inductDecl async branch in AddDecl.lean.
 - **T3 Kernel checking (1.1-1.5s/module)**: dedup shared proof subterms?
   batch checking? Transfer: content-addressed verification (Nix/git).
 - **T4 grind+simp (~2.8s/module)**: simp-set discrimination tree reuse

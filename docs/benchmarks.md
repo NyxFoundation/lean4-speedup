@@ -92,6 +92,34 @@ exact key contains per-command `FVarId`s and can never match across commands.
 This is what motivates v1 (context-shape keys, alpha-normalized telescopes) —
 see `../PLAN.md` track T1.
 
+## 5. Track T2: the main thread is the critical path
+
+From trace-profiler samples of the 5 slowest modules: the main thread is
+~80 % occupied while worker threads idle at 0.7–1.0 s each — intra-module
+wall-clock is gated by what runs *synchronously on main*:
+
+![main-thread composition](assets/main-thread-by-command.svg)
+
+| main-thread bucket | time | share |
+|---|---|---|
+| theorem (headers + sync fallback) | 1.82 s | 21.3 % |
+| runFrontend self (parse 56 ms; rest loop/snapshots/import) | 1.80 s | 21.1 % |
+| definition (sync bodies) | 1.53 s | 17.9 % |
+| structure — **of which sync Kernel 1.37 s** | 1.52 s | 17.8 % |
+| inductive — **of which sync Kernel 0.77 s** | 0.84 s | 9.9 % |
+| metaprogram commands (alias, elab, …) | 0.95 s | 10.6 % |
+
+Two findings drive the T2 inventions:
+
+- **Async elaboration admits only single mvar-free `theorem`s**
+  (`MutualDef.lean:1236`); `def`/`instance`/`example` bodies are
+  synchronous → T2a: demand-driven async def bodies.
+- **Kernel checking of inductives/structures is synchronous**
+  (`AddDecl.lean:129` — no async rule for `inductDecl`), and on WF-heavy
+  modules it is the single largest critical-path item (BinomialHeap:
+  1.31 s = 60 % of the module) → T2c: async inductive checking, design in
+  [t2c-async-inductives.md](t2c-async-inductives.md).
+
 ## Reproduce
 
 ```bash
