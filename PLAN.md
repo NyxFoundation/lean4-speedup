@@ -492,3 +492,20 @@ standalone implementation in this folder.
   identity assumption misses will show), (3) the real A/B on
   BinomialHeap/String.Lemmas in their native module form, 5-run
   medians.
+- 2026-07-18 (iter 30): T2C FUNCTIONAL AT SCALE + FINAL UNDERSTANDING.
+  Module probe PASSES (with @[expose] fix — probe bug, module
+  semantics); FindMin.WF confirmed '(async)' in the real corpus; FULL
+  Batteries builds with asyncInductive enabled everywhere (217
+  modules, no errors). A/B: PARITY (1.94/1.93; 1.52/1.52) — and the
+  complete explanation: the 1.31s 'Kernel under structure command'
+  was the sync addDecl BLOCKING ON THE KERNEL JOIN (toKernelEnv waits
+  for all pending async proof checks) — QUEUE WAIT, not check work.
+  Explains skipKernelTC no-op, the non-module-copy vanishing act, and
+  async parity (nothing left for main to do at file end).
+  MEASUREMENT LESSON for docs: main-thread 'Kernel' trace time can be
+  join-waits. Single-shot corpus build showed user −3%/wall −6% (ON)
+  — needs medians before claiming. SOUNDNESS ITEM OPEN: 23/188
+  oleans differ ON-vs-OFF — must classify (benign normal-form drift
+  vs missed export rewriting) + re-verify ON-vs-ON determinism.
+  NEXT: determinism check, classify one differing olean, corpus
+  medians, then final T2c documentation + README refresh.

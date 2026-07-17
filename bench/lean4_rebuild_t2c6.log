@@ -95,3 +95,18 @@ Build completed successfully (5001 jobs).
 [    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libInit_shared.so
 [100%] Built target Init_shared
 [    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+[100%] Built target leanshared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/lean
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libLake_shared.so
+[100%] Built target leanir
+[100%] Built target leanc
+[100%] Built target lean
+[100%] Built target lake_shared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/lake
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/leanchecker
+[100%] Built target lake
+[100%] Built target leanchecker
+[ 95%] No install step for 'stage1'
+[100%] Completed 'stage1'
+[100%] Built target stage1
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release' から出ます
