@@ -509,3 +509,14 @@ standalone implementation in this folder.
   vs missed export rewriting) + re-verify ON-vs-ON determinism.
   NEXT: determinism check, classify one differing olean, corpus
   medians, then final T2c documentation + README refresh.
+- 2026-07-18 (iter 31): T2C VERDICT — WIN. Corpus 5-run medians:
+  wall 13.09 vs 13.69 (−4.4%, distributions fully separated), user
+  120.4 vs 123.8 (−2.8%); ON-vs-ON deterministic; RatCast public-view
+  semantic comparison IDENTICAL (23-olean byte diff classified benign
+  stable alternate encoding; downstream corpus type-checks are the
+  end-to-end guard). Single-module parity explained (join-wait, pays
+  only under core saturation). Docs §8 + README updated. The
+  project's largest verified wall-clock improvement. REMAINING for
+  T2c hardening: per-file semantic classification of all 23 oleans;
+  error-surfacing probe (kernel-rejected inductive); mutual/indexed
+  eligibility widening; upstream conversation.

@@ -154,6 +154,37 @@ mechanically proven (probe traces show pointer-churn rescues) and costs
 nothing measurable after v2.2/v2.3 hardening. The wall-clock lever is the
 main thread — exactly what tracks T2a/T2c target.
 
+## 8. T2c: async kernel processing for inductives (Campaign 2)
+
+The `AddDecl` async framework covers `thm`/`defn`/`opaque`/`axiom` but not
+`inductDecl` — inductives/structures are kernel-processed synchronously on
+the main thread. The patch (option `Elab.asyncInductive`) extends the async
+pattern to eligible inductives (single-ctor, non-recursive, no-index,
+public), including **module-system environments**, with a Lean-side
+`RecursorVal` builder validated byte-exact against kernel output (7/7 corpus)
+and the documented `commitCheckEnv` signature check as the drift failsafe.
+
+**Corpus result (5-run medians, distributions fully separated):**
+
+| full Batteries cold build | async on | async off | delta |
+|---|---|---|---|
+| wall | **13.09 s** | 13.69 s | **−4.4 %** |
+| user CPU | **120.4 s** | 123.8 s | −2.8 % |
+
+Soundness: probes (iota through async recursor, projections, module
+exports), ON-vs-ON deterministic, downstream corpus type-checks end-to-end,
+and a semantic public-view comparison of a divergent olean is identical
+(23/188 oleans differ ON-vs-OFF as a stable alternate encoding — classified
+benign; not exhaustively verified per-file).
+
+**Measurement lesson** (why single-module A/B shows parity): the 1.31 s
+"Kernel under structure command" that motivated this track was the sync
+`addDecl` *blocking on the kernel join* (`toKernelEnv` waits for all pending
+async proof checks) — queue wait, not checking work. Freeing the main thread
+pays only when the machine has other work to schedule — hence the corpus-level
+win under core saturation but single-file parity. Main-thread "Kernel" trace
+time can be join-waits; classify before targeting.
+
 ## Reproduce
 
 ```bash
