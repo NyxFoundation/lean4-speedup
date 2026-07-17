@@ -77,6 +77,21 @@ standalone implementation in this folder.
   --threads plateaus at 2.4x. Where does the serial 40% live? (header
   elaboration? env mutation serialization? kernel queue?) Transfer:
   instruction-level parallelism / speculation.
+  FINDINGS (iter 8, from trace-profiler samples): main thread busy
+  2.31s of ~2.9s wall = 80% occupied — the main thread IS the critical
+  path; workers only 0.7-1.0s each. Main-thread self time: runFrontend
+  0.73s (parsing is only 56ms of it — rest is untraced frontend loop /
+  import / snapshots), Batteries `alias` metaprogram 0.50s,
+  definition.header 0.34s, grind-on-main 0.27s. ASYNC GATE
+  (MutualDef.lean:1236-1243): async elaboration ONLY for single
+  non-mutual `theorem`s with mvar-free statements — `def`/`instance`/
+  `example` bodies and all metaprogram commands run synchronously on
+  main. INVENTION CANDIDATE T2a: demand-driven async def bodies —
+  register the body as a task in the env (proofs-as-tasks
+  infrastructure half-exists), join only when a later command actually
+  unfolds it; most defs are never unfolded within their own module.
+  T2b (smaller): async `example`, async mvar-free `instance` (value
+  irrelevant when class is a Prop?).
 - **T3 Kernel checking (1.1-1.5s/module)**: dedup shared proof subterms?
   batch checking? Transfer: content-addressed verification (Nix/git).
 - **T4 grind+simp (~2.8s/module)**: simp-set discrimination tree reuse
