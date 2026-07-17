@@ -441,3 +441,14 @@ standalone implementation in this folder.
   (lean4_rebuild_t2c.log). NEXT: probe battery; if green, 5-run
   median A/B on BinomialHeap/Basic + String/Lemmas with
   -DElab.asyncInductive=true.
+- 2026-07-18 (iter 25): T2c first build GREEN, probe PASSES (Type
+  structure: projections + iota rfl through the async-committed rec;
+  #print shows correct type+rules; trace confirms '(async)' kernel
+  checks). BUT A/B parity on BinomialHeap — diagnosis: FindMin.WF
+  still sync (trace: plural 'declarations', no async tag). ROOT
+  CAUSE: MutualInductive has TWO inductDecl addDecl sites; real
+  structures go through mkFlatInductive's site, I had patched only
+  addAndFinalizeInductiveDecl. Fixed: block moved above
+  mkFlatInductive, both sites intercepted. Rebuilding
+  (lean4_rebuild_t2c2.log). NEXT: re-probe + re-A/B (expect the
+  1.31s FindMin.WF check to leave the critical path).
