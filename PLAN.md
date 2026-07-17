@@ -340,3 +340,18 @@ standalone implementation in this folder.
   detached (bench/lean4_rebuild_v2.log). NEXT: full battery (probes,
   determinism, Batteries A/B) + Mathlib bootstrap re-A/B
   (WithBot/InjSurj — expecting tier-2 rescues this time).
+- 2026-07-17 (iter 17): v2 BATTERY: unrelated-class probe PASS (trace
+  shows the money shot — after the CC-instance add changes the table
+  pointer, `Inhabited DD` serves as `global:` via TIER-2 RESCUE while
+  `CC DD` re-derives); scoped-open probe PASS (had to rename ST→STx,
+  core name clash); Batteries 124.8s (parity) + v2 ON-ON
+  deterministic. BUT Mathlib bootstrap ECONOMICS NEGATIVE: WithBot
+  wall +20% (4.95 vs 4.11) — table churns every command → tier-2
+  replays run constantly and mostly fail → pure overhead on top of
+  re-derivation. v2.1: adaptive CIRCUIT BREAKER (IORef stats; open at
+  <25% success after ≥32 attempts → graceful fallback to v1) + cap 4
+  replays/probe. Rebuild detached (lean4_rebuild_v21.log). NEXT:
+  re-run WithBot/InjSurj (expect parity, not regression) + probes
+  still pass (breaker must not break correctness — it only SKIPS
+  tier-2, conservative direction); then docs/charts refresh + README
+  results update.
