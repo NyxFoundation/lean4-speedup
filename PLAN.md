@@ -107,6 +107,29 @@ standalone implementation in this folder.
   ITER 9 PLAN (rotation): T2a prototype — demand-driven async def
   bodies (or first: quantify T2a ceiling by counting sync-elaborated
   def/instance/example bodies & their time share across Batteries).
+- 2026-07-17 (iter 9): T2a/T2c ceilings quantified over the 5 slowest
+  modules (main-thread total 8.54s, by top-level command):
+  theorem 21.3% | runFrontend-self 21.1% | definition 17.9% |
+  structure 17.8% | inductive 9.9% | metaprograms (alias+elab) 10.6% |
+  instance 0.3%. DRILL-DOWN: BinomialHeap's structure time is
+  **Kernel 1.31s of 1.33s** — synchronous kernel checking of
+  structures ON MAIN (FindMin.WF fields force kernel unfolding of
+  WellFounded.fix terms — WF-recursion pathology); = 60% of that
+  module's critical path. ROOT CAUSE (AddDecl.lean:112-131): async
+  addDecl rules exist ONLY for thm/single-defn/opaque/axiom;
+  inductDecl and mutual defns fall through to synchronous doAdd.
+  T2c INVENTION: extend async addDecl to inductDecl — requires
+  Lean-side construction of preliminary ConstantInfos (type, ctors,
+  and notably the RECURSOR type, mechanically derivable from the
+  inductive spec) so aux constructions (casesOn etc.) can proceed
+  while the kernel checks in background (same trust model as async
+  theorem proofs). T2c-lite (smaller first step): async mutual defns —
+  all infos already available, needs multi-const addConstAsync commit.
+  CAVEAT: Kernel share inside inductive/structure verified only for
+  BinomialHeap (1.31/1.52s); verify per-module before claiming the
+  full 28%. NEXT: attempt T2c-lite or T2c prototype; check whether
+  mkAuxConstructions actually needs kernel-produced recursor or can
+  use elaborator-constructed one.
 - **T3 Kernel checking (1.1-1.5s/module)**: dedup shared proof subterms?
   batch checking? Transfer: content-addressed verification (Nix/git).
 - **T4 grind+simp (~2.8s/module)**: simp-set discrimination tree reuse
