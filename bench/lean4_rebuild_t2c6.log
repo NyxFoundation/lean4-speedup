@@ -1,0 +1,97 @@
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release'　に入ります
+[  4%] Performing update step for 'cadical'
+-- Already at requested tag: rel-2.1.2
+[  8%] No patch step for 'cadical'
+[ 12%] No configure step for 'cadical'
+[ 16%] Performing build step for 'cadical'
+[ 20%] No install step for 'cadical'
+[ 25%] Completed 'cadical'
+[ 33%] Built target cadical
+[ 37%] Performing configure step for 'stage0'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- stage0 sha1: 24613e574a04b70bc2f9427f0e61e3832de53d50
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage0
+[ 41%] Performing build step for 'stage0'
+[  1%] Built target leanmanifest
+[  1%] Built target initialize
+[  3%] Built target leanshell
+[  5%] Built target leanmain
+[  5%] Built target copy-leantar
+[  7%] Built target constructions
+[ 19%] Built target util
+[ 19%] Built target leaninitialize
+[ 32%] Built target kernel
+[ 44%] Built target library
+[ 71%] Built target leanrt
+[ 98%] Built target leanrt_initial-exec
+[ 99%] Built target leancpp_1
+[100%] Built target leancpp
+[100%] Built target make_stdlib
+[100%] Built target Init_shared
+[100%] Built target leanshared
+[100%] Built target leanir
+[100%] Built target lake_shared
+[100%] Built target lean
+[100%] Built target lake
+[100%] Built target leanchecker
+[ 45%] No install step for 'stage0'
+[ 50%] Completed 'stage0'
+[ 66%] Built target stage0
+[ 70%] Performing configure step for 'stage1'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- git commit sha1: 4391f5c3e2e3427b623152613a16983d73ffbe7a
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1
+[ 87%] Built target stage1-configure
+[ 91%] Performing build step for 'stage1'
+[  0%] Built target initialize
+[  3%] Built target leanmain
+[  3%] Built target leanmanifest
+[  6%] Built target constructions
+[ 10%] Building CXX object CMakeFiles/leanshell.dir/util/shell.cpp.o
+[ 10%] Built target copy-leantar
+[ 10%] Built target copy-cadical
+[ 24%] Built target util
+[ 37%] Built target kernel
+[ 37%] Built target leaninitialize
+[ 41%] Building CXX object library/CMakeFiles/library.dir/module.cpp.o
+[ 41%] Building CXX object library/CMakeFiles/library.dir/util.cpp.o
+[ 41%] Building CXX object runtime/CMakeFiles/leanrt_initial-exec.dir/platform.cpp.o
+[ 44%] Building CXX object runtime/CMakeFiles/leanrt.dir/platform.cpp.o
+[ 44%] Linking CXX static library lib/temp/libleanshell.a
+[ 44%] Built target leanshell
+[ 44%] Linking CXX static library ../lib/lean/libleanrt.a
+[ 44%] Linking CXX static library libleanrt_initial-exec.a
+[ 68%] Built target leanrt
+[ 93%] Built target leanrt_initial-exec
+[100%] Built target library
+[100%] Linking CXX static library lib/temp/libleancpp_1.a
+[100%] Linking CXX static library lib/lean/libleancpp.a
+[100%] Built target leancpp
+[100%] Built target leancpp_1
+✔ [4987/5001] Built Lean.Elab.MutualInductive (3.6s)
+✔ [4998/5001] Built Lean.Elab.MutualInductive:c.o (7.5s)
+✔ [4999/5001] Built Lean:static (1.1s)
+✔ [5000/5001] Built Lean:static (1.1s)
+Build completed successfully (5001 jobs).
+[100%] Built target make_stdlib
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libInit_shared.so
+[100%] Built target Init_shared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so

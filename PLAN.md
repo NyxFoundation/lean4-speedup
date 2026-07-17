@@ -481,3 +481,14 @@ standalone implementation in this folder.
   isModule gate. NEXT (iter 29): read the module-export handling for
   inductives (Environment/module export machinery), implement, A/B on
   the REAL module corpus.
+- 2026-07-18 (iter 29): T2c module-env support implemented — isModule
+  blanket bail replaced by private-name bail; identity export relied
+  on (eager commits already pass exported infos; addConstAsync
+  exportedKind defaults correct). Module-header probe staged
+  (M_t2c_module_probe.lean). VALIDATION NEXT WAKE (the export
+  identity assumption is the risk): (1) module probe, (2) full
+  Batteries build ON vs OFF with COMPLETE olean byte-diff (export
+  path exercised by every downstream import — any rewriting my
+  identity assumption misses will show), (3) the real A/B on
+  BinomialHeap/String.Lemmas in their native module form, 5-run
+  medians.
