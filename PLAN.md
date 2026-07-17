@@ -257,3 +257,16 @@ standalone implementation in this folder.
   each `{α} [BEq α] : BEq (List α)`-ish), mutation probe rerun,
   List.Lemmas trace (shape: count), Batteries A/B time + determinism,
   olean ON-vs-OFF diff scope.
+- 2026-07-17 (iter 11): T2c prototype attempted, DEFERRED at the
+  multi-const async commit gap (addConstAsync is per-constant;
+  framework self-describes inductDecl as unsupported). skipKernelTC
+  ceiling probe: BinomialHeap wall UNCHANGED (1.94s) with checking
+  skipped → the 1.31s is the kernel inductive COMPILER (construction),
+  not checking (or skip unhonored for inductDecl); T2c still valid
+  (whole addDecl moves to background) but framing corrected.
+  List.Lemmas: −1.1s user / only −0.2s wall with all kernel checks
+  skipped → thm-proof checking already well-hidden by async (T3
+  down-weighted). Design doc updated with the RecursorVal-verification
+  soundness note. NEXT (iter 12, rotation): T4 — apply the validated
+  pointer-stamp technique to simp-set / discrimination-tree reuse
+  across commands (simp 0.72s + grind simp 0.83s per hot module).

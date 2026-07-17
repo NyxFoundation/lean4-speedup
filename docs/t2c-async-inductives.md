@@ -79,3 +79,30 @@ surface kernel errors at the end of the module snapshot.
   kernel respects (`Nat.rec`-style structural wrappers).
 - Library-side: Batteries could `irreducible_def` the WF functions before
   the structure — but that treats one file, not the disease.
+
+## Implementation notes (iter 11 — prototype deferred)
+
+Two hard facts discovered attempting the v0 prototype:
+
+1. **Multi-constant async commit is unbuilt territory.** `addConstAsync` is
+   per-constant and `enterAsync` scopes one prefix; `addDeclCore` itself says
+   "not all cases are supported yet". An inductive needs T / T.mk / T.rec
+   committed coherently — orchestrating three handles + one kernel task is
+   the real work, and each debug cycle costs a 20–40 min stage1 rebuild.
+   Deferred to a dedicated time box.
+2. **`debug.skipKernelTC` ceiling probe**: BinomialHeap wall is *unchanged*
+   (1.94 s vs 1.94 s) with kernel checking skipped — the 1.31 s attributed
+   to `Kernel` under the structure command survives, i.e. it is the
+   kernel's *inductive compiler construction* path (recursor building),
+   not the checking pass (or the skip flag is not honored for
+   `inductDecl`). T2c still lifts it (the whole `addDecl` moves to the
+   background task), but the "async checking" framing was imprecise.
+   Also: List.Lemmas shows −1.1 s user but only −0.2 s wall with all
+   kernel checking skipped — theorem-proof checks are already well hidden
+   by the async pipeline. Tempering data for kernel-side tracks.
+
+Soundness note recorded for the eventual prototype: `commitConst` verifies
+only the signature — an eagerly-committed `RecursorVal` (rules, k) becomes
+olean truth unverified. The prototype must compare the kernel-produced
+RecursorVal against the eager one after the task completes and hard-error on
+drift.
