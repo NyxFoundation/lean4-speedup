@@ -465,3 +465,19 @@ standalone implementation in this folder.
   MutualInductive fully + ComputedFields + Coinductive), instrument
   addDeclCore's sync inductDecl fallback with a decl-name trace, fix
   routing, re-run the A/B.
+- 2026-07-18 (iter 28): MYSTERY SOLVED — Batteries main uses the
+  MODULE SYSTEM (`module` keyword line 6); my silent v0 scope cut
+  (isModule → bail) excluded the entire benchmark corpus. Standalone
+  diags lacked `module` → async worked. DEEPER FINDING via non-module
+  copy of BinomialHeap: there the heavy kernel items are the WF DEFS
+  (HeapNode.WF, already async as defns) and the FindMin.WF structure
+  checks in <100ms — the 1.31s sync structure check is a
+  MODULE-SYSTEM-SPECIFIC cost (defs exported as axioms change the
+  kernel's unfolding path when checking dependent structure fields).
+  T2c's target lives exactly in the env my scope cut excludes.
+  COMPLETION CONDITION: module-env support — understand what the sync
+  path exports for inductDecl under isModule (likely full infos,
+  types are structural) and pass exportedInfo? accordingly; lift the
+  isModule gate. NEXT (iter 29): read the module-export handling for
+  inductives (Environment/module export machinery), implement, A/B on
+  the REAL module corpus.
