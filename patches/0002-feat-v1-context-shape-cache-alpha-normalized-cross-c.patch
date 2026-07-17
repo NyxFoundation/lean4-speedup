@@ -1,7 +1,7 @@
 From 84fb7311826a4ecd86748354aa2a57b4182d0f93 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Fri, 17 Jul 2026 18:36:40 +0900
-Subject: [PATCH 2/6] =?UTF-8?q?feat:=20v1=20context-shape=20cache=20?=
+Subject: [PATCH 02/14] =?UTF-8?q?feat:=20v1=20context-shape=20cache=20?=
  =?UTF-8?q?=E2=80=94=20alpha-normalized=20cross-command=20instance=20reuse?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8

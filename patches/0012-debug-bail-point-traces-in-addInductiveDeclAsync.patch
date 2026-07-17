@@ -1,0 +1,49 @@
+From 36c6dddba41b02ed24e2aeee47fe5d2e444d6707 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 03:11:24 +0900
+Subject: [PATCH 12/14] debug: bail-point traces in addInductiveDeclAsync?
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/MutualInductive.lean | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/src/Lean/Elab/MutualInductive.lean b/src/Lean/Elab/MutualInductive.lean
+index eff47a2..b5db909 100644
+--- a/src/Lean/Elab/MutualInductive.lean
++++ b/src/Lean/Elab/MutualInductive.lean
+@@ -1416,16 +1416,26 @@ private def asyncIndMkRecVal (levelParams : List Name) (numParams : Nat)
+ Returns `false` (caller falls back to sync `addDecl`) if ineligible. -/
+ private def addInductiveDeclAsync? (decl : Declaration) : TermElabM Bool := do
+   unless Elab.asyncInductive.get (← getOptions) do return false
+-  unless Elab.async.get (← getOptions) do return false
+-  let .inductDecl levelParams numParams [indType] false := decl | return false
+-  let [ctor] := indType.ctors | return false
++  unless Elab.async.get (← getOptions) do
++    trace[Elab.inductive] "asyncInd bail: Elab.async off"
++    return false
++  let .inductDecl levelParams numParams [indType] false := decl
++    | trace[Elab.inductive] "asyncInd bail: decl shape {decl.getNames}"
++      return false
++  let [ctor] := indType.ctors
++    | trace[Elab.inductive] "asyncInd bail: ctor count {indType.name}"
++      return false
+   if (← getEnv).header.isModule then return false
+   -- non-recursive: no constructor FIELD may mention the type (result does, of course)
+   let fieldsOk ← forallTelescope ctor.type fun fields _ =>
+     fields.allM fun f => do
+       pure ((← inferType f).find? (·.isConstOf indType.name)).isNone
+-  unless fieldsOk do return false
+-  let some recVal ← asyncIndMkRecVal levelParams numParams indType ctor false | return false
++  unless fieldsOk do
++    trace[Elab.inductive] "asyncInd bail: recursive field {indType.name}"
++    return false
++  let some recVal ← asyncIndMkRecVal levelParams numParams indType ctor false
++    | trace[Elab.inductive] "asyncInd bail: recVal builder {indType.name}"
++      return false
+   let numFields := recVal.rules.head!.nfields
+   let indVal : InductiveVal := {
+     name := indType.name, levelParams, type := indType.type
+-- 
+2.53.0
+

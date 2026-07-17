@@ -1,0 +1,165 @@
+From b80376c084c39ee7ab89a088300413c96ddab282 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 02:36:51 +0900
+Subject: [PATCH 10/14] fix: intercept the mkFlatInductive addDecl site too
+ (the path real structures take); move defs above it
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/MutualInductive.lean | 133 +++++++++++++++--------------
+ 1 file changed, 67 insertions(+), 66 deletions(-)
+
+diff --git a/src/Lean/Elab/MutualInductive.lean b/src/Lean/Elab/MutualInductive.lean
+index aea232c..5d4e1a7 100644
+--- a/src/Lean/Elab/MutualInductive.lean
++++ b/src/Lean/Elab/MutualInductive.lean
+@@ -1356,72 +1356,6 @@ private def ensureNoUnassignedLevelMVarsAtInductives
+ 
+   We assume that numVars <= numParams, where numVars is the number of local variables.
+ -/
+-private def mkFlatInductive (views : Array InductiveView)
+-  (indFVars : Array Expr) (levelParams : List Name) (numVars : Nat)
+-  (numParams : Nat) (indTypes : List InductiveType) : TermElabM Unit := do
+-
+-  let namesAndTypes := indTypes.map fun indType => (indType.name.append `call, indType.type)
+-  let namesAndTypes := namesAndTypes.toArray
+-
+-  -- We update the type of all inductive types, so they have recursive calls added as parameters
+-  let newTypes ← namesAndTypes.mapM fun (_, indType) =>
+-    forallBoundedTelescope indType numParams fun indTypeParams indTypeBody => do
+-
+-      -- We first go through all types in the mutual block and get rid of their parameters
+-      -- by substituting free variables
+-      let typesWithAppliedParams ← namesAndTypes.mapM fun (newName, curIndType) => do
+-        forallBoundedTelescope curIndType numParams fun curIntTypeParams curIndTypeBody => do
+-          return (newName, curIndTypeBody.replaceFVars curIntTypeParams indTypeParams)
+-      withLocalDeclsDND typesWithAppliedParams fun newParams => do
+-       mkForallFVars (indTypeParams ++ newParams) indTypeBody
+-  let rs ← newTypes.mapIdxM fun idx newType => do
+-    return PreElabHeaderResult.mk views[idx]! levelParams (numParams + views.size) newType #[]
+-
+-  -- We now reuse the machinery for bringing in indFVars to the context
+-  withInductiveLocalDecls rs fun newParams newIndFVars => do
+-    let indTypes ← indTypes.mapIdxM fun indTypeIdx indType => do
+-      let updatedCtors ← indType.ctors.mapM fun ctor => do
+-        -- We first use new set of parameters
+-        let updatedCtor ← instantiateForall ctor.type (newParams.take numParams)
+-        let updatedCtor ← forallTelescope updatedCtor fun ctorArgs ctorBody => do
+-            -- We assume that the conclusion is an application of the fvar
+-          guard <| ctorBody.isApp || numParams == 0
+-
+-          -- We first get non-parameter arguments of the body
+-          let bodyArgs := ctorBody.getAppArgs.extract (numParams - numVars)
+-
+-          -- And make a new conclusion with new indFVar. We pass new parameters and old non-parameter arguments
+-          let ctorBody := mkAppN (newIndFVars[indTypeIdx]!) (newParams ++ bodyArgs)
+-          mkForallFVars ctorArgs ctorBody
+-
+-        -- Then we replace indFVars in the premises of the rule
+-        let calls := newParams.extract numParams
+-        let updatedCtor := replaceIndFVars (numParams - numVars) indFVars calls updatedCtor
+-
+-        -- Finally, we need to abstract away the parameters
+-        let updatedCtor ← mkForallFVars newParams updatedCtor
+-        return { ctor with type := updatedCtor}
+-      return { indType with type := newTypes[indTypeIdx]!, ctors := updatedCtors}
+-
+-    let indTypes ← replaceIndFVarsWithConsts views newIndFVars levelParams numVars (numParams + views.size) indTypes (applyVariables := false)
+-    let decl := Declaration.inductDecl levelParams (numParams + views.size) indTypes false
+-    Term.ensureNoUnassignedMVars decl
+-    addDecl decl
+-
+-private structure AddAndFinalizeContext where
+-  views : Array InductiveView
+-  elabs' : Array InductiveElabStep2
+-  indFVars : Array Expr
+-  vars : Array Expr
+-  levelParams : List Name
+-  numVars : Nat
+-  numParams : Nat
+-  indTypes : List InductiveType
+-  isUnsafe : Bool
+-  rs : Array ElabHeaderResult
+-  params : Array Expr
+-  isCoinductive : Bool
+-
+ /-!
+ EXPERIMENT (speedup/global-synth-cache branch, track T2c): asynchronous kernel
+ processing for eligible inductives. Kernel construction+checking of
+@@ -1547,6 +1481,73 @@ private def addInductiveDeclAsync? (decl : Declaration) : TermElabM Bool := do
+   Core.logSnapshotTask { stx? := none, reportingRange := .skip, task := t, cancelTk? := cancelTk }
+   return true
+ 
++private def mkFlatInductive (views : Array InductiveView)
++  (indFVars : Array Expr) (levelParams : List Name) (numVars : Nat)
++  (numParams : Nat) (indTypes : List InductiveType) : TermElabM Unit := do
++
++  let namesAndTypes := indTypes.map fun indType => (indType.name.append `call, indType.type)
++  let namesAndTypes := namesAndTypes.toArray
++
++  -- We update the type of all inductive types, so they have recursive calls added as parameters
++  let newTypes ← namesAndTypes.mapM fun (_, indType) =>
++    forallBoundedTelescope indType numParams fun indTypeParams indTypeBody => do
++
++      -- We first go through all types in the mutual block and get rid of their parameters
++      -- by substituting free variables
++      let typesWithAppliedParams ← namesAndTypes.mapM fun (newName, curIndType) => do
++        forallBoundedTelescope curIndType numParams fun curIntTypeParams curIndTypeBody => do
++          return (newName, curIndTypeBody.replaceFVars curIntTypeParams indTypeParams)
++      withLocalDeclsDND typesWithAppliedParams fun newParams => do
++       mkForallFVars (indTypeParams ++ newParams) indTypeBody
++  let rs ← newTypes.mapIdxM fun idx newType => do
++    return PreElabHeaderResult.mk views[idx]! levelParams (numParams + views.size) newType #[]
++
++  -- We now reuse the machinery for bringing in indFVars to the context
++  withInductiveLocalDecls rs fun newParams newIndFVars => do
++    let indTypes ← indTypes.mapIdxM fun indTypeIdx indType => do
++      let updatedCtors ← indType.ctors.mapM fun ctor => do
++        -- We first use new set of parameters
++        let updatedCtor ← instantiateForall ctor.type (newParams.take numParams)
++        let updatedCtor ← forallTelescope updatedCtor fun ctorArgs ctorBody => do
++            -- We assume that the conclusion is an application of the fvar
++          guard <| ctorBody.isApp || numParams == 0
++
++          -- We first get non-parameter arguments of the body
++          let bodyArgs := ctorBody.getAppArgs.extract (numParams - numVars)
++
++          -- And make a new conclusion with new indFVar. We pass new parameters and old non-parameter arguments
++          let ctorBody := mkAppN (newIndFVars[indTypeIdx]!) (newParams ++ bodyArgs)
++          mkForallFVars ctorArgs ctorBody
++
++        -- Then we replace indFVars in the premises of the rule
++        let calls := newParams.extract numParams
++        let updatedCtor := replaceIndFVars (numParams - numVars) indFVars calls updatedCtor
++
++        -- Finally, we need to abstract away the parameters
++        let updatedCtor ← mkForallFVars newParams updatedCtor
++        return { ctor with type := updatedCtor}
++      return { indType with type := newTypes[indTypeIdx]!, ctors := updatedCtors}
++
++    let indTypes ← replaceIndFVarsWithConsts views newIndFVars levelParams numVars (numParams + views.size) indTypes (applyVariables := false)
++    let decl := Declaration.inductDecl levelParams (numParams + views.size) indTypes false
++    Term.ensureNoUnassignedMVars decl
++    unless (← addInductiveDeclAsync? decl) do
++      addDecl decl
++
++private structure AddAndFinalizeContext where
++  views : Array InductiveView
++  elabs' : Array InductiveElabStep2
++  indFVars : Array Expr
++  vars : Array Expr
++  levelParams : List Name
++  numVars : Nat
++  numParams : Nat
++  indTypes : List InductiveType
++  isUnsafe : Bool
++  rs : Array ElabHeaderResult
++  params : Array Expr
++  isCoinductive : Bool
++
+ private def addAndFinalizeInductiveDecl (context : AddAndFinalizeContext) : TermElabM FinalizeContext := do
+     let indTypes ← replaceIndFVarsWithConsts context.views context.indFVars context.levelParams context.numVars context.numParams context.indTypes
+     let decl := Declaration.inductDecl context.levelParams context.numParams indTypes context.isUnsafe
+-- 
+2.53.0
+

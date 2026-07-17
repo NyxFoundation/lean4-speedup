@@ -1,0 +1,155 @@
+From 39b150a0b1ba5235d70e514eb3145b35487c02c9 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 01:45:57 +0900
+Subject: [PATCH 08/14] feat: T2c async kernel processing for eligible
+ structures (Elab.asyncInductive, default off)
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/MutualInductive.lean | 126 ++++++++++++++++++++++++++++-
+ 1 file changed, 125 insertions(+), 1 deletion(-)
+
+diff --git a/src/Lean/Elab/MutualInductive.lean b/src/Lean/Elab/MutualInductive.lean
+index 70adc2c..c9326b4 100644
+--- a/src/Lean/Elab/MutualInductive.lean
++++ b/src/Lean/Elab/MutualInductive.lean
+@@ -1422,11 +1422,135 @@ private structure AddAndFinalizeContext where
+   params : Array Expr
+   isCoinductive : Bool
+ 
++/-!
++EXPERIMENT (speedup/global-synth-cache branch, track T2c): asynchronous kernel
++processing for eligible inductives. Kernel construction+checking of
++`inductDecl` is synchronous on the main thread (AddDecl has no async rule for
++it) and is the largest critical-path item on WF-recursion-heavy modules
++(measured: 1.31 s = 60 % of BinomialHeap/Basic). For single-constructor,
++non-recursive, no-index, non-nested inductives (i.e. structures) we commit
++elaborator-built `InductiveVal`/`ConstructorVal`/`RecursorVal` infos eagerly
++(the RecursorVal builder is validated byte-exact against kernel output on a
++test corpus) and run the kernel in a background task chained on `env.checked`,
++following `addDeclCore`'s async pattern. `commitCheckEnv`'s signature check
++against the eager `commitSignature` is the drift failsafe.
++-/
++
++register_builtin_option Elab.asyncInductive : Bool := {
++  defValue := false
++  descr := "(experiment) kernel-check eligible structures asynchronously instead of on the main thread"
++}
++
++/-- Build the `RecursorVal` for a single-ctor, no-index, non-recursive inductive,
++mirroring the kernel's construction (validated byte-exact on a corpus). -/
++private def asyncIndMkRecVal (levelParams : List Name) (numParams : Nat)
++    (indType : InductiveType) (ctor : Constructor) (isUnsafe : Bool) :
++    MetaM (Option RecursorVal) := do
++  let us := levelParams.map Level.param
++  forallTelescope indType.type fun params sort => do
++    unless params.size == numParams do return none -- indices present
++    let .sort resultLevel := sort | return none
++    let ctorType ← instantiateForall ctor.type params
++    let largeElim ←
++      if resultLevel.isZero then
++        forallTelescope ctorType fun fields _ =>
++          fields.allM fun f => do isProp (← inferType f)
++      else
++        pure true
++    let elimName := Id.run do
++      unless largeElim do return none
++      for i in [0:100] do
++        let n := if i == 0 then `u else Name.mkSimple s!"u_{i}"
++        unless levelParams.contains n do return some n
++      return some `uFresh
++    let motiveSort := match elimName with
++      | some u => mkSort (.param u)
++      | none   => mkSort .zero
++    let indApp := mkAppN (mkConst indType.name us) params
++    withLocalDecl `motive .implicit (← mkArrow indApp motiveSort) fun motive => do
++      let minorType ← forallTelescope ctorType fun fields _ => do
++        let ctorApp := mkAppN (mkConst ctor.name us) (params ++ fields)
++        mkForallFVars fields (mkApp motive ctorApp)
++      let numFields ← forallTelescope ctorType fun fields _ => pure fields.size
++      let recType ← withLocalDecl `t .default indApp fun t =>
++        return ← mkForallFVars params
++          (← mkForallFVars #[motive] (← mkArrow minorType (← mkForallFVars #[t] (mkApp motive t))))
++      let rhs ← withLocalDecl `motive .implicit (← mkArrow indApp motiveSort) fun motive' =>
++        withLocalDecl `minor .default minorType fun minor =>
++          forallTelescope ctorType fun fields _ =>
++            mkLambdaFVars (params ++ #[motive', minor] ++ fields) (mkAppN minor fields)
++      let recLevels := match elimName with
++        | some u => u :: levelParams
++        | none   => levelParams
++      return some {
++        name := indType.name ++ `rec
++        levelParams := recLevels
++        type := recType
++        all := [indType.name]
++        numParams, numIndices := 0, numMotives := 1, numMinors := 1
++        rules := [{ ctor := ctor.name, nfields := numFields, rhs }]
++        k := false
++        isUnsafe }
++
++/-- Try to add an eligible `inductDecl` with asynchronous kernel processing.
++Returns `false` (caller falls back to sync `addDecl`) if ineligible. -/
++private def addInductiveDeclAsync? (decl : Declaration) : TermElabM Bool := do
++  unless Elab.asyncInductive.get (← getOptions) do return false
++  unless Elab.async.get (← getOptions) do return false
++  let .inductDecl levelParams numParams [indType] false := decl | return false
++  let [ctor] := indType.ctors | return false
++  if (← getEnv).header.isModule then return false
++  -- non-recursive: no constructor FIELD may mention the type (result does, of course)
++  let fieldsOk ← forallTelescope ctor.type fun fields _ =>
++    fields.allM fun f => do
++      pure ((← inferType f).find? (·.isConstOf indType.name)).isNone
++  unless fieldsOk do return false
++  let some recVal ← asyncIndMkRecVal levelParams numParams indType ctor false | return false
++  let numFields := recVal.rules.head!.nfields
++  let indVal : InductiveVal := {
++    name := indType.name, levelParams, type := indType.type
++    numParams, numIndices := 0, all := [indType.name], ctors := [ctor.name]
++    numNested := 0, isRec := false, isUnsafe := false, isReflexive := false }
++  let ctorVal : ConstructorVal := {
++    name := ctor.name, levelParams, type := ctor.type
++    induct := indType.name, cidx := 0, numParams, numFields, isUnsafe := false }
++  -- register pending constants on the main branch (addDeclCore pattern, ×3)
++  let env ← getEnv
++  let a1 ← env.addConstAsync indType.name .induct
++  let a2 ← a1.mainEnv.addConstAsync ctor.name .ctor
++  let a3 ← a2.mainEnv.addConstAsync recVal.name .recursor
++  -- eager commits: full infos for type & ctor, signature for rec
++  a1.commitConst a1.asyncEnv (some (.inductInfo indVal)) (some (.inductInfo indVal))
++  a2.commitConst a2.asyncEnv (some (.ctorInfo ctorVal)) (some (.ctorInfo ctorVal))
++  a3.commitSignature recVal.toConstantVal
++  setEnv a3.mainEnv
++  -- background kernel task, chained on the checked-env sequence
++  let cancelTk ← IO.CancelToken.new
++  let doAddAndCommit : CoreM Unit := do
++    setEnv a1.asyncEnv
++    try
++      profileitM Exception "type checking" (← getOptions) do
++        withTraceNode `Kernel (fun _ => return m!"typechecking declaration {indType.name} (async)") do
++          let env' ← ofExceptKernelException
++            (← (← getEnv).addDeclAux (← getOptions) decl (← read).cancelTk?)
++          setEnv env'
++    finally
++      -- commits rec's info FROM the kernel env (sig check vs our eager
++      -- commitSignature is the drift failsafe) + unblocks the checked chain
++      a3.commitCheckEnv (← getEnv)
++      a2.commitCheckEnv (← getEnv)
++      a1.commitCheckEnv (← getEnv)
++  let checkAct ← (Core.wrapAsyncAsSnapshot (cancelTk? := cancelTk) fun _ => doAddAndCommit : CoreM _)
++  let t ← BaseIO.mapTask checkAct env.checked
++  Core.logSnapshotTask { stx? := none, reportingRange := .skip, task := t, cancelTk? := cancelTk }
++  return true
++
+ private def addAndFinalizeInductiveDecl (context : AddAndFinalizeContext) : TermElabM FinalizeContext := do
+     let indTypes ← replaceIndFVarsWithConsts context.views context.indFVars context.levelParams context.numVars context.numParams context.indTypes
+     let decl := Declaration.inductDecl context.levelParams context.numParams indTypes context.isUnsafe
+     Term.ensureNoUnassignedMVars decl
+-    addDecl decl
++    unless (← addInductiveDeclAsync? decl) do
++      addDecl decl
+     addAuxRecs indTypes
+     buildFinalizeContext context.elabs' context.levelParams context.vars context.params context.views context.indFVars context.rs
+ 
+-- 
+2.53.0
+

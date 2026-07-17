@@ -1,0 +1,31 @@
+From eb9638559d5b7c268900e2af95a239e15bd67495 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 02:17:57 +0900
+Subject: [PATCH 09/14] fix: use public Environment.addDeclCore (addDeclAux is
+ private to AddDecl)
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/MutualInductive.lean | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/Lean/Elab/MutualInductive.lean b/src/Lean/Elab/MutualInductive.lean
+index c9326b4..aea232c 100644
+--- a/src/Lean/Elab/MutualInductive.lean
++++ b/src/Lean/Elab/MutualInductive.lean
+@@ -1531,8 +1531,10 @@ private def addInductiveDeclAsync? (decl : Declaration) : TermElabM Bool := do
+     try
+       profileitM Exception "type checking" (← getOptions) do
+         withTraceNode `Kernel (fun _ => return m!"typechecking declaration {indType.name} (async)") do
+-          let env' ← ofExceptKernelException
+-            (← (← getEnv).addDeclAux (← getOptions) decl (← read).cancelTk?)
++          let opts ← getOptions
++          let env' ← ofExceptKernelException <| (← getEnv).addDeclCore
++            (Core.getMaxHeartbeats opts).toUSize (maxRecDepth.get opts).toUSize decl
++            (← read).cancelTk? (!debug.skipKernelTC.get opts)
+           setEnv env'
+     finally
+       -- commits rec's info FROM the kernel env (sig check vs our eager
+-- 
+2.53.0
+

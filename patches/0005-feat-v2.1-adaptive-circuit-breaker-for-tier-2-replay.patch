@@ -1,7 +1,7 @@
 From 0bd374107acdf7bb3431e2252d24f93827072092 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Fri, 17 Jul 2026 22:34:41 +0900
-Subject: [PATCH 5/6] feat: v2.1 adaptive circuit breaker for tier-2 replays
+Subject: [PATCH 05/14] feat: v2.1 adaptive circuit breaker for tier-2 replays
  (open at <25% success after 32 attempts; cap 4 replays/probe)
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>

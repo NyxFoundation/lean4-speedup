@@ -1,7 +1,7 @@
 From ef5fe546815fd366d1c56919f4eb875391a2431d Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Fri, 17 Jul 2026 17:33:27 +0900
-Subject: [PATCH 1/6] feat: cross-command synthInstance cache with
+Subject: [PATCH 01/14] feat: cross-command synthInstance cache with
  pointer-identity invalidation (experiment v0)
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>

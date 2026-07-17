@@ -1,0 +1,29 @@
+From d838c94425f31f2b9aa4425e86deedbbf7b4f7e5 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 07:30:37 +0900
+Subject: [PATCH 13/14] debug: entry + option-gate traces
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/MutualInductive.lean | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/Lean/Elab/MutualInductive.lean b/src/Lean/Elab/MutualInductive.lean
+index b5db909..fb34e6f 100644
+--- a/src/Lean/Elab/MutualInductive.lean
++++ b/src/Lean/Elab/MutualInductive.lean
+@@ -1415,7 +1415,10 @@ private def asyncIndMkRecVal (levelParams : List Name) (numParams : Nat)
+ /-- Try to add an eligible `inductDecl` with asynchronous kernel processing.
+ Returns `false` (caller falls back to sync `addDecl`) if ineligible. -/
+ private def addInductiveDeclAsync? (decl : Declaration) : TermElabM Bool := do
+-  unless Elab.asyncInductive.get (← getOptions) do return false
++  trace[Elab.inductive] "asyncInd entry: {decl.getNames}"
++  unless Elab.asyncInductive.get (← getOptions) do
++    trace[Elab.inductive] "asyncInd bail: option off {decl.getNames}"
++    return false
+   unless Elab.async.get (← getOptions) do
+     trace[Elab.inductive] "asyncInd bail: Elab.async off"
+     return false
+-- 
+2.53.0
+

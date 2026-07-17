@@ -1,0 +1,74 @@
+From b3a2094d2b85f8634b72ba044e44c505cd02dd48 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 00:02:17 +0900
+Subject: [PATCH 07/14] =?UTF-8?q?feat:=20v2.3=20=E2=80=94=20shape=20entrie?=
+ =?UTF-8?q?s=20tier-1=20only;=20tier-2=20restricted=20to=20the=20exact=20c?=
+ =?UTF-8?q?ache=20(query=20closure=20per=20insert=20was=20the=20remaining?=
+ =?UTF-8?q?=20tax)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Meta/SynthInstance.lean | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
+
+diff --git a/src/Lean/Meta/SynthInstance.lean b/src/Lean/Meta/SynthInstance.lean
+index fb09d88..578ea1a 100644
+--- a/src/Lean/Meta/SynthInstance.lean
++++ b/src/Lean/Meta/SynthInstance.lean
+@@ -1155,33 +1155,26 @@ private def shapeSynthCacheFind? (shapeKey : ShapeKey) (fvars : Array Expr) (max
+   unless e.maxResultSize == maxResultSize do return none
+   unless sameObj e.defaultInstances (defaultInstanceExtension.getState env) do return none
+   unless sameObj e.reducibilityExtra (reducibilityExtraExt.getState env) do return none
+-  -- v2 two-tier check with query types re-opened in the TARGET telescope
+-  let targetQueries := e.queries.map fun (a, ns) => (a.beta fvars, ns)
+-  unless (← instancesStillValid e.instances targetQueries) do return none
++  -- v2.3: shape entries are tier-1 only (query closure per insert was too costly)
++  unless sameObj e.instances (instanceExtension.getState env) do return none
+   match e.resultLam? with
+   | none => return some none
+   | some lam => return some (some (lam.beta fvars))
+ 
+ private def shapeSynthCacheInsert (shapeKey : ShapeKey) (fvars : Array Expr)
+-    (maxResultSize : Nat) (result? : Option Expr) (queries : Array QueryObs) : MetaM Unit := do
++    (maxResultSize : Nat) (result? : Option Expr) : MetaM Unit := do
+   let resultLam? ← match result? with
+     | none => pure none
+     | some r =>
+       let lam ← mkLambdaFVars fvars r
+       if lam.hasFVar || lam.hasMVar then return () -- result escapes the telescope
+       pure (some lam)
+-  -- telescope-close each recorded query type; bail if any escapes
+-  let mut closedQueries : Array QueryObs := #[]
+-  for (a, ns) in queries do
+-    let lam ← mkLambdaFVars fvars a
+-    if lam.hasFVar then return () -- query mentions fvars outside the telescope
+-    closedQueries := closedQueries.push (lam, ns)
+   let env ← getEnv
+   shapeSynthCacheRef.modify (·.insert shapeKey {
+     instances := instanceExtension.getState env
+     defaultInstances := defaultInstanceExtension.getState env
+     reducibilityExtra := reducibilityExtraExt.getState env
+-    maxResultSize, resultLam?, queries := closedQueries })
++    maxResultSize, resultLam? })
+ 
+ /-- Helper function for caching synthesized type class instances. -/
+ private def cacheResult (cacheKey : SynthInstanceCacheKey) (kind : PreprocessKind) (abstResult? : Option AbstractMVarsResult) (result? : Option Expr) (maxResultSize : Nat) (queries : Array QueryObs) : MetaM Unit := do
+@@ -1274,10 +1267,10 @@ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : Met
+       cacheResult cacheKey kind abstResult? result? maxResultSize queries
+       if let some (shapeKey, fvars) := shape? then
+         match abstResult? with
+-        | none => shapeSynthCacheInsert shapeKey fvars maxResultSize none queries
++        | none => shapeSynthCacheInsert shapeKey fvars maxResultSize none
+         | some abstResult =>
+           if abstResult.numMVars == 0 && abstResult.paramNames.isEmpty then
+-            shapeSynthCacheInsert shapeKey fvars maxResultSize result? queries
++            shapeSynthCacheInsert shapeKey fvars maxResultSize result?
+       return result?
+ 
+ def synthInstance? (type : Expr) (maxResultSize? : Option Nat := none) : MetaM (Option Expr) := do profileitM Exception "typeclass inference" (← getOptions) (decl := type.getAppFn.constName?.getD .anonymous) do
+-- 
+2.53.0
+

@@ -1,8 +1,8 @@
 From c0edb3d145bebf37a87e18ae0793a695ab5d2208 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Fri, 17 Jul 2026 22:00:17 +0900
-Subject: [PATCH 4/6] =?UTF-8?q?feat:=20v2=20two-tier=20cache=20validation?=
- =?UTF-8?q?=20=E2=80=94=20record-and-replay=20candidate=20lists?=
+Subject: [PATCH 04/14] =?UTF-8?q?feat:=20v2=20two-tier=20cache=20validatio?=
+ =?UTF-8?q?n=20=E2=80=94=20record-and-replay=20candidate=20lists?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
