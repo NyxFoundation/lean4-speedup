@@ -270,3 +270,13 @@ standalone implementation in this folder.
   soundness note. NEXT (iter 12, rotation): T4 — apply the validated
   pointer-stamp technique to simp-set / discrimination-tree reuse
   across commands (simp 0.72s + grind simp 0.83s per hot module).
+- 2026-07-17 (iter 12): T4 grind-init hypothesis FALSIFIED cheaply:
+  100 trivial grind calls = 8.8ms grind + 23ms grind-simp total
+  (~0.3ms/call setup incl. mkParams) — nothing to cache; grind's real
+  cost is per-goal ematch/CC work on big goals. (The 142ms TC in the
+  probe is legit distinct OfNat-literal queries, not duplicates.)
+  T4 remaining candidate (deferred): global whnf/defEqPerm caches for
+  closed terms under reducibility stamps — needs instrumentation to
+  size before another rebuild cycle. PIVOT: Mathlib-subset benchmark
+  for T1's headline value (mathlib4 clone + compat probe with
+  speedup-stage1 running in background).
