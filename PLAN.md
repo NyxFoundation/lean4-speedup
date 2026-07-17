@@ -391,3 +391,21 @@ standalone implementation in this folder.
   deterministic, tier-2 proven, no regression). Methodology rule
   going forward: 5-run medians for all wall-time claims. Loop
   rotates to T2 (the actual wall-clock lever) next.
+- 2026-07-18 (iter 22): CAMPAIGN 2 opened. T2c piece 1 DONE:
+  bench/RecTypeBuilder.lean — Lean-side recursor-TYPE construction
+  for single-ctor no-index non-recursive inductives incl. Prop
+  elimination computation (all-proof fields → large elim, data
+  field → small elim) and fresh elim-level naming. Validated
+  standalone via #eval against the kernel's actual rec types:
+  7/7 EXACT (byte-identical) — Prod, Subtype, PProd, And, PropPure,
+  PropWithData, Sigma. Zero rebuild cycles (script-first
+  development). Orchestration design settled during the time box:
+  three sequential addConstAsync handles (T/mk/rec) threading
+  mainEnv; ONE kernel task on a1.asyncEnv (prefix T contains all
+  three); task commits rec's info FROM THE KERNEL ENV (kills the
+  RecursorVal-drift risk — commitConst sig check is the failsafe);
+  aux constructions stay on main needing only the eager
+  commitSignature (this builder). NEXT (iter 23): implement the
+  orchestration in addAndFinalizeInductiveDecl behind
+  Elab.asyncInductive (default false), rebuild, blocking/error
+  probes, then 5-run-median A/B on BinomialHeap + String.Lemmas.
