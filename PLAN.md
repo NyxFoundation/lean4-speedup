@@ -296,3 +296,20 @@ standalone implementation in this folder.
   Portfolio status: T1 (v2 design ready) | T2a/T2c (designs ready,
   multi-const gap) | T3 down-weighted | T4 partially falsified |
   T5/T6 unopened.
+- 2026-07-17 (iter 14): T1 v2 DESIGN FINALIZED after mutation-path
+  audit (addInstance is monadic/hookable, but scoped activation +
+  attribute-erase + wholesale modifyState restores bypass any
+  counter hooks → counters unsound). BETTER DESIGN, hook-free:
+  record during each derivation the list of (subgoal type, candidate
+  instance names) pairs returned by discrTree getInstances; cache
+  probe = tier-1 whole-table pointer check (fast path, lemma files),
+  on mismatch tier-2 = RE-QUERY the discrTree for each recorded
+  subgoal (structural, lctx-free, ~10-50us each) and BEq the
+  candidate-name arrays — sound under ANY mutation path by
+  construction. Default-instance/reducibility keep pointer stamps
+  (rare churn). Est. ~100 lines in SynthInstance.lean + SynthM
+  recording. Also: evidence notes.md extended with all measured
+  architecture facts; visually improve pass running in background to
+  re-ground the 3D scene on measured reality. NEXT (iter 15):
+  implement v2 tier-2; check improve pass result + rerun verify;
+  refresh scene screenshot in docs.
