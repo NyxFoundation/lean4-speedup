@@ -1,0 +1,3 @@
+visually verify: lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g — formal verification of the real source (self-improving)
+  verifying the real source with MuJoCo (physics sim) (evidence: workspace, 300 cloned files) — up to 4 attempt(s)…
+  ✓ VERIFIED on attempt 1/4 — the source's checked properties hold

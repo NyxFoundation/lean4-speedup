@@ -1,0 +1,162 @@
+From 84fb7311826a4ecd86748354aa2a57b4182d0f93 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Fri, 17 Jul 2026 18:36:40 +0900
+Subject: [PATCH 2/2] =?UTF-8?q?feat:=20v1=20context-shape=20cache=20?=
+ =?UTF-8?q?=E2=80=94=20alpha-normalized=20cross-command=20instance=20reuse?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Meta/SynthInstance.lean | 120 +++++++++++++++++++++++++++++++
+ 1 file changed, 120 insertions(+)
+
+diff --git a/src/Lean/Meta/SynthInstance.lean b/src/Lean/Meta/SynthInstance.lean
+index ba298e9..6298170 100644
+--- a/src/Lean/Meta/SynthInstance.lean
++++ b/src/Lean/Meta/SynthInstance.lean
+@@ -1000,6 +1000,106 @@ private def globalSynthCacheInsert (cacheKey : SynthInstanceCacheKey) (maxResult
+     maxResultSize, abstResult? }
+   globalSynthCacheRef.modify (·.insert cacheKey e)
+ 
++/-!
++v1 extension: context-shape cache. The exact key above contains this command's
++`FVarId`s, so goals mentioning local variables (`BEq α`, ...) can never hit
++across commands even though instance synthesis is stable under renaming. Here
++we additionally key on the *shape* of the query: the goal type closed over the
++dependency-ordered closure of its (and all local instances') free variables,
++with binder names erased, plus the positions of the local instances within that
++telescope (search order matters). Alpha-isomorphic contexts — e.g. the same
++`{α} [BEq α]` telescope in 200 different lemmas — then share one entry. Results
++are stored as closed lambdas over the telescope and beta-applied to the target
++context's variables on a hit. Conservative bails: let-bound locals,
++metavariables anywhere in the shape, results that escape the telescope, and
++universe-polymorphic abstracted results.
++-/
++
++register_builtin_option synthInstance.globalCache.shape : Bool := {
++  defValue := true
++  descr := "(experiment) additionally reuse type class resolutions across alpha-isomorphic local contexts"
++}
++
++private def eraseBinderNames : Expr → Expr
++  | .forallE _ d b i => .forallE .anonymous (eraseBinderNames d) (eraseBinderNames b) i
++  | .lam _ d b i     => .lam .anonymous (eraseBinderNames d) (eraseBinderNames b) i
++  | .letE _ t v b nd => .letE .anonymous (eraseBinderNames t) (eraseBinderNames v) (eraseBinderNames b) nd
++  | .app f a         => .app (eraseBinderNames f) (eraseBinderNames a)
++  | .mdata m e       => .mdata m (eraseBinderNames e)
++  | .proj n i e      => .proj n i (eraseBinderNames e)
++  | e                => e
++
++private structure ShapeKey where
++  closedGoal        : Expr
++  /-- position of each local instance (in search order) within the telescope -/
++  instPositions     : Array Nat
++  synthPendingDepth : Nat
++  deriving BEq, Hashable
++
++private structure ShapeEntry where
++  instances         : Instances
++  defaultInstances  : DefaultInstances
++  reducibilityExtra : SMap Name ReducibilityStatus
++  maxResultSize     : Nat
++  /-- `none` = synthesis failed; `some lam` = closed lambda over the telescope -/
++  resultLam?        : Option Expr
++
++private builtin_initialize shapeSynthCacheRef : IO.Ref (PHashMap ShapeKey ShapeEntry) ← IO.mkRef {}
++
++/-- Compute the shape key and its telescope for the current query, or `none` if
++the query is not shape-cacheable. -/
++private partial def mkShape? (cacheKeyType : Expr) : MetaM (Option (ShapeKey × Array Expr)) := do
++  if cacheKeyType.hasMVar then return none
++  let localInsts ← getLocalInstances
++  if !cacheKeyType.hasFVar && localInsts.isEmpty then return none -- the exact key already covers this
++  let lctx ← getLCtx
++  let mut st : CollectFVars.State := {}
++  st := collectFVars st cacheKeyType
++  for inst in localInsts do
++    st := collectFVars st inst.fvar
++  let mut i := 0
++  while i < st.fvarIds.size do -- fixpoint closure over the types of collected fvars
++    let fvarId := st.fvarIds[i]!
++    let some decl := lctx.find? fvarId | return none
++    if decl.isLet then return none
++    if decl.type.hasMVar then return none
++    st := collectFVars st decl.type
++    i := i + 1
++  let fvarIds := st.fvarIds.qsort fun a b => (lctx.get! a).index < (lctx.get! b).index
++  let fvars := fvarIds.map mkFVar
++  let closedGoal ← mkForallFVars fvars cacheKeyType
++  if closedGoal.hasFVar || closedGoal.hasMVar then return none
++  let instPositions := localInsts.map fun inst =>
++    (fvarIds.findIdx? (· == inst.fvar.fvarId!)).getD fvarIds.size
++  return some ({ closedGoal := eraseBinderNames closedGoal, instPositions, synthPendingDepth := (← read).synthPendingDepth }, fvars)
++
++private def shapeSynthCacheFind? (shapeKey : ShapeKey) (fvars : Array Expr) (maxResultSize : Nat) :
++    MetaM (Option (Option Expr)) := do
++  let some e := (← shapeSynthCacheRef.get).find? shapeKey | return none
++  let env ← getEnv
++  unless sameObj e.instances (instanceExtension.getState env) do return none
++  unless sameObj e.defaultInstances (defaultInstanceExtension.getState env) do return none
++  unless sameObj e.reducibilityExtra (reducibilityExtraExt.getState env) do return none
++  unless e.maxResultSize == maxResultSize do return none
++  match e.resultLam? with
++  | none => return some none
++  | some lam => return some (some (lam.beta fvars))
++
++private def shapeSynthCacheInsert (shapeKey : ShapeKey) (fvars : Array Expr)
++    (maxResultSize : Nat) (result? : Option Expr) : MetaM Unit := do
++  let resultLam? ← match result? with
++    | none => pure none
++    | some r =>
++      let lam ← mkLambdaFVars fvars r
++      if lam.hasFVar || lam.hasMVar then return () -- result escapes the telescope
++      pure (some lam)
++  let env ← getEnv
++  shapeSynthCacheRef.modify (·.insert shapeKey {
++    instances := instanceExtension.getState env
++    defaultInstances := defaultInstanceExtension.getState env
++    reducibilityExtra := reducibilityExtraExt.getState env
++    maxResultSize, resultLam? })
++
+ /-- Helper function for caching synthesized type class instances. -/
+ private def cacheResult (cacheKey : SynthInstanceCacheKey) (kind : PreprocessKind) (abstResult? : Option AbstractMVarsResult) (result? : Option Expr) (maxResultSize : Nat) : MetaM Unit := do
+   -- **TODO**: simplify this function.
+@@ -1045,6 +1145,20 @@ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : Met
+         let result? ← applyCachedAbstractResult? type abstResult?
+         trace[Meta.synthInstance] "result {result?} (global cache)"
+         return result?
++      let shapeOn := synthInstance.globalCache.get (← getOptions) &&
++        synthInstance.globalCache.shape.get (← getOptions)
++      let shape? ← if shapeOn && kind matches .noMVars then mkShape? cacheKeyType else pure none
++      if let some (shapeKey, fvars) := shape? then
++        if let some cachedResult? ← shapeSynthCacheFind? shapeKey fvars maxResultSize then
++          trace[Meta.synthInstance.cache] "shape: {type}"
++          let result? ← match cachedResult? with
++            | some inst => pure (if (← assignOutParams type inst) then some inst else none)
++            | none => pure none
++          -- seed the per-command cache under this command's exact key
++          modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey
++            (cachedResult?.map fun e => { expr := e, paramNames := #[], mvars := #[] }) }
++          trace[Meta.synthInstance] "result {result?} (shape cache)"
++          return result?
+       trace[Meta.synthInstance.cache] "new: {type}"
+       let abstResult? ← withNewMCtxDepth (allowLevelAssignments := true) do
+         match kind with
+@@ -1074,6 +1188,12 @@ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : Met
+       let result? ← applyAbstractResult? type abstResult?
+       trace[Meta.synthInstance] "result {result?}"
+       cacheResult cacheKey kind abstResult? result? maxResultSize
++      if let some (shapeKey, fvars) := shape? then
++        match abstResult? with
++        | none => shapeSynthCacheInsert shapeKey fvars maxResultSize none
++        | some abstResult =>
++          if abstResult.numMVars == 0 && abstResult.paramNames.isEmpty then
++            shapeSynthCacheInsert shapeKey fvars maxResultSize result?
+       return result?
+ 
+ def synthInstance? (type : Expr) (maxResultSize? : Option Nat := none) : MetaM (Option Expr) := do profileitM Exception "typeclass inference" (← getOptions) (decl := type.getAppFn.constName?.getD .anonymous) do
+-- 
+2.53.0
+

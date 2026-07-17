@@ -1,0 +1,198 @@
+# lean4-speedup — making Lean4 compilation faster on CPU
+
+Started 2026-07-17. Method: the NTT-FPGA playbook (visioned vibe coding) —
+clone the real implementation, profile it, visualize the architecture with
+visually-3d, verify claims with the repo's verify backends, and invent
+optimizations by transferring ideas from other research fields.
+
+## Goal
+
+Reduce wall-clock time of compiling Lean4 code (elaboration + codegen +
+.olean production), CPU-only. Deliverable: at least one *verified* new
+optimization method, either as a fork/PR against leanprover/lean4 or a
+standalone implementation in this folder.
+
+## Ground truth (evidence)
+
+- `lean4/` — shallow clone of leanprover/lean4 (the compiler itself; mostly
+  written in Lean, C++ kernel/runtime under `src/kernel`, `src/runtime`).
+- Toolchain installed: Lean 4.32.0 via elan, 16-core linux box, clang+gcc,
+  no `perf` yet (NixOS — use `nix shell nixpkgs#linuxPackages_latest.perf`
+  or valgrind/callgrind, or Lean's own `--profile` / trace.profiler).
+- Comparison compilers to study for idea transfer (clone as needed):
+  GHC (interface files, recompilation avoidance), rustc (incremental
+  red/green query graph, pipelined rlib metadata), Koka (Perceus — Lean's
+  RC model relative), sccache/ccache (content-addressed caching), MLIR
+  (pass pipelining), Cranelift (fast-path codegen).
+
+## Where Lean compile time goes (to be confirmed by profiling)
+
+1. **Elaboration** (usually dominant): unification, typeclass resolution
+   (instance search), `simp`, metavariable machinery, macro expansion.
+2. **Imports**: .olean loading (mmap'd compacted regions) + environment
+   construction.
+3. **Kernel checking** of produced terms.
+4. **Codegen**: LCNF pipeline → C → external cc (or interpreter). `precompileModules` cost.
+5. **Serialization**: .olean write (compacted region build).
+
+## Profiling plan
+
+- Micro: `lean --profile` on representative files (core-only, macro-heavy,
+  simp-heavy, decide-heavy); `--stats`; `trace.profiler` + Firefox Profiler
+  export (`--profiler.out`).
+- Macro: `lake build` of a mid-size project (Batteries) with cold/warm
+  .olean caches; measure per-module times from lake's parallel schedule.
+- CPU-level: callgrind or perf on `lean` binary for the top file.
+
+## Cross-domain invention candidates (to explore, NTT-style)
+
+- **Folding/dedup** (from FoldNTT psi-fold ROM): content-address and fold
+  duplicated proof terms / instances across modules; .olean-level sharing.
+- **Strength reduction** (from K-RED): replace expensive general unifier
+  paths with specialized closed forms for common patterns (e.g. Nat literal
+  defeq, instance head-matching discrimination).
+- **Pipelining (hardware)**: overlap elaboration of decl N+1 with kernel
+  check + codegen of decl N (Lean already has some async; measure real
+  utilization on 16 cores).
+- **BMC/incremental SMT**: incremental re-elaboration — red/green query
+  graph à la rustc instead of module-granularity recompilation.
+- **Speculation (branch prediction)**: speculative instance resolution with
+  cheap rollback.
+
+## visually-3d integration
+
+- Scene `lean4-compiler`: `visually visualize` gathers evidence (clones the
+  repo into ~/.visually-3d/evidence/lean4-compiler/source) and builds a 3D
+  model of the compilation pipeline; `verify` writes a z3/sim self-check
+  grounded in the real source (python-smt backend for algorithm mode).
+- The point of the 3D pass: the psi-fold invention came from *looking at*
+  the floorplan render. Look for structural redundancy in the rendered
+  pipeline (duplicated stages, oversized ROM-like tables = caches).
+
+## Track portfolio (user directive 2026-07-17: rotate approaches per
+## iteration — don't tunnel on one idea)
+
+- **T1 TC dedup cache** (active): v0 exact-key ✓, v1 shape-key building.
+- **T2 Critical path / parallelism**: "blocked 6.65-8.3s" per hot module;
+  --threads plateaus at 2.4x. Where does the serial 40% live? (header
+  elaboration? env mutation serialization? kernel queue?) Transfer:
+  instruction-level parallelism / speculation.
+- **T3 Kernel checking (1.1-1.5s/module)**: dedup shared proof subterms?
+  batch checking? Transfer: content-addressed verification (Nix/git).
+- **T4 grind+simp (~2.8s/module)**: simp-set discrimination tree reuse
+  across commands (same pointer-stamp trick applies to simp exts!);
+  grind's own re-initialization per goal.
+- **T5 import/startup (100-200ms/module × 217)**: olean mmap already;
+  but 5.7GB env re-materialized per process — persistent elaborator
+  daemon? Transfer: compile servers (sccache/zapcc).
+- **T6 LCNF/codegen (~60ms small files)**: lower priority.
+- Rotation rule: while a track's build/benchmark runs detached, the
+  iteration's foreground work opens a DIFFERENT track.
+
+## Log
+
+- 2026-07-17: workspace created; lean4 cloned (767M, HEAD 4f53dd7).
+  Baseline `lean --profile` on bench/B1_core.lean (Lean 4.32.0): import
+  102ms, typeclass inference 104ms, elaboration 78ms, LCNF codegen ~58ms,
+  blocked (unaccounted) 46.5ms — small files are startup/import-dominated.
+  Batteries cold `lake build` benchmark started in background
+  (bench/batteries_cold_build.log).
+- 2026-07-17 (iter 2): Batteries HEAD needs v4.33.0-rc1; pinned tag
+  v4.32.0. Clean cold build baseline: **15.1s wall / 148s user CPU
+  (1146% of 16 cores)**, 217 jobs, slowest module 4.8s → ~28% core
+  idle = critical-path headroom; per-module cost is elaboration-heavy.
+  Source map: Meta 4.9M (unifier/TC), Elab 3.9M, Compiler/LCNF ~1.3M,
+  C++ kernel 420K + runtime 828K. `visually visualize` launched for
+  scene "Lean4 compiler pipeline" (bench/visualize_lean4.log).
+- 2026-07-17 (iter 3): scene lean4-compiler-pipeline-...-lcnf-code-g
+  built: 49 parts, 89/100, grounded in thesis Fig 3.1 (incl. bootstrap
+  loop, LCNF erasure chain). `visually verify` running. Deep profile of
+  slowest module (Batteries.Data.List.Lemmas, 4.8s in build):
+  cumulative = blocked 6.65s (!) > grind 2.8s > kernel type checking
+  1.51s > TC inference 1.3s > simp 0.72s > tactic exec 0.57s.
+  `lean --threads` sweep: 1t=7.16s, 2t=4.21s, 4t=3.03s, 8t=2.96s wall →
+  intra-module parallelism plateaus at ~2.4x/4 threads; Amdahl serial
+  fraction ~40% = decl dependency chain. (LEAN_NUM_THREADS is a no-op;
+  the knob is -j/--threads.) TWO ATTACK AXES: (A) cut raw per-decl CPU
+  (grind/simp/TC/kernel recheck) via cross-module memo/folding;
+  (B) break the decl-chain serial fraction (speculative elaboration
+  against predicted signatures — branch-prediction transfer).
+  NEXT: read src/Lean/Meta/SynthInstance.lean cache scope + kernel
+  check caching; check verify result.
+- 2026-07-17 (iter 4): verify ✓ (architecture mode → sim backend; checks
+  the 3D model faithfully encodes thesis Fig 3.1 zoning/order/loops —
+  NOT perf; perf claims need own benchmarks). CACHE LIFETIME CONFIRMED:
+  Meta caches (synthInstance/whnf/inferType/defEq) are per-command and
+  `modifyEnv` wipes them entirely (Elab/Command.lean:894-898) — every
+  addDecl clears. Synthetic experiment (bench/T_tc_*.lean): 200
+  identical `DecidableEq (List (Option (Nat×String×Int)))` queries =
+  206ms TC vs 1.26ms for one → zero cross-command reuse, ~1ms re-derive
+  each. INVENTION CANDIDATE #1: class-versioned persistent synthInstance
+  cache — env is monotone, so a cached derivation is invalidated only if
+  the instance table of a class TOUCHED during that derivation grew;
+  stamp per-class table versions, record touched-class set per entry
+  (rustc red/green transfer); persistable into .olean with class-table
+  fingerprints for cross-module reuse. From-source lean4 release build
+  detached (pid 2582498, bench/lean4_build.log, ~1h) to enable patching.
+  TODO next: prior-art check (Lean zulip/PRs on synthInstance cache
+  invalidation); read SynthInstance.lean cache key; design experiment
+  to count duplicate queries in Batteries List.Lemmas.
+- 2026-07-17 (iter 5): stage1 build OK (4.34.0-pre). Prior art: none —
+  core has only full reset (resetSynthInstanceCache); 4.30 Lake cache
+  overhaul is artifact-level. Duplicate measurement on List.Lemmas via
+  trace.Meta.synthInstance.cache: 13,018 real derivations ("new:"),
+  only 1,179 unique → **91% duplicate derivations**; per-command cache
+  absorbs just 30% of calls (5,707 "cached:"). Top: OfNat Int 1 ×774,
+  Grind.CommSemiring Nat ×663, OfNat Int 0 ×658. IMPLEMENTED v0 on
+  branch speedup/global-synth-cache (lean4 fork): process-global
+  IO.Ref cache keyed by upstream SynthInstanceCacheKey; entries
+  stamped with POINTER IDENTITY of instanceExtension /
+  defaultInstanceExtension / reducibilityExtraExt states (unrelated
+  decls preserve pointers → sound O(1) validity; any table change →
+  new object → miss). Kill-switch option synthInstance.globalCache
+  for A/B. Known v0 gaps (documented in code): unification hints not
+  stamped (import cycle); localInsts fvarids differ across commands so
+  under-binder goals never cross-hit (future v1: context-independence
+  analysis). Incremental stage1 rebuild detached
+  (bench/lean4_rebuild_patched.log). VALIDATION PLAN: (1) patched
+  stage1 must produce byte-identical Batteries .oleans vs
+  -DsynthInstance.globalCache=false; (2) A/B timing List.Lemmas + full
+  Batteries; (3) mutation probe: file adding instance/reducibility
+  mid-module must behave identically patched vs not.
+- 2026-07-17 (iter 6): v0 VALIDATED mechanically, win too narrow.
+  Results: (a) micro 200-dup benchmark TC 166ms→7ms (24x), 199/200
+  global hits; (b) mutation probe PASSES (cached failure correctly
+  invalidated on instance add); (c) Batteries main builds fine under
+  patched 4.34-pre (toolchain linked as `speedup-stage1`; runLinter
+  exe cc-link fails outside nix develop — unrelated); (d) OFF-vs-OFF
+  deterministic, ON-vs-ON deterministic, but ON differs from OFF in
+  ~30 metaprogramming-heavy oleans → cache reuse changes universe-
+  param/mvar numbering = stable ALTERNATE normal form (would need
+  renormalization for upstreaming); (e) hot-module derivations
+  13,018→5,725 (−56%) yet corpus timing FLAT (126.8s user both) —
+  eliminated queries were cheap closed goals; expensive duplicate mass
+  is UNDER BINDERS where exact localInsts (fvarids) never match across
+  commands. → V1 INVENTION: alpha-normalized "context-shape" cache key
+  — de-Bruijn-normalize (goal type, local instance types) so
+  isomorphic contexts share entries (synthesis is stable under
+  renaming); keeps pointer-identity invalidation. Should capture the
+  full 91% incl. `BEq α`-style queries. Result must be re-abstracted
+  into the TARGET context's fvars on hit (also fixes the olean-drift
+  issue if params renormalized canonically). NEXT: time-weighted dup
+  analysis (which duplicate queries cost the most ms), then implement
+  v1 shape key.
+- 2026-07-17 (iter 7): v0 A/B on hot module: TC 851ms→565ms (−34%);
+  everything else flat → remaining 565ms is the under-binder mass.
+  IMPLEMENTED v1 shape cache (same branch, 2nd commit): ShapeKey =
+  eraseBinderNames(mkForallFVars(fvar-closure telescope, goal)) +
+  instPositions + synthPendingDepth; entries store results as closed
+  lambdas beta-applied to the target telescope on hit; bails on
+  let-decls/mvars/escaping results/universe-abstracted results; only
+  kind=.noMVars; guarded by same pointer stamps; option
+  synthInstance.globalCache.shape for ablation. KNOWN LIMIT: literal
+  universe param names must match (u_1 vs u usually consistent from
+  auto-bound). Rebuild detached (bench/lean4_rebuild_v1.log).
+  VALIDATE NEXT WAKE: compile errors? micro shape test (200 lemmas
+  each `{α} [BEq α] : BEq (List α)`-ish), mutation probe rerun,
+  List.Lemmas trace (shape: count), Batteries A/B time + determinism,
+  olean ON-vs-OFF diff scope.

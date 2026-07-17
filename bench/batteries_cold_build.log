@@ -1,0 +1,213 @@
+✔ [2/217] Built Batteries.Lean.Syntax (255ms)
+✔ [3/217] Built Batteries.Classes.RatCast (238ms)
+✔ [4/217] Built Batteries.Lean.TagAttribute (327ms)
+✔ [5/217] Built Batteries.Lean.Except (382ms)
+✔ [6/217] Built Batteries.Lean.Position (325ms)
+✔ [7/217] Built Batteries.Control.Lemmas (319ms)
+✔ [8/217] Built Batteries.Control.ForInStep.Basic (280ms)
+✔ [9/217] Built Batteries.Util.LibraryNote (464ms)
+✔ [10/217] Built Batteries.Tactic.Unreachable (433ms)
+✔ [11/217] Built Batteries.Data.Array.Init.Lemmas (274ms)
+✔ [12/217] Built Batteries.Data.BitVec.Basic (227ms)
+✔ [13/217] Built Batteries.Tactic.SeqFocus (613ms)
+✔ [14/217] Built Batteries.Lean.EStateM (607ms)
+✔ [15/217] Built Batteries.CodeAction.Attr (668ms)
+✔ [16/217] Built Batteries.CodeAction.Deprecated (666ms)
+✔ [17/217] Built Batteries.Data.BinaryHeap.Basic (315ms)
+✔ [18/217] Built Batteries.Tactic.Lint.Basic (732ms)
+✔ [19/217] Built Batteries.Data.Nat.Basic (387ms)
+✔ [20/217] Built Batteries.Data.Bool (307ms)
+✔ [21/217] Built Batteries.Tactic.Init (840ms)
+✔ [22/217] Built Batteries.Control.LawfulMonadState (867ms)
+✔ [23/217] Built Batteries.Data.ByteSlice (372ms)
+✔ [24/217] Built Batteries.Data.FloatArray (244ms)
+✔ [25/217] Built Batteries.Data.List.Init.Lemmas (216ms)
+✔ [26/217] Built Batteries.Data.Array.Match (655ms)
+✔ [27/217] Built Batteries.Lean.HashMap (283ms)
+✔ [28/217] Built Batteries.Data.List.ArrayMap (314ms)
+✖ [29/217] Building Batteries.Data.ByteArray (602ms)
+trace: .> LEAN_PATH=/home/gohan/workspace/lean4-speedup/batteries/.lake/build/lib/lean /home/gohan/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /home/gohan/workspace/lean4-speedup/batteries/Batteries/Data/ByteArray.lean -o /home/gohan/workspace/lean4-speedup/batteries/.lake/build/lib/lean/Batteries/Data/ByteArray.olean -i /home/gohan/workspace/lean4-speedup/batteries/.lake/build/lib/lean/Batteries/Data/ByteArray.ilean -c /home/gohan/workspace/lean4-speedup/batteries/.lake/build/ir/Batteries/Data/ByteArray.c --setup /home/gohan/workspace/lean4-speedup/batteries/.lake/build/ir/Batteries/Data/ByteArray.setup.json --json
+error: Batteries/Data/ByteArray.lean:80:66: unsolved goals
+i : Nat
+a : ByteArray
+start stop : Nat
+h : i < (a.extract start stop).size
+⊢ a.data[start + i] = a.data[start + i]
+error: Lean exited with code 1
+✔ [30/217] Built Batteries.Lean.System.IO (336ms)
+✔ [31/217] Built Batteries.Data.NameSet (274ms)
+✔ [32/217] Built Batteries.Data.Nat.Bitwise.Lemmas (386ms)
+✔ [33/217] Built Batteries.Data.RunningStats (289ms)
+✔ [34/217] Built Batteries.Data.String.AsciiCasing (215ms)
+✔ [35/217] Built Batteries.Lean.Float (394ms)
+✔ [36/217] Built Batteries.Data.String.Basic (310ms)
+✔ [37/217] Built Batteries.Util.Panic (304ms)
+✔ [38/217] Built Batteries.Data.Stream (423ms)
+✔ [39/217] Built Batteries.Lean.HashSet (289ms)
+✔ [40/217] Built Batteries.Lean.IO.Process (340ms)
+✔ [41/217] Built Batteries.Tactic.OpenPrivate (892ms)
+✔ [42/217] Built Batteries.Data.Array.Merge (1.3s)
+✔ [43/217] Built Batteries.Lean.Expr (575ms)
+✔ [44/217] Built Batteries.Lean.LawfulMonad (432ms)
+✔ [45/217] Built Batteries.Lean.Meta.Expr (300ms)
+✔ [46/217] Built Batteries.Lean.PersistentHashMap (338ms)
+✔ [47/217] Built Batteries.Lean.MonadBacktrack (242ms)
+✔ [48/217] Built Batteries.Lean.LawfulMonadLift (539ms)
+✔ [49/217] Built Batteries.Lean.Meta.Basic (514ms)
+✔ [50/217] Built Batteries.Lean.Meta.Inaccessible (349ms)
+✔ [51/217] Built Batteries.Lean.Meta.UnusedNames (383ms)
+✔ [52/217] Built Batteries.Lean.PersistentHashSet (350ms)
+✔ [53/217] Built Batteries.Lean.NameMapAttribute (434ms)
+✔ [54/217] Built Batteries.Data.List.Interleave (1.2s)
+✔ [55/217] Built Batteries.Data.String.Legacy (1.0s)
+✔ [56/217] Built Batteries.Data.Random.MersenneTwister (1.2s)
+✔ [57/217] Built Batteries.Tactic.PermuteGoals (427ms)
+✔ [58/217] Built Batteries.Lean.Syntax:c.o (85ms)
+✔ [59/217] Built Batteries.Tactic.Instances (641ms)
+✔ [60/217] Built Batteries.Tactic.Lemma (577ms)
+✔ [61/217] Built Batteries.Util.Cache (427ms)
+✔ [62/217] Built Batteries.Tactic.Unreachable:c.o (130ms)
+✔ [63/217] Built Batteries.Lean.TagAttribute:c.o (112ms)
+✔ [64/217] Built Batteries.Tactic.Congr (721ms)
+✔ [65/217] Built Batteries.Tactic.NoMatch (689ms)
+✔ [66/217] Built Batteries.Tactic.PrintOpaques (641ms)
+✔ [67/217] Built Batteries.Util.Pickle (287ms)
+✔ [68/217] Built Batteries.Tactic.PrintDependents (757ms)
+✔ [69/217] Built Batteries.Tactic.ShowUnused (728ms)
+✔ [70/217] Built Batteries.Util.LibraryNote:c.o (286ms)
+✔ [71/217] Built Batteries.Tactic.Trans (1.9s)
+✔ [72/217] Built Batteries.Control.ForInStep.Lemmas (349ms)
+✔ [73/217] Built Batteries.Util.ExtendedBinder (737ms)
+✔ [74/217] Built Batteries.Tactic.SeqFocus:c.o (427ms)
+✔ [75/217] Built Batteries.Classes.Cast (379ms)
+✔ [76/217] Built Batteries.Data.BinaryHeap (222ms)
+✔ [77/217] Built Batteries.CodeAction.Deprecated:c.o (548ms)
+✔ [78/217] Built Batteries.Tactic.Init:c.o (476ms)
+✔ [79/217] Built Batteries.Lean.AttributeExtra (493ms)
+✔ [80/217] Built Batteries.Tactic.Case (1.3s)
+✔ [81/217] Built Batteries.Linter.UnreachableTactic (714ms)
+✔ [82/217] Built Batteries.Data.List.Matcher (299ms)
+✔ [83/217] Built Batteries.Tactic.Lint.Basic:c.o (801ms)
+✔ [84/217] Built Batteries.Tactic.Lint.TypeClass (443ms)
+✔ [85/217] Built Batteries.Data.Nat.Bitwise (306ms)
+✔ [86/217] Built Batteries.Recycling.MonadSatisfying.Basic (813ms)
+✔ [87/217] Built Batteries.Control.OptionT (466ms)
+✔ [88/217] Built Batteries.Data.String.Matcher (308ms)
+✔ [89/217] Built Batteries.CodeAction.Basic (711ms)
+✔ [90/217] Built Batteries.Data.Rat.Float (326ms)
+✔ [91/217] Built Batteries.Lean.Json (324ms)
+✔ [92/217] Built Batteries.Tactic.OpenPrivate:c.o (1.1s)
+✔ [93/217] Built Batteries.Tactic.Lint.Misc (708ms)
+✔ [94/217] Built Batteries.Data.Random (209ms)
+✔ [95/217] Built Batteries.Lean.Meta.InstantiateMVars (318ms)
+✔ [96/217] Built Batteries.Lean.Meta.SavedState (345ms)
+✔ [97/217] Built Batteries.Lean.AttributeExtra:c.o (239ms)
+✔ [98/217] Built Batteries.Lean.Meta.DiscrTree (364ms)
+✔ [99/217] Built Batteries.Control.ForInStep (258ms)
+✔ [100/217] Built Batteries.Classes.SatisfiesM (273ms)
+✔ [101/217] Built Batteries.Lean.Meta.Simp (737ms)
+✔ [102/217] Built Batteries.Tactic.Lint.TypeClass:c.o (427ms)
+✖ [103/217] Building Batteries.Tactic.Alias (1.3s)
+trace: .> LEAN_PATH=/home/gohan/workspace/lean4-speedup/batteries/.lake/build/lib/lean /home/gohan/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /home/gohan/workspace/lean4-speedup/batteries/Batteries/Tactic/Alias.lean -o /home/gohan/workspace/lean4-speedup/batteries/.lake/build/lib/lean/Batteries/Tactic/Alias.olean -i /home/gohan/workspace/lean4-speedup/batteries/.lake/build/lib/lean/Batteries/Tactic/Alias.ilean -c /home/gohan/workspace/lean4-speedup/batteries/.lake/build/ir/Batteries/Tactic/Alias.c --setup /home/gohan/workspace/lean4-speedup/batteries/.lake/build/ir/Batteries/Tactic/Alias.setup.json --json
+error: Batteries/Tactic/Alias.lean:177:6: overloaded, errors 
+  Function expected at
+    Parser.Command.addDocString
+  but this term has type
+    Parser.Parser
+  
+  Note: Expected a function because this term is being applied to the argument
+    declName
+  
+  177:45 Application type mismatch: The argument
+    doc
+  has type
+    TSyntax `Lean.Parser.Command.docComment × Bool
+  but is expected to have type
+    TSyntax `Lean.Parser.Command.docComment
+  in the application
+    Lean.addDocString declName (mkNullNode #[]) doc
+error: Batteries/Tactic/Alias.lean:209:4: overloaded, errors 
+  Function expected at
+    Parser.Command.addDocString
+  but this term has type
+    Parser.Parser
+  
+  Note: Expected a function because this term is being applied to the argument
+    declName
+  
+  209:43 Application type mismatch: The argument
+    doc
+  has type
+    TSyntax `Lean.Parser.Command.docComment × Bool
+  but is expected to have type
+    TSyntax `Lean.Parser.Command.docComment
+  in the application
+    Lean.addDocString declName (mkNullNode #[]) doc
+error: Lean exited with code 1
+✔ [104/217] Built Batteries.Recycling.MonadSatisfying.Lean (389ms)
+✔ [116/217] Built Batteries.Tactic.Lint.Simp (937ms)
+✔ [117/217] Built Batteries.Tactic.Lint.Frontend (1.4s)
+✔ [123/217] Built Batteries.Recycling.MonadSatisfying.List (309ms)
+✔ [130/217] Built Batteries.Tactic.HelpCmd (1.7s)
+✔ [131/217] Built Batteries.Tactic.SqueezeScope (2.3s)
+✔ [133/217] Built Batteries.Data.Rat (277ms)
+✔ [134/217] Built Batteries.Linter.UnreachableTactic:c.o (776ms)
+✔ [135/217] Built Batteries.Lean.Util.EnvSearch (344ms)
+✔ [136/217] Built Batteries.Tactic.Lint.Misc:c.o (626ms)
+✔ [137/217] Built Batteries.Control.AlternativeMonad (717ms)
+✔ [138/217] Built Batteries.Data.List.Monadic (287ms)
+✔ [139/217] Built Batteries.Lean.SatisfiesM (321ms)
+✔ [140/217] Built Batteries.Linter.UnnecessarySeqFocus (942ms)
+✔ [141/217] Built Batteries.CodeAction.Misc (1.9s)
+✔ [144/217] Built Batteries.Tactic.Lint (402ms)
+✔ [145/217] Built Batteries.Tactic.Lint:c.o (53ms)
+✔ [146/217] Built Batteries.Linter (327ms)
+✔ [147/217] Built Batteries.Data.DList.Basic (400ms)
+✔ [148/217] Built Batteries.Linter:c.o (54ms)
+✔ [149/217] Built Batteries.Recycling.MonadSatisfying.Array (1.1s)
+✔ [150/217] Built Batteries.Data.MLList.Basic (799ms)
+✔ [151/217] Built Batteries.Tactic.PrintPrefix (853ms)
+✔ [152/217] Built Batteries.Data.Array.Monadic (235ms)
+✔ [153/217] Built Batteries.Recycling.MonadSatisfying.Vector (278ms)
+✔ [154/217] Built Batteries.Linter.UnnecessarySeqFocus:c.o (707ms)
+✔ [155/217] Built Batteries.Tactic.Lint.Simp:c.o (1.2s)
+✔ [156/217] Built Batteries.Data.DList.Lemmas (416ms)
+✔ [157/217] Built Batteries.Data.MLList.Heartbeats (220ms)
+✔ [158/217] Built Batteries.Data.MLList.IO (215ms)
+✔ [159/217] Built Batteries.Util.ProofWanted (1.5s)
+✔ [160/217] Built Batteries.Control.Nondet.Basic (327ms)
+✔ [165/217] Built Batteries.Data.Vector.Monadic (219ms)
+✔ [166/217] Built Batteries.Recycling.MonadSatisfying (251ms)
+✔ [167/217] Built Batteries.Data.DList (247ms)
+✔ [168/217] Built Batteries.Data.MLList (210ms)
+✔ [169/217] Built Batteries.Tactic.GeneralizeProofs (2.4s)
+✔ [170/217] Built Batteries.Data.UnionFind.Basic (1.7s)
+✔ [171/217] Built Batteries.Tactic.Basic (248ms)
+✔ [172/217] Built Batteries.Tactic.Basic:c.o (43ms)
+✔ [173/217] Built Batteries.Tactic.Lint.Frontend:c.o (1.9s)
+✔ [174/217] Built Batteries.Classes.Order (370ms)
+✔ [182/217] Built Batteries.Data.UnionFind.Lemmas (448ms)
+✔ [183/217] Built Batteries.Classes.Order:c.o (57ms)
+✔ [184/217] Built Batteries.Data.UnionFind (257ms)
+✔ [185/217] Built Batteries.Data.UInt (485ms)
+✔ [189/217] Built Batteries.Data.Nat.Bisect (849ms)
+✔ [194/217] Built Batteries.Data.UInt:c.o (46ms)
+✔ [195/217] Built Batteries.Data.PairingHeap (654ms)
+✔ [196/217] Built Batteries.Util.ProofWanted:c.o (1.2s)
+✔ [198/217] Built Batteries.Recycling.RBTree.Basic (1.2s)
+✔ [199/217] Built Batteries.Data.Vector.Basic (820ms)
+✔ [202/217] Built Batteries.Data.RBMap.Basic (217ms)
+✔ [203/217] Built Batteries.Data.BinomialHeap.Basic (2.2s)
+✔ [204/217] Built Batteries.Data.BinomialHeap.Lemmas (288ms)
+✔ [205/217] Built Batteries.Data.BinomialHeap (230ms)
+✔ [206/217] Built Batteries.Recycling.RBTree.WF (1.5s)
+✔ [207/217] Built Batteries.Data.RBMap.Alter (231ms)
+✔ [208/217] Built Batteries.Data.RBMap.WF (229ms)
+✔ [209/217] Built Batteries.Recycling.RBTree.Depth (303ms)
+✔ [210/217] Built Batteries.Data.RBMap.Depth (248ms)
+✔ [211/217] Built Batteries.Recycling.RBTree.Alter (605ms)
+Some required targets logged failures:
+- Batteries.Data.ByteArray
+- Batteries.Tactic.Alias
+error: build failed
+lake build  82.30s user 16.07s system 1039% cpu 9.467 total

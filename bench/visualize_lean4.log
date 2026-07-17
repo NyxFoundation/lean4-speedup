@@ -1,0 +1,346 @@
+visually visualize: "Lean4 compiler pipeline (parser, elaborator, kernel, LCNF code generator)" — no such scene yet; creating a draft first
+visually create: "Lean4 compiler pipeline (parser, elaborator, kernel, LCNF code generator)" — mode=algorithm, driver=claude
+  run log → /home/gohan/.visually-3d/runs/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/create-20260717-162121
+
+[36m✎ writing scene[0m
+{
+  "machine_name": "Lean4 compiler pipeline (parser, elaborator, kernel, LCNF code generator)",
+  "assembly_instructions": "Build left-to-right (+X) along a single steel frame rail that carries the whole compilation pipeline; a copper flow spine runs above it as the dataflow bus. Bolt the front-end blocks to the rail in order: source_file (glass, input text) → parser (steel, Pratt/syntax-category parser) → syntax_tree (glass, hygienic Syntax objects), with the macro_expander standing off to +Z and a flat black torus (macro_loop) closing the parse↔expand fixpoint back onto the parser. Next mount the elaborator, a large steel block flanked by its services: metavar_ctx (white, buffer) at +Z, unifier (steel, defeq/higher-order unification) at −Z, tc_synth (brass, tabled type-class instance table) at +Z, tactic_framework (black, control) at −Z; a vertical black torus (elab_loop) above spans elaborator→expr_core to show the postponement/synthesis fixpoint. The elaborated expr_core (glass, Expr in CIC) feeds the kernel (steel, ~6k-line trusted checker) which admits declarations into the environment (brass, learned/stored declarations), serialized sideways into olean_store (white, mmap'd .olean) and executable through the interpreter (black) at −Z. From the environment the back end continues along the rail as a chain of distinct LCNF passes — lcnf_lower, lcnf_simp, lcnf_spec, lcnf_erase, rc_insert — each its own block rather than one 'optimizer' box, ending in ir_emit (glass) and c_codegen (steel), with runtime_rc (white) attached below-right as the reference-counting runtime the emitted C links against.",
+  "metadata": {
+    "reference": "https://doi.org/10.1007/978-3-030-79876-5_37",
+    "domain": "compilers-and-proof-assistants",
+    "mode": "architecture",
+    "thumbnail_camera": [12.05, 10.4, 11.4],
+    "info": {
+      "english_name": "Lean 4 Theorem Prover and Programming Language — compilation pipeline",
+      "summary": "Lean 4 is a dependently typed theorem prover and general-purpose programming language whose compiler is written almost entirely in Lean 4 itself, with only a small trusted C++ kernel. Source text flows through a user-extensible parser and macro expander, a metavariable-based bidirectional elaborator, an independent kernel type checker, and an LCNF-based code generator that emits C.",
+      "description": "Lean 4's defining architectural choice is extensibility at every stage combined with a minimal trusted computing base. The Pratt-style parser is driven by syntax categories and user-declared notations, so `syntax`/`macro_rules` declarations extend the grammar of the language being compiled while it is compiled; macro expansion is hygienic, with scopes attached to Syntax nodes so generated binders cannot capture user names. The elaborator turns Syntax into Expr (terms of a Calculus of Inductive Constructions with impredicative Prop, definitional proof irrelevance and quotient types), running bidirectionally against expected types, postponing unsolved goals in a metavariable context, discharging instance goals via tabled type-class resolution, and delegating equality to a definitional-unfolding unifier. Tactics are simply metaprograms in the same language that manipulate the same metavariable context.",
+      "facts": [
+        {"label": "First stable release", "value": "Lean 4.0.0, September 2023 (project announced 2021)"},
+        {"label": "Trusted kernel size", "value": "~6,000 lines of C++ — the only part that must be trusted"},
+        {"label": "Bootstrapping", "value": "Parser, elaborator, tactics and code generator are written in Lean 4"},
+        {"label": "Core type theory", "value": "CIC + impredicative Prop, definitional proof irrelevance, quotient types"},
+        {"label": "Parser", "value": "Pratt parser over user-extensible syntax categories"},
+        {"label": "Macro hygiene", "value": "Scope-annotated Syntax nodes; macro_rules cannot capture binders"},
+        {"label": "Back-end IR", "value": "LCNF (Lean Compiler Normal Form), A-normal/CPS-style with type erasure"},
+        {"label": "Code generation target", "value": "C source, compiled by clang/LLVM; interpreter path shares the same environment"},
+        {"label": "Memory management", "value": "Non-deferred reference counting; RC=1 enables destructive in-place update (FBIP)"},
+        {"label": "Module format", "value": ".olean files, memory-mapped for fast import of compiled environments"}
+      ],
+      "sources": [
+        {"title": "The Lean 4 Theorem Prover and Programming Language (CADE-28, 2021)", "url": "https://doi.org/10.1007/978-3-030-79876-5_37"},
+        {"title": "Sebastian Ullrich — An Extensible Theorem Proving Frontend (PhD thesis, KIT 2023)", "url": "https://pp.ipd.kit.edu/uploads/publikationen/ullrich23diss.pdf"},
+        {"title": "Counting Immutable Beans: Reference Counting Optimized for Purely Functional Programming", "url": "https://arxiv.org/abs/1908.05647"},
+        {"title": "leanprover/lean4 source repository", "url": "https://github.com/leanprover/lean4"}
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "frame_rail",
+      "name": "Compilation frame rail",
+      "shape": "box",
+      "position": [0.65, 0.1, 0],
+      "size": [17.5, 0.2, 1.4],
+      "material": "welded steel",
+      "role": "Structural spine of the pipeline: every compilation stage is bolted to it in source-to-binary order along +X.",
+      "connections": ["source_file", "parser", "syntax_tree", "elaborator", "expr_core", "kernel", "environment", "lcnf_lower", "lcnf_simp", "lcnf_spec", "lcnf_erase", "rc_insert", "ir_emit", "c_codegen", "flow_spine"]
+    },
+    {
+      "id": "flow_spine",
+      "name": "Dataflow bus",
+      "shape": "cylinder",
+      "position": [0.65, 2.6, 0],
+      "rotation": [0, 0, 1.5708],
+      "size": [0.07, 16.5],
+      "material": "copper",
+      "role": "Carries each stage's output to the next: text, Syntax, Expr, declarations, LCNF, and finally emitted C.",
+      "connections": ["frame_rail", "parser", "elaborator", "kernel", "environment", "lcnf_lower", "ir_emit"]
+    },
+    {
+      "id": "source_file",
+      "name": "Source module (.lean)",
+      "shape": "box",
+      "position": [-7.5, 0.9, 0],
+      "size": [0.9, 1.4, 0.9],
+      "material": "glass display",
+      "role": "Input: a Lean module of UTF-8 text, whose own `syntax` and `macro_rules` commands may extend the grammar mid-file.",
+      "connections": ["frame_rail", "parser"]
+    },
+    {
+      "id": "parser",
+      "name": "Pratt parser",
+      "shape": "box",
+      "position": [-6.3, 1.0, 0],
+      "size": [1.1, 1.6, 1.1],
+      "material": "welded steel",
+      "role": "Precedence-driven parser over user-extensible syntax categories; the token table and grammar grow as commands are processed.",
+      "connections": ["frame_rail", "flow_spine", "source_file", "syntax_tree", "macro_expander", "macro_loop"]
+    },
+    {
+      "id": "syntax_tree",
+      "name": "Syntax (hygienic)",
+      "shape": "box",
+      "position": [-5.1, 0.9, 0],
+      "size": [0.9, 1.4, 0.9],
+      "material": "glass display",
+      "role": "Untyped Syntax nodes carrying source positions and macro scopes; the interchange format between parsing, expansion and elaboration.",
+      "connections": ["frame_rail", "parser", "macro_expander", "elaborator", "macro_loop"]
+    },
+    {
+      "id": "macro_expander",
+      "name": "Macro expander",
+      "shape": "box",
+      "position": [-5.7, 0.7, 2.5],
+      "size": [1.2, 1.4, 1.0],
+      "material": "black composite",
+      "role": "Applies macro_rules to Syntax, attaching fresh scopes so generated binders stay hygienic; expansion re-enters the parser's grammar.",
+      "connections": ["parser", "syntax_tree", "macro_loop"]
+    },
+    {
+      "id": "macro_loop",
+      "name": "Parse / expand fixpoint",
+      "shape": "torus",
+      "position": [-5.7, 2.9, 1.25],
+      "rotation": [1.5708, 0, 0],
+      "size": [1.5, 0.06],
+      "material": "black composite",
+      "role": "Control loop: expansion runs to a fixpoint, and each new notation feeds back into the parser before the next command is read.",
+      "connections": ["parser", "syntax_tree", "macro_expander"]
+    },
+    {
+      "id": "elaborator",
+      "name": "Bidirectional elaborator",
+      "shape": "box",
+      "position": [-3.6, 1.3, 0],
+      "size": [1.7, 2.2, 1.5],
+      "material": "welded steel",
+      "role": "Turns Syntax into fully explicit Expr, checking against expected types, inserting coercions and implicits, and postponing goals it cannot yet solve.",
+      "connections": ["frame_rail", "flow_spine", "syntax_tree", "metavar_ctx", "unifier", "tc_synth", "tactic_framework", "expr_core", "elab_loop"]
+    },
+    {
+      "id": "metavar_ctx",
+      "name": "Metavariable context",
+      "shape": "box",
+      "position": [-3.6, 0.6, 2.5],
+      "size": [1.2, 1.2, 1.0],
+      "material": "white composite",
+      "role": "Mutable store of open goals, their local contexts and assignments — the working memory every elaboration service reads and writes.",
+      "connections": ["elaborator", "unifier", "tc_synth", "tactic_framework"]
+    },
+    {
+      "id": "unifier",
+      "name": "Definitional unifier (isDefEq)",
+      "shape": "box",
+      "position": [-3.6, 0.7, -2.5],
+      "size": [1.2, 1.4, 1.0],
+      "material": "welded steel",
+      "role": "Decides definitional equality by whnf/unfolding and solves higher-order pattern constraints, assigning metavariables in the context.",
+      "connections": ["elaborator", "metavar_ctx"]
+    },
+    {
+      "id": "tc_synth",
+      "name": "Type-class instance table",
+      "shape": "box",
+      "position": [-2.2, 0.7, 2.5],
+      "size": [1.2, 1.4, 1.0],
+      "material": "brass",
+      "role": "Discrimination-tree index of registered instances; tabled resolution synthesizes instance arguments and caches solved goals.",
+      "connections": ["elaborator", "metavar_ctx"]
+    },
+    {
+      "id": "tactic_framework",
+      "name": "Tactic framework",
+      "shape": "box",
+      "position": [-2.2, 0.6, -2.5],
+      "size": [1.2, 1.2, 1.0],
+      "material": "black composite",
+      "role": "Metaprograms written in Lean that drive goal states in the same metavariable context; proofs are built by the same machinery as terms.",
+      "connections": ["elaborator", "metavar_ctx"]
+    },
+    {
+      "id": "expr_core",
+      "name": "Expr (core CIC term)",
+      "shape": "box",
+      "position": [-2.2, 0.9, 0],
+      "size": [0.9, 1.4, 0.9],
+      "material": "glass display",
+      "role": "Fully elaborated term in the core calculus — no implicits, no notation, nothing but binders, applications and constants.",
+      "connections": ["frame_rail", "elaborator", "kernel", "elab_loop"]
+    },
+    {
+      "id": "elab_loop",
+      "name": "Postponement fixpoint",
+      "shape": "torus",
+      "position": [-2.9, 3.2, 0],
+      "size": [1.6, 0.06],
+      "material": "black composite",
+      "role": "Control loop: postponed elaboration problems, instance goals and unification constraints are retried until the term is fully explicit.",
+      "connections": ["elaborator", "expr_core"]
+    },
+    {
+      "id": "kernel",
+      "name": "Trusted kernel type checker",
+      "shape": "box",
+      "position": [-0.9, 1.1, 0],
+      "size": [1.3, 1.8, 1.3],
+      "material": "welded steel",
+      "role": "Small independent C++ checker (~6k lines) that re-verifies every Expr from scratch; the elaborator is untrusted because this block exists.",
+      "connections": ["frame_rail", "flow_spine", "expr_core", "environment"]
+    },
+    {
+      "id": "environment",
+      "name": "Environment (declarations)",
+      "shape": "box",
+      "position": [0.5, 1.0, 0],
+      "size": [1.1, 1.6, 1.1],
+      "material": "brass",
+      "role": "The accumulated store of kernel-approved axioms, definitions and theorems, plus extension data; the compiler's parameter table.",
+      "connections": ["frame_rail", "flow_spine", "kernel", "olean_store", "interpreter", "lcnf_lower"]
+    },
+    {
+      "id": "olean_store",
+      "name": ".olean module store",
+      "shape": "box",
+      "position": [0.5, 0.5, 2.5],
+      "size": [1.2, 1.0, 1.0],
+      "material": "white composite",
+      "role": "Serialized compiled environment, memory-mapped on import so downstream modules load declarations without re-elaborating them.",
+      "connections": ["environment"]
+    },
+    {
+      "id": "interpreter",
+      "name": "Interpreter",
+      "shape": "box",
+      "position": [0.5, 0.6, -2.5],
+      "size": [1.2, 1.2, 1.0],
+      "material": "black composite",
+      "role": "Evaluates declarations directly from the environment, letting macros and tactics run at compile time before any C is emitted.",
+      "connections": ["environment", "runtime_rc"]
+    },
+    {
+      "id": "lcnf_lower",
+      "name": "LCNF lowering",
+      "shape": "box",
+      "position": [1.9, 0.95, 0],
+      "size": [1.0, 1.5, 1.0],
+      "material": "welded steel",
+      "role": "Translates kernel Exprs into Lean Compiler Normal Form: let-bound, A-normalized code with join points and explicit cases.",
+      "connections": ["frame_rail", "flow_spine", "environment", "lcnf_simp"]
+    },
+    {
+      "id": "lcnf_simp",
+      "name": "LCNF simp pass",
+      "shape": "box",
+      "position": [3.05, 0.9, 0],
+      "size": [1.0, 1.4, 1.0],
+      "material": "welded steel",
+      "role": "Inlining, constant folding, case-of-case and dead-let elimination over LCNF; runs to a fixpoint between the other passes.",
+      "connections": ["frame_rail", "lcnf_lower", "lcnf_spec"]
+    },
+    {
+      "id": "lcnf_spec",
+      "name": "LCNF specialization",
+      "shape": "box",
+      "position": [4.2, 0.9, 0],
+      "size": [1.0, 1.4, 1.0],
+      "material": "welded steel",
+      "role": "Monomorphizes polymorphic and higher-order code, specializing on type-class dictionaries and function arguments marked @[specialize].",
+      "connections": ["frame_rail", "lcnf_simp", "lcnf_erase"]
+    },
+    {
+      "id": "lcnf_erase",
+      "name": "LCNF type erasure",
+      "shape": "box",
+      "position": [5.35, 0.9, 0],
+      "size": [1.0, 1.4, 1.0],
+      "material": "welded steel",
+      "role": "Erases types, proofs and Prop-valued arguments to `lcErased`, collapsing the dependently typed term to untyped runtime code.",
+      "connections": ["frame_rail", "lcnf_spec", "rc_insert"]
+    },
+    {
+      "id": "rc_insert",
+      "name": "Borrow inference + RC insertion",
+      "shape": "box",
+      "position": [6.5, 0.9, 0],
+      "size": [1.0, 1.4, 1.0],
+      "material": "welded steel",
+      "role": "Inserts inc/dec operations and infers borrowed parameters so that RC=1 objects can be reused destructively instead of reallocated.",
+      "connections": ["frame_rail", "lcnf_erase", "ir_emit"]
+    },
+    {
+      "id": "ir_emit",
+      "name": "IR (untyped, RC-annotated)",
+      "shape": "box",
+      "position": [7.65, 0.9, 0],
+      "size": [0.9, 1.4, 0.9],
+      "material": "glass display",
+      "role": "The final low-level IR: unboxed scalars, boxed objects, explicit reference counting — one step away from C.",
+      "connections": ["frame_rail", "flow_spine", "rc_insert", "c_codegen"]
+    },
+    {
+      "id": "c_codegen",
+      "name": "C code generator",
+      "shape": "box",
+      "position": [8.8, 1.0, 0],
+      "size": [1.1, 1.6, 1.1],
+      "material": "welded steel",
+      "role": "Emits portable C from the IR, handed to clang/LLVM; the resulting object links against the Lean runtime.",
+      "connections": ["frame_rail", "ir_emit", "runtime_rc"]
+    },
+    {
+      "id": "runtime_rc",
+      "name": "Runtime (reference counting)",
+      "shape": "box",
+      "position": [8.2, 0.7, -2.5],
+      "size": [1.4, 1.4, 1.0],
+      "material": "white composite",
+      "role": "Non-deferred RC heap shared by compiled code and the interpreter; unique references enable functional-but-in-place update.",
+      "connections": ["c_codegen", "interpreter"]
+    }
+  ]
+}
+  verify backend: MuJoCo (physics sim) (auto-selected for this subject)
+
+  ✓ draft lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g → /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json (26 parts, mode=algorithm)
+
+  next:
+    visually check lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g            # open it in the browser
+    visually refine lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g           # another closed-loop round (improve → reproduce → amend)
+    visually upload lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g           # open a PR to the samples gallery
+
+visually visualize: lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g — ground-truth evidence + source-grounded 3D model
+  ▶ fetching ground-truth evidence (reference paper + real source code)…
+  ✓ cloned reference source: 13111 file(s) → /home/gohan/.visually-3d/evidence/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/source
+  grounding the 3D pass in the gathered source architecture
+  seeding visual pass with 1 grounding/verification gap(s)
+visually improve: seeding from caller-provided reflection (refine loop)
+self-improve: /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+             history -> /home/gohan/.visually-3d/runs/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/improve-20260717-163532
+             driver   -> claude (visual feedback enabled)
+             up to 1 iteration(s)
+
+──────── iteration 1 / 1 ────────
+  rendered -> iter-01-render.png
+  claude done (thinking trace: iter-01-events.jsonl, 213 events)
+  parts: 49   score: 89/100
+  critique: The render exposed three real defects. (1) The frame was ONE chassis box (`frame_rail`), and the copper `flow_spine` hung 1.2 m above every block on nothing — the SIDE view shows it as a bare floating stick; the ±2.5 m service blocks (metavar_ctx, unifier, tc_synth, olean_store, interpreter, runtime_rc) sat on bare ground with no member joining them to the rail, so TOP reads as three disconnected rows of scattered cubes. (2) The FRONT elevation was a monotone row of ~14 identical grey rectangles: the five LCNF passes were the same size and the same `welded steel`, so the back end carried no information at all. (3) Against the authoritative Fig. 3.1 the scene was simply incomplete — the **pretty printer**, **language server**, **editor** and the **module system** are named components of the pipeline and were all absent, as was the bootstrap feedback (code generator emitting metaprograms that run inside the frontend for subsequent input) and the frontend/kernel/code-generator zoning the thesis states explicitly. Also `flow_spine` at y=2.6 passed straight through the elaborator's volume.
+  + Closed the carried-over source-fidelity gap: added `pretty_printer`, `language_server` and `editor` from thesis Fig. 3.1 on a raised gantry over the front end, and `module_system` (§3.3, imports loaded from already-compiled .olean files) feeding the parser.
+  + Added `bootstrap_loop` — the interpreter/code-generator feedback that makes emitted metaprograms part of the component processing subsequent input, the defining Lean-in-Lean property.
+  + Replaced the single chassis box with a real frame: two rails (`frame_rail`, `rail_back`), a thin `deck_plate` floor, three `pedestal_*` posts, two `service_deck_*` plinths and two `tie_*` floor beams so no service block floats unconnected.
+  + Zoned the floor into three concrete/brass pads (`frontend_pad`, `tcb_pad`, `backend_pad`) after the thesis's explicit boundary: everything except the kernel and code generator is the frontend.
+  + Raised `flow_spine` to y=3.4 and put it on three real posts — it no longer intersects the elaborator and no longer floats.
+  + Differentiated the LCNF chain: heights now descend 1.5→1.35→1.25→1.10 as types and proofs are erased, `rc_insert`/`runtime_rc` recoloured copper to bind the reference-counting subsystem together.
+  + Compressed the X span to ±7.9 and made both fixpoint tori flat/horizontal so they encircle the stages they close over instead of cutting through them.
+  · gap: The kernel is still one opaque `forged steel` block: split its interior legibly (whnf/defeq engine, inductive-type compiler, universe checker) as an exploded stack directly above it with `role` saying so — this is the last real X-ray failure.
+  · gap: The elaborator is also a solid 1.5×2.2×1.5 block; consider rebuilding it as an open bay (four posts + top plate) with metavar_ctx pulled inside it, since the metavariable context is genuinely interior working memory, not a side service.
+  · gap: `macro_loop`, `elab_loop` and `bootstrap_loop` hover with no riser touching the blocks they span; add a short standoff from each loop down to one stage so the elevation views read them as attached control paths.
+  · gap: Verify in the next render that `spine_post_mid` at x=0.6 really clears environment (ends 0.5) and lcnf_lower (starts 0.675) — the gap is only 0.175 m and may look like interpenetration.
+  · gap: Dimensions are schematic block sizes, not traceable to a spec; consider encoding real magnitudes (kernel ~6k LoC, LCNF pass count) into `spec.params` on the relevant parts to lift the buildability axis.
+
+self-improve: done. Improved scene written to /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+             full history: /home/gohan/.visually-3d/runs/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/improve-20260717-163532
+             review change: git diff -- /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+             revert:        cp /home/gohan/.visually-3d/runs/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g/improve-20260717-163532/iter-00.json /home/gohan/.visually-3d/scenes/lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g.json
+
+  ✓ visualize done. Next: visually verify lean4-compiler-pipeline-parser-elaborator-kernel-lcnf-code-g

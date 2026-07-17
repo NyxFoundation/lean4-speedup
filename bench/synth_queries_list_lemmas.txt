@@ -1,0 +1,876 @@
+   2114 ️ OfNat Int 0
+   1267 ️ OfNat Int 1
+    566 ️ LawfulBEq α
+    566 💥️ BEq ?α
+    521 ️ OfNat (Lean.Grind.Ring.OfSemiring.Q Nat) 1
+    405 ️ BEq α
+    308 ️ NatCast Int
+    308 ️ IntCast Int
+    226 ️ OfNat Nat 1
+    191 ️ OfNat Nat 0
+    180 ️ Lean.Grind.Semiring Nat
+    174 ️ HAdd Nat Nat Nat
+    160 💥️ LE ?α
+    157 ️ Std.LawfulOrderLT Int
+    157 ️ Std.IsPreorder Int
+    157 ️ Std.IsPartialOrder Int
+    157 ️ Std.IsLinearPreorder Int
+    157 ️ Lean.Grind.OrderedRing Int
+    157 ️ Lean.Grind.NoNatZeroDivisors Int
+    157 ️ Lean.Grind.NoNatZeroDivisors (Lean.Grind.Ring.OfSemiring.Q Nat)
+    157 ️ Lean.Grind.NatModule Int
+    157 ️ Lean.Grind.NatModule (Lean.Grind.Ring.OfSemiring.Q Nat)
+    157 ️ Lean.Grind.IsCharP Int 0
+    157 ️ Lean.Grind.IsCharP (Lean.Grind.Ring.OfSemiring.Q Nat) 0
+    157 ️ Lean.Grind.Field Int
+    157 ️ Lean.Grind.Field (Lean.Grind.Ring.OfSemiring.Q Nat)
+    157 ️ Lean.Grind.CommSemiring Nat
+    157 ️ Lean.Grind.CommRing Nat
+    157 ️ Lean.Grind.CommRing Int
+    157 ️ Lean.Grind.CommRing (Lean.Grind.Ring.OfSemiring.Q Nat)
+    147 💥️ Std.Iterator ?m.870 Id ?m.871
+    147 💥️ Std.Iterator ?m.870 ?m.871 ?m.872
+    127 ️ Add Nat
+    126 ️ OfNat (Lean.Grind.Ring.OfSemiring.Q Nat) 0
+    126 ️ Lean.Grind.AddRightCancel Nat
+    121 ️ Lean.Grind.ToInt Nat (Lean.Grind.IntInterval.ci 0)
+    115 ️ LT Nat
+    114 💥️ Std.Iterator ?m.863 Id ?m.864
+    114 💥️ Std.Iterator ?m.863 ?m.864 ?m.865
+    114 💥️ Std.Iterator ?m.245 Id ?m.246
+    114 💥️ Std.Iterator ?m.245 ?m.246 ?m.247
+    113 ️ GetElem (List α) Nat α fun as i => i < as.length
+    111 💥️ Std.Iterator ?m.886 Id ?m.887
+    111 💥️ Std.Iterator ?m.886 ?m.887 ?m.888
+     81 💥️ Std.Iterator ?m.239 Id ?m.240
+     81 💥️ Std.Iterator ?m.239 ?m.240 ?m.241
+     79 ️ HAdd (Lean.Grind.Ring.OfSemiring.Q Nat) (Lean.Grind.Ring.OfSemiring.Q Nat)
+     78 💥️ Std.Iterator ?m.874 Id ?m.875
+     78 💥️ Std.Iterator ?m.874 ?m.875 ?m.876
+     78 💥️ Std.Iterator ?m.261 Id ?m.262
+     78 💥️ Std.Iterator ?m.261 ?m.262 ?m.263
+     74 ️ Neg Int
+     72 ️ HAppend (List α) (List α) (List α)
+     70 💥️ LT ?m.33
+     70 💥️ LE ?m.33
+     60 💥️ LT ?m.36
+     60 💥️ LE ?m.36
+     59 ️ GetElem (List Nat) Nat Nat fun as i => i < as.length
+     53 ️ Lean.Grind.Semiring Int
+     50 ️ Membership α (List α)
+     45 💥️ Std.Iterator ?m.250 Id ?m.251
+     45 💥️ Std.Iterator ?m.250 ?m.251 ?m.252
+     44 ️ LE Nat
+     42 ️ Std.Associative (findIdxNth.go p tail)
+     41 ️ LawfulBEq (List α)
+     40 ️ HSub Nat Nat Nat
+     40 💥️ LT ?m.22
+     40 💥️ LE ?m.22
+     39 ️ Decidable (p a = true)
+     36 ️ Std.Associative (countPBefore.go p tail)
+     34 ️ Membership Nat (List Nat)
+     32 💥️ SizeOf ?α
+     29 ️ Decidable (p head = true)
+     28 ️ SizeOf (List α)
+     28 ️ Decidable (1 ≤ 1)
+     25 ️ LawfulGetElem (List α) Nat α fun as i => i < as.length
+     24 ️ Decidable (-1 * ↑n + 1 ≤ 0)
+     20 ️ Decidable ((a == x) = true)
+     20 💥️ SizeOf ?m.889
+     20 💥️ SizeOf ?m.877
+     20 💥️ SizeOf ?m.873
+     20 💥️ SizeOf ?m.866
+     20 💥️ SizeOf ?m.264
+     20 💥️ SizeOf ?m.253
+     20 💥️ SizeOf ?m.248
+     20 💥️ SizeOf ?m.242
+     19 ️ CoeSort Bool Prop
+     18 ️ Nonempty ((i'' == i) = true)
+     17 ️ Std.LawfulIdentity HAppend.hAppend []
+     17 ️ Std.IdempotentOp HAppend.hAppend
+     17 ️ Std.Commutative HAppend.hAppend
+     17 ️ Std.Associative HAppend.hAppend
+     17 ️ Decidable (0 < 1)
+     17 💥️ OfNat ?m.2 0
+     16 ️ Inhabited α
+     16 ️ HMul α α α
+     16 ️ HAdd α α α
+     15 💥️ LE ?m.7
+     14 ️ Decidable (↑s + -1 * ↑(idxsOf x xs s)[i] ≤ 0)
+     14 ️ Decidable (n = 0)
+     12 ️ Nonempty (a ∈ xs)
+     12 ️ Decidable (-1 * ↑i + 1 ≤ 0)
+     12 💥️ OfNat ?m.8 0
+     12 💥️ OfNat ?m.7 0
+     12 💥️ OfNat ?m.4 0
+     12 💥️ OfNat ?m.25 1
+     12 💥️ LT ?m.12
+     12 💥️ Functor ?f
+     11 ️ Nonempty (i'' = [])
+     11 💥️ OfNat ?m.17 0
+     11 💥️ LT ?m.7
+     10 ️ LE Int
+     10 ️ CoeT Bool (p a) Prop
+     10 💥️ OfNat ?m.11 1
+      9 ️ OfNat Nat 2
+      9 ️ OfNat Int 2
+      9 ️ Min α
+      9 ️ Max α
+      9 ️ HAppend (List ?m.5) (List ?m.5) (List ?m.5)
+      9 ️ Decidable ((head == x) = true)
+      9 💥️ LE ?m.6
+      8 ️ Zero α
+      8 ️ One α
+      8 ️ Mul α
+      8 ️ Monad m
+      8 ️ Lean.Grind.PowIdentity Int ?m.37
+      8 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.37
+      8 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.27
+      8 ️ GetElem? (List α) Nat α fun as i => i < as.length
+      8 ️ DecidableEq α
+      8 ️ Decidable (↑s + -1 * ↑y ≤ 0)
+      8 ️ Decidable (↑s + -1 * ↑(findIdxs p xs s)[i] ≤ 0)
+      8 ️ Add α
+      8 💥️ OfNat ?m.8 1
+      8 💥️ OfNat ?m.5 1
+      8 💥️ OfNat ?m.38 1
+      8 💥️ OfNat ?m.3 0
+      8 💥️ OfNat ?m.21 1
+      8 💥️ OfNat ?m.16 1
+      8 💥️ OfNat ?m.1 0
+      8 💥️ BEq ?m.7
+      8 💥️ BEq ?m.15
+      7 ️ Std.IdempotentOp min
+      7 ️ Std.Commutative min
+      7 ️ Std.Associative min
+      7 ️ Nonempty (l = p'' ++ (i'' ++ s''))
+      7 ️ Min Nat
+      7 ️ Lean.Grind.PowIdentity Int ?m.27
+      7 ️ HAppend (List Nat) (List Nat) (List Nat)
+      7 ️ Decidable (p x = true)
+      7 ️ BEq (List α)
+      7 💥️ OfNat ?m.9 1
+      7 💥️ OfNat ?m.19 0
+      7 💥️ Membership ?m.6 ?m.7
+      7 💥️ Membership ?m.4 ?m.5
+      7 💥️ Membership ?m.3 ?m.4
+      6 ️ WellFoundedRelation (List α)
+      6 ️ Std.LawfulOrderLT Bool
+      6 ️ Std.IsPreorder Bool
+      6 ️ Std.IsPartialOrder Bool
+      6 ️ Std.IsLinearOrder Bool
+      6 ️ Nonempty (s'' = [])
+      6 ️ Nonempty (p'' = [])
+      6 ️ Membership ?m.4 (List ?m.4)
+      6 ️ Lean.Grind.Ring Bool
+      6 ️ Lean.Grind.PowIdentity Int ?m.38
+      6 ️ Lean.Grind.PowIdentity Int ?m.36
+      6 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.38
+      6 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.36
+      6 ️ Lean.Grind.IntModule Bool
+      6 ️ Lean.Grind.CommRing Bool
+      6 ️ LT Bool
+      6 ️ LE Bool
+      6 ️ HAppend (List ?m.4) (List ?m.4) (List ?m.4)
+      6 ️ Decidable (↑s + -1 * ↑(findIdxs p tail (s + 1))[i - 1] + 1 ≤ 0)
+      6 ️ Decidable (↑n + -1 * ↑(head :: tail).length ≤ 0)
+      6 ️ Decidable ({ lowerBound := some 0, upperBound := some (-1) }.isImpossible = true)
+      6 ️ Decidable (m = n)
+      6 ️ Decidable (i = 0)
+      6 ️ Decidable (-1 * ↑(head :: tail).length + 1 ≤ 0)
+      6 ️ CoeT Bool (a == x) Prop
+      6 💥️ OfNat ?m.5 0
+      6 💥️ OfNat ?m.29 1
+      6 💥️ OfNat ?m.18 1
+      6 💥️ Monad ?m
+      6 💥️ Membership ?m.5 ?m.6
+      6 💥️ LT ?m.13
+      6 💥️ HAppend (?m.85 x✝¹ x✝ a a') (List α) (List α)
+      6 💥️ BEq ?m.16
+      6 💥️ BEq ?m.14
+      5 ️ Union (List α)
+      5 ️ Trans R R R
+      5 ️ Std.Refl fun x1 x2 => x1 ≤ x2
+      5 ️ OfNat α 1
+      5 ️ OfNat α 0
+      5 ️ Nonempty (p' ++ (i' ++ s) = p'' ++ (i'' ++ s''))
+      5 ️ Nonempty (a :: (p' ++ (i' ++ s)) = p'' ++ (i'' ++ s''))
+      5 ️ Lean.Grind.ToInt Prop ?m.31
+      5 ️ Lean.Grind.ToInt Bool ?m.53
+      5 ️ Lean.Grind.ToInt Bool ?m.39
+      5 ️ Lean.Grind.PowIdentity Int ?m.44
+      5 ️ Lean.Grind.PowIdentity Int ?m.43
+      5 ️ Lean.Grind.PowIdentity Int ?m.33
+      5 ️ Lean.Grind.PowIdentity Int ?m.29
+      5 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.56
+      5 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.44
+      5 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.43
+      5 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.33
+      5 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.30
+      5 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.29
+      5 ️ CoeT Bool (p xs[i]) Prop
+      5 💥️ OfNat ?m.31 1
+      5 💥️ OfNat ?m.27 1
+      5 💥️ OfNat ?m.26 1
+      5 💥️ OfNat ?m.12 1
+      5 💥️ OfNat ?m.12 0
+      5 💥️ Membership ?m.9 ?m.10
+      5 💥️ CoeT (Mem ?m.147 (?m.147 :: ?m.148)) ⋯ (x✝¹ ∈ b :: l)
+      5 💥️ BEq ?m.8
+      4 ️ ReflBEq α
+      4 ️ Nonempty (l = p' ++ (i' ++ s'))
+      4 ️ Nonempty (a ∈ l₁)
+      4 ️ Lean.Grind.ToInt Prop ?m.45
+      4 ️ Lean.Grind.ToInt Prop ?m.22
+      4 ️ Lean.Grind.ToInt Bool ?m.51
+      4 ️ Lean.Grind.ToInt Bool ?m.37
+      4 ️ Lean.Grind.PowIdentity Int ?m.56
+      4 ️ Lean.Grind.PowIdentity Int ?m.54
+      4 ️ Lean.Grind.PowIdentity Int ?m.48
+      4 ️ Lean.Grind.PowIdentity Int ?m.39
+      4 ️ Lean.Grind.PowIdentity Int ?m.32
+      4 ️ Lean.Grind.PowIdentity Int ?m.30
+      4 ️ Lean.Grind.PowIdentity Int ?m.22
+      4 ️ Lean.Grind.PowIdentity Int ?m.20
+      4 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.54
+      4 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.48
+      4 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.39
+      4 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.32
+      4 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.22
+      4 ️ Decidable ({ lowerBound := some 2, upperBound := some 0 }.isImpossible = true)
+      4 ️ Decidable (p tail[findIdxNth p tail 0] = true)
+      4 ️ Decidable (p (head :: tail)[(findIdxs p (head :: tail) s)[i] - s] = true)
+      4 ️ Decidable (head = x)
+      4 ️ Decidable (head = (head :: tail)[i])
+      4 ️ Decidable (-1 * ↑i + ↑s ≤ 0)
+      4 💥️ OfNat ?m.9 0
+      4 💥️ OfNat ?m.7 1
+      4 💥️ OfNat ?m.22 1
+      4 💥️ OfNat ?m.20 1
+      4 💥️ OfNat ?m.19 1
+      4 💥️ OfNat ?m.18 0
+      4 💥️ OfNat ?m.17 1
+      4 💥️ OfNat ?m.15 1
+      4 💥️ OfNat ?m.15 0
+      4 💥️ OfNat ?m.14 0
+      4 💥️ Inhabited ?m.6
+      4 💥️ Inhabited ?m.12
+      4 💥️ HasSubset ?m.6
+      4 💥️ HasSubset ?m.5
+      4 💥️ CoeT (List Nat) x (List ?m.7)
+      4 💥️ CoeT (List ?m.7) x (List Nat)
+      4 💥️ BEq ?m.6
+      4 💥️ BEq ?m.13
+      4 💥️ BEq ?m.11
+      3 ️ Std.Associative Prod
+      3 ️ Std.Associative (findIdxNth.go p xs)
+      3 ️ Nonempty ((i' == i) = true)
+      3 ️ Lean.Grind.ToInt Prop ?m.39
+      3 ️ Lean.Grind.ToInt Prop ?m.26
+      3 ️ Lean.Grind.ToInt Prop ?m.24
+      3 ️ Lean.Grind.ToInt Bool ?m.45
+      3 ️ Lean.Grind.ToInt Bool ?m.36
+      3 ️ Lean.Grind.ToInt Bool ?m.35
+      3 ️ Lean.Grind.ToInt Bool ?m.32
+      3 ️ Lean.Grind.ToInt (List α) ?m.47
+      3 ️ Lean.Grind.ToInt (List Nat) ?m.52
+      3 ️ Lean.Grind.Ring (List α)
+      3 ️ Lean.Grind.PowIdentity Int ?m.53
+      3 ️ Lean.Grind.PowIdentity Int ?m.49
+      3 ️ Lean.Grind.PowIdentity Int ?m.42
+      3 ️ Lean.Grind.PowIdentity Int ?m.41
+      3 ️ Lean.Grind.PowIdentity Int ?m.35
+      3 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.49
+      3 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.42
+      3 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.41
+      3 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.35
+      3 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.23
+      3 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.20
+      3 ️ Lean.Grind.IntModule (List α)
+      3 ️ Lean.Grind.CommRing (List α)
+      3 ️ LT (List α)
+      3 ️ LE (List α)
+      3 ️ HAppend (List ?m.3) (List ?m.3) (List ?m.3)
+      3 ️ Decidable (↑s + -1 * ↑w + 1 ≤ 0)
+      3 ️ Decidable (↑s + -1 * ↑(idxsOf x tail (s + 1))[n - 1] + 1 ≤ 0)
+      3 ️ Decidable (↑s + -1 * ↑(idxsOf x tail (s + 1))[0] + 1 ≤ 0)
+      3 ️ Decidable (↑s + -1 * ↑(findIdxs p tail (s + 1))[i] + 1 ≤ 0)
+      3 ️ Decidable (↑s + -1 * ↑(findIdxs p (head :: tail) s)[i] + 1 ≤ 0)
+      3 ️ Decidable (↑i + -1 * ↑xs.length + 1 ≤ 0)
+      3 ️ Decidable (i_1 + 1 ≤ i)
+      3 ️ Decidable (i_1 + 1 ≤ (take i xs).length)
+      3 ️ Decidable (i - s = 0)
+      3 ️ Decidable (i + 1 ≤ xs.length)
+      3 ️ Decidable (-1 * ↑xs.length + 1 ≤ 0)
+      3 ️ Decidable (-1 * ↑l.length + 1 ≤ 0)
+      3 ️ Decidable (-1 * ↑i + ↑s + 1 ≤ 0)
+      3 ️ Decidable (-1 * ↑(findIdxNth p (head :: tail) n) + 1 ≤ 0)
+      3 ️ Decidable (-1 * ↑(countPBefore p (head :: tail) i) + 1 ≤ 0)
+      3 ️ Decidable (-1 * ↑(countP p (head :: tail)) + 1 ≤ 0)
+      3 ️ Decidable ((xs[(findIdxs (fun x_1 => x_1 == x) xs)[i]] == x) = true)
+      3 ️ Decidable ((xs[(findIdxs (fun x_1 => x_1 == x) xs)[0]] == x) = true)
+      3 ️ Decidable ((tail[findIdxNth (fun x_1 => x_1 == x) tail (n - 1)] == x) = true)
+      3 ️ Decidable (((head :: tail)[(idxsOf x (head :: tail) s)[0] - s] == x) = true)
+      3 ️ Decidable (((head :: tail)[(findIdxs (fun x_1 => x_1 == x) (head :: tail))[n]] == x) = true)
+      3 ️ Decidable (((head :: tail)[(findIdxs (fun x_1 => x_1 == x) (head :: tail))[0]] == x) = true)
+      3 ️ CoeT Bool (xs[i] == x) Prop
+      3 💥️ OfNat ?m.52 1
+      3 💥️ OfNat ?m.45 1
+      3 💥️ OfNat ?m.44 1
+      3 💥️ OfNat ?m.37 1
+      3 💥️ OfNat ?m.35 1
+      3 💥️ OfNat ?m.33 1
+      3 💥️ OfNat ?m.32 1
+      3 💥️ OfNat ?m.24 1
+      3 💥️ OfNat ?m.23 1
+      3 💥️ OfNat ?m.2 1
+      3 💥️ Membership ?m.10 ?m.11
+      3 💥️ LawfulBEq ?m.20
+      3 💥️ HasSubset ?m.3
+      3 💥️ BEq ?m.9
+      2 ️ Zero Nat
+      2 ️ Trans (fun x1 x2 => ¬x1 = x2) (fun x1 x2 => ¬x1 = x2) fun x1 x2 => ¬x1 = x2
+      2 ️ Trans (fun x1 x2 => x1 + 1 ≤ x2) (fun x1 x2 => x1 + 1 ≤ x2) fun x1 x2 => x1 + 1 ≤ x2
+      2 ️ Subsingleton Nat
+      2 ️ Sub Nat
+      2 ️ Std.LawfulRightIdentity concat a
+      2 ️ Std.LawfulRightIdentity HMul.hMul b
+      2 ️ Std.LawfulRightIdentity HMul.hMul a
+      2 ️ Std.LawfulRightIdentity HMul.hMul 1
+      2 ️ Std.LawfulRightIdentity HAppend.hAppend [a]
+      2 ️ Std.LawfulRightIdentity HAdd.hAdd b
+      2 ️ Std.LawfulRightIdentity HAdd.hAdd a
+      2 ️ Std.LawfulRightIdentity HAdd.hAdd 0
+      2 ️ Std.LawfulLeftIdentity (fun x1 x2 => x1 + x2) 0
+      2 ️ Std.LawfulLeftIdentity (fun x1 x2 => x1 * x2) 1
+      2 ️ Std.Associative fun x1 x2 => x1 + x2
+      2 ️ Std.Associative fun x1 x2 => x1 * x2
+      2 ️ Std.Associative Function.comp
+      2 ️ Std.Associative (findIdxNth.go p (a :: xs))
+      2 ️ Std.Associative (countPBefore.go p xs)
+      2 ️ Std.Associative (countPBefore.go p (a :: xs))
+      2 ️ Nonempty (a ∈ l₁)
+      2 ️ Nonempty (a ∈ l₂)
+      2 ️ Nonempty (a = a✝)
+      2 ️ Nonempty (a :: t = p'' ++ (i'' ++ s''))
+      2 ️ NatCast Nat
+      2 ️ NatCast (Lean.Grind.Ring.OfSemiring.Q Nat)
+      2 ️ Lean.Grind.ToInt α_1 ?m.54
+      2 ️ Lean.Grind.ToInt α ?m.66
+      2 ️ Lean.Grind.ToInt α ?m.45
+      2 ️ Lean.Grind.ToInt α ?m.44
+      2 ️ Lean.Grind.ToInt α ?m.19
+      2 ️ Lean.Grind.ToInt Prop ?m.93
+      2 ️ Lean.Grind.ToInt Prop ?m.61
+      2 ️ Lean.Grind.ToInt Prop ?m.47
+      2 ️ Lean.Grind.ToInt Prop ?m.46
+      2 ️ Lean.Grind.ToInt Prop ?m.44
+      2 ️ Lean.Grind.ToInt Prop ?m.43
+      2 ️ Lean.Grind.ToInt Prop ?m.40
+      2 ️ Lean.Grind.ToInt Prop ?m.38
+      2 ️ Lean.Grind.ToInt Prop ?m.37
+      2 ️ Lean.Grind.ToInt Prop ?m.36
+      2 ️ Lean.Grind.ToInt Prop ?m.34
+      2 ️ Lean.Grind.ToInt Prop ?m.32
+      2 ️ Lean.Grind.ToInt Prop ?m.29
+      2 ️ Lean.Grind.ToInt Prop ?m.28
+      2 ️ Lean.Grind.ToInt Bool ?m.93
+      2 ️ Lean.Grind.ToInt Bool ?m.68
+      2 ️ Lean.Grind.ToInt Bool ?m.66
+      2 ️ Lean.Grind.ToInt Bool ?m.61
+      2 ️ Lean.Grind.ToInt Bool ?m.49
+      2 ️ Lean.Grind.ToInt Bool ?m.48
+      2 ️ Lean.Grind.ToInt Bool ?m.47
+      2 ️ Lean.Grind.ToInt Bool ?m.41
+      2 ️ Lean.Grind.ToInt Bool ?m.38
+      2 ️ Lean.Grind.ToInt Bool ?m.33
+      2 ️ Lean.Grind.ToInt Bool ?m.31
+      2 ️ Lean.Grind.ToInt Bool ?m.29
+      2 ️ Lean.Grind.ToInt (Option α) ?m.19
+      2 ️ Lean.Grind.ToInt (List α) ?m.59
+      2 ️ Lean.Grind.ToInt (List α) ?m.51
+      2 ️ Lean.Grind.ToInt (List α) ?m.16
+      2 ️ Lean.Grind.ToInt (List Nat) ?m.59
+      2 ️ Lean.Grind.ToInt (List Nat) ?m.53
+      2 ️ Lean.Grind.ToInt (List Nat) ?m.51
+      2 ️ Lean.Grind.ToInt (List Nat) ?m.47
+      2 ️ Lean.Grind.ToInt (List Nat) ?m.45
+      2 ️ Lean.Grind.ToInt (List Nat) ?m.43
+      2 ️ Lean.Grind.ToInt (List Nat) ?m.41
+      2 ️ Lean.Grind.PowIdentity Int ?m.95
+      2 ️ Lean.Grind.PowIdentity Int ?m.94
+      2 ️ Lean.Grind.PowIdentity Int ?m.93
+      2 ️ Lean.Grind.PowIdentity Int ?m.92
+      2 ️ Lean.Grind.PowIdentity Int ?m.83
+      2 ️ Lean.Grind.PowIdentity Int ?m.64
+      2 ️ Lean.Grind.PowIdentity Int ?m.57
+      2 ️ Lean.Grind.PowIdentity Int ?m.52
+      2 ️ Lean.Grind.PowIdentity Int ?m.51
+      2 ️ Lean.Grind.PowIdentity Int ?m.50
+      2 ️ Lean.Grind.PowIdentity Int ?m.47
+      2 ️ Lean.Grind.PowIdentity Int ?m.45
+      2 ️ Lean.Grind.PowIdentity Int ?m.40
+      2 ️ Lean.Grind.PowIdentity Int ?m.34
+      2 ️ Lean.Grind.PowIdentity Int ?m.28
+      2 ️ Lean.Grind.PowIdentity Int ?m.25
+      2 ️ Lean.Grind.PowIdentity Int ?m.24
+      2 ️ Lean.Grind.PowIdentity Int ?m.23
+      2 ️ Lean.Grind.PowIdentity Int ?m.21
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.95
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.94
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.93
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.92
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.83
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.64
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.57
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.53
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.52
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.51
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.50
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.47
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.45
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.40
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.34
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.28
+      2 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.25
+      2 ️ LawfulApplicative m
+      2 ️ LT (String.Slice.Pos ?m.886)
+      2 ️ LT (String.Slice.Pos ?m.874)
+      2 ️ LT (String.Slice.Pos ?m.870)
+      2 ️ LT (String.Slice.Pos ?m.863)
+      2 ️ LT (String.Slice.Pos ?m.261)
+      2 ️ LT (String.Slice.Pos ?m.250)
+      2 ️ LT (String.Slice.Pos ?m.245)
+      2 ️ LT (String.Slice.Pos ?m.239)
+      2 ️ LT (String.Pos ?m.886)
+      2 ️ LT (String.Pos ?m.874)
+      2 ️ LT (String.Pos ?m.870)
+      2 ️ LT (String.Pos ?m.863)
+      2 ️ LT (String.Pos ?m.261)
+      2 ️ LT (String.Pos ?m.250)
+      2 ️ LT (String.Pos ?m.245)
+      2 ️ LT (String.Pos ?m.239)
+      2 ️ Inter (List α)
+      2 ️ Inhabited Nat
+      2 ️ HMul (Lean.Grind.Ring.OfSemiring.Q Nat) (Lean.Grind.Ring.OfSemiring.Q Nat)
+      2 ️ Decidable (↑s + -1 * ↑(idxsOf x xs s)[0] ≤ 0)
+      2 ️ Decidable (↑s + -1 * ↑(idxsOf x [] s)[n] ≤ 0)
+      2 ️ Decidable (↑s + -1 * ↑(idxsOf x (head :: tail) s)[n] ≤ 0)
+      2 ️ Decidable (↑s + -1 * ↑(idxsOf x (head :: tail) s)[0] ≤ 0)
+      2 ️ Decidable (↑s + -1 * ↑(findIdxs p xs s)[0] ≤ 0)
+      2 ️ Decidable (↑s + -1 * ↑(findIdxs p [] s)[i] ≤ 0)
+      2 ️ Decidable (↑s + -1 * ↑(findIdxs p (head :: tail) s)[i] ≤ 0)
+      2 ️ Decidable (↑i + -1 * ↑xs.length ≤ 0)
+      2 ️ Decidable (xs = [])
+      2 ️ Decidable (sizeOf l✝ < sizeOf (b✝ :: l✝))
+      2 ️ Decidable (p xs[w_1] = true)
+      2 ️ Decidable (p xs[s + findIdx p xs - s] = true)
+      2 ️ Decidable (p tail[i - 1] = true)
+      2 ️ Decidable (p tail[findIdxNth p tail (n - 1)] = true)
+      2 ️ Decidable (p ab.fst = true)
+      2 ️ Decidable (p (xs.head h) = true)
+      2 ️ Decidable (p (head :: tail)[i] = true)
+      2 ️ Decidable (p (head :: tail)[findIdxNth p tail 0 + 1] = true)
+      2 ️ Decidable (p (head :: tail)[findIdxNth p tail (n - 1) + 1] = true)
+      2 ️ Decidable (p (head :: tail)[0] = true)
+      2 ️ Decidable (p (f head) = true)
+      2 ️ Decidable (p ((head :: tail).head ⋯) = true)
+      2 ️ Decidable (p ((a :: xs).head ⋯) = true)
+      2 ️ Decidable (n + 1 ≤ (head :: tail).length)
+      2 ️ Decidable (n ≤ tail.length)
+      2 ️ Decidable (n ≤ (head :: tail).length)
+      2 ️ Decidable (i_1 + 1 ≤ xs.length - 1)
+      2 ️ Decidable (i < l.length)
+      2 ️ Decidable (i ≤ xs.length)
+      2 ️ Decidable (head✝¹ = head✝)
+      2 ️ Decidable (findIdxNth p (head :: tail) n = 0)
+      2 ️ Decidable (a ∈ l₂)
+      2 ️ Decidable (1 ≤ (drop n (head :: tail)).length)
+      2 ️ Decidable (-1 * ↑(findIdx p xs) ≤ 0)
+      2 ️ Decidable ((idxsOf x (head :: tail) s)[n] - s = 0)
+      2 ️ Decidable ((idxsOf x (head :: tail) s)[0] - s = 0)
+      2 ️ Decidable ((head :: tail).length = 0)
+      2 ️ Decidable ((findIdxs p (head :: tail) s)[i] - s = 0)
+      2 ️ Decidable (((head :: tail)[(idxsOf x (head :: tail) s)[n] - s] == x) = true)
+      2 ️ CoeT Nat ab.snd (Option Nat)
+      2 ️ CoeT Bool (p x) Prop
+      2 ️ CoeT Bool (i' == i) Prop
+      2 ️ Applicative m
+      2 💥️ Zero ?m.22
+      2 💥️ One ?m.22
+      2 💥️ OfNat ?m.34 1
+      2 💥️ OfNat ?m.28 1
+      2 💥️ OfNat ?m.24 2
+      2 💥️ OfNat ?m.23 0
+      2 💥️ OfNat ?m.14 1
+      2 💥️ OfNat ?m.13 1
+      2 💥️ OfNat ?m.11 0
+      2 💥️ OfNat ?m.10 0
+      2 💥️ Mul ?m.22
+      2 💥️ Min ?m.12
+      2 💥️ Membership α (?m.85 x✝¹ x✝ a a')
+      2 💥️ Membership ?m.20 ?m.16
+      2 💥️ Membership ?m.2 ?m.3
+      2 💥️ Membership ?m.14 ?m.10
+      2 💥️ Max ?m.12
+      2 💥️ LawfulBEq ?m.46
+      2 💥️ LawfulBEq ?m.15
+      2 💥️ LawfulBEq ?m.14
+      2 💥️ LawfulBEq ?m.13
+      2 💥️ Inhabited ?m.8
+      2 💥️ HasSubset ?m.4
+      2 💥️ HasSubset ?m.2
+      2 💥️ HasSubset ?m.1
+      2 💥️ GetElem? ?m.18 ?m.19 ?m.20 ?m.21
+      2 💥️ GetElem? (List α) ?m.3 ?m.9 ?m.10
+      2 💥️ GetElem (List α) ?m.7 ?m.8 ?m.9
+      2 💥️ GetElem (List Nat) ?m.19 ?m.14 ?m.15
+      2 💥️ GetElem (List Nat) ?m.18 ?m.14 ?m.15
+      2 💥️ GetElem (List Nat) ?m.18 ?m.13 ?m.14
+      2 💥️ GetElem (List Nat) ?m.17 ?m.13 ?m.14
+      2 💥️ CoeT Nat ab.snd (Option ?m.18)
+      2 💥️ CoeT Nat ab.snd (Option ?m.15)
+      2 💥️ CoeT (List α) x (List ?m.4)
+      2 💥️ CoeT (List α) x (List ?m.2)
+      2 💥️ CoeT (List α) x (List ?m.12)
+      2 💥️ CoeT (List ?m.4) x (List α)
+      2 💥️ CoeT (List ?m.2) x (List α)
+      2 💥️ CoeT (List ?m.12) x (List α)
+      2 💥️ BEq ?m.85
+      2 💥️ BEq ?m.706
+      2 💥️ BEq ?m.46
+      2 💥️ BEq ?m.42
+      2 💥️ BEq ?m.33
+      2 💥️ BEq ?m.26
+      2 💥️ BEq ?m.249
+      2 💥️ BEq ?m.20
+      2 💥️ BEq ?m.124
+      2 💥️ BEq ?m.12
+      2 💥️ BEq ?m.10
+      2 💥️ Add ?m.22
+      1 ️ Trans Sublist Sublist Sublist
+      1 ️ Trans Eq Sublist Sublist
+      1 ️ Std.LawfulLeftIdentity cons 1
+      1 ️ Std.LawfulLeftIdentity cons 0
+      1 ️ Std.LawfulLeftIdentity HMul.hMul 1
+      1 ️ Std.LawfulLeftIdentity HAdd.hAdd 0
+      1 ️ Std.LawfulIdentity min ?m.99
+      1 ️ Std.LawfulIdentity min ?m.96
+      1 ️ Std.LawfulIdentity min ?m.95
+      1 ️ Std.LawfulIdentity min ?m.94
+      1 ️ Std.LawfulIdentity min ?m.93
+      1 ️ Std.LawfulIdentity min ?m.47
+      1 ️ Std.LawfulIdentity min ?m.35
+      1 ️ Std.Associative (findIdxNth.go p [])
+      1 ️ Std.Associative (findIdxNth.go p (head :: tail))
+      1 ️ Std.Associative (countPBefore.go p [])
+      1 ️ Std.Associative (countPBefore.go p (head :: tail))
+      1 ️ OfNat (Lean.Grind.Ring.OfSemiring.Q Nat) 2
+      1 ️ Nonempty (x ∈ l₁)
+      1 ️ Nonempty (x ∈ l₂)
+      1 ️ Nonempty (x = [])
+      1 ️ Nonempty (x = [] ∧ s = [])
+      1 ️ Nonempty (s = [])
+      1 ️ Nonempty (a ∈ l₂)
+      1 ️ Nonempty (a ∈ l₁ ∨ a ∈ l₂)
+      1 ️ Membership β (List β)
+      1 ️ Membership ?m.9 (List ?m.9)
+      1 ️ Membership ?m.8 (List ?m.8)
+      1 ️ Membership ?m.6 (List ?m.6)
+      1 ️ Membership ?m.1 (List ?m.1)
+      1 ️ Membership (α × β) (List (α × β))
+      1 ️ Lean.Grind.ToInt α_1 ?m.55
+      1 ️ Lean.Grind.ToInt α_1 ?m.53
+      1 ️ Lean.Grind.ToInt α_1 ?m.47
+      1 ️ Lean.Grind.ToInt α_1 ?m.46
+      1 ️ Lean.Grind.ToInt α_1 ?m.43
+      1 ️ Lean.Grind.ToInt α_1 ?m.42
+      1 ️ Lean.Grind.ToInt α_1 ?m.38
+      1 ️ Lean.Grind.ToInt α_1 ?m.37
+      1 ️ Lean.Grind.ToInt α ?m.97
+      1 ️ Lean.Grind.ToInt α ?m.74
+      1 ️ Lean.Grind.ToInt α ?m.68
+      1 ️ Lean.Grind.ToInt α ?m.67
+      1 ️ Lean.Grind.ToInt α ?m.62
+      1 ️ Lean.Grind.ToInt α ?m.59
+      1 ️ Lean.Grind.ToInt α ?m.58
+      1 ️ Lean.Grind.ToInt α ?m.53
+      1 ️ Lean.Grind.ToInt α ?m.51
+      1 ️ Lean.Grind.ToInt α ?m.41
+      1 ️ Lean.Grind.ToInt α ?m.36
+      1 ️ Lean.Grind.ToInt α ?m.127
+      1 ️ Lean.Grind.ToInt Prop ?m.95
+      1 ️ Lean.Grind.ToInt Prop ?m.85
+      1 ️ Lean.Grind.ToInt Prop ?m.63
+      1 ️ Lean.Grind.ToInt Prop ?m.60
+      1 ️ Lean.Grind.ToInt Prop ?m.59
+      1 ️ Lean.Grind.ToInt Prop ?m.57
+      1 ️ Lean.Grind.ToInt Prop ?m.56
+      1 ️ Lean.Grind.ToInt Prop ?m.53
+      1 ️ Lean.Grind.ToInt Prop ?m.50
+      1 ️ Lean.Grind.ToInt Prop ?m.49
+      1 ️ Lean.Grind.ToInt Prop ?m.42
+      1 ️ Lean.Grind.ToInt Prop ?m.41
+      1 ️ Lean.Grind.ToInt Prop ?m.35
+      1 ️ Lean.Grind.ToInt Prop ?m.33
+      1 ️ Lean.Grind.ToInt Prop ?m.30
+      1 ️ Lean.Grind.ToInt Prop ?m.27
+      1 ️ Lean.Grind.ToInt Prop ?m.25
+      1 ️ Lean.Grind.ToInt Prop ?m.23
+      1 ️ Lean.Grind.ToInt Prop ?m.21
+      1 ️ Lean.Grind.ToInt Bool ?m.98
+      1 ️ Lean.Grind.ToInt Bool ?m.96
+      1 ️ Lean.Grind.ToInt Bool ?m.94
+      1 ️ Lean.Grind.ToInt Bool ?m.92
+      1 ️ Lean.Grind.ToInt Bool ?m.86
+      1 ️ Lean.Grind.ToInt Bool ?m.84
+      1 ️ Lean.Grind.ToInt Bool ?m.81
+      1 ️ Lean.Grind.ToInt Bool ?m.75
+      1 ️ Lean.Grind.ToInt Bool ?m.67
+      1 ️ Lean.Grind.ToInt Bool ?m.63
+      1 ️ Lean.Grind.ToInt Bool ?m.60
+      1 ️ Lean.Grind.ToInt Bool ?m.58
+      1 ️ Lean.Grind.ToInt Bool ?m.56
+      1 ️ Lean.Grind.ToInt Bool ?m.55
+      1 ️ Lean.Grind.ToInt Bool ?m.52
+      1 ️ Lean.Grind.ToInt Bool ?m.50
+      1 ️ Lean.Grind.ToInt Bool ?m.46
+      1 ️ Lean.Grind.ToInt Bool ?m.44
+      1 ️ Lean.Grind.ToInt Bool ?m.43
+      1 ️ Lean.Grind.ToInt Bool ?m.40
+      1 ️ Lean.Grind.ToInt Bool ?m.28
+      1 ️ Lean.Grind.ToInt Bool ?m.26
+      1 ️ Lean.Grind.ToInt Bool ?m.24
+      1 ️ Lean.Grind.ToInt Bool ?m.234
+      1 ️ Lean.Grind.ToInt Bool ?m.22
+      1 ️ Lean.Grind.ToInt Bool ?m.115
+      1 ️ Lean.Grind.ToInt Bool ?m.114
+      1 ️ Lean.Grind.ToInt Bool ?m.110
+      1 ️ Lean.Grind.ToInt Bool ?m.105
+      1 ️ Lean.Grind.ToInt Bool ?m.104
+      1 ️ Lean.Grind.ToInt (Option α) ?m.68
+      1 ️ Lean.Grind.ToInt (Option α) ?m.61
+      1 ️ Lean.Grind.ToInt (Option α) ?m.34
+      1 ️ Lean.Grind.ToInt (Option α × List α) ?m.72
+      1 ️ Lean.Grind.ToInt (Option α × List α) ?m.68
+      1 ️ Lean.Grind.ToInt (Option α × List α) ?m.61
+      1 ️ Lean.Grind.ToInt (Nat → α → α_1 → α_1) ?m.54
+      1 ️ Lean.Grind.ToInt (Nat → α → α_1 → α_1) ?m.47
+      1 ️ Lean.Grind.ToInt (Nat → α → List Nat → List Nat) ?m.37
+      1 ️ Lean.Grind.ToInt (Nat → α → List (Nat × α) → List (Nat × α)) ?m.39
+      1 ️ Lean.Grind.ToInt (Nat → α → List (Nat × α) → List (Nat × α)) ?m.38
+      1 ️ Lean.Grind.ToInt (Nat → Nat) ?m.53
+      1 ️ Lean.Grind.ToInt (Nat → Nat) ?m.51
+      1 ️ Lean.Grind.ToInt (List α) ?m.96
+      1 ️ Lean.Grind.ToInt (List α) ?m.88
+      1 ️ Lean.Grind.ToInt (List α) ?m.72
+      1 ️ Lean.Grind.ToInt (List α) ?m.68
+      1 ️ Lean.Grind.ToInt (List α) ?m.66
+      1 ️ Lean.Grind.ToInt (List α) ?m.58
+      1 ️ Lean.Grind.ToInt (List α) ?m.55
+      1 ️ Lean.Grind.ToInt (List α) ?m.50
+      1 ️ Lean.Grind.ToInt (List α) ?m.49
+      1 ️ Lean.Grind.ToInt (List α) ?m.45
+      1 ️ Lean.Grind.ToInt (List α) ?m.43
+      1 ️ Lean.Grind.ToInt (List α) ?m.41
+      1 ️ Lean.Grind.ToInt (List α) ?m.36
+      1 ️ Lean.Grind.ToInt (List α) ?m.32
+      1 ️ Lean.Grind.ToInt (List α) ?m.30
+      1 ️ Lean.Grind.ToInt (List α) ?m.28
+      1 ️ Lean.Grind.ToInt (List α) ?m.26
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.97
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.96
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.95
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.94
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.55
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.50
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.44
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.42
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.40
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.37
+      1 ️ Lean.Grind.ToInt (List Nat) ?m.26
+      1 ️ Lean.Grind.ToInt (List Nat × List α) ?m.23
+      1 ️ Lean.Grind.ToInt (List (Nat × α)) ?m.39
+      1 ️ Lean.Grind.ToInt (List (Nat × α)) ?m.38
+      1 ️ Lean.Grind.Ring (Option α)
+      1 ️ Lean.Grind.PowIdentity Int ?m.98
+      1 ️ Lean.Grind.PowIdentity Int ?m.97
+      1 ️ Lean.Grind.PowIdentity Int ?m.96
+      1 ️ Lean.Grind.PowIdentity Int ?m.91
+      1 ️ Lean.Grind.PowIdentity Int ?m.90
+      1 ️ Lean.Grind.PowIdentity Int ?m.89
+      1 ️ Lean.Grind.PowIdentity Int ?m.84
+      1 ️ Lean.Grind.PowIdentity Int ?m.81
+      1 ️ Lean.Grind.PowIdentity Int ?m.74
+      1 ️ Lean.Grind.PowIdentity Int ?m.73
+      1 ️ Lean.Grind.PowIdentity Int ?m.72
+      1 ️ Lean.Grind.PowIdentity Int ?m.71
+      1 ️ Lean.Grind.PowIdentity Int ?m.67
+      1 ️ Lean.Grind.PowIdentity Int ?m.66
+      1 ️ Lean.Grind.PowIdentity Int ?m.65
+      1 ️ Lean.Grind.PowIdentity Int ?m.61
+      1 ️ Lean.Grind.PowIdentity Int ?m.60
+      1 ️ Lean.Grind.PowIdentity Int ?m.59
+      1 ️ Lean.Grind.PowIdentity Int ?m.55
+      1 ️ Lean.Grind.PowIdentity Int ?m.31
+      1 ️ Lean.Grind.PowIdentity Int ?m.19
+      1 ️ Lean.Grind.PowIdentity Int ?m.113
+      1 ️ Lean.Grind.PowIdentity Int ?m.112
+      1 ️ Lean.Grind.PowIdentity Int ?m.103
+      1 ️ Lean.Grind.PowIdentity Int ?m.102
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.98
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.97
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.96
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.91
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.90
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.89
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.84
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.81
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.74
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.73
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.72
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.71
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.67
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.66
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.65
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.61
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.60
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.59
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.55
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.31
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.24
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.21
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.19
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.113
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.112
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.103
+      1 ️ Lean.Grind.PowIdentity (Lean.Grind.Ring.OfSemiring.Q Nat) ?m.102
+      1 ️ Lean.Grind.IntModule (Option α)
+      1 ️ Lean.Grind.CommRing (Option α)
+      1 ️ LawfulMonad m
+      1 ️ LT (Option α)
+      1 ️ LT (Fin n)
+      1 ️ LE (Option α)
+      1 ️ LE (Fin n)
+      1 ️ HasSubset (List α)
+      1 ️ HasSubset (List ?m.9)
+      1 ️ HasSubset (List ?m.8)
+      1 ️ GetElem (Array α) Nat α fun xs i => i < xs.size
+      1 ️ Functor m
+      1 ️ Functor Option
+      1 ️ ForIn m (List α) α
+      1 ️ EquivBEq α
+      1 ️ Decidable (∃ a, a ∈ l ∧ (p a).isSome = true)
+      1 ️ Decidable (↑x✝ < l.length)
+      1 ️ Decidable (tail = [])
+      1 ️ Decidable (stop + n < l.length)
+      1 ️ Decidable (sizeOf l✝ < sizeOf l)
+      1 ️ Decidable (sizeOf l✝ < sizeOf fst)
+      1 ️ Decidable (sizeOf as✝ < sizeOf l)
+      1 ️ Decidable (sizeOf as✝ < sizeOf fst)
+      1 ️ Decidable (sizeOf as✝ < sizeOf (a✝ :: as✝))
+      1 ️ Decidable (sizeOf as✝ < sizeOf (a✝¹ :: as✝))
+      1 ️ Decidable (p tail[(findIdxs p tail (s + 1))[i] - (s + 1)] = true)
+      1 ️ Decidable (p tail[(findIdxs p (head :: tail) s)[i] - (s + 1)] = true)
+      1 ️ Decidable (p (xs.head ⋯) = true)
+      1 ️ Decidable (p (tail.head h) = true)
+      1 ️ Decidable (p ((head :: tail).tail.head h) = true)
+      1 ️ Decidable (idxOf x (head :: tail) = 0)
+      1 ️ Decidable (i = [])
+      1 ️ Decidable (countPBefore p (head :: tail) i = 0)
+      1 ️ Decidable (b = a)
+      1 ️ Decidable (a ∈ l₁)
+      1 ️ Decidable (a = b)
+      1 ️ Decidable ((x == y) = true)
+      1 ️ Decidable ((take (n + 1) (head :: tail)).length = 0)
+      1 ️ Decidable ((head == a) = true)
+      1 ️ Decidable ((head == (head :: tail)[i]) = true)
+      1 ️ Decidable ((head :: tail).tail = [])
+      1 ️ Decidable ((findIdxs (fun x_1 => x_1 == x) (head :: tail))[n] = 0)
+      1 ️ Decidable ((findIdxs (fun x_1 => x_1 == x) (head :: tail))[0] = 0)
+      1 ️ Decidable (([][(idxsOf x [] s)[n] - s] == x) = true)
+      1 ️ Decidable ((!p head) = true)
+      1 ️ Decidable ((!p a) = true)
+      1 ️ CoeT Bool (xs[i - s] == x) Prop
+      1 ️ CoeT Bool (xs[(idxsOf x xs)[i]] == x) Prop
+      1 ️ CoeT Bool (xs[(idxsOf x xs s)[i] - s] == x) Prop
+      1 ️ CoeT Bool (x == y) Prop
+      1 ️ CoeT Bool (x == a) Prop
+      1 ️ CoeT Bool (s' == s) Prop
+      1 ️ CoeT Bool (p' == p) Prop
+      1 ️ CoeT Bool (p xs[i - s]) Prop
+      1 ️ CoeT Bool (p xs[(findIdxs p xs)[i]]) Prop
+      1 ️ CoeT Bool (p xs[(findIdxs p xs s)[i] - s]) Prop
+      1 ️ CoeT Bool (p b) Prop
+      1 ️ CoeT Bool (p a).isSome Prop
+      1 ️ CoeT Bool (p (xs.head h)) Prop
+      1 ️ CoeT (Fin n) x✝ Nat
+      1 ️ Append (List α)
+      1 💥️ Zero ?m.6
+      1 💥️ Zero ?m.2
+      1 💥️ Union ?m.6
+      1 💥️ Trans ?m.73 ?m.74 ?m.75
+      1 💥️ Trans ?m.11 ?m.11 ?m.11
+      1 💥️ ReflBEq ?m.33
+      1 💥️ ReflBEq ?m.32
+      1 💥️ OfNat ?m.28 0
+      1 💥️ OfNat ?m.20 0
+      1 💥️ Monad ?m.16
+      1 💥️ Membership ?m.8 ?m.9
+      1 💥️ Membership ?m.21 ?m.22
+      1 💥️ Membership ?m.15 ?m.16
+      1 💥️ Membership (?m.87 x✝¹ x✝ a a' l₁ l₂) (?m.85 x✝¹ x✝ a a')
+      1 💥️ LawfulBEq ?m.7
+      1 💥️ LawfulBEq ?m.24
+      1 💥️ Inter ?m.6
+      1 💥️ HAppend ?m.49 (List ?m.12) ?m.47
+      1 💥️ HAppend ?m.49 (List ?m.12) (List α)
+      1 💥️ HAppend ?m.40 (List ?m.12) ?m.38
+      1 💥️ HAppend ?m.40 (List ?m.12) (List α)
+      1 💥️ GetElem? ?m.10 ?m.11 ?m.12 ?m.13
+      1 💥️ EquivBEq ?m.31
+      1 💥️ CoeT (Option α) x (Option ?m.8)
+      1 💥️ CoeT (Option α) x (Option ?m.18)
+      1 💥️ CoeT (Option ?m.8) x (Option α)
+      1 💥️ CoeT (Option ?m.3) x (Option (α × List α))
+      1 💥️ CoeT (Option ?m.18) x (Option α)
+      1 💥️ CoeT (Option (α × List α)) x (Option ?m.3)
+      1 💥️ CoeT (Option (List α × List α)) x (Option (List ?m.8 × List α))
+      1 💥️ CoeT (Option (List ?m.8 × List α)) x (Option (List α × List α))
+      1 💥️ CoeT (List α) x (List ?m.6)
+      1 💥️ CoeT (List α) x (List ?m.5)
+      1 💥️ CoeT (List α) x (List ?m.13)
+      1 💥️ CoeT (List Nat) x (List ?m.3)
+      1 💥️ CoeT (List Nat) x (List ?m.18)
+      1 💥️ CoeT (List Nat) x (List ?m.15)
+      1 💥️ CoeT (List ?m.6) x (List α)
+      1 💥️ CoeT (List ?m.5) x (List α)
+      1 💥️ CoeT (List ?m.5) x (List ?m.4)
+      1 💥️ CoeT (List ?m.4) x (List ?m.5)
+      1 💥️ CoeT (List ?m.3) x (List Nat)
+      1 💥️ CoeT (List ?m.2) x (List (Fin n))
+      1 💥️ CoeT (List ?m.18) x (List Nat)
+      1 💥️ CoeT (List ?m.15) x (List Nat)
+      1 💥️ CoeT (List ?m.13) x (List α)
+      1 💥️ CoeT (List (Fin n)) x (List ?m.2)
+      1 💥️ CoeT (List (Fin n)) x (List (Fin ?m.5))
+      1 💥️ CoeT (List (Fin ?m.5)) x (List (Fin n))
+      1 💥️ BEq ?m.852
+      1 💥️ BEq ?m.844
+      1 💥️ BEq ?m.43
+      1 💥️ BEq ?m.41
+      1 💥️ BEq ?m.38
+      1 💥️ BEq ?m.37
+      1 💥️ BEq ?m.35
+      1 💥️ BEq ?m.34
+      1 💥️ BEq ?m.32
+      1 💥️ BEq ?m.31
+      1 💥️ BEq ?m.3
+      1 💥️ BEq ?m.27
+      1 💥️ BEq ?m.25
+      1 💥️ BEq ?m.24
+      1 💥️ BEq ?m.23
+      1 💥️ BEq ?m.21
+      1 💥️ BEq ?m.19
+      1 💥️ BEq ?m.18
+      1 💥️ BEq ?m.17

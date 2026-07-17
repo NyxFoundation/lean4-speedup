@@ -1,0 +1,132 @@
+From ef5fe546815fd366d1c56919f4eb875391a2431d Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Fri, 17 Jul 2026 17:33:27 +0900
+Subject: [PATCH 1/2] feat: cross-command synthInstance cache with
+ pointer-identity invalidation (experiment v0)
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Meta/SynthInstance.lean | 83 +++++++++++++++++++++++++++++---
+ 1 file changed, 77 insertions(+), 6 deletions(-)
+
+diff --git a/src/Lean/Meta/SynthInstance.lean b/src/Lean/Meta/SynthInstance.lean
+index 450d8ed..ba298e9 100644
+--- a/src/Lean/Meta/SynthInstance.lean
++++ b/src/Lean/Meta/SynthInstance.lean
+@@ -939,21 +939,85 @@ private def applyCachedAbstractResult? (type : Expr) (abstResult? : Option Abstr
+   else
+     applyAbstractResult? type abstResult?
+ 
++/-!
++Cross-command ("global") synthInstance cache — EXPERIMENT (speedup/global-synth-cache).
++
++The per-command cache in `Meta.Cache` is discarded at every command boundary and
++wiped by every environment modification, so identical goals are re-derived
++thousands of times per module (measured 91% duplicate derivations in
++Batteries.Data.List.Lemmas). Entries here are validated by *pointer identity* of
++the extension states a derivation depends on: adding/erasing/activating an
++instance, a default instance, or a reducibility override produces new state
++objects, while unrelated declarations (the common case in proof-heavy files)
++leave those objects untouched. Pointer equality therefore witnesses "the
++instance-relevant tables are exactly the ones this entry was derived under";
++anything else is a conservative miss.
++
++Known v0 gap: `unification_hint`s added mid-module are not stamped (import cycle
++with `Lean.Meta.UnificationHint`); a hint registered after a failure was cached
++could unsoundly preserve the failure within that module. Disable with
++`-DsynthInstance.globalCache=false` if this ever matters.
++-/
++
++register_builtin_option synthInstance.globalCache : Bool := {
++  defValue := true
++  descr := "(experiment) reuse type class resolutions across commands when the instance tables are unchanged"
++}
++
++@[inline] private unsafe def sameObjImpl {α : Type} (a b : α) : Bool := ptrEq a b
++/-- Runtime pointer identity; `false` in the logic, which can only cause a cache miss. -/
++@[implemented_by sameObjImpl] private def sameObj {α : Type} (_a _b : α) : Bool := false
++
++private structure GlobalSynthCacheEntry where
++  instances        : Instances
++  defaultInstances : DefaultInstances
++  reducibilityExtra : SMap Name ReducibilityStatus
++  maxResultSize    : Nat
++  abstResult?      : Option AbstractMVarsResult
++
++private builtin_initialize globalSynthCacheRef :
++    IO.Ref (PHashMap SynthInstanceCacheKey GlobalSynthCacheEntry) ← IO.mkRef {}
++
++private def globalSynthCacheFind? (cacheKey : SynthInstanceCacheKey) (maxResultSize : Nat) :
++    MetaM (Option (Option AbstractMVarsResult)) := do
++  unless synthInstance.globalCache.get (← getOptions) do return none
++  let some e := (← globalSynthCacheRef.get).find? cacheKey | return none
++  let env ← getEnv
++  unless sameObj e.instances (instanceExtension.getState env) do return none
++  unless sameObj e.defaultInstances (defaultInstanceExtension.getState env) do return none
++  unless sameObj e.reducibilityExtra (reducibilityExtraExt.getState env) do return none
++  unless e.maxResultSize == maxResultSize do return none
++  return some e.abstResult?
++
++private def globalSynthCacheInsert (cacheKey : SynthInstanceCacheKey) (maxResultSize : Nat)
++    (abstResult? : Option AbstractMVarsResult) : MetaM Unit := do
++  unless synthInstance.globalCache.get (← getOptions) do return ()
++  let env ← getEnv
++  let e : GlobalSynthCacheEntry := {
++    instances := instanceExtension.getState env
++    defaultInstances := defaultInstanceExtension.getState env
++    reducibilityExtra := reducibilityExtraExt.getState env
++    maxResultSize, abstResult? }
++  globalSynthCacheRef.modify (·.insert cacheKey e)
++
+ /-- Helper function for caching synthesized type class instances. -/
+-private def cacheResult (cacheKey : SynthInstanceCacheKey) (kind : PreprocessKind) (abstResult? : Option AbstractMVarsResult) (result? : Option Expr) : MetaM Unit := do
++private def cacheResult (cacheKey : SynthInstanceCacheKey) (kind : PreprocessKind) (abstResult? : Option AbstractMVarsResult) (result? : Option Expr) (maxResultSize : Nat) : MetaM Unit := do
+   -- **TODO**: simplify this function.
++  let store (v : Option AbstractMVarsResult) : MetaM Unit := do
++    modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey v }
++    globalSynthCacheInsert cacheKey maxResultSize v
+   match abstResult? with
+-  | none => modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey none }
++  | none => store none
+   | some abstResult =>
+     if abstResult.numMVars == 0 && abstResult.paramNames.isEmpty && kind matches .noMVars | .mvarsNoOutputParams then
+       match result? with
+-      | none => modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey none }
++      | none => store none
+       | some result =>
+         -- See `applyCachedAbstractResult?` If new metavariables have **not** been introduced,
+         -- we don't need to perform extra checks again when reusing result.
+-        modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey (some { expr := result, paramNames := #[], mvars := #[] }) }
++        store (some { expr := result, paramNames := #[], mvars := #[] })
+     else
+-      modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey (some abstResult) }
++      store (some abstResult)
+ 
+ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : MetaM (Option Expr) := do
+   let opts ← getOptions
+@@ -974,6 +1038,13 @@ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : Met
+       trace[Meta.synthInstance] "result {result?} (cached)"
+       return result?
+     | none =>
++      if let some abstResult? ← globalSynthCacheFind? cacheKey maxResultSize then
++        trace[Meta.synthInstance.cache] "global: {type}"
++        -- seed the per-command cache so later same-command lookups stay local
++        modify fun s => { s with cache.synthInstance := s.cache.synthInstance.insert cacheKey abstResult? }
++        let result? ← applyCachedAbstractResult? type abstResult?
++        trace[Meta.synthInstance] "result {result?} (global cache)"
++        return result?
+       trace[Meta.synthInstance.cache] "new: {type}"
+       let abstResult? ← withNewMCtxDepth (allowLevelAssignments := true) do
+         match kind with
+@@ -1002,7 +1073,7 @@ def synthInstanceCore? (type : Expr) (maxResultSize? : Option Nat := none) : Met
+         | .mvarsOutputParams => SynthInstance.main (← preprocessOutParam type) maxResultSize
+       let result? ← applyAbstractResult? type abstResult?
+       trace[Meta.synthInstance] "result {result?}"
+-      cacheResult cacheKey kind abstResult? result?
++      cacheResult cacheKey kind abstResult? result? maxResultSize
+       return result?
+ 
+ def synthInstance? (type : Expr) (maxResultSize? : Option Nat := none) : MetaM (Option Expr) := do profileitM Exception "typeclass inference" (← getOptions) (decl := type.getAppFn.constName?.getD .anonymous) do
+-- 
+2.53.0
+
