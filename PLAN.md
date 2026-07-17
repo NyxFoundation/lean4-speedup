@@ -452,3 +452,16 @@ standalone implementation in this folder.
   mkFlatInductive, both sites intercepted. Rebuilding
   (lean4_rebuild_t2c2.log). NEXT: re-probe + re-A/B (expect the
   1.31s FindMin.WF check to leave the critical path).
+- 2026-07-18 (iter 26-27): T2c routing hunt. Mechanism PROVEN (probe
+  structures incl. dotted names, section vars, real Batteries field
+  types all go '(async)' standalone; iota/projections work). But in
+  the REAL module NO structure reaches addInductiveDeclAsync? (bail
+  traces show only Heap/HeapNode multi-ctor inductives arriving);
+  FindMin/FindMin.WF are kernel-checked via a plain sync addDecl from
+  a path not yet identified — a third inductDecl submission site
+  (ComputedFields.lean:110? another MutualInductive addDecl?). A/B
+  remains parity until routed. NEXT: enumerate ALL addDecl call sites
+  reachable from structure elaboration (grep addDecl in
+  MutualInductive fully + ComputedFields + Coinductive), instrument
+  addDeclCore's sync inductDecl fallback with a decl-name trace, fix
+  routing, re-run the A/B.
