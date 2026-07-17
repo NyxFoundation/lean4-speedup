@@ -1,0 +1,156 @@
+From d63cba3f1261efd8c930b7b53657b8301bc05bc4 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Fri, 17 Jul 2026 23:30:11 +0900
+Subject: [PATCH 6/6] =?UTF-8?q?feat:=20v2.2=20free=20recording=20=E2=80=94?=
+ =?UTF-8?q?=20raw=20mvar-free=20subgoal=20types,=20no=20abstractMVars,=20r?=
+ =?UTF-8?q?euse=20mkGeneratorNode's=20type?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Meta/SynthInstance.lean | 58 +++++++++++++++++---------------
+ 1 file changed, 31 insertions(+), 27 deletions(-)
+
+diff --git a/src/Lean/Meta/SynthInstance.lean b/src/Lean/Meta/SynthInstance.lean
+index b0acd27..fb09d88 100644
+--- a/src/Lean/Meta/SynthInstance.lean
++++ b/src/Lean/Meta/SynthInstance.lean
+@@ -198,10 +198,13 @@ structure State where
+   generatorStack : Array GeneratorNode           := #[]
+   resumeStack    : Array (ConsumerNode × Answer) := #[]
+   tableEntries   : Std.HashMap Expr TableEntry   := {}
+-  /-- (global-synth-cache v2) every global candidate list this derivation observed:
+-  (mvar-abstracted subgoal type, global instance names after the erased/export
+-  filters, in priority order). Used for tier-2 cache revalidation. -/
+-  queryLog       : Array (AbstractMVarsResult × Array Name) := #[]
++  /-- (global-synth-cache v2.2) mvar-FREE subgoal types this derivation queried,
++  with the global candidate names (post erased/export filter, priority order).
++  Used for tier-2 cache revalidation. Recording is O(1) per subgoal. -/
++  queryLog       : Array (Expr × Array Name) := #[]
++  /-- (v2.2) false once any subgoal type contained mvars (not recorded) —
++  such derivations are tier-2-ineligible. -/
++  queryLogComplete : Bool := true
+ 
+ abbrev SynthM := ReaderT Context $ StateRefT State MetaM
+ 
+@@ -254,35 +257,37 @@ def getInstances (type : Expr) : MetaM (Array Instance) := do
+       trace[Meta.synthInstance.instances] result.map (·.val)
+       return result
+ 
+-def mkGeneratorNode? (key mvar : Expr) : MetaM (Option GeneratorNode) := do
++def mkGeneratorNode? (key mvar : Expr) : MetaM (Option GeneratorNode × Expr) := do
+   let mvarType  ← inferType mvar
+   let mvarType  ← instantiateMVars mvarType
+   let instances ← getInstances mvarType
+   if instances.isEmpty then
+-    return none
++    return (none, mvarType)
+   else
+     let mctx ← getMCtx
+-    return some {
++    return (some {
+       mvar, key, mctx, instances
+       typeHasMVars := mvarType.hasMVar
+       currInstanceIdx := instances.size
+-    }
++    }, mvarType)
+ 
+ /--
+   Create a new generator node for `mvar` and add `waiter` as its waiter.
+   `key` must be `mkTableKey mctx mvarType`. -/
+ def newSubgoal (mctx : MetavarContext) (key : Expr) (mvar : Expr) (waiter : Waiter) : SynthM Unit :=
+   withMCtx mctx do withTraceNode' `Meta.synthInstance do
+-    let node? ← mkGeneratorNode? key mvar
+-    -- (global-synth-cache v2) record the observed global candidate list, including
++    let (node?, mvarType) ← mkGeneratorNode? key mvar
++    -- (global-synth-cache v2.2) record the observed global candidate list, including
+     -- the empty one — a cached FAILURE must be invalidated when candidates appear.
++    -- Only mvar-free types are recorded (O(1)); others make the entry tier-2-ineligible.
+     if synthInstance.globalCache.get (← getOptions) then
+-      let mvarType ← instantiateMVars (← inferType mvar)
+-      let abst ← abstractMVars mvarType
+-      let names := match node? with
+-        | some node => node.instances.filterMap (·.val.constName?)
+-        | none => #[]
+-      modify fun s => { s with queryLog := s.queryLog.push (abst, names) }
++      if mvarType.hasMVar then
++        modify fun s => { s with queryLogComplete := false }
++      else
++        let names := match node? with
++          | some node => node.instances.filterMap (·.val.constName?)
++          | none => #[]
++        modify fun s => { s with queryLog := s.queryLog.push (mvarType, names) }
+     match node? with
+     | none      => pure ((), m!"no instances for {key}")
+     | some node =>
+@@ -697,7 +702,7 @@ partial def synth : SynthM (Option AbstractMVarsResult) := do
+     return none
+ 
+ def main (type : Expr) (maxResultSize : Nat) :
+-    MetaM (Option AbstractMVarsResult × Array (AbstractMVarsResult × Array Name)) :=
++    MetaM (Option AbstractMVarsResult × Array (Expr × Array Name)) :=
+   withCurrHeartbeats do
+      let mvar ← mkFreshExprMVar type
+      let key  ← mkTableKey type
+@@ -707,7 +712,7 @@ def main (type : Expr) (maxResultSize : Nat) :
+      tryCatchRuntimeEx
+        (do
+          let (res, s) ← action.run { maxResultSize := maxResultSize, maxHeartbeats := getMaxHeartbeats (← getOptions) } |>.run {}
+-         return (res, s.queryLog))
++         return (res, if s.queryLogComplete then s.queryLog else #[]))
+        fun ex =>
+          if ex.isRuntime then
+            throwError "failed to synthesize{indentExpr type}\n{ex.toMessageData}{useDiagnosticMsg}"
+@@ -990,9 +995,9 @@ could unsoundly preserve the failure within that module. Disable with
+ /-- Runtime pointer identity; `false` in the logic, which can only cause a cache miss. -/
+ @[implemented_by sameObjImpl] private def sameObj {α : Type} (_a _b : α) : Bool := false
+ 
+-/-- (v2) One recorded discrTree observation: mvar-abstracted subgoal type and the
++/-- (v2.2) One recorded discrTree observation: mvar-FREE subgoal type and the
+ global candidate names (post erased/export filter, priority order). -/
+-private abbrev QueryObs := AbstractMVarsResult × Array Name
++private abbrev QueryObs := Expr × Array Name
+ 
+ private structure GlobalSynthCacheEntry where
+   instances        : Instances
+@@ -1007,11 +1012,10 @@ private builtin_initialize globalSynthCacheRef :
+     IO.Ref (PHashMap SynthInstanceCacheKey GlobalSynthCacheEntry) ← IO.mkRef {}
+ 
+ /-- (v2 tier 2) Re-run the discrTree lookup for a recorded query and compare the
+-global candidate list. Mirrors the filtering in `getInstances`. Mvars are reopened
+-fresh so the discrTree sees the same star patterns as at record time. -/
++global candidate list. Mirrors the filtering in `getInstances`. Recorded types
++are mvar-free by construction (v2.2). -/
+ private def replayQuery (obs : QueryObs) : MetaM Bool := do
+-  let (abst, expected) := obs
+-  let (_, _, e) ← openAbstractMVarsResult abst
++  let (e, expected) := obs
+   forallTelescopeReducing e fun _ ty => do
+     match ← isClass? ty with
+     | none => return expected.isEmpty
+@@ -1152,7 +1156,7 @@ private def shapeSynthCacheFind? (shapeKey : ShapeKey) (fvars : Array Expr) (max
+   unless sameObj e.defaultInstances (defaultInstanceExtension.getState env) do return none
+   unless sameObj e.reducibilityExtra (reducibilityExtraExt.getState env) do return none
+   -- v2 two-tier check with query types re-opened in the TARGET telescope
+-  let targetQueries := e.queries.map fun (a, ns) => ({ a with expr := a.expr.beta fvars }, ns)
++  let targetQueries := e.queries.map fun (a, ns) => (a.beta fvars, ns)
+   unless (← instancesStillValid e.instances targetQueries) do return none
+   match e.resultLam? with
+   | none => return some none
+@@ -1169,9 +1173,9 @@ private def shapeSynthCacheInsert (shapeKey : ShapeKey) (fvars : Array Expr)
+   -- telescope-close each recorded query type; bail if any escapes
+   let mut closedQueries : Array QueryObs := #[]
+   for (a, ns) in queries do
+-    let lam ← mkLambdaFVars fvars a.expr
++    let lam ← mkLambdaFVars fvars a
+     if lam.hasFVar then return () -- query mentions fvars outside the telescope
+-    closedQueries := closedQueries.push ({ a with expr := lam }, ns)
++    closedQueries := closedQueries.push (lam, ns)
+   let env ← getEnv
+   shapeSynthCacheRef.modify (·.insert shapeKey {
+     instances := instanceExtension.getState env
+-- 
+2.53.0
+

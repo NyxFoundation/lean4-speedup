@@ -1,7 +1,7 @@
 From fa212e7bb0824705498af8311424e9592096f106 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Fri, 17 Jul 2026 19:08:59 +0900
-Subject: [PATCH 3/4] fix: parenthesization in shape-cache seed of per-command
+Subject: [PATCH 3/6] fix: parenthesization in shape-cache seed of per-command
  cache
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
