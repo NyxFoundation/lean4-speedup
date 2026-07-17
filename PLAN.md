@@ -92,6 +92,21 @@ standalone implementation in this folder.
   unfolds it; most defs are never unfolded within their own module.
   T2b (smaller): async `example`, async mvar-free `instance` (value
   irrelevant when class is a Prop?).
+- 2026-07-17 (iter 8, part 2): V1 VALIDATED. Micro (200 isomorphic
+  under-binder queries): TC 169ms→9.7ms (17x), 199/200 shape hits; v0
+  alone provably useless there (169≈160 baseline). Both mutation
+  probes PASS incl. new under-binder failure-flip probe
+  (M_shape_mutation.lean). Hot module: fresh derivations
+  13,018→4,695 (v0+v1), TC 842→447ms (−47%). Corpus (Batteries cold):
+  124.3 vs 125.6s user ≈ −1% — TC is a small share of Batteries CPU;
+  the TC-heavy corpus where T1 should pay is Mathlib. v1 ON-vs-ON
+  deterministic. Remaining fresh derivations: mvar goals (excluded by
+  design), grind-internal contexts, universe-name mismatches.
+  T1 NEXT (later): Mathlib-subset benchmark; olean renormalization for
+  upstreamability; universe-level canonicalization.
+  ITER 9 PLAN (rotation): T2a prototype — demand-driven async def
+  bodies (or first: quantify T2a ceiling by counting sync-elaborated
+  def/instance/example bodies & their time share across Batteries).
 - **T3 Kernel checking (1.1-1.5s/module)**: dedup shared proof subterms?
   batch checking? Transfer: content-addressed verification (Nix/git).
 - **T4 grind+simp (~2.8s/module)**: simp-set discrimination tree reuse
