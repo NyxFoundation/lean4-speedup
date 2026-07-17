@@ -355,3 +355,17 @@ standalone implementation in this folder.
   still pass (breaker must not break correctness — it only SKIPS
   tier-2, conservative direction); then docs/charts refresh + README
   results update.
+- 2026-07-17 (iter 18): v2.1 probes all PASS but WithBot STILL +19% —
+  circuit breaker was aimed at the wrong cost. ROOT CAUSE
+  QUANTIFIED: the RECORDING tax, not replays — WithBot has 8,441
+  derivations, each paying duplicate inferType/instantiateMVars (both
+  already computed inside mkGeneratorNode?) + abstractMVars ≈
+  50-100us => ~+0.5-0.8s, matching the regression exactly. (v2 does
+  earn 116 global + 341 shape hits there — swamped by the tax.)
+  v2.2 DESIGN: (a) move recording inside mkGeneratorNode? reusing its
+  mvarType; (b) DROP abstractMVars — record only hasMVar-free subgoal
+  types as raw exprs (free), skip mvar-containing queries and mark
+  the entry queriesComplete=false => tier-2 ineligible (those queries
+  were never rescuable anyway). Expected: recording ~free, WithBot
+  back to parity, lemma-file wins intact. NEXT (iter 19): implement
+  v2.2, rebuild, full battery, then docs/README results refresh.
