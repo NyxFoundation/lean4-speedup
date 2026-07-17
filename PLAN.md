@@ -369,3 +369,15 @@ standalone implementation in this folder.
   were never rescuable anyway). Expected: recording ~free, WithBot
   back to parity, lemma-file wins intact. NEXT (iter 19): implement
   v2.2, rebuild, full battery, then docs/README results refresh.
+- 2026-07-18 (iter 20): v2.2 battery — all probes PASS, shape micro
+  9ms intact, but WithBot STILL +20% → recording-tax hypothesis
+  incomplete. Remaining ON-side costs identified: (a) SHAPE-entry
+  insert closure (mkLambdaFVars + hasFVar per query per derivation,
+  8.4k derivations) and (b) tier-2 replays kept alive by a mixed
+  success rate (~116+341 hits keep the breaker closed). v2.3: shape
+  entries are tier-1-only again (tier-2 restricted to the exact
+  cache where query storage is a free pointer copy). DECISION RULE
+  set: if v2.3 still regresses WithBot beyond ~2%, demote tier-2 to
+  an opt-in option (default OFF) and freeze T1 at validated-v1
+  defaults — honest stable endpoint; loop rotates onward (T2c time
+  box or T5). Rebuild detached (lean4_rebuild_v23.log).
