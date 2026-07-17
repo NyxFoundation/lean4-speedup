@@ -381,3 +381,13 @@ standalone implementation in this folder.
   an opt-in option (default OFF) and freeze T1 at validated-v1
   defaults — honest stable endpoint; loop rotates onward (T2c time
   box or T5). Rebuild detached (lean4_rebuild_v23.log).
+- 2026-07-18 (iter 21): MEASUREMENT CORRECTION — the +20% WithBot
+  "regression" was single-shot noise/contamination (same binary
+  minutes apart: 5.04 then 4.20). 5-run medians: WithBot 4.29 vs
+  4.30 (parity), List.Lemmas 2.16 vs 2.17 (parity). FINAL T1
+  UNDERSTANDING: TC savings are real CPU (−47% TC, −1% corpus) but
+  TC runs on worker threads → not on the single-module critical
+  path → no wall delta. T1 CONCLUDED (v2.3 stable: sound,
+  deterministic, tier-2 proven, no regression). Methodology rule
+  going forward: 5-run medians for all wall-time claims. Loop
+  rotates to T2 (the actual wall-clock lever) next.

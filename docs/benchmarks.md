@@ -132,6 +132,28 @@ per-class version stamps + touched-class sets (the original red/green
 design), so instance growth in class C only invalidates derivations that
 touched C.
 
+## 7. Final T1 verdict (v2.3, repeated-median methodology)
+
+Single-shot A/B timings proved noise-dominated at the ±0.5–0.8 s scale
+(background processes contaminated several earlier readings, including a
+phantom "+20 % regression" chased across three patch revisions). With 5-run
+medians:
+
+| module | cache on | cache off |
+|---|---|---|
+| Mathlib Order.WithBot (instance-defining) | 4.29 s | 4.30 s |
+| Batteries List.Lemmas (lemma-heavy) | 2.16 s | 2.17 s |
+
+**Interpretation (the campaign's system-level conclusion):** the cache
+genuinely removes typeclass CPU work (−47 % TC time on the hot module,
+17–24× micro), but in async-era Lean that work runs on *worker threads*,
+not the main-thread critical path — so single-module wall time is
+unchanged, and the benefit appears as CPU/throughput relief under core
+saturation (−1 % Batteries corpus wall). Tier-2 revalidation (v2) is
+mechanically proven (probe traces show pointer-churn rescues) and costs
+nothing measurable after v2.2/v2.3 hardening. The wall-clock lever is the
+main thread — exactly what tracks T2a/T2c target.
+
 ## Reproduce
 
 ```bash
