@@ -5,6 +5,6 @@ def f (p : P Nat) : Nat := p.x + p.y
 theorem t : f ⟨3, 4⟩ = 7 := rfl
 structure QProp : Prop where mk :: (h : True)
 example : QProp := ⟨trivial⟩
-structure RPropData (le : Nat → Nat → Bool) : Prop where mk :: (rank : Nat) (h : le 1 2 = le 1 2)
-example (le : Nat → Nat → Bool) : RPropData le := ⟨5, rfl⟩
+structure RPropData (le : Nat → Nat → Bool) : Prop where mk :: (h : le 1 2 = le 1 2)
+example (le : Nat → Nat → Bool) : RPropData le := ⟨rfl⟩
 #print P.rec
