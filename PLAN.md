@@ -423,3 +423,21 @@ standalone implementation in this folder.
   on a1.asyncEnv (prefix T), eager commits from builders, snapshot
   task for error surfacing; then rebuild + blocking/error probes +
   5-run-median A/B on BinomialHeap & String.Lemmas.
+- 2026-07-18 (iter 24): T2c ORCHESTRATION IMPLEMENTED in
+  MutualInductive.lean behind Elab.asyncInductive (default false):
+  eligibility = single-ctor non-recursive no-index non-module;
+  ported+adapted the validated RecursorVal builder (forallTelescope
+  non-reducing — pre-addition types mention the unknown const);
+  3 addConstAsync handles threading mainEnv; eager commitConst
+  (T, mk) + commitSignature (rec); kernel task on a1.asyncEnv
+  chained on env.checked via wrapAsyncAsSnapshot/logSnapshotTask
+  (addDeclCore pattern); commitCheckEnv x3 in finally — rec's full
+  info comes FROM the kernel env, sig-checked against the eager
+  signature (documented drift failsafe). KNOWN GAPS: name-prefix
+  registration skipped (private helper; namespaces usually
+  registered by the namespace command anyway); error probe for
+  kernel-rejected inductives TBD. Probe M_t2c_async_ind.lean staged
+  (iota reduction, projections, Prop structs). Rebuild detached
+  (lean4_rebuild_t2c.log). NEXT: probe battery; if green, 5-run
+  median A/B on BinomialHeap/Basic + String/Lemmas with
+  -DElab.asyncInductive=true.
