@@ -82,25 +82,43 @@ Full methodology and raw numbers: [docs/benchmarks.md](docs/benchmarks.md).
 | [`bench/`](bench/) | benchmark sources, probes, and raw logs |
 | [`PLAN.md`](PLAN.md) | research journal: track portfolio and per-iteration log |
 
-## Roadmap
+## Three campaigns, and where they landed
 
-- **v2 cache**: per-class version stamps + touched-class sets, extending the
-  win to instance-defining modules (red/green-style invalidation).
-- **Async inductives**: move kernel processing of `inductive`/`structure` off
-  the critical path ([design](docs/t2c-async-inductives.md); blocked on
-  multi-constant async commits in the environment framework).
-- **Demand-driven async `def` bodies**: widen the theorem-only async
-  elaboration gate.
-- Universe-parameter renormalization so cache reuse produces byte-identical
-  `.olean`s (currently a stable alternate normal form).
+Each optimization was implemented, verified for soundness, and measured
+honestly — including where it does *not* help.
+
+| Campaign | What it does | Verdict |
+|---|---|---|
+| **T1 — global synthInstance cache** | cross-command instance reuse (pointer-identity + shape keys + record-and-replay revalidation) | **CPU-real, wall-neutral.** −47 % typeclass CPU on the hot module, sound + deterministic; but typeclass work rides worker threads, so single-module wall is unchanged. |
+| **T2c — async inductive kernel processing** | move `inductive`/`structure` kernel work off the main thread (module system included; byte-exact Lean-side recursor builder) | **Sound, perf-null.** The motivating "sync kernel" signal was queue-wait, not work. Includes a documented retraction after a measurement-harness flaw. |
+| **T2a — async by-proofs** | elaborate `by` blocks as async auxiliary theorems | **Sound subset perf-null; general case blocked.** Under-context proofs are entangled with the def's metavariable web and can't be soundly outlined. |
+
+## Conclusion: the wall-clock lever, located
+
+A module-DAG critical-path analysis (docs/benchmarks §9) shows the Batteries
+build is **critical-path-bound** (10.0 s weighted path vs 8.1 s 16-core
+floor), and the path runs through proof-heavy modules. A thread-level profile
+then sharpens it: **main-thread command/statement elaboration ≈ wall time**,
+while proof bodies already parallelize across ~26 workers.
+
+So proof-body parallelism is a solved problem, and all three async campaigns
+correctly targeted the remaining serial fraction — but none could break it,
+because it is the **sequential elaboration of theorem statements and commands
+on the main thread**. The single highest lever, and the hardest change, is
+**command-level parallelism**: elaborating independent theorem statements
+concurrently, which Lean's frontend does sequentially by design (macro /
+environment ordering). That is the precise, measured target for future work.
 
 ## Status & caveats
 
-This is research code, not a production toolchain. The patches are
-experiments: options default to on in the fork for measurement convenience,
-but known gaps (unification-hint stamping, universe-name-sensitive shape keys)
-are documented in the patch headers and design docs. Nothing here has been
-proposed upstream yet.
+Research code, not a production toolchain. Patches are option-gated
+experiments (defaults on in the fork for measurement convenience); known gaps
+(unification-hint stamping, universe-name-sensitive shape keys, olean
+alternate-normal-form drift) are documented in the patch headers and design
+docs. Nothing here has been proposed upstream. The durable output is the
+**measurement methodology** (asserted harness, 5-run medians, soundness gate
+before any perf claim, honest retractions) and a **precise map of where Lean's
+async boundary can and cannot move**.
 
 ## License
 
