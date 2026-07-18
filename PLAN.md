@@ -652,3 +652,33 @@ box); 5-run medians mandatory; probes in bench/M_*.lean.
   BEFORE going async so extraction happens in the right context.
   DO NOT claim the −36% until correctness holds. README/docs
   unchanged (nothing to publish yet).
+- 2026-07-18 (iter 43): T2a v0.1 (closed-goal-only) — SOUND but
+  PERF-NULL. Determinism ✓ (ON-vs-ON identical oleans), zero build
+  errors, no free-variable kernel error. BUT A/B parity (1.04 vs
+  1.04): the −36% came ENTIRELY from under-context proofs, which are
+  the ones with the telescope-capture bug. UnionFind's by-proofs all
+  carry local hypotheses (arr/i/h) → closed-goal guard almost never
+  fires. HONEST VERDICT: the async-by-proof idea is real (proofs ARE
+  on the single-file crit path, unlike TC/inductives) but the SAFE
+  subset is empty of value; the valuable subset needs telescope-safe
+  nested-proof abstraction = the genuinely hard part. That's the
+  queued deep-session work (handoff below updated). Nothing published
+  (correct: no honest headline yet). This closes the light-iteration
+  productive surface — remaining tracks (correct T2a, T5 imports) are
+  all deep multi-rebuild surgery best done in a focused session.
+
+## HANDOFF (updated iter 43)
+
+Three campaigns run: T1 (synthInstance cache — CPU-real, wall-neutral,
+shipped+documented), T2c (async inductives — sound, perf-null,
+documented), T2a (async by-proofs — sound subset perf-null; valuable
+subset needs telescope-safe nested-proof abstraction). All on branch
+speedup/global-synth-cache (19 commits), stage1 built. The one
+remaining high-value lead: make tryRunTacticAsync
+(SyntheticMVars.lean) handle non-empty contexts correctly —
+abstractNestedProofs must abstract the telescope vars, or the
+extracted <decl>._N aux proofs must be committed as async consts
+closed over the same binders. Ceiling: ~0.35s/def-heavy-file (the
+−36% seen before the soundness gate). Methodology locked: asserted
+harness (exit+olean counts), 5-run medians, soundness gate BEFORE
+perf claims, honest retractions.
