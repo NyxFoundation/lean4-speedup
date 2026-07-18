@@ -164,6 +164,13 @@ public), including **module-system environments**, with a Lean-side
 `RecursorVal` builder validated byte-exact against kernel output (7/7 corpus)
 and the documented `commitCheckEnv` signature check as the drift failsafe.
 
+> **⚠ RETRACTED PENDING RE-VALIDATION (2026-07-18):** the corpus numbers
+> below were measured with a harness that hid per-module build failures
+> (`tail -1` saw only the timing line; lake keeps building after failures).
+> A field-default (`optParam`/`autoParam`) eligibility bug — caught by the
+> designed commitConst failsafe — failed some ON-build modules, so the
+> ON timings did less work. Eligibility fixed; clean A/B in progress.
+
 **Corpus result (5-run medians, distributions fully separated):**
 
 | full Batteries cold build | async on | async off | delta |

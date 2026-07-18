@@ -520,3 +520,16 @@ standalone implementation in this folder.
   T2c hardening: per-file semantic classification of all 23 oleans;
   error-surfacing probe (kernel-rejected inductive); mutual/indexed
   eligibility widening; upstream conversation.
+- 2026-07-18 (iter 32): HEADLINE RETRACTED. The commitConst failsafe
+  FIRED on NameMapAttributeImpl: fields with optParam/autoParam keep
+  their wrappers in the kernel's rec minor premise; my builder strips
+  them → sig mismatch → throw (+ upstream fallback PANICs on
+  ConstantKind.recursor — framework gap to report). WORSE: my corpus
+  A/B harness piped through `tail -1`, hiding per-module build
+  failures (lake keeps going) — the −4.4% ON runs may have done less
+  work. Eligibility fixed (bail on optParam/autoParam fields);
+  docs/README corrected immediately (retraction notes). REDO next
+  wake with exit-code + olean-count checks: full battery, then
+  either restore the headline with clean numbers or report the
+  honest null. Memory lesson: NEVER pipe build A/Bs through tail -1;
+  always assert exit status and artifact counts.
