@@ -88,3 +88,25 @@ CMake Warning at CMakeLists.txt:466 (message):
 [100%] Built target leancpp_1
 ✔ [4987/5001] Built Lean.Elab.MutualInductive (3.8s)
 ✔ [4998/5001] Built Lean.Elab.MutualInductive:c.o (7.8s)
+✔ [4999/5001] Built Lean:static (1.1s)
+✔ [5000/5001] Built Lean:static (1.1s)
+Build completed successfully (5001 jobs).
+[100%] Built target make_stdlib
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libInit_shared.so
+[100%] Built target Init_shared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+[100%] Built target leanshared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/lean
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libLake_shared.so
+[100%] Built target leanir
+[100%] Built target leanc
+[100%] Built target lean
+[100%] Built target lake_shared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/lake
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/leanchecker
+[100%] Built target leanchecker
+[100%] Built target lake
+[ 95%] No install step for 'stage1'
+[100%] Completed 'stage1'
+[100%] Built target stage1
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release' から出ます

@@ -164,25 +164,23 @@ public), including **module-system environments**, with a Lean-side
 `RecursorVal` builder validated byte-exact against kernel output (7/7 corpus)
 and the documented `commitCheckEnv` signature check as the drift failsafe.
 
-> **⚠ RETRACTED PENDING RE-VALIDATION (2026-07-18):** the corpus numbers
-> below were measured with a harness that hid per-module build failures
-> (`tail -1` saw only the timing line; lake keeps building after failures).
-> A field-default (`optParam`/`autoParam`) eligibility bug — caught by the
-> designed commitConst failsafe — failed some ON-build modules, so the
-> ON timings did less work. Eligibility fixed; clean A/B in progress.
+**Final corpus verdict (v1.2 eligibility, fully asserted harness — exit
+codes and artifact counts checked every run):** parity. ON median 13.88 s
+vs OFF 13.78 s, overlapping distributions, 188/188 oleans both ways, all
+probes green. An earlier −4.4 % reading was retracted: builds were failing
+on class/default-field structures (two eligibility bugs caught by the
+designed `commitConst` signature failsafe) and the harness hid the
+failures — the "speedup" was unbuilt work. With correct eligibility the
+async-eligible set (plain wrapper-free structures) carries too little
+synchronous kernel time to move the corpus, consistent with the join-wait
+analysis below.
 
-**Corpus result (5-run medians, distributions fully separated):**
-
-| full Batteries cold build | async on | async off | delta |
-|---|---|---|---|
-| wall | **13.09 s** | 13.69 s | **−4.4 %** |
-| user CPU | **120.4 s** | 123.8 s | −2.8 % |
-
-Soundness: probes (iota through async recursor, projections, module
-exports), ON-vs-ON deterministic, downstream corpus type-checks end-to-end,
-and a semantic public-view comparison of a divergent olean is identical
-(23/188 oleans differ ON-vs-OFF as a stable alternate encoding — classified
-benign; not exhaustively verified per-file).
+The capability itself stands: async kernel processing for eligible
+inductives, module-system environments included, with a byte-exact
+Lean-side recursor builder — validated sound at corpus scale. What the
+kernel keeps in recursor types (optParam/autoParam wrappers, outParam/
+semiOutParam, explicit class params) is now documented by the failsafe's
+catches.
 
 **Measurement lesson** (why single-module A/B shows parity): the 1.31 s
 "Kernel under structure command" that motivated this track was the sync

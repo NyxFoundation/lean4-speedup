@@ -545,3 +545,13 @@ standalone implementation in this folder.
   default-field structures out). Rebuilding; next wake = asserted
   ON×5/OFF×5 with exit codes + olean counts, expectation reset to
   modest-or-null (smaller eligible set).
+- 2026-07-18 (iter 34): T2C FINAL VERDICT — capability sound, perf
+  NULL. Asserted A/B: ON 13.88 vs OFF 13.78 median, overlap, 188/188
+  oleans, 10/10 builds green, probes green. The −4.4% is fully
+  explained as unbuilt work. Value delivered: async-inductive
+  capability (module envs incl.), byte-exact RecursorVal builder,
+  failsafe-documented kernel rec-type semantics (wrappers, class
+  binder rules), the join-wait measurement lesson, and a clean
+  retraction story. T2c CLOSED (v1). Portfolio next: T2a async def
+  bodies (17.9% of main thread — the bigger eligible mass) via the
+  same now-proven framework path; or T5 imports.
