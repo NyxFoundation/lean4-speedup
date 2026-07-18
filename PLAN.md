@@ -708,3 +708,17 @@ perf claims, honest retractions.
   (soundness gate FIRST): UnionFind free-variable check, ON-vs-ON
   determinism, then 5-run A/B (expecting the −36% to return SOUNDLY);
   if determinism/kernel fails, revert to v0.1.
+- 2026-07-18 (iter 46): T2a DEFINITIVE NEGATIVE. v0.2 naming fix
+  confirmed working (aux now under async prefix) but the free-variable
+  error PERSISTS + new 'synthesize placeholder hc' error → the true
+  blocker surfaced: under-context by-proofs share the def's synthetic
+  placeholders (hc) and outer-scope fvars; they are NOT self-contained
+  and cannot be outlined without solving Lean's delayed-assignment /
+  cross-goal-placeholder problem (research-grade, out of scope).
+  Reverted to sound closed-goal subset (perf-null), kept the correct
+  naming fix, documented the full verdict in docs. T2a CLOSED. ALL
+  THREE async tracks now have honest final verdicts: T1 CPU-real/
+  wall-neutral; T2c sound/perf-null; T2a sound-subset-perf-null,
+  general-case-blocked. The campaign's durable output = the
+  measurement methodology + a precise map of WHERE Lean's async
+  boundary can and cannot move, all documented + patch series.

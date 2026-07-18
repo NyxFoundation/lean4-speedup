@@ -1,0 +1,423 @@
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release'　に入ります
+[  4%] Performing update step for 'cadical'
+-- Already at requested tag: rel-2.1.2
+[  8%] No patch step for 'cadical'
+[ 12%] No configure step for 'cadical'
+[ 16%] Performing build step for 'cadical'
+[ 20%] No install step for 'cadical'
+[ 25%] Completed 'cadical'
+[ 33%] Built target cadical
+[ 37%] Performing configure step for 'stage0'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- stage0 sha1: 24613e574a04b70bc2f9427f0e61e3832de53d50
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage0
+[ 41%] Performing build step for 'stage0'
+[  2%] Built target leanmain
+[  3%] Built target leanmanifest
+[  5%] Built target leanshell
+[  5%] Built target initialize
+[  7%] Built target constructions
+[  7%] Built target copy-leantar
+[ 19%] Built target util
+[ 32%] Built target kernel
+[ 32%] Built target leaninitialize
+[ 44%] Built target library
+[ 71%] Built target leanrt_initial-exec
+[ 98%] Built target leancpp_1
+[ 99%] Built target leanrt
+[100%] Built target leancpp
+[100%] Built target make_stdlib
+[100%] Built target Init_shared
+[100%] Built target leanshared
+[100%] Built target leanir
+[100%] Built target lean
+[100%] Built target lake_shared
+[100%] Built target lake
+[100%] Built target leanchecker
+[ 45%] No install step for 'stage0'
+[ 50%] Completed 'stage0'
+[ 66%] Built target stage0
+[ 70%] Performing configure step for 'stage1'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- git commit sha1: c088a93027a47f1ae7b6574c021a6279a3824ae9
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1
+[ 87%] Built target stage1-configure
+[ 91%] Performing build step for 'stage1'
+[  3%] Built target leanmain
+[  3%] Built target leanmanifest
+[  3%] Built target initialize
+[  3%] Built target copy-leantar
+[  6%] Building CXX object CMakeFiles/leanshell.dir/util/shell.cpp.o
+[  6%] Built target copy-cadical
+[ 10%] Built target constructions
+[ 24%] Built target util
+[ 27%] Building CXX object library/CMakeFiles/library.dir/module.cpp.o
+[ 27%] Built target leaninitialize
+[ 27%] Building CXX object library/CMakeFiles/library.dir/util.cpp.o
+[ 41%] Built target kernel
+[ 41%] Building CXX object runtime/CMakeFiles/leanrt_initial-exec.dir/platform.cpp.o
+[ 44%] Building CXX object runtime/CMakeFiles/leanrt.dir/platform.cpp.o
+[ 44%] Linking CXX static library lib/temp/libleanshell.a
+[ 44%] Built target leanshell
+[ 44%] Linking CXX static library libleanrt_initial-exec.a
+[ 44%] Linking CXX static library ../lib/lean/libleanrt.a
+[ 68%] Built target leanrt_initial-exec
+[ 93%] Built target leanrt
+[100%] Built target library
+[100%] Linking CXX static library lib/lean/libleancpp.a
+[100%] Linking CXX static library lib/temp/libleancpp_1.a
+✔ [4000/5001] Built Lean.Elab.SyntheticMVars (1.3s)
+[100%] Built target leancpp_1
+[100%] Built target leancpp
+✔ [4001/5001] Built Lean.Elab.Eval (207ms)
+✔ [4003/5001] Built Lean.Elab.Tactic.Meta (229ms)
+✔ [4005/5001] Built Lean.Elab.Tactic.AsAuxLemma (266ms)
+✔ [4007/5001] Built Lean.Elab.Tactic.ElabTerm (619ms)
+✔ [4009/5001] Built Lean.Elab.Tactic.Do.ProofMode.Pure (471ms)
+✔ [4013/5001] Built Lean.Elab.Tactic.Injection (282ms)
+✔ [4015/5001] Built Lean.Elab.Tactic.Location (351ms)
+✔ [4017/5001] Built Lean.Elab.Tactic.Do.ProofMode.Exact (351ms)
+✔ [4019/5001] Built Lean.Elab.Tactic.Do.ProofMode.Have (428ms)
+✔ [4021/5001] Built Lean.Elab.Tactic.Delta (264ms)
+✔ [4023/5001] Built Lean.Elab.Tactic.Unfold (314ms)
+✔ [4025/5001] Built Lean.Elab.Tactic.Symm (270ms)
+✔ [4027/5001] Built Lean.Elab.Tactic.Do.ProofMode.Assumption (335ms)
+✔ [4029/5001] Built Lean.Elab.Tactic.Do.ProofMode.Specialize (605ms)
+✔ [4031/5001] Built Lean.Elab.Tactic.Change (414ms)
+✔ [4033/5001] Built Lean.Elab.Tactic.Split (610ms)
+✔ [4035/5001] Built Lean.Elab.BuiltinTerm (1.5s)
+✔ [4037/5001] Built Lean.Elab.Tactic.Show (305ms)
+✔ [4039/5001] Built Lean.Elab.Tactic.Do.ProofMode.Refine (530ms)
+✔ [4041/5001] Built Lean.Elab.Tactic.Do.ProofMode (198ms)
+✔ [4043/5001] Built Lean.Elab.Tactic.Do.Spec (869ms)
+✔ [4045/5001] Built Lean.Elab.Match (2.5s)
+✔ [4047/5001] Built Lean.Elab.SyntheticMVars:c.o (3.5s)
+✔ [4048/5001] Built Lean.Elab.Binders (2.1s)
+✔ [4050/5001] Built Lean.Elab.Tactic.Generalize (308ms)
+✔ [4052/5001] Built Lean.Elab.Tactic.RenameInaccessibles (348ms)
+✔ [4054/5001] Built Lean.Elab.PreDefinition.TerminationMeasure (559ms)
+✔ [4056/5001] Built Lean.Elab.Command (1.9s)
+✔ [4058/5001] Built Lean.Elab.BuiltinNotation (2.0s)
+✔ [4059/5001] Built Lean.Util.Reprove (414ms)
+✔ [4060/5001] Built Lean.Linter.Omit (371ms)
+✔ [4061/5001] Built Lean.Linter.Sets (430ms)
+✔ [4062/5001] Built Lean.Elab.Tactic.Induction (2.4s)
+✔ [4063/5001] Built Lean.Linter.DocsOnAlt (502ms)
+✔ [4064/5001] Built Lean.Linter.Coe (497ms)
+✔ [4065/5001] Built Lean.Util.TestExtern (456ms)
+✔ [4066/5001] Built Lean.Linter.ConstructorAsVariable (618ms)
+✔ [4067/5001] Built Lean.Elab.CheckTactic (712ms)
+✔ [4068/5001] Built Lean.Linter.TacticTypeCheck (744ms)
+✔ [4069/5001] Built Lean.PostprocessTraces.Basic (670ms)
+✔ [4070/5001] Built Lean.Elab.Time (367ms)
+✔ [4071/5001] Built Lean.Elab.InfoTrees (430ms)
+✔ [4072/5001] Built Lean.Linter.EnvLinter.Frontend (803ms)
+✔ [4073/5001] Built Lean.Elab.GenInjective (353ms)
+✔ [4074/5001] Built Lean.Elab.Command.WithWeakNamespace (370ms)
+✔ [4075/5001] Built Lean.Elab.RecommendedSpelling (447ms)
+✔ [4076/5001] Built Lake.DSL.DeclUtil (999ms)
+✔ [4077/5001] Built Lean.Linter.Basic (455ms)
+✔ [4078/5001] Built Lean.Elab.AssertExists (708ms)
+✔ [4081/5001] Built Lean.Elab.Tactic.Grind.Annotated (563ms)
+✔ [4082/5001] Built Lean.Elab.Tactic.CbvSimproc (594ms)
+✔ [4093/5001] Built Lean.Linter.Builtin (1.3s)
+✔ [4104/5001] Built Lean.Elab.Tactic.Simproc (594ms)
+✔ [4105/5001] Built Lean.Elab.Tactic.DiscrTreeKey (798ms)
+✔ [4106/5001] Built Lean.Elab.Tactic.Doc (1.0s)
+✔ [4107/5001] Built Lean.Server.Test.Cancel (1.6s)
+✔ [4108/5001] Built Lean.Language.Lean.Types (621ms)
+✔ [4110/5001] Built Lean.Elab.AuxDef (933ms)
+✔ [4111/5001] Built Lean.Util (436ms)
+✔ [4112/5001] Built Lean.Elab.Tactic.Match (717ms)
+✔ [4113/5001] Built Lean.PostprocessTraces.Postprocessors (479ms)
+✔ [4114/5001] Built Lean.Elab.Print (1.5s)
+✔ [4115/5001] Built Lean.PostprocessTraces.StoredTraces (649ms)
+✔ [4116/5001] Built Lean.PostprocessTraces.PostprocessTracesCommand (630ms)
+✔ [4118/5001] Built Lean.Elab.ConfigEval.Util (1.5s)
+✔ [4126/5001] Built Lean.Elab.Tactic.Do.Syntax (958ms)
+✔ [4132/5001] Built Lean.Linter.GlobalAttributeIn (607ms)
+✔ [4137/5001] Built Lake.DSL.Syntax (758ms)
+✔ [4139/5001] Built Lean.Linter.Extra.DupNamespace (686ms)
+✔ [4140/5001] Built Lean.Linter.InternalModule (500ms)
+✔ [4141/5001] Built Lean.Elab.DeclNameGen (1.7s)
+✔ [4142/5001] Built Lean.Linter.Extra.UnreachableTactic (678ms)
+✔ [4144/5001] Built Lean.Linter.DefProp (521ms)
+✔ [4145/5001] Built Lean.Linter.Extra.UnnecessarySeqFocus (801ms)
+✔ [4146/5001] Built Lean.Linter.MissingDocs (1.8s)
+✔ [4147/5001] Built Lean.Linter.UnusedVariables (2.1s)
+✔ [4148/5001] Built Lean.Linter.CheckUnivs (659ms)
+✔ [4149/5001] Built Lean.Linter.Extra.UnusedDecidableInType (876ms)
+✔ [4150/5001] Built Lean.PostprocessTraces (373ms)
+✔ [4151/5001] Built Lean.Linter.List (1.1s)
+✔ [4152/5001] Built Lean.Elab.Tactic.RCases (2.1s)
+✔ [4167/5001] Built Lake.DSL.VerLit (698ms)
+✔ [4170/5001] Built Lean.Elab.ConfigEval.Basic (1.0s)
+✔ [4171/5001] Built Lean.LibrarySuggestions.Basic (1.4s)
+✔ [4172/5001] Built Lake.DSL.Meta (975ms)
+✔ [4173/5001] Built Lean.Linter.CoreInternal (306ms)
+✔ [4174/5001] Built Lake.DSL.Config (739ms)
+✔ [4179/5001] Built Lake.DSL.Key (657ms)
+✔ [4182/5001] Built Lean.Server.Completion.CompletionCollectors (1.9s)
+✔ [4183/5001] Built Lean.Language.Lean (1.7s)
+✔ [4186/5001] Built Lean.Linter.Extra (339ms)
+✔ [4188/5001] Built Lake.DSL.Require (1.3s)
+✔ [4189/5001] Built Lean.Elab.App (6.5s)
+✔ [4190/5001] Built Lean.LibrarySuggestions.SymbolFrequency (584ms)
+✔ [4192/5001] Built Lean.Elab.DefView (942ms)
+✔ [4196/5001] Built Lean.Server.Completion (567ms)
+✔ [4197/5001] Built Lean.Widget.InteractiveDiagnostic (1.4s)
+✔ [4198/5001] Built Lean.Elab.Deriving.Util (1.8s)
+✔ [4199/5001] Built Lean.LibrarySuggestions.MePo (886ms)
+✔ [4200/5001] Built Lean.Elab.Tactic.Ext (1.8s)
+✔ [4201/5001] Built LeanIR (1.1s)
+✔ [4203/5001] Built Lean.Elab.Frontend (1.4s)
+✔ [4209/5001] Built Lean.LibrarySuggestions.SineQuaNon (1.1s)
+✔ [4210/5001] Built Lake.DSL.Script (3.1s)
+✔ [4214/5001] Built Lean.Elab.ConfigEval.DeriveEvalExpr (1.0s)
+✔ [4216/5001] Built Lean.Elab.ConfigEval.Instances (2.1s)
+✔ [4220/5001] Built Lake.DSL.Package (3.2s)
+✔ [4222/5001] Built Lake.CLI.Translate.Lean (3.5s)
+✔ [4224/5001] Built Lean.Elab.Syntax (5.2s)
+✔ [4226/5001] Built Lean.Server.Snapshots (368ms)
+✔ [4228/5001] Built Lake.DSL.Targets (3.5s)
+✔ [4229/5001] Built Lean.Meta.Constructions.CtorElim (912ms)
+✔ [4230/5001] Built Lean.LibrarySuggestions.Default (379ms)
+✔ [4233/5001] Built Lean.Elab.ConfigEval.Extra (494ms)
+✔ [4236/5001] Built Lean.Elab.Calc (1.2s)
+✔ [4238/5001] Built Lean.Server.FileWorker.Utils (576ms)
+✔ [4240/5001] Built Lean.Elab.ConfigEval.DeriveEvalTerm (2.6s)
+✔ [4244/5001] Built Lake.Load.Lean.Elab (923ms)
+✔ [4248/5001] Built Lean.Elab.Extra (1.0s)
+✔ [4250/5001] Built Lean.LibrarySuggestions (377ms)
+✔ [4252/5001] Built Lake.DSL (409ms)
+✔ [4272/5001] Built Lean.Elab.PreDefinition.Basic (1.3s)
+✔ [4274/5001] Built Lean.Elab.ConfigEval.MetaInstances (608ms)
+✔ [4276/5001] Built Lean.Meta.Constructions.CasesOnSameCtor (849ms)
+✔ [4280/5001] Built Lean.Elab.Tactic.Calc (765ms)
+✔ [4282/5001] Built Lake (517ms)
+✔ [4287/5001] Built LakeMain (444ms)
+✔ [4291/5001] Built Lean.Elab.Deriving.Basic (2.1s)
+✔ [4293/5001] Built Lean.Elab.PreDefinition.Mutual (493ms)
+✔ [4294/5001] Built Lean.Elab.PreDefinition.Structural.SmartUnfolding (573ms)
+✔ [4295/5001] Built Lean.Elab.MacroArgUtil (1.0s)
+✔ [4296/5001] Built Lean.Server.Requests (1.4s)
+✔ [4297/5001] Built Lean.Elab.PreDefinition.WF.Unfold (1.3s)
+✔ [4298/5001] Built Lean.Elab.Deriving.ReflBEq (772ms)
+✔ [4299/5001] Built Lean.Elab.Deriving.LawfulBEq (773ms)
+✔ [4300/5001] Built Lean.Elab.MacroRules (2.3s)
+✔ [4301/5001] Built Lean.Elab.PreDefinition.FixedParams (1.5s)
+✔ [4302/5001] Built Lean.Elab.PreDefinition.WF.Fix (1.6s)
+✔ [4303/5001] Built Lean.Elab.Deriving.SizeOf (395ms)
+✔ [4314/5001] Built Lean.Elab.Notation (2.0s)
+✔ [4317/5001] Built Lean.Elab.Deriving.TypeName (748ms)
+✔ [4318/5001] Built Lean.Elab.Deriving.ToExpr (1.7s)
+✔ [4319/5001] Built Lean.Elab.Deriving.Nonempty (883ms)
+✔ [4320/5001] Built Lean.Server.Rpc.Deriving (2.3s)
+✔ [4321/5001] Built Lean.Elab.Deriving.Hashable (2.1s)
+✔ [4322/5001] Built Lean.Server.FileWorker.InlayHints (959ms)
+✔ [4323/5001] Built Lean.Elab.Deriving.Ord (2.4s)
+✔ [4324/5001] Built Lean.Elab.ConfigEval.DeriveEvalConfigItem (3.7s)
+✔ [4325/5001] Built Lean.Server.Rpc.RequestHandling (833ms)
+✔ [4326/5001] Built Lean.Elab.Deriving.Repr (2.2s)
+✔ [4327/5001] Built Lean.Elab.PreDefinition.WF.Rel (589ms)
+✔ [4331/5001] Built Lean.Elab.Deriving.Inhabited (2.1s)
+✔ [4341/5001] Built Lean.Server.CodeActions.Basic (1.2s)
+✔ [4342/5001] Built Lean.Elab.PreDefinition.WF.Eqns (744ms)
+✔ [4343/5001] Built Lean.Elab.PreDefinition.PartialFixpoint.Eqns (948ms)
+✔ [4344/5001] Built Lean.Elab.PreDefinition.Structural.RecArgInfo (592ms)
+✔ [4348/5001] Built Lean.Elab.ConfigEval (476ms)
+✔ [4350/5001] Built Lean.Elab.Deriving.DecEq (3.4s)
+✔ [4351/5001] Built Lean.Elab.DocString.Builtin (9.4s)
+✔ [4352/5001] Built Lean.Server.Rpc (407ms)
+✔ [4353/5001] Built Lean.Server.FileWorker.SemanticHighlighting (2.2s)
+✔ [4354/5001] Built Lean.Elab.BinderPredicates (1.7s)
+✔ [4355/5001] Built Lean.Elab.PreDefinition.Structural.Eqns (1.3s)
+✔ [4356/5001] Built Lean.Elab.Macro (1.8s)
+✔ [4359/5001] Built Lean.Server.CodeActions.Attr (726ms)
+✔ [4367/5001] Built Lean.Elab.PreDefinition.WF.PackMutual (784ms)
+✔ [4368/5001] Built Lean.Elab.StructInst (7.1s)
+✔ [4369/5001] Built Lean.Widget.UserWidget (1.2s)
+✔ [4370/5001] Built Lean.Server.CodeActions.UnknownIdentifier (1.3s)
+✔ [4371/5001] Built Lean.Elab.ComputedFields (1.2s)
+✔ [4372/5001] Built Lean.Elab.PreDefinition.Structural.IndPred (1.0s)
+✔ [4373/5001] Built Lean.Elab.PreDefinition.Structural.BRecOn (1.2s)
+✔ [4374/5001] Built Lean.Elab.PreDefinition.PartialFixpoint.Main (1.4s)
+✔ [4375/5001] Built Lean.Elab.Quotation (6.8s)
+✔ [4376/5001] Built Lean.Elab.PreDefinition.Structural.FindRecArg (1.6s)
+✔ [4385/5001] Built Lean.Elab.Tactic.SolveByElim (1.4s)
+✔ [4388/5001] Built Lean.Elab.Tactic.Lets (1.1s)
+✔ [4389/5001] Built Lean.Elab.Tactic.Impossible (656ms)
+✔ [4390/5001] Built Lean.Elab.PreDefinition.PartialFixpoint.Induction (2.1s)
+✔ [4395/5001] Built Lean.Elab.Deriving.BEq (5.2s)
+✔ [4397/5001] Built Lean.Server.Watchdog (4.3s)
+✔ [4399/5001] Built Lean.Elab.ConfigEval.Builtins (2.7s)
+✔ [4401/5001] Built Lean.Elab.Tactic.Decide (1.2s)
+✔ [4403/5001] Built Lean.Elab.Tactic.Rewrite (1.4s)
+✔ [4405/5001] Built Lean.Meta.Tactic.BVDecide.Attr (1.0s)
+✔ [4437/5001] Built Lean.Elab.Deriving.FromToJson (5.6s)
+✔ [4439/5001] Built Lean.Elab.PreDefinition.PartialFixpoint (333ms)
+✔ [4441/5001] Built Lean.Server.CodeActions.Provider (850ms)
+✔ [4443/5001] Built Lean.Elab.Deriving (314ms)
+✔ [4445/5001] Built Lean.Elab.Tactic.Config (1.4s)
+✔ [4447/5001] Built Lean.Widget.Commands (842ms)
+✔ [4449/5001] Built Lean.Server.CodeActions (295ms)
+✔ [4451/5001] Built Lean.Elab.Do.PatternVar (935ms)
+✔ [4455/5001] Built Lean.Elab.GuardMsgs (1.5s)
+✔ [4457/5001] Built Lean.Widget (330ms)
+✔ [4459/5001] Built Lean.Elab.Coinductive (783ms)
+✔ [4461/5001] Built Lean.Elab.ErrorExplanation (1.5s)
+✔ [4463/5001] Built Lean.Meta.Tactic.AC.Main (1.2s)
+✔ [4465/5001] Built Lean.Elab.BuiltinCommand (2.0s)
+✔ [4467/5001] Built Lean.Meta.Tactic.TryThis (849ms)
+✔ [4469/5001] Built Lean.Meta.Tactic.AC (258ms)
+✔ [4471/5001] Built Lean.Elab.PreDefinition.Structural.Main (735ms)
+✔ [4473/5001] Built Lean.Meta.Tactic.Rewrites (891ms)
+✔ [4475/5001] Built Lean.Elab.PreDefinition.Structural (254ms)
+✔ [4477/5001] Built Lean.Meta.Tactic.BVDecide.Normalize.AC (1.0s)
+✔ [4489/5001] Built Lean.Elab.Tactic.Simp (4.1s)
+✔ [4491/5001] Built Lean.Elab.Do.Basic (1.9s)
+✔ [4493/5001] Built Lean.Elab.Do.Switch (426ms)
+✔ [4495/5001] Built Lean.Elab.Tactic.BVDecide.BVCheck (517ms)
+✔ [4497/5001] Built Lean.Elab.BuiltinDo.Basic (423ms)
+✔ [4499/5001] Built Lean.Elab.Tactic.SimpArith (463ms)
+✔ [4500/5001] Built Lean.Elab.BuiltinDo.Jump (565ms)
+✔ [4501/5001] Built Lean.Elab.Tactic.Rewrites (910ms)
+✔ [4502/5001] Built Lean.Linter.UnusedSimpArgs (729ms)
+✔ [4503/5001] Built Lean.Elab.PreDefinition.WF.Preprocess (1.1s)
+✔ [4509/5001] Built Lean.Elab.Tactic.BVDecide.BVTrace (767ms)
+✔ [4511/5001] Built Lean.Elab.PreDefinition.WF.GuessLex (2.3s)
+✔ [4513/5001] Built Lean.Elab.Idbg (1.4s)
+✔ [4515/5001] Built Lean.Linter (338ms)
+✔ [4517/5001] Built Lean.Elab.Do.Control (1.2s)
+✔ [4519/5001] Built Lean.Elab.Tactic.BVDecide (448ms)
+✔ [4521/5001] Built Lean.Elab.Tactic.Simpa (1.7s)
+✔ [4523/5001] Built Lean.Elab.Do (305ms)
+✔ [4525/5001] Built Lean.Elab.Tactic.Do.VCGen.Basic (1.9s)
+✔ [4527/5001] Built Lean.Elab.BuiltinDo.Forward (561ms)
+✔ [4529/5001] Built Lean.Elab.PreDefinition.WF.Main (1.2s)
+✔ [4531/5001] Built Lean.Server.FileWorker.ExampleHover (596ms)
+✔ [4533/5001] Built Lean.Elab.BuiltinDo.TryCatch (1.1s)
+✔ [4535/5001] Built Lean.Elab.BuiltinDo.If (1.0s)
+✔ [4537/5001] Built Lean.Elab.PreDefinition.WF (399ms)
+✔ [4539/5001] Built Lean.Elab.BuiltinDo.Misc (847ms)
+✔ [4541/5001] Built Lean.Elab.BuiltinDo.MatchExpr (2.6s)
+✔ [4543/5001] Built Lean.Elab.BuiltinDo.For (2.4s)
+✔ [4545/5001] Built Lean.Elab.BuiltinDo.Match (2.8s)
+✔ [4547/5001] Built Lean.Elab.ElabRules (3.6s)
+✔ [4549/5001] Built Lean.Meta.Tactic.Grind.EMatchTheorem (4.9s)
+✔ [4832/5001] Built Lean.Elab.Tactic.ShowTerm (434ms)
+✔ [4833/5001] Built Lean.Meta.Tactic.FunInd (6.9s)
+✔ [4834/5001] Built Lean.Elab.PreDefinition.Main (1.8s)
+✔ [4849/5001] Built Lean.Elab.Tactic.Grind.WithGrindTacticM (584ms)
+✔ [4852/5001] Built Lean.Meta.Tactic.Grind.RegisterCommand (608ms)
+✔ [4855/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.Context (764ms)
+✔ [4857/5001] Built Lean.Elab.BuiltinDo.Repeat (1.5s)
+✔ [4859/5001] Built Lean.Elab.Tactic.Grind.Have (846ms)
+✔ [4860/5001] Built Lean.Elab.Tactic.Grind.Rewrite (911ms)
+✔ [4861/5001] Built Lean.Elab.BuiltinDo.Let (4.4s)
+✔ [4862/5001] Built Lean.Elab.PreDefinition (460ms)
+✔ [4863/5001] Built Lean.Elab.Tactic.SimpTrace (1.6s)
+✔ [4865/5001] Built Lean.Elab.Tactic.LibrarySearch (1.0s)
+✔ [4871/5001] Built Lean.Elab.MutualInductive (6.8s)
+✔ [4873/5001] Built Lean.Elab.Tactic.Grind.RegisterSymSimp (555ms)
+✔ [4875/5001] Built Lean.Elab.Tactic.Grind.RegisterSymDSimp (545ms)
+✔ [4877/5001] Built Lean.Meta.Tactic.Grind (749ms)
+✔ [4879/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.FrameProcAttr (543ms)
+✔ [4881/5001] Built Lean.Elab.Tactic.Grind.Sym (1.3s)
+✔ [4883/5001] Built Lean.Elab.BuiltinDo (388ms)
+✔ [4885/5001] Built Lean.Elab.Tactic.BuiltinTactic (3.7s)
+✔ [4887/5001] Built Lean.Elab.Tactic.Grind.Param (1.7s)
+✔ [4889/5001] Built Lean.Server.FileWorker.RequestHandling (3.2s)
+✔ [4891/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.Util (1.1s)
+✔ [4893/5001] Built Lean.Meta.Tactic (453ms)
+✔ [4895/5001] Built Lean.Elab.Tactic.Grind.Config (2.0s)
+✔ [4897/5001] Built Lean.Meta (390ms)
+✔ [4899/5001] Built Lean.Elab.Tactic.Do.VCGen (4.4s)
+✔ [4901/5001] Built Lean.Elab.Tactic.Cbv (490ms)
+✔ [4903/5001] Built Lean.Elab.Tactic.Conv.Basic (838ms)
+✔ [4905/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.RuleConstruction (1.5s)
+✔ [4907/5001] Built Lean.Elab.Tactic.Conv.Cbv (405ms)
+✔ [4908/5001] Built Lean.Elab.Tactic.Grind.Trace (721ms)
+✔ [4909/5001] Built Lean.Elab.Tactic.Conv.Rewrite (465ms)
+✔ [4913/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.RuleCache (706ms)
+✔ [4915/5001] Built Lean.Elab.Tactic.Conv.Change (493ms)
+✔ [4917/5001] Built Lean.Elab.Tactic.Conv.Lets (747ms)
+✔ [4919/5001] Built Lean.Elab.Tactic.Conv.Simp (728ms)
+✔ [4921/5001] Built Lean.Elab.Tactic.Grind.Lint (1.2s)
+✔ [4923/5001] Built Lean.Elab.Inductive (1.0s)
+✔ [4925/5001] Built Lean.Elab.Tactic.Conv.Delta (475ms)
+✔ [4927/5001] Built Lean.Server.FileWorker.WidgetRequests (1.7s)
+✔ [4929/5001] Built Lean.Elab.Tactic.Conv.Pattern (1.1s)
+✔ [4931/5001] Built Lean.Elab.Tactic.Guard (1.2s)
+✔ [4933/5001] Built Lean.Elab.Tactic.Conv.Unfold (513ms)
+✔ [4935/5001] Built Lean.Elab.Tactic.Grind.LintExceptions (521ms)
+✔ [4937/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.Entails (880ms)
+✔ [4939/5001] Built Lean.Server.ProtocolOverview (582ms)
+✔ [4941/5001] Built Lean.Elab.Tactic.Conv.Congr (1.4s)
+✔ [4943/5001] Built Lean.Elab.Tactic.Conv (325ms)
+✔ [4945/5001] Built Lean.Elab.Tactic.Grind.BuiltinTactic (2.7s)
+✔ [4947/5001] Built Lean.Elab.Tactic.NormCast (1.9s)
+✔ [4949/5001] Built Lean.Elab.Tactic.Grind.Main (2.0s)
+✔ [4951/5001] Built Lean.Elab.Tactic.Grind (229ms)
+✔ [4953/5001] Built Lean.Server.FileWorker (1.9s)
+✔ [4955/5001] Built Lean.Elab.MutualDef (4.9s)
+✔ [4957/5001] Built Lean.Elab.Tactic.Omega.Frontend (4.2s)
+✔ [4961/5001] Built Lean.Server.Test.Runner (2.6s)
+✔ [4963/5001] Built Lean.Shell (852ms)
+✔ [4965/5001] Built Lean.Elab.LetRec (860ms)
+✔ [4967/5001] Built Lean.Server.Test (228ms)
+✔ [4969/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.Solve (2.5s)
+✔ [4971/5001] Built Lean.Server (267ms)
+✔ [4973/5001] Built Lean.Elab.Structure (5.4s)
+✔ [4975/5001] Built Lean.Elab.BuiltinEvalCommand (1.4s)
+✔ [4977/5001] Built Lean.Elab.Declaration (1.4s)
+✔ [4979/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.Driver (593ms)
+✔ [4981/5001] Built Lean.Elab.Tactic.Try (2.9s)
+✔ [4983/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.Frontend (1.2s)
+✔ [4985/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen (251ms)
+✔ [4987/5001] Built Lean.Elab.Tactic.AutoTry (767ms)
+✔ [4989/5001] Built Lean.Elab.Tactic.Do.Internal (223ms)
+✔ [4991/5001] Built Lean.Elab.Tactic.Do (223ms)
+✔ [4993/5001] Built Lean.Elab.Tactic (269ms)
+✔ [4995/5001] Built Lean.Elab (283ms)
+✔ [4997/5001] Built Lean (344ms)
+✔ [4999/5001] Built Lean:static (1.1s)
+✔ [5000/5001] Built Lean:static (1.1s)
+Build completed successfully (5001 jobs).
+[100%] Built target make_stdlib
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libInit_shared.so
+[100%] Built target Init_shared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+[100%] Built target leanshared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/lean
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libLake_shared.so
+[100%] Built target leanc
+[100%] Built target leanir
+[100%] Built target lean
+[100%] Built target lake_shared
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/leanchecker
+[    ] Building /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/bin/lake
+[100%] Built target leanchecker
+[100%] Built target lake
+[ 95%] No install step for 'stage1'
+[100%] Completed 'stage1'
+[100%] Built target stage1
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release' から出ます

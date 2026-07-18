@@ -90,3 +90,34 @@ General by-block async: def-elaboration proof cost (the 0.35 s class plus
 termination obligations as a special case) rides the async-theorem lane,
 where worker cores idle at 30-45 %. Corpus effect concentrated in
 build-tail impl modules; measured honestly via the asserted harness.
+
+
+## FINAL VERDICT (2026-07-18): sound subset perf-null; general case blocked
+
+Implemented `tryRunTacticAsync` (SyntheticMVars.lean, `Elab.asyncByProofs`,
+default off). Findings, in order:
+
+1. **Closed goals (empty local context)** — sound, deterministic,
+   corpus-safe at scale (full Batteries builds clean, 188/188 oleans).
+   But perf-null: real value lives in under-context proofs.
+2. **Under-context goals** — a −36 % single-file speedup was observed
+   (UnionFind/Basic), the only track that moved single-file wall time
+   (proofs ARE on the def-elaboration critical path). BUT unsound:
+   - v0 hit `kernel declaration has free variables` from tactic-extracted
+     aux proofs named under the enclosing def rather than the async prefix.
+   - v0.2 fixed the naming (`withDeclNameForAuxNaming`) so aux proofs land
+     under the async prefix — yet the free-variable error PERSISTS, now
+     joined by `don't know how to synthesize placeholder for argument hc`.
+
+**Root cause (definitive):** under-context by-proofs in real code are
+entangled with the enclosing definition's metavariable/placeholder web —
+they share synthetic placeholders (`hc`) resolved elsewhere in the def's
+elaboration and reference fvars beyond the immediate local context
+(mutual-block / section scope). Outlining them into a self-contained async
+theorem would require solving Lean's general delayed-assignment and
+cross-goal placeholder-sharing problem — a research-grade change to the
+elaboration model, out of scope here.
+
+**Shipped state:** the sound closed-goal subset, option-gated off. The
+naming fix (`withDeclNameForAuxNaming`) is kept as it is correct and
+independently useful. No performance claim is made.
