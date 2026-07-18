@@ -682,3 +682,17 @@ closed over the same binders. Ceiling: ~0.35s/def-heavy-file (the
 −36% seen before the soundness gate). Methodology locked: asserted
 harness (exit+olean counts), 5-run medians, soundness gate BEFORE
 perf claims, honest retractions.
+- 2026-07-18 (iter 44): INFORMED root-cause read + soundness-at-scale.
+  Read the closure machinery: mkAuxTheorem -> mkValueTypeClosure
+  CLOSES over fvars by construction (returns mkAppN (mkConst name)
+  exprArgs), so nested-proof abstraction is fvar-safe in principle.
+  => the telescope-capture bug is NOT in closure logic but in a
+  subtler async-branch interaction (the asyncEnv prefix restriction
+  `_byAsync_N` vs the declNGen used by mkAuxLemma during the task, or
+  aux decls added to the async branch before the closure's fvar set is
+  finalized). This NARROWS the next-session search to the async
+  env-branch/declNGen seam, not the abstraction algorithm.
+  DELIVERABLE: full Batteries corpus builds CLEAN with
+  Elab.asyncByProofs=true (closed-goal subset), 188/188 oleans, exit 0
+  via the asserted harness — the safe subset is corpus-sound at scale
+  (perf-neutral, as expected). One build, not iterative.
