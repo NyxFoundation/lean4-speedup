@@ -571,3 +571,13 @@ standalone implementation in this folder.
   dedicated time box. Portfolio also still holds: T5 imports,
   T4 whnf-global instrumentation, T1-v2 probe-perf polish,
   T2c upstream conversation.
+- 2026-07-18 (iter 36): T2a' spec COMPLETE
+  (docs/t2a-termination-outlining.md): entry point =
+  WF.Fix.solveDecreasingGoals:250 (goals as mvars, solved in place);
+  outline = telescope-close each goal, register <fn>._dec_<i> via the
+  async-theorem body-task pattern (statement known pre-tactic), assign
+  mvar := const app; GuessLex probing must stay sync (drives measure
+  inference — only post-measure obligations outline; Batteries uses
+  explicit termination_by so its tactic time is the outlinable kind).
+  Validation plan per established discipline incl. eq-lemma
+  end-to-end and async error attribution. NEXT: implement from spec.
