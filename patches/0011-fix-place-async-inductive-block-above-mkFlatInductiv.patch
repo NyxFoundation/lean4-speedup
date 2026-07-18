@@ -1,7 +1,7 @@
 From 3d5adf40cefa55b937203b3313fecad6120d7909 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 02:53:33 +0900
-Subject: [PATCH 11/14] fix: place async-inductive block above
+Subject: [PATCH 11/22] fix: place async-inductive block above
  mkFlatInductive's doc comment
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>

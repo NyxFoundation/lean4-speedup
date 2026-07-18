@@ -1,0 +1,41 @@
+From aaba6128c7199a83d61fd08cbe67c846a29b584c Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 09:23:52 +0900
+Subject: [PATCH 15/22] =?UTF-8?q?fix:=20bail=20on=20optParam/autoParam=20f?=
+ =?UTF-8?q?ields=20=E2=80=94=20kernel=20keeps=20wrappers=20in=20rec=20mino?=
+ =?UTF-8?q?r=20premise=20(failsafe=20caught=20the=20drift)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/MutualInductive.lean | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/src/Lean/Elab/MutualInductive.lean b/src/Lean/Elab/MutualInductive.lean
+index 7a8359b..a3cf7d1 100644
+--- a/src/Lean/Elab/MutualInductive.lean
++++ b/src/Lean/Elab/MutualInductive.lean
+@@ -1432,10 +1432,16 @@ private def addInductiveDeclAsync? (decl : Declaration) : TermElabM Bool := do
+   -- (structural infos are exported as-is for exposed public types); private
+   -- inductives keep the sync path.
+   if (← getEnv).header.isModule && isPrivateName indType.name then return false
+-  -- non-recursive: no constructor FIELD may mention the type (result does, of course)
++  -- non-recursive: no constructor FIELD may mention the type (result does, of course).
++  -- Also bail on optParam/autoParam field types (field defaults / auto tactics):
++  -- the kernel KEEPS those wrappers in the recursor's minor premise and our
++  -- builder does not reproduce them (caught by the commitConst failsafe).
+   let fieldsOk ← forallTelescope ctor.type fun fields _ =>
+     fields.allM fun f => do
+-      pure ((← inferType f).find? (·.isConstOf indType.name)).isNone
++      let ty ← inferType f
++      if (ty.find? fun e => e.isConstOf ``optParam || e.isConstOf ``autoParam).isSome then
++        return false
++      pure (ty.find? (·.isConstOf indType.name)).isNone
+   unless fieldsOk do
+     trace[Elab.inductive] "asyncInd bail: recursive field {indType.name}"
+     return false
+-- 
+2.53.0
+

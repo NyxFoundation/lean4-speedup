@@ -1,7 +1,7 @@
 From d838c94425f31f2b9aa4425e86deedbbf7b4f7e5 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 07:30:37 +0900
-Subject: [PATCH 13/14] debug: entry + option-gate traces
+Subject: [PATCH 13/22] debug: entry + option-gate traces
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
 ---

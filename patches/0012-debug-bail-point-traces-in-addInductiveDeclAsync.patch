@@ -1,7 +1,7 @@
 From 36c6dddba41b02ed24e2aeee47fe5d2e444d6707 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 03:11:24 +0900
-Subject: [PATCH 12/14] debug: bail-point traces in addInductiveDeclAsync?
+Subject: [PATCH 12/22] debug: bail-point traces in addInductiveDeclAsync?
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
 ---

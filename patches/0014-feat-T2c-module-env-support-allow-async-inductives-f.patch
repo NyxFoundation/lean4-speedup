@@ -1,7 +1,7 @@
 From 4391f5c3e2e3427b623152613a16983d73ffbe7a Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 08:09:39 +0900
-Subject: [PATCH 14/14] =?UTF-8?q?feat:=20T2c=20module-env=20support=20?=
+Subject: [PATCH 14/22] =?UTF-8?q?feat:=20T2c=20module-env=20support=20?=
  =?UTF-8?q?=E2=80=94=20allow=20async=20inductives=20for=20public=20names?=
  =?UTF-8?q?=20(identity=20export)?=
 MIME-Version: 1.0

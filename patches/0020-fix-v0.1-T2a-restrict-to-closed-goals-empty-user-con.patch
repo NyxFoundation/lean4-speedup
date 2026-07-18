@@ -1,0 +1,58 @@
+From b71707fbc1efaf7fb8d7b43191562bdae5938e95 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 14:57:53 +0900
+Subject: [PATCH 20/22] =?UTF-8?q?fix:=20v0.1=20T2a=20=E2=80=94=20restrict?=
+ =?UTF-8?q?=20to=20closed=20goals=20(empty=20user=20context),=20capture-fr?=
+ =?UTF-8?q?ee=20by=20construction?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/SyntheticMVars.lean | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index cb52c4b..bb90782 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -484,14 +484,16 @@ mutual
+       let goalType ← instantiateMVars (← mvarId.getType)
+       if goalType.hasExprMVar || goalType.hasLevelMVar then return false
+       unless (← isProp goalType) do return false
++      -- v0: require a CLOSED goal (no user fvars in context). Reopening a
++      -- telescope lets nested-proof abstraction capture the bound vars and
++      -- produce free-variable kernel errors; an empty context is capture-free.
+       let lctx ← getLCtx
+-      let mut fvars := #[]
+       for decl in lctx do
+-        if decl.isImplementationDetail then continue
+-        if decl.isLet then return false
+-        fvars := fvars.push decl.toExpr
+-      let stmt ← instantiateMVars (← mkForallFVars fvars goalType)
++        unless decl.isImplementationDetail do return false
++      if goalType.hasFVar then return false
++      let stmt ← instantiateMVars goalType
+       if stmt.hasExprMVar || stmt.hasFVar || stmt.hasLevelMVar then return false
++      let fvars : Array Expr := #[]
+       let levelParams := (collectLevelParams {} stmt).params.toList
+       let declName ← Term.mkAuxName `_byAsync
+       let env ← getEnv
+@@ -504,10 +506,9 @@ mutual
+         Term.wrapAsyncAsSnapshot (desc := s!"async by-proof {declName}")
+           (cancelTk? := cancelTk) fun _ => do
+         setEnv async.asyncEnv
+-        let value ← Meta.forallTelescope stmt fun xs body => do
+-          let g ← mkFreshExprSyntheticOpaqueMVar body
+-          runTactic g.mvarId! tacticCode .term
+-          instantiateMVars (← mkLambdaFVars xs g)
++        let g ← mkFreshExprSyntheticOpaqueMVar stmt
++        runTactic g.mvarId! tacticCode .term
++        let value ← instantiateMVars g
+         addDecl <| Declaration.thmDecl { name := declName, levelParams, type := stmt, value }
+         async.commitConst (← getEnv)
+         async.commitCheckEnv (← getEnv)
+-- 
+2.53.0
+

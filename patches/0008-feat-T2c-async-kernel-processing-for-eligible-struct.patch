@@ -1,7 +1,7 @@
 From 39b150a0b1ba5235d70e514eb3145b35487c02c9 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 01:45:57 +0900
-Subject: [PATCH 08/14] feat: T2c async kernel processing for eligible
+Subject: [PATCH 08/22] feat: T2c async kernel processing for eligible
  structures (Elab.asyncInductive, default off)
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>

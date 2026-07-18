@@ -1,7 +1,7 @@
 From d63cba3f1261efd8c930b7b53657b8301bc05bc4 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Fri, 17 Jul 2026 23:30:11 +0900
-Subject: [PATCH 06/14] =?UTF-8?q?feat:=20v2.2=20free=20recording=20?=
+Subject: [PATCH 06/22] =?UTF-8?q?feat:=20v2.2=20free=20recording=20?=
  =?UTF-8?q?=E2=80=94=20raw=20mvar-free=20subgoal=20types,=20no=20abstractM?=
  =?UTF-8?q?Vars,=20reuse=20mkGeneratorNode's=20type?=
 MIME-Version: 1.0

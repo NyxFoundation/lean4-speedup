@@ -1,7 +1,7 @@
 From eb9638559d5b7c268900e2af95a239e15bd67495 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 02:17:57 +0900
-Subject: [PATCH 09/14] fix: use public Environment.addDeclCore (addDeclAux is
+Subject: [PATCH 09/22] fix: use public Environment.addDeclCore (addDeclAux is
  private to AddDecl)
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>

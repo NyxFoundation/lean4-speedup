@@ -1,0 +1,52 @@
+From 5c1e98037699411292fc3988a94b92fc749f3068 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 09:41:05 +0900
+Subject: [PATCH 16/22] =?UTF-8?q?fix:=20v1.2=20conservative=20eligibility?=
+ =?UTF-8?q?=20=E2=80=94=20bail=20on=20optParam/autoParam/outParam/semiOutP?=
+ =?UTF-8?q?aram=20wrappers=20and=20instImplicit=20params=20(second=20fails?=
+ =?UTF-8?q?afe=20catch)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/MutualInductive.lean | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/src/Lean/Elab/MutualInductive.lean b/src/Lean/Elab/MutualInductive.lean
+index a3cf7d1..d4e6d51 100644
+--- a/src/Lean/Elab/MutualInductive.lean
++++ b/src/Lean/Elab/MutualInductive.lean
+@@ -1433,15 +1433,21 @@ private def addInductiveDeclAsync? (decl : Declaration) : TermElabM Bool := do
+   -- inductives keep the sync path.
+   if (← getEnv).header.isModule && isPrivateName indType.name then return false
+   -- non-recursive: no constructor FIELD may mention the type (result does, of course).
+-  -- Also bail on optParam/autoParam field types (field defaults / auto tactics):
+-  -- the kernel KEEPS those wrappers in the recursor's minor premise and our
+-  -- builder does not reproduce them (caught by the commitConst failsafe).
++  -- Conservative wrapper scan (two failsafe catches taught us): the kernel KEEPS
++  -- optParam/autoParam (field defaults) and outParam/semiOutParam (class params)
++  -- wrappers in the recursor type, and keeps class params explicit — our builder
++  -- reproduces neither. Bail on any wrapper anywhere and on instImplicit params.
++  let hasWrapper (e : Expr) : Bool :=
++    (e.find? fun x => x.isConstOf ``optParam || x.isConstOf ``autoParam ||
++      x.isConstOf ``outParam || x.isConstOf ``semiOutParam).isSome
++  if hasWrapper indType.type || hasWrapper ctor.type then return false
++  let paramsOk ← forallTelescope indType.type fun params _ =>
++    params.allM fun p => do
++      pure ((← p.fvarId!.getBinderInfo) != .instImplicit)
++  unless paramsOk do return false
+   let fieldsOk ← forallTelescope ctor.type fun fields _ =>
+     fields.allM fun f => do
+-      let ty ← inferType f
+-      if (ty.find? fun e => e.isConstOf ``optParam || e.isConstOf ``autoParam).isSome then
+-        return false
+-      pure (ty.find? (·.isConstOf indType.name)).isNone
++      pure (((← inferType f).find? (·.isConstOf indType.name)).isNone)
+   unless fieldsOk do
+     trace[Elab.inductive] "asyncInd bail: recursive field {indType.name}"
+     return false
+-- 
+2.53.0
+

@@ -1,0 +1,89 @@
+From 24d034e761beb1587c3b7cdc98587ca8e614517a Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 14:06:34 +0900
+Subject: [PATCH 17/22] =?UTF-8?q?feat:=20T2a=20v0=20=E2=80=94=20async=20by?=
+ =?UTF-8?q?-proofs=20(Elab.asyncByProofs,=20default=20off):=20mvar-free=20?=
+ =?UTF-8?q?Prop=20by-blocks=20become=20async=20aux=20theorems?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/SyntheticMVars.lean | 51 +++++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index 7b7f039..221bd93 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -462,8 +462,57 @@ register_builtin_option backward.proofsInPublic : Bool := {
+     its `warn` sub-option are enabled, additional warnings from private accesses."
+ }
+ 
++register_builtin_option Elab.asyncByProofs : Bool := {
++  defValue := false
++  descr := "(experiment) elaborate mvar-free Prop-valued `by` blocks as asynchronous auxiliary theorems"
++}
++
+ mutual
+ 
++  /-- (speedup experiment) Try to run a `by` block asynchronously as an auxiliary
++  theorem: the statement (the goal closed over its local context) is committed
++  eagerly, the tactic runs in a background task, and the goal is assigned the
++  constant applied to the context. Only standard `.term` goals that are mvar-free
++  Props over let-free contexts, in non-module envs (v0). Returns `false` to fall
++  back to the synchronous path. -/
++  partial def tryRunTacticAsync (mvarId : MVarId) (tacticCode : Syntax) (kind : TacticMVarKind) : TermElabM Bool := do
++    unless kind matches .term do return false
++    unless Elab.asyncByProofs.get (← getOptions) do return false
++    unless Elab.async.get (← getOptions) do return false
++    if (← getEnv).header.isModule then return false
++    mvarId.withContext do
++      let goalType ← instantiateMVars (← mvarId.getType)
++      if goalType.hasExprMVar || goalType.hasLevelMVar then return false
++      unless (← isProp goalType) do return false
++      let lctx ← getLCtx
++      let mut fvars := #[]
++      for decl in lctx do
++        if decl.isImplementationDetail then continue
++        if decl.isLet then return false
++        fvars := fvars.push decl.toExpr
++      let stmt ← instantiateMVars (← mkForallFVars fvars goalType)
++      if stmt.hasExprMVar || stmt.hasFVar || stmt.hasLevelMVar then return false
++      let levelParams := (collectLevelParams {} stmt).params.toList
++      let declName ← Term.mkAuxName `_byAsync
++      let env ← getEnv
++      let async ← env.addConstAsync declName .thm
++      async.commitSignature { name := declName, levelParams, type := stmt }
++      setEnv async.mainEnv
++      let cancelTk ← IO.CancelToken.new
++      let act ← Term.wrapAsyncAsSnapshot (desc := s!"async by-proof {declName}")
++          (cancelTk? := cancelTk) fun _ => do
++        setEnv async.asyncEnv
++        let value ← Meta.forallTelescope stmt fun xs body => do
++          let g ← mkFreshExprSyntheticOpaqueMVar body
++          runTactic g.mvarId! tacticCode .term
++          instantiateMVars (← mkLambdaFVars xs g)
++        addDecl <| Declaration.thmDecl { name := declName, levelParams, type := stmt, value }
++        async.commitConst (← getEnv)
++        async.commitCheckEnv (← getEnv)
++      Core.logSnapshotTask { stx? := some tacticCode, task := (← BaseIO.asTask (act ())), cancelTk? := cancelTk }
++      mvarId.assign (mkAppN (mkConst declName (levelParams.map Level.param)) fvars)
++      return true
++
+   /--
+   Try to synthesize a term `val` using the tactic code `tacticCode`, and then assign `mvarId := val`.
+ 
+@@ -563,6 +612,8 @@ mutual
+     | .tactic tacticCode savedContext kind delayOnMVars =>
+       withSavedContext savedContext do
+         if runTactics && !(delayOnMVars && (← mvarId.getType >>= instantiateExprMVars).hasExprMVar) then
++          if (← tryRunTacticAsync mvarId tacticCode kind) then
++            return true
+           runTactic mvarId tacticCode kind
+           return true
+         else
+-- 
+2.53.0
+

@@ -1,0 +1,65 @@
+From 1514d445702ddf3f877c034a35be480fa560e675 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 17:37:45 +0900
+Subject: [PATCH 22/22] =?UTF-8?q?T2a:=20revert=20to=20sound=20closed-goal?=
+ =?UTF-8?q?=20subset=20=E2=80=94=20under-context=20by-proofs=20are=20entan?=
+ =?UTF-8?q?gled=20with=20the=20def's=20mvar=20web=20(definitive=20negative?=
+ =?UTF-8?q?=20result),=20keep=20the=20naming=20fix=20+=20doc=20the=20findi?=
+ =?UTF-8?q?ng?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/SyntheticMVars.lean | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index 5c4bacb..50bb54f 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -484,16 +484,19 @@ mutual
+       let goalType ← instantiateMVars (← mvarId.getType)
+       if goalType.hasExprMVar || goalType.hasLevelMVar then return false
+       unless (← isProp goalType) do return false
+-      -- Close the goal over its local context (the def's parameters). Bail on
+-      -- let-decls (their values would need zeta) and any residual mvars.
++      -- SOUND SUBSET ONLY (v0.1): require a CLOSED goal (no user fvars in
++      -- context). Under-context by-proofs in real code are entangled with the
++      -- surrounding def's metavariable/placeholder web (shared `hc`-style
++      -- placeholders, delayed assignments, outer fvars) and cannot be soundly
++      -- outlined without solving Lean's general delayed-assignment problem —
++      -- see docs/t2a-termination-outlining.md. Empty context is capture-free.
+       let lctx ← getLCtx
+-      let mut fvars := #[]
+       for decl in lctx do
+-        if decl.isImplementationDetail then continue
+-        if decl.isLet then return false
+-        fvars := fvars.push decl.toExpr
+-      let stmt ← instantiateMVars (← mkForallFVars fvars goalType)
++        unless decl.isImplementationDetail do return false
++      if goalType.hasFVar then return false
++      let stmt ← instantiateMVars goalType
+       if stmt.hasExprMVar || stmt.hasFVar || stmt.hasLevelMVar then return false
++      let fvars : Array Expr := #[]
+       let levelParams := (collectLevelParams {} stmt).params.toList
+       let declName ← Term.mkAuxName `_byAsync
+       let env ← getEnv
+@@ -511,10 +514,9 @@ mutual
+         Term.wrapAsyncAsSnapshot (desc := s!"async by-proof {declName}")
+           (cancelTk? := cancelTk) fun _ => do
+         setEnv async.asyncEnv
+-        let value ← Meta.forallTelescope stmt fun xs body => do
+-          let g ← mkFreshExprSyntheticOpaqueMVar body
+-          runTactic g.mvarId! tacticCode .term
+-          instantiateMVars (← mkLambdaFVars xs g)
++        let g ← mkFreshExprSyntheticOpaqueMVar stmt
++        runTactic g.mvarId! tacticCode .term
++        let value ← instantiateMVars g
+         addDecl <| Declaration.thmDecl { name := declName, levelParams, type := stmt, value }
+         async.commitConst (← getEnv)
+         async.commitCheckEnv (← getEnv)
+-- 
+2.53.0
+

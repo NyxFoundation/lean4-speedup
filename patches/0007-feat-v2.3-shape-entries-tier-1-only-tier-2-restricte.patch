@@ -1,7 +1,7 @@
 From b3a2094d2b85f8634b72ba044e44c505cd02dd48 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 00:02:17 +0900
-Subject: [PATCH 07/14] =?UTF-8?q?feat:=20v2.3=20=E2=80=94=20shape=20entrie?=
+Subject: [PATCH 07/22] =?UTF-8?q?feat:=20v2.3=20=E2=80=94=20shape=20entrie?=
  =?UTF-8?q?s=20tier-1=20only;=20tier-2=20restricted=20to=20the=20exact=20c?=
  =?UTF-8?q?ache=20(query=20closure=20per=20insert=20was=20the=20remaining?=
  =?UTF-8?q?=20tax)?=

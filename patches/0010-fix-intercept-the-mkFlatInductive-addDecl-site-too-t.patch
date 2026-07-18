@@ -1,7 +1,7 @@
 From b80376c084c39ee7ab89a088300413c96ddab282 Mon Sep 17 00:00:00 2001
 From: grandchildrice <kingmasatojames@gmail.com>
 Date: Sat, 18 Jul 2026 02:36:51 +0900
-Subject: [PATCH 10/14] fix: intercept the mkFlatInductive addDecl site too
+Subject: [PATCH 10/22] fix: intercept the mkFlatInductive addDecl site too
  (the path real structures take); move defs above it
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>

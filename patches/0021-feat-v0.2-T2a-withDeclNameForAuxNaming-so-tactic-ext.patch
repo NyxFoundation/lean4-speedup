@@ -1,0 +1,71 @@
+From c088a93027a47f1ae7b6574c021a6279a3824ae9 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 17:20:50 +0900
+Subject: [PATCH 21/22] =?UTF-8?q?feat:=20v0.2=20T2a=20=E2=80=94=20withDecl?=
+ =?UTF-8?q?NameForAuxNaming=20so=20tactic-extracted=20aux=20proofs=20land?=
+ =?UTF-8?q?=20under=20the=20async=20prefix;=20re-enable=20under-context=20?=
+ =?UTF-8?q?by-proofs?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/SyntheticMVars.lean | 28 +++++++++++++++++-----------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index bb90782..5c4bacb 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -484,16 +484,16 @@ mutual
+       let goalType ← instantiateMVars (← mvarId.getType)
+       if goalType.hasExprMVar || goalType.hasLevelMVar then return false
+       unless (← isProp goalType) do return false
+-      -- v0: require a CLOSED goal (no user fvars in context). Reopening a
+-      -- telescope lets nested-proof abstraction capture the bound vars and
+-      -- produce free-variable kernel errors; an empty context is capture-free.
++      -- Close the goal over its local context (the def's parameters). Bail on
++      -- let-decls (their values would need zeta) and any residual mvars.
+       let lctx ← getLCtx
++      let mut fvars := #[]
+       for decl in lctx do
+-        unless decl.isImplementationDetail do return false
+-      if goalType.hasFVar then return false
+-      let stmt ← instantiateMVars goalType
++        if decl.isImplementationDetail then continue
++        if decl.isLet then return false
++        fvars := fvars.push decl.toExpr
++      let stmt ← instantiateMVars (← mkForallFVars fvars goalType)
+       if stmt.hasExprMVar || stmt.hasFVar || stmt.hasLevelMVar then return false
+-      let fvars : Array Expr := #[]
+       let levelParams := (collectLevelParams {} stmt).params.toList
+       let declName ← Term.mkAuxName `_byAsync
+       let env ← getEnv
+@@ -502,13 +502,19 @@ mutual
+       setEnv async.mainEnv
+       let cancelTk ← IO.CancelToken.new
+       let act ←
+-        Term.withDeclName declName do -- extracted aux decls must stay under our prefix
++        Term.withDeclName declName do
++        -- KEY: name aux proofs extracted during the tactic under OUR async
++        -- prefix (`declName._proof_N`) so they respect the async branch's
++        -- prefix restriction; otherwise they land under the enclosing def
++        -- and are rejected as free-variable / out-of-prefix declarations.
++        withDeclNameForAuxNaming declName do
+         Term.wrapAsyncAsSnapshot (desc := s!"async by-proof {declName}")
+           (cancelTk? := cancelTk) fun _ => do
+         setEnv async.asyncEnv
+-        let g ← mkFreshExprSyntheticOpaqueMVar stmt
+-        runTactic g.mvarId! tacticCode .term
+-        let value ← instantiateMVars g
++        let value ← Meta.forallTelescope stmt fun xs body => do
++          let g ← mkFreshExprSyntheticOpaqueMVar body
++          runTactic g.mvarId! tacticCode .term
++          instantiateMVars (← mkLambdaFVars xs g)
+         addDecl <| Declaration.thmDecl { name := declName, levelParams, type := stmt, value }
+         async.commitConst (← getEnv)
+         async.commitCheckEnv (← getEnv)
+-- 
+2.53.0
+

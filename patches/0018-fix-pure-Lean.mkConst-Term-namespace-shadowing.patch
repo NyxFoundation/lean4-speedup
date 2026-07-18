@@ -1,0 +1,26 @@
+From 4c21f90de6bce0cd02be1fa30587b4d9ea795c7c Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 14:23:28 +0900
+Subject: [PATCH 18/22] fix: pure Lean.mkConst (Term namespace shadowing)
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/SyntheticMVars.lean | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index 221bd93..a73989a 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -510,7 +510,7 @@ mutual
+         async.commitConst (← getEnv)
+         async.commitCheckEnv (← getEnv)
+       Core.logSnapshotTask { stx? := some tacticCode, task := (← BaseIO.asTask (act ())), cancelTk? := cancelTk }
+-      mvarId.assign (mkAppN (mkConst declName (levelParams.map Level.param)) fvars)
++      mvarId.assign (mkAppN (Lean.mkConst declName (levelParams.map Level.param)) fvars)
+       return true
+ 
+   /--
+-- 
+2.53.0
+

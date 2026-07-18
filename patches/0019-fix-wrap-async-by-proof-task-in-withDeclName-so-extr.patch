@@ -1,0 +1,29 @@
+From b6b0d9aa9b9cda9fdb21f2d07a69de80877be3b1 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sat, 18 Jul 2026 14:39:30 +0900
+Subject: [PATCH 19/22] fix: wrap async by-proof task in withDeclName so
+ extracted aux decls stay under the async prefix
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+---
+ src/Lean/Elab/SyntheticMVars.lean | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index a73989a..cb52c4b 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -499,7 +499,9 @@ mutual
+       async.commitSignature { name := declName, levelParams, type := stmt }
+       setEnv async.mainEnv
+       let cancelTk ← IO.CancelToken.new
+-      let act ← Term.wrapAsyncAsSnapshot (desc := s!"async by-proof {declName}")
++      let act ←
++        Term.withDeclName declName do -- extracted aux decls must stay under our prefix
++        Term.wrapAsyncAsSnapshot (desc := s!"async by-proof {declName}")
+           (cancelTk? := cancelTk) fun _ => do
+         setEnv async.asyncEnv
+         let value ← Meta.forallTelescope stmt fun xs body => do
+-- 
+2.53.0
+
