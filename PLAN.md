@@ -593,3 +593,24 @@ standalone implementation in this folder.
   perf-null), T2a' implementation-ready, all materials in docs/,
   14-commit patch series, methodology hardened (asserted harness,
   5-run medians, join-wait classification).
+
+## NEXT SESSION: START HERE
+
+The T2a' implementation (docs/t2a-termination-outlining.md) is the queued
+deep time box. Critical realization recorded at session end: mkAuxTheorem
+receives the proof VALUE already computed — the tactic time is spent
+earlier, in the by-tactic term elaborator (Term.runTactic /
+elabByTactic / postponed-block synthesis). The async-ification point is
+therefore the BY-BLOCK elaborator: for mvar-free goals in def contexts,
+register the aux theorem with eager statement, spawn the tactic as a body
+task (study Term.wrapAsync + snapshot + realization machinery in
+Elab/MutualDef — theorem-body async already solves the env-effects
+problem), return the const reference immediately. Watch: tactics with
+environment effects (native_decide, run_tac) need the realization channel
+or a sync bail.
+
+Working setup: lean4/ fork branch speedup/global-synth-cache (16
+commits), stage1 built, toolchain linked as `speedup-stage1`; batteries
++ mathlib4 clones configured; asserted A/B harness at scratchpad ab.sh
+pattern (exit codes + olean counts + awk timing — bc is absent on this
+box); 5-run medians mandatory; probes in bench/M_*.lean.
