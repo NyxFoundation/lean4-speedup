@@ -533,3 +533,15 @@ standalone implementation in this folder.
   either restore the headline with clean numbers or report the
   honest null. Memory lesson: NEVER pipe build A/Bs through tail -1;
   always assert exit status and artifact counts.
+- 2026-07-18 (iter 33): asserted harness immediately caught a SECOND
+  failsafe fire: classes (LawfulMonadStateOf) — kernel keeps
+  outParam/semiOutParam wrappers AND explicit class params in the rec
+  type; builder loses both. This also confirms the retraction: the
+  iter-30/31 'successful' corpus builds must have been failing on
+  these same modules all along (fake −4.4% = less work done). v1.2
+  eligibility: wholesale wrapper scan (optParam/autoParam/outParam/
+  semiOutParam) + instImplicit-param bail — eligible set narrowed to
+  plain wrapper-free structures (FindMin.WF stays in; classes and
+  default-field structures out). Rebuilding; next wake = asserted
+  ON×5/OFF×5 with exit codes + olean counts, expectation reset to
+  modest-or-null (smaller eligible set).
