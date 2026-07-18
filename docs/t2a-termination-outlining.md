@@ -62,6 +62,18 @@ tactic time is final-proof solving — the outlinable kind.
   GuessLex time across the corpus by profiling a file WITH explicit
   termination_by vs one relying on inference.
 
+## Strengthening discovery: `mkAuxTheorem` (Closure.lean:457)
+
+Lean already *extracts* value-embedded proofs into `foo.proof_N` auxiliary
+lemmas via `Lean.Meta.mkAuxTheorem` — synchronously. The general form of
+this design is therefore: at extraction points where the proof came from a
+tactic block with an mvar-free goal, register the aux theorem with the
+statement committed eagerly and the tactic running as a body task (the
+async-theorem pattern). This covers BOTH termination obligations and
+ordinary `by`-proofs inside definition values, reusing existing extraction
+points instead of new surgery in the WF pipeline. Constraints: mvar-free
+goals only (postponed by-blocks stay sync); GuessLex probing stays sync.
+
 ## Expected effect
 
 WF-heavy impl files (UnionFind/Basic 0.5 s, BinomialHeap defs, String

@@ -581,3 +581,15 @@ standalone implementation in this folder.
   explicit termination_by so its tactic time is the outlinable kind).
   Validation plan per established discipline incl. eq-lemma
   end-to-end and async error attribution. NEXT: implement from spec.
+- 2026-07-18 (iter 37): T2a' STRENGTHENED — Lean.Meta.mkAuxTheorem
+  (Closure.lean:457) already extracts value-embedded proofs as
+  foo.proof_N aux lemmas (synchronously). The general design: async-ify
+  aux-theorem registration (eager statement + tactic as body task) at
+  the existing extraction points — covers termination obligations AND
+  ordinary by-proofs in def values. mvar-free goals only; GuessLex
+  sync. This is the implementation-ready shape for the next deep time
+  box (fresh session recommended: multi-rebuild surgery). Session
+  state: 2 campaigns closed (T1 wall-neutral CPU-real; T2c sound but
+  perf-null), T2a' implementation-ready, all materials in docs/,
+  14-commit patch series, methodology hardened (asserted harness,
+  5-run medians, join-wait classification).
