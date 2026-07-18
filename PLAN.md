@@ -555,3 +555,19 @@ standalone implementation in this folder.
   retraction story. T2c CLOSED (v1). Portfolio next: T2a async def
   bodies (17.9% of main thread — the bigger eligible mass) via the
   same now-proven framework path; or T5 imports.
+- 2026-07-18 (iter 35): T2a DECOMPOSED before implementing (join-wait
+  lesson applied): UnionFind def-command main-thread time is >60%
+  TACTIC execution (split/rewrite/simp/simpAll) = termination-proof
+  obligations (decreasing_by) INSIDE def elaboration — not body
+  computation, not LCNF. And WF-compiled bodies EMBED the termination
+  proofs as terms → simple gate-widening cannot decouple them.
+  INVENTION SKETCH (T2a'): TERMINATION PROOF OUTLINING — the equation
+  compiler emits decreasing_by obligations as SEPARATE theorem
+  declarations (async-eligible today!) and the WellFounded.fix body
+  references them by constant name; proof irrelevance preserves
+  semantics; kernel/codegen unaffected (proofs erased). Effect: WF
+  defs' dominant cost rides the existing async-theorem lane. Deep
+  surgery in the equation compiler (Elab/PreDefinition/WF) — needs a
+  dedicated time box. Portfolio also still holds: T5 imports,
+  T4 whnf-global instrumentation, T1-v2 probe-perf polish,
+  T2c upstream conversation.
