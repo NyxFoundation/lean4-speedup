@@ -74,9 +74,19 @@ ordinary `by`-proofs inside definition values, reusing existing extraction
 points instead of new surgery in the WF pipeline. Constraints: mvar-free
 goals only (postponed by-blocks stay sync); GuessLex probing stays sync.
 
+## Ceiling attribution (measured — narrows the design)
+
+Frame-chain attribution on UnionFind/Basic: of def-command tactic time,
+only **0.05 s runs under decreasing-tactic frames**; **0.35 s is ordinary
+value-embedded proof tactics** (`⟨…, by …⟩` constructions). The WF-only
+outlining variant therefore has a small ceiling (~10 % of def-tactic
+time) and is NOT worth its own surgery — implement at the general
+by-block level (async aux theorems for mvar-free proof goals in
+definition contexts) or not at all.
+
 ## Expected effect
 
-WF-heavy impl files (UnionFind/Basic 0.5 s, BinomialHeap defs, String
-matchers) move their dominant def-elaboration cost onto the async-theorem
-lane, where worker cores idle at 30-45 %. Corpus effect concentrated in
+General by-block async: def-elaboration proof cost (the 0.35 s class plus
+termination obligations as a special case) rides the async-theorem lane,
+where worker cores idle at 30-45 %. Corpus effect concentrated in
 build-tail impl modules; measured honestly via the asserted harness.

@@ -614,3 +614,9 @@ commits), stage1 built, toolchain linked as `speedup-stage1`; batteries
 + mathlib4 clones configured; asserted A/B harness at scratchpad ab.sh
 pattern (exit codes + olean counts + awk timing — bc is absent on this
 box); 5-run medians mandatory; probes in bench/M_*.lean.
+- 2026-07-18 (iter 39): T2a' ceiling ATTRIBUTED from existing profile:
+  UnionFind def-tactic time = 0.05s under decreasing frames vs 0.35s
+  ordinary value-embedded proofs. WF-only outlining variant KILLED
+  (small ceiling); the general by-block async (mvar-free proof goals
+  in def contexts -> async aux theorems) is the single implementation
+  target. Design doc updated. Zero-cost iteration (existing data).
