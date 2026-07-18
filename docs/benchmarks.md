@@ -226,6 +226,18 @@ intra-file dependencies (module/decl fission on the critical path) or
 (b) a fundamentally more parallel elaboration of dependent decl chains.
 That is the precise, measured target for future work.
 
+**Sharpened (thread-level profile of `List.Lemmas`):** main-thread busy
+time **2.29 s ≈ wall 2.09 s**, while 26 worker threads carry the proof
+load (total ~6 s real CPU, ~2.9 cores). So proof-body parallelism is
+*already solved* — the ceiling is that **theorem statements and commands
+elaborate sequentially on the main thread**, and main-thread occupancy
+equals wall time. The async-proof tracks (T2a/T2c) could never break this
+ceiling because they parallelize *bodies*, not *statements/commands*. The
+true frontier is **command-level parallelism** — elaborating independent
+theorem statements concurrently — which Lean's frontend deliberately does
+sequentially (macro/environment ordering). That is the single highest
+lever and the hardest change.
+
 ## Reproduce
 
 ```bash

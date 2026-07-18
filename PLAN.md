@@ -737,3 +737,14 @@ perf claims, honest retractions.
   elaboration. Chart docs/assets/critical-path.svg. Docs+README
   updated with the synthesis. This is the project's central
   diagnostic result — worth more than any single patch.
+- 2026-07-18 (iter 49): SYNTHESIS SHARPENED via thread profile of
+  List.Lemmas: main-thread busy 2.29s ≈ wall 2.09s; 26 workers carry
+  proofs (~6s CPU / 2.9 cores real). => proof-body parallelism is
+  ALREADY SOLVED; the ceiling is SEQUENTIAL MAIN-THREAD STATEMENT/
+  COMMAND elaboration (main occupancy = wall). This is WHY T2a/T2c
+  hit a wall — they parallelize bodies, not statements. The true
+  frontier = COMMAND-LEVEL PARALLELISM (concurrent independent
+  theorem-statement elaboration), which Lean's frontend does
+  sequentially by design (macro/env ordering). Highest lever,
+  hardest change. Docs updated. This fully closes the diagnostic
+  arc: measured, charted, and the frontier named precisely.
