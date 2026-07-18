@@ -696,3 +696,15 @@ perf claims, honest retractions.
   Elab.asyncByProofs=true (closed-goal subset), 188/188 oleans, exit 0
   via the asserted harness — the safe subset is corpus-sound at scale
   (perf-neutral, as expected). One build, not iterative.
+- 2026-07-18 (iter 45): T2a v0.2 — INFORMED FIX for the capture bug.
+  Confirmed via DeclNameGenerator (CoreM.lean): aux proofs extracted
+  during the tactic were named `<def>._proof_N` (prefix = enclosing
+  def) but the async branch is restricted to `<def>._byAsync_N` →
+  the 'restricted to prefix' / free-variable rejection. FIX: wrap the
+  task in `withDeclNameForAuxNaming declName` so extracted proofs are
+  named `<declName>._proof_N` (under the async prefix). This lets the
+  valuable UNDER-CONTEXT path be re-enabled (telescope-close + lambda).
+  Rebuild detached (lean4_rebuild_t2a5.log). VALIDATION NEXT WAKE
+  (soundness gate FIRST): UnionFind free-variable check, ON-vs-ON
+  determinism, then 5-run A/B (expecting the −36% to return SOUNDLY);
+  if determinism/kernel fails, revert to v0.1.
