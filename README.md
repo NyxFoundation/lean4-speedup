@@ -21,6 +21,7 @@ soundness probe, a determinism check, and an honest account of where it does
 | **The main thread is the critical path** (~80 % occupied while workers idle); async elaboration currently admits only single mvar-free `theorem`s | [docs/benchmarks.md §5](docs/benchmarks.md) |
 | **Async kernel processing for inductives** (experimental patch, module system included): capability sound at corpus scale; performance verdict **null** on Batteries — the motivating "sync kernel" signal proved to be queue-wait, and the honest measurement story (incl. a retraction) is documented | [docs/benchmarks.md §8](docs/benchmarks.md), [docs/t2c-async-inductives.md](docs/t2c-async-inductives.md) |
 | Intra-module parallelism plateaus at ~2.4× regardless of cores (Amdahl serial fraction ≈ 40 %) | [docs/benchmarks.md §2](docs/benchmarks.md) |
+| **Synthesis — the wall-clock lever is located**: the build is critical-path-bound (10.0 s path vs 8.1 s 16-core floor); the path runs through proof-heavy modules that cap at ~2.9/16 cores. The lever is their intra-module serial decl-dependency fraction — what all three async tracks correctly targeted | [docs/benchmarks.md §9](docs/benchmarks.md) |
 
 ## The experimental patch: a global synthInstance cache
 

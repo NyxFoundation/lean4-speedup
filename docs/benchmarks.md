@@ -190,6 +190,42 @@ pays only when the machine has other work to schedule — hence the corpus-level
 win under core saturation but single-file parity. Main-thread "Kernel" trace
 time can be join-waits; classify before targeting.
 
+## 9. Synthesis: where the corpus wall-clock lever actually is
+
+After three async campaigns, a module-DAG analysis locates the wall-clock
+lever precisely.
+
+![critical path analysis](assets/critical-path.svg)
+
+Batteries cold build, measured:
+- **Total module CPU work:** 129.6 s → 16-core floor **8.1 s**.
+- **Weighted critical path** (longest time-chain through the import DAG):
+  **10.0 s**, through 6 modules — `Tactic.Alias (1.6s) → List.Basic
+  (2.3s) → List.Lemmas (3.5s)` plus `RBTree.Lemmas (2.1s)`.
+- **Actual wall: ~13 s.** Since critical path (10.0 s) **exceeds** the
+  16-core floor (8.1 s), the build is **critical-path-bound**, not
+  work-bound.
+- The critical-path modules are proof-heavy and cap at **~2.9 of 16
+  cores** (`List.Lemmas`: 6.08 s user / 2.09 s wall at `--threads=16`;
+  ~34 % Amdahl serial fraction). In the build tail, when one such module
+  is all that remains, **~13 cores sit idle**.
+
+**This ties the whole project together.** The corpus wall-clock lever is
+the **intra-module serial decl-dependency fraction** of the critical-path
+proof modules. All three async campaigns aimed at exactly this fraction:
+- T1 cut its typeclass component (real CPU, but off this serial chain);
+- T2c moved inductive kernel work off it (but that was queue-wait);
+- T2a tried to move by-proofs off it (but those proofs *are* the
+  dependency chain — entangled, unmovable).
+
+Each was correctly targeted and individually insufficient because the
+serial fraction is the fundamental "proof N depends on proof/def N−1"
+chain within a single dense module — the thing that makes these files
+sequential. Moving the corpus needs either (a) breaking those false
+intra-file dependencies (module/decl fission on the critical path) or
+(b) a fundamentally more parallel elaboration of dependent decl chains.
+That is the precise, measured target for future work.
+
 ## Reproduce
 
 ```bash

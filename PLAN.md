@@ -722,3 +722,18 @@ perf claims, honest retractions.
   general-case-blocked. The campaign's durable output = the
   measurement methodology + a precise map of WHERE Lean's async
   boundary can and cannot move, all documented + patch series.
+- 2026-07-18 (iter 48): SYNTHESIS — located the wall-clock lever via
+  module-DAG critical-path analysis (no rebuild). Batteries: work
+  129.6s, 16-core floor 8.1s, WEIGHTED CRITICAL PATH 10.0s
+  (Alias→List.Basic→List.Lemmas + RBTree.Lemmas), wall ~13s =>
+  CRITICAL-PATH-BOUND. Critical modules cap at 2.9/16 cores (List.
+  Lemmas 6.08s user/2.09s wall @16thr, ~34% serial) → ~13 cores idle
+  in the build tail. THIS UNIFIES ALL THREE CAMPAIGNS: the lever is
+  the intra-module serial decl-dependency fraction of critical-path
+  proof modules; T1/T2c/T2a each targeted it and each was
+  individually insufficient because it IS the fundamental proof-N-
+  depends-on-N-1 chain. Future target (precise, measured): critical-
+  path decl/module fission OR more-parallel dependent-chain
+  elaboration. Chart docs/assets/critical-path.svg. Docs+README
+  updated with the synthesis. This is the project's central
+  diagnostic result — worth more than any single patch.
