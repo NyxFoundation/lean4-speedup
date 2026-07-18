@@ -620,3 +620,15 @@ box); 5-run medians mandatory; probes in bench/M_*.lean.
   (small ceiling); the general by-block async (mvar-free proof goals
   in def contexts -> async aux theorems) is the single implementation
   target. Design doc updated. Zero-cost iteration (existing data).
+- 2026-07-18 (iter 40): T2A V0 IMPLEMENTED — tryRunTacticAsync in
+  SyntheticMVars.lean (mutual block with runTactic): gates = .term
+  kind, option Elab.asyncByProofs (default OFF), Elab.async, non-
+  module env, mvar-free Prop goal, let-free lctx, closed stmt;
+  mechanism = addConstAsync(.thm) + eager commitSignature +
+  wrapAsyncAsSnapshot task (forallTelescope-recreated goal, runTactic,
+  addDecl thmDecl, commitConst/commitCheckEnv) + logSnapshotTask with
+  the by-block stx for error attribution + mvar assigned const app.
+  Rebuild detached (lean4_rebuild_t2a.log). NEXT: compile fixes if
+  any; probe file (def with by-proof values, error attribution,
+  within-def dependent proofs); asserted A/B on UnionFind/Basic
+  (0.35s ceiling) + corpus.
