@@ -632,3 +632,23 @@ box); 5-run medians mandatory; probes in bench/M_*.lean.
   any; probe file (def with by-proof values, error attribution,
   within-def dependent proofs); asserted A/B on UnionFind/Basic
   (0.35s ceiling) + corpus.
+- 2026-07-18 (iter 42): T2a v0 — PERF PROMISING, CORRECTNESS BROKEN
+  (honest interim). Non-module UnionFind A/B: 0.65 vs 1.02s median
+  (−36%!) — the by-proof mass genuinely moves off the main thread,
+  AND unlike T2c this is single-file wall (proofs were on the crit
+  path). Failing-proof error surfacing PASSES (omega failure attributed
+  to the right by-block range). BUT the olean determinism check hit a
+  SOUNDNESS BUG: 'kernel declaration has free variables
+  parentD_set._byAsync_1_1' — for by-proofs that depend on local
+  hypotheses (dite/Array.size_set h), AbstractNestedProofs inside the
+  async addDecl extracts sub-proofs that capture the reopened
+  telescope fvars incorrectly. ROOT: my forallTelescope-reopen +
+  mkLambdaFVars + addDecl path lets nested-proof abstraction lift
+  telescope-bound vars out of scope. Options default OFF so main
+  build unaffected. FIX DIRECTIONS (next): (a) disable nested proof
+  abstraction in the async aux (set the option around addDecl), or
+  (b) don't reopen — keep the proof as a 0-ary theorem of the CLOSED
+  stmt and let the caller instantiate, or (c) abstractNestedProofs
+  BEFORE going async so extraction happens in the right context.
+  DO NOT claim the −36% until correctness holds. README/docs
+  unchanged (nothing to publish yet).
