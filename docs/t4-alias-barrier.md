@@ -1,7 +1,10 @@
 # T4 — the `alias` pipeline barrier (RAW-hazard transfer)
 
-Status: barrier discovered and rigorously characterized (iter 51); precise
-forcing site + fix still open. Found by micro-attributing main-thread time
+Status: **RESOLVED** (iter 52) — both forcing sites named via gdb stack
+sampling, fix implemented and validated at probe level
+(`patches/batteries-0001-alias-async-stall-fix.patch`); corpus wall-neutral
+on Batteries (slack absorbs it), upstream-relevant at Mathlib scale.
+Discovered (iter 51) by micro-attributing main-thread time
 per command (the T3 follow-up question: *what does the main thread actually
 do?*), analogized from CPU pipeline hazards: a read-after-write dependency
 that stalls the pipe until the producer retires.
@@ -63,16 +66,51 @@ Controls that pin the mechanism:
   `liftTermElabM` machinery), consistent with the force hiding in a captured
   env/closure rather than a named call.
 
-## Next session
+## Resolution (iter 52): gdb names both forcing sites
 
-1. OS-level sampling (gdb/eu-stack batch attach to the frontend thread
-   during the stall) to name the blocking frame — trace-based tools cannot.
-2. Grep the alias-specific machinery (`realizeGlobalConstNoOverloadWithInfo`,
-   `addDeclarationRangesFromSyntax`, info-tree finalization, `withExporting`
-   env copies) for `Task.get`/`.constInfo.get`/`checked.get` users.
-3. Fix shape once named: alias needs only the target's signature; everything
-   value-dependent already has an async lane (addDecl's async rules). A
-   correct fix should make `alias` cost ~1 ms like `#check`.
-4. Upstream relevance: Mathlib-scale `deprecated alias` density makes this a
-   candidate real-wall win beyond this repo's corpus — worth an upstream
-   issue once the forcing site is named.
+ptrace_scope=1 blocks attach, so: run `lean` as a gdb child
+(`gdb -batch -ex run -ex "thread apply all bt" --args lean …`), send the
+inferior SIGINT from outside mid-stall — gdb stops and dumps all threads
+(`bench/t4_gdb_stacks.txt`, `bench/t4_gdb_v0.txt`). The command-elaboration
+thread was blocked in:
+
+1. **`Environment.find?` → `AsyncConstantInfo.toConstantInfo` →
+   `lean_task_get`** — the alias's `getConstInfo target` materializes the
+   full `ConstantInfo`, forcing the target's pending cone. Fixed by the
+   signature-only view (`findAsync?` + `toConstantVal`/`.isUnsafe`).
+2. **`Lean.isNoncomputable` → `TagDeclarationExtension.isTagged` →
+   `EnvExtension.getStateUnsafe` → `lean_task_get`** — reading a tag
+   env-extension's state blocks on pending async branch merges. For
+   *theorem* aliases `computeKind` is irrelevant (never compiled), so the
+   fix skips `isNoncomputable`/`isMarkedMeta` entirely in that case.
+
+Why timestamp bisection kept lying: these are *pure* calls, so the compiler
+legally floats them across `IO.monoMsNow` binds to their first use — the
+wait surfaces at whatever pure expression the IR evaluator touches first
+(measured: every named call 0 ms, span 107 ms). Lesson recorded: **never
+bisect a suspected lazy force with timestamps; sample stacks.**
+
+With both fixes (v0+v1): probe stall **+100 ms → +4 ms ≈ noise** — the
+alias now costs what `#check` costs.
+
+## Corpus verdict
+
+5-run cold `lake build Batteries` medians (`bench/t4_ab_results.txt`):
+base 13.50 s vs fixed 13.48 s, 188 oleans, rc=0 — **wall-neutral**;
+`List.Lemmas` job 3.5 → 3.3 s (single-sample, ≈noise). The drained cone is
+work that must finish before module end regardless; Batteries' build slack
+absorbs the recovered overlap. Same shape as T1–T3: mechanism real,
+corpus wall unmoved.
+
+## Why this still matters
+
+- **General finding**: any metaprogram command that reads env-extension
+  state (`getState`-based queries) mid-module is a silent async-pipeline
+  barrier. This is a *class* of stalls, alias is just one member — a
+  measurable audit target for Lean core (which ext reads block, at which
+  asyncMode).
+- **Upstream candidate**: Mathlib carries thousands of `deprecated alias`
+  commands, typically *immediately after their targets* (worst case, cone
+  hottest). The two-line-diff fix
+  (`patches/batteries-0001-alias-async-stall-fix.patch`) is upstreamable to
+  Batteries as-is — recommend filing after Mathlib-scale measurement.

@@ -781,3 +781,21 @@ perf claims, honest retractions.
   should cost ~1ms like #check). Mathlib has thousands of deprecated
   aliases directly after their targets = worst case → real upstream
   candidate. docs/t4-alias-barrier.md. Batteries tree restored.
+- 2026-07-19 (iter 52): T4 RESOLVED — gdb child-run + external SIGINT
+  (ptrace_scope=1 workaround) named BOTH forcing frames mid-stall:
+  (1) Environment.find? -> AsyncConstantInfo.toConstantInfo ->
+  lean_task_get (getConstInfo materializes the full ConstantInfo);
+  (2) isNoncomputable/isMarkedMeta -> TagDeclarationExtension ->
+  EnvExtension.getStateUnsafe -> lean_task_get (ext-state reads block
+  on async branch merges). Why bisection lied: pure calls float across
+  IO.monoMsNow binds (lesson: sample stacks, never timestamp-bisect a
+  lazy force). Fix v0+v1 in Batteries/Tactic/Alias.lean (findAsync?
+  sig-only + skip computeKind queries for theorem aliases): probe
+  stall +100ms -> noise (alias now costs what #check costs). Corpus:
+  wall-NEUTRAL (13.50 vs 13.48 median, 188 oleans rc=0; List.Lemmas
+  3.5->3.3 single-sample) — Batteries slack absorbs it. Durable: the
+  patch (patches/batteries-0001-alias-async-stall-fix.patch, clean
+  upstream candidate — Mathlib has 1000s of deprecated aliases right
+  after their targets) + a GENERAL finding: env-ext getState reads in
+  metaprogram commands are a silent barrier CLASS in async-era Lean —
+  audit target for core. docs/t4-alias-barrier.md updated to RESOLVED.

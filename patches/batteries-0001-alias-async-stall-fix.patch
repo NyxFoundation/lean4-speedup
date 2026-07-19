@@ -1,0 +1,50 @@
+diff --git a/Batteries/Tactic/Alias.lean b/Batteries/Tactic/Alias.lean
+index 2ef7bd9..af178aa 100644
+--- a/Batteries/Tactic/Alias.lean
++++ b/Batteries/Tactic/Alias.lean
+@@ -136,7 +136,11 @@ elab (name := alias) mods:declModifiers "alias " alias:ident " := " nameStx:iden
+     -- Whether we may access private `name`s here depends on whether it is a theorem, so first
+     -- resolve in private scope always
+     let name ← withoutExporting <| realizeGlobalConstNoOverloadWithInfo nameStx
+-    let cinfo ← withoutExporting <| getConstInfo name
++    -- Non-forcing async view: `getConstInfo` would force the target's pending
++    -- elaboration/kernel tasks (main-thread pipeline stall); the alias only
++    -- needs the eagerly-committed signature.
++    let some cinfo := (← withoutExporting getEnv).findAsync? name
++      | throwError "unknown constant '{name}'"
+     let declMods ← elabModifiers mods
+     Lean.withExporting (isExporting := declMods.isInferredPublic (← getEnv)) do
+     unless wasOriginallyTheorem (← getEnv) name do
+@@ -144,16 +148,21 @@ elab (name := alias) mods:declModifiers "alias " alias:ident " := " nameStx:iden
+       discard <| realizeGlobalConstNoOverloadWithInfo nameStx
+     let (attrs, machineApplicable) := setDeprecatedTarget name declMods.attrs
+     let env ← getEnv
++    let isThm := wasOriginallyTheorem env name
+     let declMods := { declMods with
+       computeKind :=
+-        if isNoncomputable env name then .noncomputable
++        -- For theorem aliases `computeKind` is irrelevant (theorems are never
++        -- compiled); skipping the queries avoids forcing the tag-extension
++        -- state, which blocks on the target's pending async tasks.
++        if isThm then declMods.computeKind
++        else if isNoncomputable env name then .noncomputable
+         else if isMarkedMeta env name then .meta
+         else declMods.computeKind
+       isUnsafe := declMods.isUnsafe || cinfo.isUnsafe
+       attrs
+     }
+     let (declName, _) ← mkDeclName (← getCurrNamespace) declMods alias.getId
+-    let decl : Declaration := if wasOriginallyTheorem (← getEnv) name then
++    let decl : Declaration := if isThm then
+       .thmDecl { cinfo.toConstantVal with
+         name := declName
+         value := mkConst name (cinfo.toConstantVal.levelParams.map mkLevelParam)
+@@ -161,7 +170,7 @@ elab (name := alias) mods:declModifiers "alias " alias:ident " := " nameStx:iden
+     else
+       .defnDecl { cinfo.toConstantVal with
+         name := declName
+-        value := mkConst name (cinfo.levelParams.map mkLevelParam)
++        value := mkConst name (cinfo.toConstantVal.levelParams.map mkLevelParam)
+         hints := .regular 0 -- FIXME
+         safety := if declMods.isUnsafe then .unsafe else .safe
+       }

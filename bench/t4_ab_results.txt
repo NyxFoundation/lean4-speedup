@@ -1,0 +1,15 @@
+base run1 wall=13.69s rc=0 oleans=188
+base run2 wall=13.48s rc=0 oleans=188
+base run3 wall=13.37s rc=0 oleans=188
+base run4 wall=13.50s rc=0 oleans=188
+base run5 wall=13.59s rc=0 oleans=188
+fixed run1 wall=13.50s rc=0 oleans=188
+fixed run2 wall=13.38s rc=0 oleans=188
+fixed run3 wall=13.48s rc=0 oleans=188
+fixed run4 wall=13.58s rc=0 oleans=188
+fixed run5 wall=13.68s rc=0 oleans=188
+--- List.Lemmas module times (run5 each) ---
+✔ [93/190] Built Batteries.Tactic.Alias (1.3s)
+✔ [165/190] Built Batteries.Data.List.Lemmas (3.5s)
+✔ [98/190] Built Batteries.Tactic.Alias (1.4s)
+✔ [162/190] Built Batteries.Data.List.Lemmas (3.3s)
