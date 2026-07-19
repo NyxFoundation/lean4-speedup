@@ -1,0 +1,15 @@
+M_t4_base 0.449 rc=0
+M_t4_base 0.419 rc=0
+M_t4_base 0.408 rc=0
+M_t4_base 0.446 rc=0
+M_t4_base 0.405 rc=0
+M_t4_alias_fresh 0.459 rc=0
+M_t4_alias_fresh 0.452 rc=0
+M_t4_alias_fresh 0.453 rc=0
+M_t4_alias_fresh 0.472 rc=0
+M_t4_alias_fresh 0.465 rc=0
+M_t4_alias_imported 0.396 rc=0
+M_t4_alias_imported 0.407 rc=0
+M_t4_alias_imported 0.413 rc=0
+M_t4_alias_imported 0.406 rc=0
+M_t4_alias_imported 0.407 rc=0

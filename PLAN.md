@@ -764,3 +764,20 @@ perf claims, honest retractions.
   IS the wall) — and the cheapest probe of it (zero compiler changes).
   Docs: docs/t3-module-fission.md + chart; batteries tree restored
   pristine (split regenerable from scripts).
+- 2026-07-19 (iter 51): T4 ALIAS BARRIER — micro-attribution of main-
+  thread time (T3 follow-up: what IS the sequential mass?) found the
+  biggest single command in List.Lemmas is `@[deprecated] alias ...`
+  = 394ms of main-thread WAIT (not work). Characterized rigorously
+  (bench/M_t4_*): alias stalls main until the target's TRANSITIVE
+  async cone (elab+kernel) completes — async-off kills it, imported
+  targets don't stall, it follows references, scales with cone
+  weight; #check/attribute on the same fresh const DON'T stall →
+  alias-specific (RAW-hazard transfer). addDecl exonerated (async
+  rules, 1ms). Sig-only rewrite of Alias.lean (findAsync? +
+  toConstantVal) compiles but does NOT remove the stall; timestamp
+  bisection defeated by thunk-force reordering (every call 0ms, span
+  107ms); trace.profiler can't sample blocked threads. OPEN: name the
+  forcing frame via OS-level sampler (gdb batch), then fix (alias
+  should cost ~1ms like #check). Mathlib has thousands of deprecated
+  aliases directly after their targets = worst case → real upstream
+  candidate. docs/t4-alias-barrier.md. Batteries tree restored.
