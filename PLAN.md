@@ -1349,3 +1349,12 @@ byte-reproducibility for default-on.
   hottest module, adoption soundness 88% demonstrated + the residue
   mechanistically understood. Env-merge implementation (the deep box)
   is all that separates the demonstration from a working v1.
+- 2026-07-20 (iter 89, /loop): MISMATCHES CLASSIFIED — 6/7 have
+  IDENTICAL levelParams but defeq-alternate instance paths embedded in
+  the statement type (elaboration-order sensitivity; same 'stable
+  alternate normal form' class as T1/T10 drift — sound to adopt,
+  affects olean bytes only); the 7th is an aux-proof universe artifact
+  of the sorry shortcut, absent in production adoption. Adoption
+  soundness now: 88% byte-identical + 12% defeq-alternate = 100%
+  semantically sound on checked speculations. T6 PR: still CI bots
+  only.

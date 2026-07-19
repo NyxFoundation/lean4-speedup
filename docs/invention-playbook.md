@@ -118,3 +118,35 @@ analogy re-aimed at the elaborator): `OfNat Nat` / `HAdd Nat` literal
 instances could short-circuit the postpone/resume dance for the
 overwhelmingly common cases. Falsifiable: floor theorem cost should
 approach `def`-level (~0.5 ms) if 3-4 of the 4-5 cycles are elided.
+
+## Retrospective 5 (iters 74–89): protocol v2's first full cycle
+
+Protocol v2 (invention-theory.md) was written at iter 74 because 24
+iterations of measurement-first discipline had produced world-class
+diagnostics and one bug fix, but no invention. The next 15 iterations
+ran the new protocol end-to-end. What it delivered:
+
+- **Phenomenon inventory (step 2) worked immediately**: the T9 census
+  found textual command order is a ~99 %-empty over-serialization of a
+  depth-3 partial order — measured, not assumed.
+- **The perceptual channel (step 7) paid twice**: the arc render made
+  the hub-and-spoke structure obvious, and *looking at* the wavefront
+  simulator's critical chain exposed T10 (the variable-telescope
+  quadratic, −12.2 % shipped) — an accidental discovery no targeted
+  query would have made. psi-fold's lesson replicated.
+- **C-expansion + status-change (steps 3/1) produced the invention
+  frame**: "textual order is advisory for statements, with repair" —
+  then five escalating zero-rebuild instruments (census → oracle →
+  ceiling replay → live speculation → result equivalence) carried it
+  from concept to 79–94 % valid speculation hiding 58 % of main-thread
+  time with 100 % semantic adoption soundness, before any compiler
+  surgery.
+- **Selection stayed brutal (step 6)**: three T10 soundness hazards
+  found and closed by the gates; the ngen/rollback law generalized.
+- **Meta-rule 9 (new)**: verify every programmatic log edit landed
+  (grep after write) — six iterations of PLAN log were silently lost
+  to stale-needle str.replace no-ops and reconstructed from commits.
+- **Meta-rule 10 (new)**: when a driver mysteriously lacks data, check
+  its INPUTS are loaded before excavating its plumbing — the oracle's
+  "dropped info trees" were three layers of red herring over an empty
+  import environment with swallowed error messages.

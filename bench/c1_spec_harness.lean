@@ -146,6 +146,8 @@ partial def specLoop (recs : Array Rec') (prev? : Option PrevSpec) (i : Nat) : F
           | some ciReal, some ciSpec =>
             if ciReal.type == ciSpec.type && ciReal.levelParams == ciSpec.levelParams then
               matched := matched + 1
+            else
+              IO.println s!"EQ-MISMATCH {n}: lvls {ciReal.levelParams} vs {ciSpec.levelParams}; typeEq={ciReal.type == ciSpec.type}"
           | _, _ => pure ()
     r := { r with eqChecked := checked, eqMatched := matched }
   -- join speculation and validate
