@@ -999,3 +999,16 @@ perf claims, honest retractions.
   cheap ones — TC time lives in the mvar-laden deep-hierarchy
   queries. NEXT: TIME-weighted TC census (trace with per-node times)
   before any further TC invention.
+- 2026-07-19 (iter 68, /loop): TC ENDGAME VERDICT (time-weighted
+  census, Equiv.Basic): queries >=2ms total 0.54s of the 2.14s TC
+  budget — ~75% of TC time is sub-2ms queries (~0.12ms x 17k, led by
+  SMul 0.20s among the timed; max single query 13ms; concrete 0.52 vs
+  mvar 0.02 among timed). The TC wall is VOLUME x FIXED-COST with no
+  hot concentration — retroactively explains ALL cache-shaped nulls
+  (T1 wall-neutral, T7 null-where-fired): there is nothing hot to
+  cache. Remaining honest levers: fewer queries (elaborator dedup —
+  needs mvar-context-aware reuse, hard after T7's lesson) or lower
+  per-query fixed cost (core micro-opt, diminishing returns for this
+  project). TC track CLOSED. Remaining queue: dependency-precise
+  wakeup (binop% residual — the highest-quality open design), batch
+  defaulting, T6 upstream filing (user-gated).
