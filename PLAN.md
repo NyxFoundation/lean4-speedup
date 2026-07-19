@@ -1064,3 +1064,12 @@ perf claims, honest retractions.
   the async-proof worker share shrinks — the command-level
   parallelism frontier is CONFIRMED AT MATHLIB SCALE and is even more
   dominant there than on Batteries. Corpus map closed.
+- 2026-07-19 (iter 73): T6 FILED UPSTREAM (user-authorized). Repro
+  re-verified on STOCK master nightly-2026-07-19 (25ba8c3): 1.64/
+  3.22/8.43/27.6/101.4 ms per cmd, k=1..16 — quadratic present on
+  master. Fix cherry-picked CLEAN onto master, squashed, rebuilt;
+  rebased-build gates: k=16 100.8->21.4ms (4.7x), olean ON==OFF,
+  deterministic, mutation errors intact. Issue:
+  leanprover/lean4#14448, PR: leanprover/lean4#14449 (branch
+  t6-upstream on grandchildrice/lean4). Next: respond to maintainer
+  review; CI is the remaining gate.

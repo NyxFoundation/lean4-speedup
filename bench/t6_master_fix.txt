@@ -1,0 +1,9 @@
+Lean (version 4.34.0-pre, x86_64-unknown-linux-gnu, commit 8607fedfed97e6255c95c97f2330d33128f3533f, Release)
+k=4 off best=1.616 rc=0 per-cmd=7.38ms
+k=4 on best=0.822 rc=0 per-cmd=3.41ms
+k=16 off best=20.294 rc=0 per-cmd=100.77ms
+k=16 on best=4.424 rc=0 per-cmd=21.42ms
+olean ON==OFF (rc=0/0)
+ON-vs-ON deterministic
+--- mutation (must error):
+M_floor_thm_mut.lean:502:0: error: Not a definitional equality: the left-hand side

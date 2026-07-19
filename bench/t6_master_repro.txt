@@ -1,0 +1,9 @@
+toolchain: Lean (version 4.34.0-nightly-2026-07-19, x86_64-unknown-linux-gnu, commit 25ba8c3d3bcb1dded7ff5a6f3b6044b0a7970198, Release)
+k=1 best=0.467 rc=0 per-cmd=1.64ms
+k=2 best=0.784 rc=0 per-cmd=3.22ms
+k=4 best=1.827 rc=0 per-cmd=8.43ms
+k=8 best=5.667 rc=0 per-cmd=27.64ms
+k=16 best=20.412 rc=0 per-cmd=101.36ms
+--- controls (def/variable, k=16) ---
+M_scaledef_16 best=0.952 rc=0
+M_scalevar_16 best=0.987 rc=0

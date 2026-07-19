@@ -1,8 +1,14 @@
 # T6 upstream package — draft issue/PR for leanprover/lean4
 
-Status: ready to file pending maintainer-facing polish; **not yet filed**
-(outward-facing step — awaiting explicit go-ahead). Patch:
-`patches/0023-t6-tcSkipUnchanged.patch` (applies to lean4 @ 4f53dd7).
+Status: **FILED 2026-07-19** (user-authorized) —
+issue: https://github.com/leanprover/lean4/issues/14448
+PR: https://github.com/leanprover/lean4/pull/14449
+(branch `t6-upstream` on grandchildrice/lean4, rebased onto master 25ba8c3d;
+clean cherry-pick, squashed). Master repro re-measured before filing:
+1.64/3.22/8.43/27.6/101.4 ms per command for k=1/2/4/8/16 on stock
+nightly-2026-07-19; fix on the rebased build: k=16 100.8→21.4 ms, oleans
+byte-identical, deterministic, mutation gate green. Patch also kept
+locally as `patches/0023-t6-tcSkipUnchanged.patch` (4f53dd7 base).
 
 ## Draft title
 
