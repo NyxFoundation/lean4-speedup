@@ -1056,3 +1056,11 @@ perf claims, honest retractions.
   Playbook: 8 meta-rules + 4 retrospectives. HIGHEST-VALUE PENDING =
   T6 upstream filing (user-gated; docs/t6-upstream.md ready). Loop
   continues at reduced cadence for fresh hunts.
+- 2026-07-19 (iter 72, /loop): MATHLIB UTILIZATION DATUM. On 16
+  cores: Equiv.Basic 133% CPU (58 thm/40 inst+def — near-serial),
+  Logic/Relation 162%, Set/Basic 172% (234 theorems!). Even theorem-
+  heavy Mathlib modules reach only ~1.3-1.7 cores vs Batteries' 2.9:
+  Mathlib statement elaboration (TC volume on MAIN) is so heavy that
+  the async-proof worker share shrinks — the command-level
+  parallelism frontier is CONFIRMED AT MATHLIB SCALE and is even more
+  dominant there than on Batteries. Corpus map closed.
