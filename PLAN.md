@@ -884,3 +884,15 @@ perf claims, honest retractions.
   here). FIRST genuinely upstreamable perf patch of the project.
   Playbook: queueing/muda analogy chain graded A (anomaly -> scaling
   law -> located loop -> asymptotic fix with identity proof).
+- 2026-07-19 (iter 59, /loop): T6 RESIDUAL LOCATED + Mathlib target
+  building. Trace of k=16 with tcSkipUnchanged ON: Meta.synthInstance
+  = 0.12s of 11.7s traced — the TC quadratic is DEAD; the residual
+  superlinearity is the POSTPONED-ELABORATOR resumption loop (binop%
+  re-elaborates the full operator tree each resume; k resumes x O(k)
+  tree = a second independent O(k^2), kind .postponed not .tc). The
+  memo-skip principle may generalize (skip resume when instantiated
+  expected type unchanged) but resumePostponed has effects — needs a
+  careful semantics read before patching; queued. Numeral-dense real-
+  world target chosen: Mathlib.NumberTheory.PythagoreanTriples (3-4-5
+  arithmetic; dep cone building in background on the T6-patched
+  stage1, doubling as a Mathlib-scale soundness canary, option-off).
