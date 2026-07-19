@@ -969,3 +969,19 @@ perf claims, honest retractions.
   the byte-identical-olean gate to arbitrate. Rebuild detached
   (lean4_rebuild_t7.log). NEXT WAKE gates: probe recount (6->~1
   Semiring queries), Equiv.Basic wall A/B, olean ON==OFF, corpus.
+- 2026-07-19 (iter 66, /loop): T7 FIRST CONTACT — mechanism proven,
+  diagnosis deepened, ABI lesson learned. Probe: "prefix:" fires
+  (statement-phase binder-stage repeat caught) BUT the flood has more
+  axes than localInsts: (1) MVAR-KEYED queries (Semiring ?m.N, fresh
+  mvar each occurrence — uncacheable by any exact key); (2) body-
+  phase telescopes get FRESH fvarIds (never prefix-match statement-
+  phase entries); (3) subgoal queries at different synthPendingDepth.
+  Then Equiv.Basic A/B SEGFAULTED (rc=139, option off too): ROOT =
+  ABI break — adding a field to Meta.Cache changed constructor arity;
+  Mathlib oleans compiled against the T6 binary mis-call interpreted
+  meta-code -> stack corruption. LESSON (playbook): changing CORE
+  data structures invalidates downstream oleans — rebuild corpora
+  after every core-struct patch before measuring; a segfault in A/B
+  is an ABI smell, not a logic bug. Mathlib cone rebuilding on the
+  T7 binary in background; batteries re-gates + honest T7 verdict
+  next wake.
