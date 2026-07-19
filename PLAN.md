@@ -1229,3 +1229,26 @@ perf claims, honest retractions.
   default-off) incl. the resetDiag allocation guard. NEXT (iter 78):
   drift classification (decl-level olean diff; OFF-under-load
   control), corpus gates, then docs/README + upstream package.
+- 2026-07-20 (iter 78, /loop): T10 CLOSED — ALL GATES GREEN. Third
+  soundness hazard found via corpus: auto-bound section variables
+  (Batteries HashSet 'unknown free variable _fvar.650') — auto-bounds
+  live in the READER's autoBoundImplicitContext retry loop, invisible
+  to state snapshots; fix = refuse to store auto-bound telescopes
+  (f5c54485; Mathlib autoImplicit=false unaffected). The three-hazard
+  law recorded: state outside the captured Term/Meta snapshot must be
+  captured (lctx/localInsts), fast-forwarded (ngen), or refused
+  (errors, auto-bounds). GATES: probes 7-axis byte-identical;
+  k=256 1670->264ms; Batteries corpus 188/188 rc=0 ON; Equiv.Basic
+  FINAL A/B 4.910->4.309s = -12.2% (5-run interleaved, separated).
+  DRIFT CLASSIFIED SEMANTICALLY ZERO: structural comparison of all
+  292 constants (name/levelParams/type/value) via readModuleData =
+  0 diffs for BOTH the 1/5-run 27-byte ON drift AND the 253-byte
+  ON-vs-OFF delta -> physical compacted-region layout only;
+  OFF-under-CPU-load control 0/15 differing pairs. Open for
+  default-on upstreaming only: byte-reproducibility under the option.
+  docs/t10 verdict + README rows (T9/T10) updated. REMAINING
+  HEADROOM named: per-decl telescope tax (env stamp too coarse —
+  needs constants-map/ext sub-stamps or C1 integration). NEXT
+  (iter 79+): T10 upstream package draft (user-gated filing);
+  Mathlib-cone ON canary build; then back to C1 wavefront prototype
+  (T10 cache = the scope-reconstruction prerequisite, now real).

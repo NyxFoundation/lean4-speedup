@@ -66,3 +66,11 @@ variable {R3 : Type} [Mul R3]
 theorem t7 (a : R1) (b : R2) (c : R3) : a * a = a * a := rfl
 #check @t7
 end
+
+-- 7. auto-bound section variable (must NOT be cached; α is auto-bound)
+section
+variable [BEq κα] [Hashable κα]
+def t8 (x : κα) : κα := x
+theorem t9 (x : κα) : t8 x = x := rfl
+#check @t9
+end

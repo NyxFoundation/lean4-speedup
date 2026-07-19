@@ -68,9 +68,52 @@ concrete fix design.
    cheap out-of-order command elaboration (each speculated command must
    materialize its scope without O(telescope) cost).
 
-## Verdict potential
+## Verdict (iters 77–78): IMPLEMENTED AND VALIDATED — −12.2 % module wall
 
-Equiv.Basic ceiling for the visible part alone: −22 % module wall if
-telescope elaboration became O(new binders). Mathlib-wide: `variable`
-commands number in the tens of thousands. This is the highest-EV core
-patch candidate since T6.
+`Elab.varTelescopeCache` (default off) on the lean4 `t6-upstream` branch
+(commits 7730c797 + f5c54485): `runTermElabM` caches the elaborated
+telescope in a single-entry process-global ref; key = varDecls
+pointer-prefix + scope fields (ns/openDecls/levelNames/isNoncomputable/
+isPublic/isMeta/opts) + env object identity (`runCore` now only calls
+`Kernel.resetDiag` when diagnostics are on, so an unmodified env keeps its
+pointer — a standalone allocation win too). Prefix hits elaborate only the
+suffix binders.
+
+Three soundness hazards found and closed during validation (all are
+instances of one law: **state that lives outside the captured
+Term/Meta snapshot must be captured, fast-forwarded, or refused**):
+
+1. **ngen rollback** — instance-name pre-elaboration runs under state
+   rollback; the IO.Ref cache escapes it, so snapshot ids collided with
+   reissued ids (deterministic `AddCommMonoid M vs Type u_2` failure in
+   Equiv.Basic). Fix: store the post-elaboration `NameGenerator`; every
+   hit fast-forwards the current generator past it.
+2. **Error-state telescopes** — caching a failed binder elaboration
+   replays broken state; store now refuses when the (per-command) log has
+   errors.
+3. **Auto-bound section variables** — auto-bounds accumulate in the
+   *reader's* `autoBoundImplicitContext` retry loop, invisible to the
+   snapshot; a hit dropped them (dangling-fvar kernel error in
+   `Batteries.Lean.HashSet`). Store now refuses auto-bound telescopes
+   (Mathlib sets `autoImplicit false`, so its win is unaffected).
+
+Measured (final binary): synthetic k=256 `variable` chain 1670 → 264 ms
+(quadratic → linear); **Equiv.Basic 4.910 → 4.309 s = −12.2 % module
+wall** (5-run interleaved medians, distributions fully separated) — the
+project's largest verified wall win, exceeding T6's −7.4 %. Gates:
+probes (7 axes incl. auto-bound) byte-identical ON/OFF; 66-line Mathlib
+repro byte-identical; Batteries corpus 188/188 oleans rc=0 with cache ON.
+
+Olean caveat, classified: ON runs show rare (1/5) 27-byte drift and a
+253-byte ON-vs-OFF delta, but structural comparison of all 292 constants
+(name/levelParams/type/value) shows **zero differences** in both cases —
+the delta is physical compacted-region layout (sharing structure), not
+content; hit/miss sequences are proven run-deterministic, and OFF under
+CPU-load perturbation stays byte-stable (0/15). Byte-reproducibility
+under the option is the one open item for a default-on upstream story;
+as an opt-in build accelerator the gates are green.
+
+Remaining headroom: the per-decl telescope tax (each decl command still
+re-elaborates the full telescope when any decl intervened — the env
+stamp is per-object). A finer stamp (constants-map identity + extension
+sub-stamps) or C1-integrated scope reconstruction would unlock it.
