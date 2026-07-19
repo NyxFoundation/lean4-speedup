@@ -1,0 +1,105 @@
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release'　に入ります
+[  4%] Performing update step for 'cadical'
+-- Already at requested tag: rel-2.1.2
+[  8%] No patch step for 'cadical'
+[ 12%] No configure step for 'cadical'
+[ 16%] Performing build step for 'cadical'
+[ 20%] No install step for 'cadical'
+[ 25%] Completed 'cadical'
+[ 33%] Built target cadical
+[ 37%] Performing configure step for 'stage0'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- stage0 sha1: 24613e574a04b70bc2f9427f0e61e3832de53d50
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage0
+[ 41%] Performing build step for 'stage0'
+[  1%] Built target leanmanifest
+[  3%] Built target leanmain
+[  5%] Built target leanshell
+[  5%] Built target initialize
+[  7%] Built target constructions
+[  7%] Built target copy-leantar
+[ 19%] Built target util
+[ 32%] Built target kernel
+[ 44%] Built target library
+[ 44%] Built target leaninitialize
+[ 45%] Built target leancpp_1
+[ 46%] Built target leancpp
+[ 73%] Built target leanrt_initial-exec
+[100%] Built target leanrt
+[100%] Built target make_stdlib
+[100%] Built target Init_shared
+[100%] Built target leanshared
+[100%] Built target leanir
+[100%] Built target lean
+[100%] Built target lake_shared
+[100%] Built target lake
+[100%] Built target leanchecker
+[ 45%] No install step for 'stage0'
+[ 50%] Completed 'stage0'
+[ 66%] Built target stage0
+[ 70%] Performing configure step for 'stage1'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- git commit sha1: 65cbe456d22ddbaffa6eab3108e0d8e2ee9a700d
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1
+[ 87%] Built target stage1-configure
+[ 91%] Performing build step for 'stage1'
+[  0%] Built target initialize
+[  3%] Built target leanmain
+[  3%] Built target leanmanifest
+[  3%] Built target copy-cadical
+[  6%] Building CXX object CMakeFiles/leanshell.dir/util/shell.cpp.o
+[ 10%] Built target constructions
+[ 10%] Built target copy-leantar
+[ 10%] Built target leaninitialize
+[ 24%] Built target util
+[ 27%] Building CXX object library/CMakeFiles/library.dir/module.cpp.o
+[ 27%] Building CXX object library/CMakeFiles/library.dir/util.cpp.o
+[ 41%] Built target kernel
+[ 44%] Building CXX object runtime/CMakeFiles/leanrt.dir/platform.cpp.o
+[ 44%] Building CXX object runtime/CMakeFiles/leanrt_initial-exec.dir/platform.cpp.o
+[ 44%] Linking CXX static library lib/temp/libleanshell.a
+[ 44%] Built target leanshell
+[ 44%] Linking CXX static library libleanrt_initial-exec.a
+[ 44%] Linking CXX static library ../lib/lean/libleanrt.a
+[ 68%] Built target leanrt_initial-exec
+[ 93%] Built target leanrt
+[100%] Built target library
+[100%] Linking CXX static library lib/temp/libleancpp_1.a
+[100%] Linking CXX static library lib/lean/libleancpp.a
+[100%] Built target leancpp
+[100%] Built target leancpp_1
+✖ [2832/5001] Building Lean.Meta.Basic (2.1s)
+trace: .> LEAN_PATH=/home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean /home/gohan/workspace/lean4-speedup/lean4/build/release/stage0/bin/lean -Dinterpreter.prefer_native=false -Dpp.rawOnError=true /home/gohan/workspace/lean4-speedup/lean4/src/Lean/Meta/Basic.lean -o /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/Lean/Meta/Basic.olean -i /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/Lean/Meta/Basic.ilean -c /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/temp/Lean/Meta/Basic.c --setup /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/temp/Lean/Meta/Basic.setup.json --json
+error: Lean/Meta/Basic.lean:699:18: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Lean.Meta.Cache.mk` has 7 explicit field, but only 6 were provided
+error: Lean/Meta/Basic.lean:702:18: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Lean.Meta.Cache.mk` has 7 explicit field, but only 6 were provided
+error: Lean/Meta/Basic.lean:705:18: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Lean.Meta.Cache.mk` has 7 explicit field, but only 6 were provided
+error: Lean exited with code 1
+Some required targets logged failures:
+- Lean.Meta.Basic
+error: build failed
+make[6]: *** [/home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/stdlib.make:57: Init] エラー 1
+make[5]: *** [CMakeFiles/make_stdlib.dir/build.make:70: CMakeFiles/make_stdlib] エラー 2
+make[4]: *** [CMakeFiles/Makefile2:1444: CMakeFiles/make_stdlib.dir/all] エラー 2
+make[3]: *** [Makefile:146: all] エラー 2
+make[2]: *** [CMakeFiles/stage1.dir/build.make:95: stage1-prefix/src/stage1-stamp/stage1-build] エラー 2
+make[1]: *** [CMakeFiles/Makefile2:214: CMakeFiles/stage1.dir/all] エラー 2
+make: *** [Makefile:136: all] エラー 2
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release' から出ます

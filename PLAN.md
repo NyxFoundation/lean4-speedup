@@ -953,3 +953,19 @@ perf claims, honest retractions.
   the cache key; the fix may be a local-instance short-circuit
   (check binder instances BEFORE full search) — potentially huge:
   60% of TC volume on the hottest Mathlib module.
+- 2026-07-19 (iter 65, /loop): T7 IMPLEMENTED — local-instance prefix
+  reuse (TLB/ASID transfer: tag entries, don't flush on context
+  growth). Isolated-theorem dissection CONFIRMED the flood mechanism:
+  one simple linear-map lemma re-derives `Semiring R` 6x — once per
+  accumulating instance-binder stage; the per-command cache key is
+  (localInsts, type, depth) and localInsts changes at every [inst]
+  binder. FIX (lean4 branch, option synthInstance.localPrefixReuse,
+  default off): side index (type, depth) -> (localInsts, result)
+  storing ONLY direct local-instance hits (result = fvar in the
+  array; no subgoals => only same-class locals compete); on exact-key
+  miss, reuse when current localInsts prefix-extends the stored one
+  and the suffix adds no same-class instance. Known subtlety (suffix
+  instance of a DIFFERENT class bridging via global paths) is left to
+  the byte-identical-olean gate to arbitrate. Rebuild detached
+  (lean4_rebuild_t7.log). NEXT WAKE gates: probe recount (6->~1
+  Semiring queries), Equiv.Basic wall A/B, olean ON==OFF, corpus.
