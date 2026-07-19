@@ -1,0 +1,23 @@
+== Batteries.Data.List.Lemmas: 339 decls (command order = line order)
+  statements with ZERO same-module type deps: 336/339 = 99%
+  decls fully import-only (stmt+body):        330/339 = 97%
+  stmt reads nothing from previous  1 commands: 336/339 = 99%
+  stmt reads nothing from previous  2 commands: 336/339 = 99%
+  stmt reads nothing from previous  4 commands: 336/339 = 99%
+  stmt reads nothing from previous  8 commands: 336/339 = 99%
+  stmt reads nothing from previous 16 commands: 336/339 = 99%
+  stmt reads nothing from previous 32 commands: 336/339 = 99%
+  among decls WITH a stmt dep: min-dist median 1, p10 1, p90 1
+  longest STATEMENT-dep chain: 2 (vs full-dep chain 2, vs 339 sequential commands)
+
+== Mathlib.Algebra.Module.Equiv.Basic: 164 decls (command order = line order)
+  statements with ZERO same-module type deps: 39/164 = 24%
+  decls fully import-only (stmt+body):        25/164 = 15%
+  stmt reads nothing from previous  1 commands: 131/164 = 80%
+  stmt reads nothing from previous  2 commands: 100/164 = 61%
+  stmt reads nothing from previous  4 commands: 73/164 = 45%
+  stmt reads nothing from previous  8 commands: 50/164 = 30%
+  stmt reads nothing from previous 16 commands: 46/164 = 28%
+  stmt reads nothing from previous 32 commands: 45/164 = 27%
+  among decls WITH a stmt dep: min-dist median 2, p10 1, p90 7
+  longest STATEMENT-dep chain: 3 (vs full-dep chain 4, vs 164 sequential commands)

@@ -1089,3 +1089,26 @@ perf claims, honest retractions.
   half. Notable: the status-change operator applied to our measured
   command-independence phenomenon points at speculative command
   elaboration — theory and diagnostics now agree on the target.
+- 2026-07-19 (iter 75, /loop): PROTOCOL V2 EXECUTED — T9 PHENOMENON
+  CENSUS + C-EXPANSIONS + PERCEPTUAL CHANNEL. Statement-dependency
+  census (type-only deps = the sequential main-thread mass, vs body
+  deps = already-async proofs; bench/StmtDeps_*.lean + analyze/arcs
+  scripts): List.Lemmas 99% of statements have ZERO same-module type
+  deps, statement chain 2 vs 339 commands; Equiv.Basic chain 3 vs 164,
+  143 stmt arcs on 33 targets, ALL top hubs are DEFS (automorphismGroup
+  cmd 7 takes 28 arcs), 50% of statements dep-free once top-5 hubs
+  commit. Arc renders (docs/assets/arcs-*.svg) — Batteries is visually
+  a FLAT LINE; Mathlib is def-rooted hub-and-spoke. THE PHENOMENON:
+  textual command order is a ~99%-empty over-serialization of a
+  depth-3 partial order; theorem statements are spokes. 12-concept
+  C-expansion catalog written (docs/c-expansions.md) via the five
+  operators; C1 wavefront statement elaboration prioritized (Uzzi
+  rule: conventional scheduler + one atypical ingredient). Extractor
+  gotcha fixed en route: private aux decls need privateToUserName?
+  before aux-folding (else 193 line-0 orphans corrupt ordered stats;
+  verified 0 edges into the residual line-0 set). T6 PR #14449: no
+  maintainer review yet (CI bots await nightly tag). NEXT (iter 76):
+  discriminating simulator — one profile run for per-command
+  main-thread times, replay under wavefront order, kill-or-fund C1;
+  plus C5 context-writer census + upstream prior-art check
+  (parallel command elaboration in Lean RFCs/zulip).
