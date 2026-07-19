@@ -936,3 +936,20 @@ perf claims, honest retractions.
   searches per module, not duplicates — caching can't fix search
   volume; invention direction = subgoal-tree sharing / hierarchy path
   precompilation. Next: test (a), then structure-census the 14k.
+- 2026-07-19 (iter 64, /loop): SEMIRING FLOOD FOUND. Hypothesis (a)
+  REFUTED first: v2 record-and-replay is always-on with the cache
+  (tier-2 replay + circuit breaker built in) — the 230-hit result
+  already includes it; queries are genuinely distinct... at the KEY
+  level. Then the structure census (trace.Meta.synthInstance, one
+  module): 17,758 top-level queries, of which Semiring 10,681 (60%!),
+  NonAssocSemiring 2,962, AddCommMonoid 1,798 — and Semiring R is
+  answered by a LOCAL BINDER INSTANCE (inst✝⁴). The wall is the same
+  trivial local-instance query re-derived thousands of times per
+  module: something fragments the per-command cache (suspects:
+  transparency/config in the cache key, binder-telescope variation,
+  cache flushes) and the v1 shape key barely fires (4 hits) despite
+  being designed for exactly this. NEXT (iter 65): isolate ONE
+  theorem, count its Semiring queries, find the fragmentation axis in
+  the cache key; the fix may be a local-instance short-circuit
+  (check binder instances BEFORE full search) — potentially huge:
+  60% of TC volume on the hottest Mathlib module.
