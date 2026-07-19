@@ -59,3 +59,38 @@ Analysis/Topology modules (deps unbuilt — hours; deferred).
 - **Ecology (r/K selection)**: modules as organisms — many cheap commands
   vs few expensive ones; does Lean's scheduling favor the wrong strategy on
   the critical path?
+
+## Iter 56 retrospective (muda / per-command floor)
+
+Floor measured (1000-command files, startup-subtracted, per command):
+`def` 0.30 ms · `theorem` 1.40 ms · `example` 1.51 ms (examples stay on
+main — matches the async gate). Predictions tested:
+
+- "async bookkeeping is the tax" — **falsified**: `Elab.async=false` makes
+  both theorems (+13 %) and defs (+47 %) *slower*; async is net-positive
+  even at the floor.
+- "TC re-derivation is the tax" — **falsified**: T1 v1 shape cache is a
+  no-op on the floor (1.594 vs 1.578 s).
+- Stack samples: all elaboration-thread hits in
+  `synthesizePendingInstMVar`/`synthesizeInstMVarCore`/`resumePostponed` —
+  the **synthetic-instance-mvar orchestration** (postpone → mvar-context
+  switch → resume → instantiate), ~0.3 ms per pending instance mvar
+  (theorem ≈ 4–5 of them, def ≈ 1 — the ratio explains the premium).
+  The muda is the orchestration *around* synthesis, invisible to any
+  synthesis-result cache.
+
+New meta-rules (both bought with today's mistakes):
+
+6. **Verify rc *inside* the measurement loop.** A "27× speedup" was a
+   zsh word-splitting bug making `lean` fail instantly (rc=1 swallowed by
+   `>/dev/null`); a mutation probe's rc was `head`'s, not `lean`'s.
+   Any speedup that beats the empty-file baseline is a broken harness.
+7. **A cost invisible to a cache is orchestration, not computation.**
+   When a result-cache no-ops on a repetitive workload, stop optimizing
+   the computation and profile the machinery that schedules it.
+
+Rotation queue update: next = **literal fast-path** (strength-reduction
+analogy re-aimed at the elaborator): `OfNat Nat` / `HAdd Nat` literal
+instances could short-circuit the postpone/resume dance for the
+overwhelmingly common cases. Falsifiable: floor theorem cost should
+approach `def`-level (~0.5 ms) if 3-4 of the 4-5 cycles are elided.

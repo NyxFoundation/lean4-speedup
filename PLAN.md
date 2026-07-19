@@ -844,3 +844,15 @@ perf claims, honest retractions.
   same-binary baselines; measure distributions not outliers), and a
   next-rotation queue with falsifiable predictions (muda/per-command
   floor first: is the ~5-8ms trivial-command cost half bookkeeping?).
+- 2026-07-19 (iter 56, /loop): PER-COMMAND FLOOR DECOMPOSED. theorem
+  1.40ms vs def 0.30ms vs example 1.51ms per trivial command. Async
+  OFF is SLOWER at the floor (net-positive infra); T1 shape cache
+  no-op at floor. Stack samples: synthetic-inst-mvar ORCHESTRATION
+  (synthesizePendingInstMVar/resumePostponed) ~0.3ms per pending
+  instance mvar — theorem carries 4-5 (literals+HAdd+Eq), def 1;
+  ratio explains the premium. Muda = orchestration around synthesis,
+  invisible to result caches. Caught 2 measurement bugs (zsh $opt
+  no-word-split -> instant-fail "27x speedup"; pipeline rc) -> new
+  playbook meta-rules 6-7. Next rotation: literal fast-path
+  (strength reduction aimed at elaborator orchestration), prediction:
+  theorem floor -> ~0.5ms. docs/invention-playbook.md updated.
