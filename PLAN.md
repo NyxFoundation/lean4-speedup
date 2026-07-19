@@ -1398,3 +1398,16 @@ byte-reproducibility for default-on.
   the speculated statement. This turns the deep box from 'invent env
   merging' into 'wire a cache into elabMutualDef's header path' —
   substantially smaller. Ready for implementation.
+- 2026-07-20 (iter 93, /loop): V1 IMPLEMENTATION SPEC WRITTEN
+  (docs/c1-v1-implementation.md) with a decisive prior-art find:
+  MutualDef.lean:1275 carries an UPSTREAM TODO — 'parallelize header
+  elaboration as well? Would have to refactor auto implicits catch,
+  makes @[simp] etc harder?' — inside the async-theorem branch. Our
+  evidence chain answers both cited obstacles (auto-implicits: gated
+  by the T10 refusal rule + Mathlib autoImplicit=false; attributes:
+  syntactic replay on main). Consumer anchor confirmed:
+  commitSignature consumes {name, levelParams, type} — ALL CLOSED
+  data, directly feedable from the cache. Scope v0: single non-mutual
+  theorems (today's elabAsync eligibility = dominant Mathlib mass).
+  Producer: parseCmd-adjacent speculation task reusing the harness's
+  proven sorry-elab + info-tree collector. Full gate battery specified.
