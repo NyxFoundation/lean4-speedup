@@ -896,3 +896,15 @@ perf claims, honest retractions.
   world target chosen: Mathlib.NumberTheory.PythagoreanTriples (3-4-5
   arithmetic; dep cone building in background on the T6-patched
   stage1, doubling as a Mathlib-scale soundness canary, option-off).
+- 2026-07-19 (iter 60, /loop): CANARY TRIAGE + GENERALIZATION VERDICT.
+  Mathlib dep-cone failure at Logic/Equiv/Prod:333 (grind, 242s) is
+  PRE-EXISTING toolchain skew (identical error in the 7/17 pre-T5/T6
+  field-build log) — T6 binary exonerated; proof sorried locally with
+  a skew comment, build resumed in background (842/1440 clean so
+  far). resumePostponed READ: the tc memo-skip does NOT generalize to
+  .postponed (resumeElabTerm depends on the whole mctx, not just the
+  instantiated expected type — skip could postpone forever). Correct
+  design named: DEPENDENCY-PRECISE WAKEUP (postponed elaborators
+  register blocked-on mvars; resume fires on their assignment only) —
+  build-scheduler/red-green transfer; queued as next deep target.
+  docs/t6 updated.

@@ -91,3 +91,22 @@ unmeasured; that plus a batch-defaulting variant are the follow-ups. As an
 asymptotic fix with a crisp microbench and byte-identical-output proof,
 this is the repo's first genuinely upstreamable *performance* patch
 (lean4 branch commit `T6: Elab.tcSkipUnchanged`).
+
+## The residual, and why the skip does NOT generalize (iter 60)
+
+With `tcSkipUnchanged` on, `Meta.synthInstance` is ~1 % of traced time at
+k=16; the residual superlinearity is the **postponed-elaborator resumption
+loop**: `binop%` re-elaborates its full operator tree on every resume
+(k resumes × O(k) tree). The `.tc` memo-skip is sound because
+`synthInstance` is deterministic in the instantiated goal; a `.postponed`
+resume is NOT — `resumeElabTerm` re-elaborates against the whole current
+mctx, so leaves can be unblocked by assignments that never touch the
+expected type. Skipping on unchanged-expected-type could postpone forever.
+
+The correct fix is a design change, not a memo: **dependency-precise
+wakeup** — a postponed elaborator registers the mvars it is blocked on
+(binop% knows them: expected type + leaf type mvars), and the resumption
+loop wakes it only when one of those is assigned, instead of re-attempting
+everything after every assignment. This is how build-system schedulers and
+rustc's red/green queries avoid the same quadratic. Queued as the next
+deep-session target.
