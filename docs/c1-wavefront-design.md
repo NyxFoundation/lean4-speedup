@@ -41,6 +41,16 @@ reads, failed-candidate instance probes, and notation deps):
 - Gate: if the true ceiling collapses below ~1.5× on Equiv.Basic, C1
   dies cheaply and the loop pivots (e.g. to the T10 per-decl stamp,
   which needs no reordering at all).
+- **RESULT (iter 82–83): gate PASSED.** True per-command read sets
+  (info-tree oracle, `bench/c1_oracle.lean`) validate the census —
+  85 %/37 %/32 % (prev-1/prev-8/fully-independent) vs the census's
+  80 %/30 %/24 %. The exact-ceiling replay on oracle-true deps with
+  measured per-command times (`bench/wavefront_sim_oracle.py`, 79 %
+  time-mass aligned): sequential 4,797 ms → **1,631 ms = 2.9× (16
+  workers), 2.3× (4 workers)**. Lower than the census-based 4.0×
+  because true reads add name-resolution/coercion edges, but ~2×
+  above the kill gate. v1 proceeds with 2.3–2.9× as the honest
+  ceiling band on the hottest Mathlib module.
 
 ### v1 — speculative statement pre-elaboration (the invention slice)
 

@@ -1,0 +1,6 @@
+profile total 5969 ms; aligned 4744 ms (79%); unaligned profile cmds: 51
+sequential: 4797 ms
+critical path (oracle-true deps): 1631 ms -> 2.9x
+16 workers: 1665 ms -> 2.9x
+ 8 workers: 1739 ms -> 2.8x
+ 4 workers: 2076 ms -> 2.3x
