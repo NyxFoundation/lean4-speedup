@@ -1165,3 +1165,28 @@ perf claims, honest retractions.
   fixes if any; probe battery; k-series ON/OFF (prediction: k=256
   1600ms -> ~250ms, near-linear); then Equiv.Basic wall A/B + olean
   gates + corpus.
+- 2026-07-20 (iter 77 cont.): T10 MECHANISM PROVEN, SOUNDNESS BUG
+  FOUND (honest interim; option stays default-off, nothing published).
+  (a) First A/B was flat: runCore's unconditional Kernel.resetDiag
+  allocates a FRESH env object every command -> pointer stamp always
+  missed. Fix (upstream-worthy on its own): guard resetDiag on
+  isDiagnosticsEnabled — env object identity now means "unmodified".
+  (b) After the guard: k-series quadratic ELIMINATED — k=256:
+  1676->277ms (net of startup ~15x), ON-series linear; synthetic
+  probes byte-identical ON/OFF incl. error behavior; traces confirm
+  hit/prefix-hit/stale-miss all fire correctly. (c) BUT Equiv.Basic
+  FAILS with cache on: deterministic 'synthesized inst✝⁷ :
+  AddCommMonoid M expected Type u_2' at :417 — an xs/binder
+  MISALIGNMENT on the hit path in real Mathlib telescopes (Type*
+  auto-bound universes + nested sections + notation binders; flat
+  probes too weak to catch it). 66-line deterministic repro extracted
+  (scratchpad/EquivRepro.lean = file header + failing section).
+  Secondary finding: some binder elaborations (→+*/RingHomInvPair)
+  mutate env mid-command (realization?) -> pointer-stale misses
+  between consecutive variable commands — hit-rate cost, not
+  soundness. Also: broken-syntax repro showed CACHED ERROR STATES
+  can diverge later unification (universe constraint vs synth
+  failure) — cache must not store failed elabBinders states (fix
+  queued). Diagnostic build in flight (telescope+localInsts dump at
+  store/hit). NEXT: diff restored vs fresh telescope on the repro,
+  find the misalignment, fix, re-gate.
