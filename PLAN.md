@@ -799,3 +799,18 @@ perf claims, honest retractions.
   after their targets) + a GENERAL finding: env-ext getState reads in
   metaprogram commands are a silent barrier CLASS in async-era Lean —
   audit target for core. docs/t4-alias-barrier.md updated to RESOLVED.
+- 2026-07-19 (iter 53): T5 EXT-STATE BARRIER AUDIT — generalized T4:
+  sampled 16 gdb interrupts across a VANILLA List.Lemmas compile,
+  censused all lean_task_get blocking sites. LANDSLIDE: 49/58 hits =
+  EnvExtension.getStateUnsafe <- getReducibilityStatusCore <-
+  Meta.Sym.isUnfoldReducibleCandidate — grind/sym PROOF WORKERS
+  serialize behind the elaboration pipeline on every unfold-candidate
+  reducibility read (extra ext read blocks on checked; core ext read
+  blocks on the queried decl's branch). LIKELY EXPLAINS the "blocked
+  6.65s" top profile line AND the 2.4x parallelism plateau the whole
+  campaign circled. PATCH (lean4 branch): both reads -> asyncMode :=
+  .local (sound: attrs are applied on main before dependent tasks
+  spawn). Stage1 rebuild detached (lean4_rebuild_t5.log). NEXT WAKE:
+  corpus-clean + olean-determinism gates FIRST, then --threads sweep
+  on List.Lemmas (prediction: the 2.4x ceiling lifts) + 5-run cold
+  corpus A/B. docs/t5-ext-state-barriers.md; README T4 row added.

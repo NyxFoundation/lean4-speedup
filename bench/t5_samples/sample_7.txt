@@ -1,0 +1,361 @@
+Python Exception <class 'ModuleNotFoundError'>: No module named 'libstdcxx'
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/nix/store/pdwlyjkmc6icc0wb5gaw08m9ynqrg683-glibc-2.40-218/lib/libthread_db.so.1".
+[New Thread 0x7fffed3bf6c0 (LWP 3145945)]
+[New Thread 0x7fffa7fff6c0 (LWP 3145946)]
+[New Thread 0x7fff5ffff6c0 (LWP 3145947)]
+[New Thread 0x7fff17fff6c0 (LWP 3145950)]
+[New Thread 0x7ffecffff6c0 (LWP 3145951)]
+[New Thread 0x7ffe87fff6c0 (LWP 3145952)]
+[New Thread 0x7ffe3ffff6c0 (LWP 3145953)]
+[New Thread 0x7ffdf7fff6c0 (LWP 3145954)]
+[New Thread 0x7ffdaffff6c0 (LWP 3145955)]
+[New Thread 0x7ffd67fff6c0 (LWP 3145956)]
+[New Thread 0x7ffd1ffff6c0 (LWP 3145957)]
+[New Thread 0x7ffcd7fff6c0 (LWP 3145958)]
+[New Thread 0x7ffc8ffff6c0 (LWP 3145959)]
+[New Thread 0x7ffc47fff6c0 (LWP 3145960)]
+[New Thread 0x7ffbfffff6c0 (LWP 3145961)]
+[New Thread 0x7ffbb7fff6c0 (LWP 3145975)]
+[New Thread 0x7ffb77ffe6c0 (LWP 3145976)]
+[New Thread 0x7ffb27fff6c0 (LWP 3145978)]
+[New Thread 0x7ffae7ffe6c0 (LWP 3145979)]
+[New Thread 0x7ffa9ffff6c0 (LWP 3145992)]
+[New Thread 0x7ffa57fff6c0 (LWP 3145993)]
+[New Thread 0x7ffa0ffff6c0 (LWP 3145994)]
+[New Thread 0x7ff9c7fff6c0 (LWP 3145995)]
+[New Thread 0x7ff97ffff6c0 (LWP 3145996)]
+[New Thread 0x7ff937fff6c0 (LWP 3145997)]
+[New Thread 0x7ff8effff6c0 (LWP 3145998)]
+[New Thread 0x7ff8a7fff6c0 (LWP 3145999)]
+[New Thread 0x7ff85ffff6c0 (LWP 3146000)]
+[New Thread 0x7ff817fff6c0 (LWP 3146001)]
+[New Thread 0x7ff7cffff6c0 (LWP 3146002)]
+[New Thread 0x7ff787fff6c0 (LWP 3146003)]
+[New Thread 0x7ff747ffe6c0 (LWP 3146004)]
+
+Thread 1 "lean" received signal SIGINT, Interrupt.
+0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 33 (Thread 0x7ff747ffe6c0 (LWP 3146004) "lean"):
+#0  0x00007ffff185e952 in l_Lean_PersistentHashMap_findAux___at___00Lean_PersistentHashMap_find_x3f___at___00Lean_LocalContext_find_x3f_spec__0_spec__0___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff185eb79 in lean_local_ctx_find () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff74038ed in l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Linter_constructorNameAsVariable_spec__8___lam__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7404ee1 in l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Linter_constructorNameAsVariable_spec__8___lam__2___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff76302f3 in lean_apply_6 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff7405075 in l_Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff76312a6 in lean_apply_7 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff7405d6e in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff7405ba2 in l___private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff74065f2 in l_List_mapM_loop___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00Lean_Elab_InfoTree_visitM_x27___at___00Lean_Linter_constructorNameAsVariable_spec__6_spec__9_spec__12___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 32 (Thread 0x7ff787fff6c0 (LWP 3146003) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 31 (Thread 0x7ff7cffff6c0 (LWP 3146002) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 30 (Thread 0x7ff817fff6c0 (LWP 3146001) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 29 (Thread 0x7ff85ffff6c0 (LWP 3146000) "lean"):
+#0  0x00007ffff766654a in mi_page_thread_collect_to_local(mi_page_s*, mi_block_s*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff767804f in mi_page_queue_find_free_ex(mi_theap_s*, mi_page_queue_s*, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff766729b in _mi_malloc_generic(mi_theap_s*, unsigned long, unsigned long, unsigned long*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff188d5a5 in l_Lean_Expr_sort___override () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff75ad5f1 in lean::mk_sort(lean::level const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff75c1ce3 in lean::type_checker::infer_pi(lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff75c1589 in lean::type_checker::infer_type_core(lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff75c19a4 in lean::type_checker::infer_pi(lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff75c1589 in lean::type_checker::infer_type_core(lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff75c3855 in lean::type_checker::is_prop(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff75b8edf in lean::environment::add_theorem(lean::declaration const&, bool) const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff75b9c92 in lean::environment::add(lean::declaration const&, bool) const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff75b9fd4 in std::_Function_handler<lean::environment (), lean_add_decl::$_0>::_M_invoke(std::_Any_data const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff75ba88c in lean_object* lean::catch_kernel_exceptions<lean::environment>(std::function<lean::environment ()> const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff75b9d83 in lean_add_decl () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff1ab4289 in l_List_forIn_x27_loop___at___00__private_Lean_Environment_0__Lean_Environment_replayConsts_replayKernel_spec__3___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff1ab4e32 in l___private_Lean_Environment_0__Lean_Environment_replayConsts_replayKernel () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff1ab8f6a in l_Lean_Environment_realizeConst___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff76286b7 in lean_apply_1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff762861f in lean_apply_1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff762624c in lean::task_manager::run_task(std::unique_lock<std::mutex>&, lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff7626c41 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#24 0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 28 (Thread 0x7ff8a7fff6c0 (LWP 3145999) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 27 (Thread 0x7ff8effff6c0 (LWP 3145998) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 26 (Thread 0x7ff937fff6c0 (LWP 3145997) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 25 (Thread 0x7ff97ffff6c0 (LWP 3145996) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 24 (Thread 0x7ff9c7fff6c0 (LWP 3145995) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 23 (Thread 0x7ffa0ffff6c0 (LWP 3145994) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 22 (Thread 0x7ffa57fff6c0 (LWP 3145993) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 21 (Thread 0x7ffa9ffff6c0 (LWP 3145992) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 20 (Thread 0x7ffae7ffe6c0 (LWP 3145979) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 19 (Thread 0x7ffb27fff6c0 (LWP 3145978) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 18 (Thread 0x7ffb77ffe6c0 (LWP 3145976) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 17 (Thread 0x7ffbb7fff6c0 (LWP 3145975) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 16 (Thread 0x7ffbfffff6c0 (LWP 3145961) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 15 (Thread 0x7ffc47fff6c0 (LWP 3145960) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 14 (Thread 0x7ffc8ffff6c0 (LWP 3145959) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 13 (Thread 0x7ffcd7fff6c0 (LWP 3145958) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 12 (Thread 0x7ffd1ffff6c0 (LWP 3145957) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 11 (Thread 0x7ffd67fff6c0 (LWP 3145956) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 10 (Thread 0x7ffdaffff6c0 (LWP 3145955) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 9 (Thread 0x7ffdf7fff6c0 (LWP 3145954) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 8 (Thread 0x7ffe3ffff6c0 (LWP 3145953) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 7 (Thread 0x7ffe87fff6c0 (LWP 3145952) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 6 (Thread 0x7ffecffff6c0 (LWP 3145951) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 5 (Thread 0x7fff17fff6c0 (LWP 3145950) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 4 (Thread 0x7fff5ffff6c0 (LWP 3145947) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 3 (Thread 0x7fffa7fff6c0 (LWP 3145946) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1c9f297 in l_Lean_Language_SnapshotTask_get___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1ca4c46 in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 2 (Thread 0x7fffed3bf6c0 (LWP 3145945) "lean"):
+#0  0x00007fffed7249b0 in epoll_pwait () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007ffff7ef6a2e in uv.io_poll () from /nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib/libuv.so.1
+#2  0x00007ffff7ee1747 in uv_run () from /nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib/libuv.so.1
+#3  0x00007ffff76493bd in lean::event_loop_run_loop(lean::event_loop_t*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#6  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 1 (Thread 0x7ffff7e8d800 (LWP 3145923) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69dc7c in __pthread_clockjoin_ex () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7618d09 in lean::run_with_thread_stack(std::function<void ()> const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff1348190 in lean_main () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed62a4c5 in __libc_start_call_main () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed62a578 in __libc_start_main_impl () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#6  0x0000555555555975 in _start ()

@@ -1,0 +1,703 @@
+Python Exception <class 'ModuleNotFoundError'>: No module named 'libstdcxx'
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/nix/store/pdwlyjkmc6icc0wb5gaw08m9ynqrg683-glibc-2.40-218/lib/libthread_db.so.1".
+[New Thread 0x7fffed3bf6c0 (LWP 3145816)]
+[New Thread 0x7fffa7fff6c0 (LWP 3145817)]
+[New Thread 0x7fff5ffff6c0 (LWP 3145818)]
+[New Thread 0x7fff17fff6c0 (LWP 3145832)]
+[New Thread 0x7ffecffff6c0 (LWP 3145833)]
+[New Thread 0x7ffe87fff6c0 (LWP 3145834)]
+[New Thread 0x7ffe3ffff6c0 (LWP 3145835)]
+[New Thread 0x7ffdf7fff6c0 (LWP 3145836)]
+[New Thread 0x7ffdaffff6c0 (LWP 3145837)]
+[New Thread 0x7ffd67fff6c0 (LWP 3145838)]
+[New Thread 0x7ffd27ffe6c0 (LWP 3145839)]
+[New Thread 0x7ffcd7fff6c0 (LWP 3145866)]
+[New Thread 0x7ffc97ffe6c0 (LWP 3145867)]
+[New Thread 0x7ffc4ffff6c0 (LWP 3145868)]
+[New Thread 0x7ffc07fff6c0 (LWP 3145869)]
+[New Thread 0x7ffbbffff6c0 (LWP 3145870)]
+[New Thread 0x7ffb77fff6c0 (LWP 3145871)]
+[New Thread 0x7ffb2fdff6c0 (LWP 3145872)]
+[New Thread 0x7ffae7fff6c0 (LWP 3145873)]
+[New Thread 0x7ffa9ffff6c0 (LWP 3145874)]
+[New Thread 0x7ffa57fff6c0 (LWP 3145876)]
+[New Thread 0x7ffa0ffff6c0 (LWP 3145877)]
+[New Thread 0x7ff9c7fff6c0 (LWP 3145878)]
+[New Thread 0x7ff97ffff6c0 (LWP 3145879)]
+[New Thread 0x7ff937fff6c0 (LWP 3145880)]
+[New Thread 0x7ff8effff6c0 (LWP 3145883)]
+[New Thread 0x7ff8a7fff6c0 (LWP 3145884)]
+[New Thread 0x7ff85ffff6c0 (LWP 3145885)]
+[New Thread 0x7ff817fff6c0 (LWP 3145886)]
+[New Thread 0x7ff7cffff6c0 (LWP 3145887)]
+[New Thread 0x7ff787fff6c0 (LWP 3145888)]
+[New Thread 0x7ff747ffe6c0 (LWP 3145889)]
+
+Thread 1 "lean" received signal SIGINT, Interrupt.
+0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 33 (Thread 0x7ff747ffe6c0 (LWP 3145889) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 32 (Thread 0x7ff787fff6c0 (LWP 3145888) "lean"):
+#0  0x00007ffff75afec6 in lean::expr_eq_fn<false>::apply(lean::expr const&, lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff75afea5 in lean::expr_eq_fn<false>::apply(lean::expr const&, lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff75afe5d in lean::expr_eq_fn<false>::apply(lean::expr const&, lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff75afb52 in lean_expr_eqv () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff2e74586 in l___private_Lean_Meta_Tactic_Simp_Main_0__Lean_Meta_Simp_simpLoop_visitPostContinue () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff2e74288 in l___private_Lean_Meta_Tactic_Simp_Main_0__Lean_Meta_Simp_simpLoop_visitPost () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff2e76458 in l_Lean_Meta_Simp_simpLoop () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff2e745f3 in l___private_Lean_Meta_Tactic_Simp_Main_0__Lean_Meta_Simp_simpLoop_visitPostContinue () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff2e74288 in l___private_Lean_Meta_Tactic_Simp_Main_0__Lean_Meta_Simp_simpLoop_visitPost () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff2e76458 in l_Lean_Meta_Simp_simpLoop () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff2e3b440 in lean_simp () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff2d94220 in l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_simpAppUsingCongr_visit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff2d93490 in l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_simpAppUsingCongr_visit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff2d94ed7 in l_Lean_Meta_Simp_simpAppUsingCongr () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff2e64fe4 in l_Lean_Meta_Simp_congrDefault () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff2e70442 in l_Lean_Meta_Simp_simpStep () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff2e7497a in l___private_Lean_Meta_Tactic_Simp_Main_0__Lean_Meta_Simp_simpLoop_visitPreContinue () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff2e76458 in l_Lean_Meta_Simp_simpLoop () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff2e3b440 in lean_simp () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff2d94220 in l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_simpAppUsingCongr_visit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff2d93490 in l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_simpAppUsingCongr_visit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff2d94ed7 in l_Lean_Meta_Simp_simpAppUsingCongr () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff2e64fe4 in l_Lean_Meta_Simp_congrDefault () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff2e70442 in l_Lean_Meta_Simp_simpStep () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff2e7497a in l___private_Lean_Meta_Tactic_Simp_Main_0__Lean_Meta_Simp_simpLoop_visitPreContinue () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 31 (Thread 0x7ff7cffff6c0 (LWP 3145887) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 30 (Thread 0x7ff817fff6c0 (LWP 3145886) "lean"):
+#0  0x00007ffff1a901bd in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff1bb564e in l_Lean_SimplePersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff20e9bd2 in l_Lean_Meta_Match_Extension_getMatcherInfo_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff206dfe7 in l_Lean_Meta_getMatcherInfo_x3f___at___00Lean_Meta_reduceMatcher_x3f_spec__0___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff207101f in l_Lean_Meta_reduceMatcher_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff2076a4a in l_Lean_Meta_whnfEasyCases___at___00__private_Lean_Meta_WHNF_0__Lean_Meta_whnfCore_go_spec__3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff2097567 in l_Lean_Meta_whnfEasyCases___at___00Lean_Meta_whnfImp_spec__3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff205273d in lean_whnf () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff2098acf in l_Lean_Meta_whnfEasyCases___at___00Lean_Meta_whnfImp_spec__3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff205273d in lean_whnf () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff2098acf in l_Lean_Meta_whnfEasyCases___at___00Lean_Meta_whnfImp_spec__3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff205273d in lean_whnf () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff205b5c5 in l___private_Lean_Meta_WHNF_0__Lean_Meta_reduceRec___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff2077978 in l_Lean_Meta_whnfEasyCases___at___00__private_Lean_Meta_WHNF_0__Lean_Meta_whnfCore_go_spec__3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff2077c8a in l_Lean_Meta_whnfEasyCases___at___00__private_Lean_Meta_WHNF_0__Lean_Meta_whnfCore_go_spec__3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff2097567 in l_Lean_Meta_whnfEasyCases___at___00Lean_Meta_whnfImp_spec__3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff205273d in lean_whnf () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff206ed9c in l_Lean_Meta_reduceMatcher_x3f___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff206f2ed in l_Lean_Meta_reduceMatcher_x3f___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff7631306 in lean_apply_7 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff206e242 in l_Lean_Meta_forallBoundedTelescope___at___00Lean_Meta_reduceMatcher_x3f_spec__3___redArg___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff7631271 in lean_apply_7 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff1f2df91 in l___private_Lean_Meta_Basic_0__Lean_Meta_forallTelescopeReducingAuxAux_process___redArg___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff1f2f3dc in l___private_Lean_Meta_Basic_0__Lean_Meta_forallTelescopeReducingAuxAux_process___redArg___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 29 (Thread 0x7ff85ffff6c0 (LWP 3145885) "lean"):
+#0  0x00007ffff75a8477 in lean::operator==(lean::level const&, lean::level const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff75b0313 in bool lean::compare<lean::level, lean::expr_eq_fn<false>::apply(lean::expr const&, lean::expr const&, bool)::{lambda(lean::level const&, lean::level const&)#1}>(lean::list_ref<lean::level> const&, lean::list_ref<lean::level> const&, lean::expr_eq_fn<false>::apply(lean::expr const&, lean::expr const&, bool)::{lambda(lean::level const&, lean::level const&)#1}&&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff75b0018 in lean::expr_eq_fn<false>::apply(lean::expr const&, lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff75afea5 in lean::expr_eq_fn<false>::apply(lean::expr const&, lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff75af9e8 in lean::is_equal(lean::expr const&, lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff75c5073 in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff75c547a in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff75c54db in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff75bff31 in lean::type_checker::whnf(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff75c5bd0 in lean::type_checker::reduce_proj(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff75c52d0 in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff75c54db in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff75bff31 in lean::type_checker::whnf(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff75c4345 in lean::type_checker::reduce_recursor(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff75c540c in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff75c54db in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff75c54db in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff75c547a in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff75c54db in lean::type_checker::whnf_core(lean::expr const&, bool, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff75c90e8 in lean::type_checker::lazy_delta_reduction_step(lean::expr&, lean::expr&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff75c9fc4 in lean::type_checker::lazy_delta_reduction(lean::expr&, lean::expr&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff75c9a40 in lean::type_checker::is_def_eq_core(lean::expr const&, lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff75c84b7 in lean::type_checker::is_def_eq_app(lean::expr const&, lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff75c9c61 in lean::type_checker::is_def_eq_core(lean::expr const&, lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff75c234b in lean::type_checker::infer_app(lean::expr const&, bool) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 28 (Thread 0x7ff8a7fff6c0 (LWP 3145884) "lean"):
+#0  0x00007ffff1896db3 in l_Lean_Expr_isAppOf () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff1bfe679 in l_Lean_Expr_isSyntheticSorry () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff1bfe7de in l_Lean_Expr_isSyntheticSorry___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff762752f in lean_apply_1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff75b21f4 in std::_Function_handler<bool (lean::expr const&), lean_find_expr::$_0>::_M_invoke(std::_Any_data const&, lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff75b2bf8 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff75b2c60 in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff75b2c6f in lean::for_each_fn<true>::apply(lean::expr const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 27 (Thread 0x7ff8effff6c0 (LWP 3145883) "lean"):
+#0  0x00007ffff189ac64 in l_Lean_Expr_isArrow () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff2d94382 in l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_simpAppUsingCongr_visit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff2d93490 in l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_simpAppUsingCongr_visit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff2d93490 in l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_simpAppUsingCongr_visit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff2d94ed7 in l_Lean_Meta_Simp_simpAppUsingCongr () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff2e64fe4 in l_Lean_Meta_Simp_congrDefault () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff2e70442 in l_Lean_Meta_Simp_simpStep () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff2e7497a in l___private_Lean_Meta_Tactic_Simp_Main_0__Lean_Meta_Simp_simpLoop_visitPreContinue () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff2e76458 in l_Lean_Meta_Simp_simpLoop () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff2e3b440 in lean_simp () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff2e7dbd6 in l_Lean_Meta_Simp_mainCore___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff7632421 in lean_apply_8 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff2daa4e8 in l_Lean_Meta_Simp_SimpM_run___redArg___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff762e828 in lean_apply_5 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff2da8e77 in l_Lean_Meta_withTrackingZetaDeltaSet___at___00Lean_Meta_Simp_SimpM_run_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff2dab487 in l_Lean_Meta_Simp_SimpM_run___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff2e7e4e4 in l_Lean_Meta_Simp_mainCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff2e80533 in l_Lean_Meta_simpCore___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff2e805a9 in l_Lean_Meta_simpCore___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff762850d in lean_apply_1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff1b69c60 in l_Lean_profileitIOUnsafe___redArg___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff7627fd3 in lean_apply_1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff7627fd3 in lean_apply_1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff75fcc02 in lean_profileit () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff1b69e17 in l_Lean_profileitIOUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 26 (Thread 0x7ff937fff6c0 (LWP 3145880) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 25 (Thread 0x7ff97ffff6c0 (LWP 3145879) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 24 (Thread 0x7ff9c7fff6c0 (LWP 3145878) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 23 (Thread 0x7ffa0ffff6c0 (LWP 3145877) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 22 (Thread 0x7ffa57fff6c0 (LWP 3145876) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 21 (Thread 0x7ffa9ffff6c0 (LWP 3145874) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 20 (Thread 0x7ffae7fff6c0 (LWP 3145873) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 19 (Thread 0x7ffb2fdff6c0 (LWP 3145872) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1abc8d4 in l_Lean_Environment_realizeValue___at___00Lean_Environment_realizeConst_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1abd146 in l_Lean_Environment_realizeConst () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1f8153e in l_Lean_Meta_realizeConst () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff2cb84b2 in l___private_Lean_Elab_PreDefinition_Structural_Eqns_0__Lean_Elab_Structural_mkUnfoldEq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff2cb8870 in l___private_Lean_Elab_PreDefinition_Structural_Eqns_0__Lean_Elab_Structural_getUnfoldFor_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff2cb8acc in l___private_Lean_Elab_PreDefinition_Structural_Eqns_0__Lean_Elab_Structural_getUnfoldFor_x3f___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff762f5e6 in lean_apply_6 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff2df4875 in l_List_forIn_x27_loop___at___00Lean_Meta_getUnfoldEqnFor_x3f_spec__0___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff2df5123 in l_Lean_Meta_getUnfoldEqnFor_x3f___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff2df55d7 in l_Lean_Meta_getUnfoldEqnFor_x3f___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff762e31e in lean_apply_5 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff2df6aa3 in l_Lean_Meta_getUnfoldEqnFor_x3f___lam__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff2df6f92 in l_Lean_Meta_getUnfoldEqnFor_x3f___lam__1___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff762e5fa in lean_apply_5 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff1f436db in l___private_Lean_Meta_Basic_0__Lean_Meta_withLocalContextImp () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff2df1676 in l_Lean_Meta_withLCtx___at___00__private_Lean_Meta_Eqns_0__Lean_Meta_getEqnsFor_x3fCore_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff2df70ee in l_Lean_Meta_getUnfoldEqnFor_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff6b34cbf in l___private_Lean_Elab_PreDefinition_Eqns_0__Lean_Elab_Eqns_unfoldThmType () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff6b63f97 in l___private_Lean_Elab_PreDefinition_Eqns_0__Lean_Elab_Eqns_mkEqns () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff6b65543 in l___private_Lean_Elab_PreDefinition_Eqns_0__Lean_Elab_Eqns_getEqnsFor_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff6b65c2c in l___private_Lean_Elab_PreDefinition_Eqns_0__Lean_Elab_Eqns_getEqnsFor_x3f___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 18 (Thread 0x7ffb77fff6c0 (LWP 3145871) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 17 (Thread 0x7ffbbffff6c0 (LWP 3145870) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 16 (Thread 0x7ffc07fff6c0 (LWP 3145869) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 15 (Thread 0x7ffc4ffff6c0 (LWP 3145868) "lean"):
+#0  0x00007ffff765031e in mi_malloc_small () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff1f2ab35 in l___private_Lean_Meta_Basic_0__Lean_Meta_isClassQuick_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff1f2fff0 in l___private_Lean_Meta_Basic_0__Lean_Meta_isClassImp_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff1f303fc in l_Lean_Meta_isClass_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff20d0a31 in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_FunInfo_0__Lean_Meta_getFunInfoAux_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff20d20a4 in l___private_Lean_Meta_FunInfo_0__Lean_Meta_getFunInfoAux___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff20d236e in l___private_Lean_Meta_FunInfo_0__Lean_Meta_getFunInfoAux___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff76312a6 in lean_apply_7 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff20cea12 in l_Lean_Meta_forallTelescopeReducing___at___00__private_Lean_Meta_FunInfo_0__Lean_Meta_getFunInfoAux_spec__1___redArg___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff7631271 in lean_apply_7 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff1f2df91 in l___private_Lean_Meta_Basic_0__Lean_Meta_forallTelescopeReducingAuxAux_process___redArg___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff1f2f3dc in l___private_Lean_Meta_Basic_0__Lean_Meta_forallTelescopeReducingAuxAux_process___redArg___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff762ea45 in lean_apply_5 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff1f2eb51 in l___private_Lean_Meta_Basic_0__Lean_Meta_forallTelescopeReducingAuxAux_process___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff1f2d244 in l___private_Lean_Meta_Basic_0__Lean_Meta_forallTelescopeReducingAux___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff1f2f884 in l___private_Lean_Meta_Basic_0__Lean_Meta_forallTelescopeReducingAux () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff20cf100 in l_Lean_Meta_forallBoundedTelescope___at___00__private_Lean_Meta_FunInfo_0__Lean_Meta_getFunInfoAux_spec__5___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff20d2831 in l___private_Lean_Meta_FunInfo_0__Lean_Meta_getFunInfoAux___lam__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff20d88ee in l___private_Lean_Meta_FunInfo_0__Lean_Meta_getFunInfoAux () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff704fd4f in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqArgs () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff708d219 in l_Lean_Meta_checkpointDefEq___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_tryHeuristic_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff70af014 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqApp () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff70b2c65 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isExprDefEqExpensive () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff7038919 in lean_is_expr_def_eq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff1f67211 in l_Lean_Meta_checkpointDefEq___at___00Lean_Meta_isExprDefEq_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 14 (Thread 0x7ffc97ffe6c0 (LWP 3145867) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 13 (Thread 0x7ffcd7fff6c0 (LWP 3145866) "lean"):
+#0  0x00007ffff7623a03 in lean_copy_expand_array () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff7054935 in l_Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00Lean_MVarId_assign___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_checkTypesAndAssign_spec__0_spec__0_spec__2___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff7054f18 in l___private_Lean_Data_PersistentHashMap_0__Lean_PersistentHashMap_insertAux_traverse___at___00Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00Lean_MVarId_assign___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_checkTypesAndAssign_spec__0_spec__0_spec__2_spec__8___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7054825 in l_Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00Lean_MVarId_assign___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_checkTypesAndAssign_spec__0_spec__0_spec__2___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff7054b7c in l_Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00Lean_MVarId_assign___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_checkTypesAndAssign_spec__0_spec__0_spec__2___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff705546f in l_Lean_MVarId_assign___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_checkTypesAndAssign_spec__0___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff70567f6 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_checkTypesAndAssign___lam__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff705a3d7 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_checkTypesAndAssign () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff70895f3 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_processAssignment () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff708a6a3 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_processAssignment_x27 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff70a0293 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqQuickOther () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff70332c7 in lean_is_expr_def_eq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7043896 in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqArgsFirstPass_spec__0___redArg___lam__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff70443b2 in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqArgsFirstPass_spec__0___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff7045953 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqArgsFirstPass () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff704fe48 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqArgs () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff708d219 in l_Lean_Meta_checkpointDefEq___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_tryHeuristic_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff70af014 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqApp () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff70b2c65 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isExprDefEqExpensive () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff7038919 in lean_is_expr_def_eq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff1f67211 in l_Lean_Meta_checkpointDefEq___at___00Lean_Meta_isExprDefEq_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff1f68421 in l_Lean_Meta_isExprDefEq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff24aef7d in l___private_Lean_Meta_AppBuilder_0__Lean_Meta_mkAppMArgs_loop () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff24b5f1d in l_Lean_Meta_mkAppM___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff24b5fe2 in l_Lean_Meta_mkAppM___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 12 (Thread 0x7ffd27ffe6c0 (LWP 3145839) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 11 (Thread 0x7ffd67fff6c0 (LWP 3145838) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5358a9b in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 10 (Thread 0x7ffdaffff6c0 (LWP 3145837) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff5308ab3 in l___private_Lean_Meta_Tactic_Grind_Core_0__Lean_Meta_Grind_addFactStep_goEq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff5309d59 in l___private_Lean_Meta_Tactic_Grind_Core_0__Lean_Meta_Grind_addFactStep_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 9 (Thread 0x7ffdf7fff6c0 (LWP 3145836) "lean"):
+#0  0x00007ffff761bd70 in lean_dec_ref_cold () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff1a781dc in l_Lean_AsyncConstantInfo_toConstantInfo () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff209e018 in l_Lean_Meta_getUnfoldableConst_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff208073b in l_Lean_Meta_unfoldDefinition_x3f () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff21c7942 in l___private_Lean_Meta_DiscrTree_Main_0__Lean_Meta_DiscrTree_reduceUntilBadKey_step () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff21c7d91 in l___private_Lean_Meta_DiscrTree_Main_0__Lean_Meta_DiscrTree_reduceUntilBadKey () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff21cb075 in l___private_Lean_Meta_DiscrTree_Main_0__Lean_Meta_DiscrTree_getKeyArgs () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff21cf056 in l___private_Lean_Meta_DiscrTree_Main_0__Lean_Meta_DiscrTree_getMatchCore___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff21cfc2f in l_Lean_Meta_DiscrTree_getMatch___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff70cc0f0 in l_Lean_Meta_tryUnificationHints () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff70a51b5 in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_unstuckMVar___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqOnFailure_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff70a664e in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqOnFailure () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff7038919 in lean_is_expr_def_eq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff762e5fa in lean_apply_5 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff7051cfa in l_Lean_Meta_isDefEqBindingDomain___at___00__private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqBindingAux_spec__1___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff762e31e in lean_apply_5 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff70a12aa in l___private_Lean_Meta_ExprDefEq_0__Lean_Meta_isDefEqQuick () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff70332c7 in lean_is_expr_def_eq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff1f67211 in l_Lean_Meta_checkpointDefEq___at___00Lean_Meta_isExprDefEq_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff1f68421 in l_Lean_Meta_isExprDefEq () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff2ebcf1b in l___private_Lean_Meta_Tactic_Simp_Rewrite_0__Lean_Meta_Simp_tryTheoremCore_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff2ebfe3c in l___private_Lean_Meta_Tactic_Simp_Rewrite_0__Lean_Meta_Simp_tryTheoremCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff2ec1862 in l_Lean_Meta_Simp_tryTheoremWithExtraArgs_x3f___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff2ec1c11 in l_Lean_Meta_Simp_tryTheoremWithExtraArgs_x3f___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff7632245 in lean_apply_8 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 8 (Thread 0x7ffe3ffff6c0 (LWP 3145835) "lean"):
+#0  0x00007fffed698aff in __lll_lock_wait () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69e7ba in __pthread_mutex_cond_lock () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007fffed69b248 in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#3  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1a70abe in lean_task_get_own () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1a904c7 in l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1a953ab in l_Lean_PersistentEnvExtension_getState___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff1d33626 in l_Lean_getReducibilityStatusCore () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff4bac048 in l_Lean_Meta_Sym_isUnfoldReducibleCandidate () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff4bb0041 in l___private_Lean_Meta_Sym_AlphaShareCommon_0__Lean_Meta_Sym_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff4ba26c6 in l_Lean_Meta_Sym_shareCommon___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff4ba2aae in l_Lean_Meta_Sym_shareCommon___lam__0___boxed () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff7629879 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff4b9edae in l_Lean_Meta_Sym_runShareCommonM___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff4ba2ba4 in l_Lean_Meta_Sym_shareCommon () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff5324296 in l_Lean_Meta_Grind_preprocessTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff532502b in l_Lean_Meta_Grind_activateTheorem () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff5334df3 in l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff533649d in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremsCore___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheoremPatterns_spec__1 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff533d30e in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_activateTheorems () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff5357ad5 in l_Lean_Expr_withAppAux___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff5360f57 in l___private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff531d84e in lean_grind_internalize () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff535a1aa in l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Meta_Tactic_Grind_Internalize_0__Lean_Meta_Grind_internalizeImpl_go_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 7 (Thread 0x7ffe87fff6c0 (LWP 3145834) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 6 (Thread 0x7ffecffff6c0 (LWP 3145833) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 5 (Thread 0x7fff17fff6c0 (LWP 3145832) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7626b54 in lean::task_manager::spawn_worker()::{lambda()#1}::operator()() const () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 4 (Thread 0x7fff5ffff6c0 (LWP 3145818) "lean"):
+#0  0x00007ffff1cbe54d in l___private_Std_Data_DHashMap_Internal_Defs_0__Std_DHashMap_Internal_Raw_u2080_expand_go___at___00Std_DHashMap_Internal_Raw_u2080_expand___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Parser_withCacheFn_spec__1_spec__3_spec__4___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#1  0x00007ffff1cbeddf in l_Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Parser_withCacheFn_spec__1___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#2  0x00007ffff1cbfb6a in l_Lean_Parser_withCacheFn () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff762a0dc in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff762a103 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff28e104f in l_Lean_Parser_runLongestMatchParser () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff28e1614 in l_Lean_Parser_longestMatchStep () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff28e2a8f in l___private_Lean_Parser_Basic_0__Lean_Parser_longestMatchFnAux_parse () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff28e30d4 in l_Lean_Parser_longestMatchFn () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff28eda77 in l_Lean_Parser_leadingParserAux () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff76298dc in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff28ee6ad in l_Lean_Parser_prattParser () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff762ad29 in lean_apply_3 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff7629a51 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff1cbd46f in l___private_Lean_Parser_Types_0__Lean_Parser_withStackDrop () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff1cbf99a in l_Lean_Parser_withCacheFn () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff762a0dc in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff762a0dc in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff28ece01 in l_Lean_Parser_withAntiquotSuffixSplice___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff762a103 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff762a103 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff762a0dc in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff28ece01 in l_Lean_Parser_withAntiquotSuffixSplice___lam__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff762a103 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff762a103 in lean_apply_2 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 3 (Thread 0x7fffa7fff6c0 (LWP 3145817) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69b2ee in pthread_cond_wait@@GLIBC_2.3.2 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff762589b in lean::task_manager::wait_for(lean_task*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff761c79a in lean_task_get () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff1c9f297 in l_Lean_Language_SnapshotTask_get___redArg () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007ffff1ca4c46 in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#6  0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#7  0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#8  0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#9  0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#10 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#11 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#12 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#13 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#14 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#15 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#16 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#17 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#18 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#19 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#20 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#21 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#22 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#23 0x00007ffff1ca4c5b in l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#24 0x00007ffff1ca4a82 in l_Lean_Language_SnapshotTree_foldM___at___00Lean_Language_SnapshotTree_runAndReport_spec__0 () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+
+Thread 2 (Thread 0x7fffed3bf6c0 (LWP 3145816) "lean"):
+#0  0x00007fffed7249b0 in epoll_pwait () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007ffff7ef6a2e in uv.io_poll () from /nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib/libuv.so.1
+#2  0x00007ffff7ee1747 in uv_run () from /nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib/libuv.so.1
+#3  0x00007ffff76493bd in lean::event_loop_run_loop(lean::event_loop_t*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007ffff7619926 in lean::lthread::imp::_main(void*) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#5  0x00007fffed69be3c in start_thread () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#6  0x00007fffed7246cc in __clone3 () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+
+Thread 1 (Thread 0x7ffff7e8d800 (LWP 3145803) "lean"):
+#0  0x00007fffed69884c in __futex_abstimed_wait_common () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#1  0x00007fffed69dc7c in __pthread_clockjoin_ex () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#2  0x00007ffff7618d09 in lean::run_with_thread_stack(std::function<void ()> const&) () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#3  0x00007ffff1348190 in lean_main () from /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/libleanshared.so
+#4  0x00007fffed62a4c5 in __libc_start_call_main () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#5  0x00007fffed62a578 in __libc_start_main_impl () from /nix/store/j193mfi0f921y0kfs8vjc1znnr45ispv-glibc-2.40-66/lib/libc.so.6
+#6  0x0000555555555975 in _start ()
