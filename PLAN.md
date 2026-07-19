@@ -1252,3 +1252,17 @@ perf claims, honest retractions.
   (iter 79+): T10 upstream package draft (user-gated filing);
   Mathlib-cone ON canary build; then back to C1 wavefront prototype
   (T10 cache = the scope-reconstruction prerequisite, now real).
+- 2026-07-20 (iter 79, /loop): T10 UPSTREAM PACKAGE DRAFTED
+  (docs/t10-upstream.md: issue text, PR text per lean4 conventions,
+  suggested two-PR split with the resetDiag guard standalone,
+  pre-filing checklist incl. ctest — FILING USER-GATED). Mathlib
+  canary: 6 section-heavy modules (Logic/Relation, Order/Basic,
+  Set/Basic, Group/Basic, Module/Defs, Logic/Basic) all rc=0 ON and
+  OFF. T6 PR #14449: still no human review (CI bots only). NEXT
+  (iter 80): C1 wavefront prototype box — design the v0 scope first
+  (statement-phase speculation on workers with sequential repair;
+  T10 cache as scope materialization; start from the simulator's
+  command classes), or a C1-lite: batch consecutive theorem-statement
+  elaborations onto workers behind an option. Also pending: T10
+  per-decl-tax stamp refinement; byte-reproducibility investigation
+  if upstreaming targets default-on.
