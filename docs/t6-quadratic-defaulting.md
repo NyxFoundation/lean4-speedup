@@ -92,6 +92,22 @@ asymptotic fix with a crisp microbench and byte-identical-output proof,
 this is the repo's first genuinely upstreamable *performance* patch
 (lean4 branch commit `T6: Elab.tcSkipUnchanged`).
 
+## Real-world validation (iter 61): first measured wall-clock win
+
+`Mathlib.NumberTheory.PythagoreanTriples` (numeral-dense: 3-4-5 arithmetic
+throughout; dep cone of 1440 modules built on the patched stage1 with one
+documented toolchain-skew `sorry`): interleaved best-of-3 walls —
+
+| | run A | run B |
+|---|---|---|
+| OFF | 2.397 s | 2.406 s |
+| ON | 2.222 s | 2.230 s |
+
+**−7.4 % module wall, reproducible, with ON-vs-OFF oleans byte-identical
+on this module too.** Small in absolute terms, but it is the project's
+first real-module wall-clock improvement, it comes with an output-identity
+proof, and it scales with numeral density (4.7× on the k=16 microbench).
+
 ## The residual, and why the skip does NOT generalize (iter 60)
 
 With `tcSkipUnchanged` on, `Meta.synthInstance` is ~1 % of traced time at

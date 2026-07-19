@@ -908,3 +908,12 @@ perf claims, honest retractions.
   register blocked-on mvars; resume fires on their assignment only) —
   build-scheduler/red-green transfer; queued as next deep target.
   docs/t6 updated.
+- 2026-07-19 (iter 61, /loop): T6 REAL-WORLD WIN — the project's first
+  measured wall-clock improvement on real code. PythagoreanTriples
+  (1440-module dep cone built, one documented skew-sorry): interleaved
+  OFF 2.397/2.406 vs ON 2.222/2.230 = -7.4% module wall, AND olean
+  ON==OFF byte-identical on this module. Claim: asymptotic fix, 4.7x
+  microbench, -7.4% on a numeral-dense real module, output-identity
+  proven. README bottom line updated (T6 broke the wall-neutral
+  pattern). Next: upstream writeup for leanprover/lean4 (issue+patch),
+  batch-defaulting + dependency-precise wakeup as follow-on tracks.

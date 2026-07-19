@@ -11,12 +11,14 @@ by a benchmark in [`bench/`](bench/), and every optimization ships with a
 soundness probe, a determinism check, and an honest account of where it does
 *not* help.
 
-> **Bottom line up front:** none of the three optimizations produced a net
-> wall-clock speedup on the Batteries corpus. Two are sound but
-> performance-neutral; one is blocked in the general case. The value delivered
-> is diagnostic: a precise, measured location of the actual wall-clock lever
-> (sequential main-thread command elaboration) and a rigorous methodology —
-> not a faster compiler. See the verdict table and conclusion below.
+> **Bottom line up front:** the campaign's first five optimization tracks
+> (T1–T5) were sound but wall-neutral — their value is diagnostic: a precise,
+> measured location of the wall-clock lever (sequential main-thread command
+> elaboration) and a rigorous methodology. **T6 broke the pattern**: an
+> O(k²) literal-defaulting loop in the elaborator, eliminated by a
+> memo-skip patch (`Elab.tcSkipUnchanged`) — 4.7× on the microbench,
+> **−7.4 % wall on a real numeral-dense Mathlib module, with byte-identical
+> output**. See [docs/t6-quadratic-defaulting.md](docs/t6-quadratic-defaulting.md).
 
 ## Key results so far
 
