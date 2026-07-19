@@ -1042,3 +1042,17 @@ perf claims, honest retractions.
   Kind-split verification before scheduler patches = new checklist
   item. The deep-dive thread (T6 family) is now fully mapped: T6 the
   win, residual understood, batch-defaulting priced.
+- 2026-07-19 (iter 71, /loop): OPTIONAL-PASS DATUM + CONSOLIDATION.
+  linter.all=false on Equiv.Basic: 4.77 -> 4.70s (~1.5%) — linters/
+  analysis ride workers; not a wall lever. (Also: mathlib `lake env`
+  fixed overhead ~1.0s is inside all module-wall numbers; consistent
+  within A/Bs.) SESSION MAP now complete: T3 fission (neutral,
+  time-fissility datum) / T4 alias barrier (fixed, corpus-neutral,
+  Batteries patch) / T5 ext-state convoy (sound, null, stale-baseline
+  catch) / T6 QUADRATIC (THE WIN: 4.7x micro, -7.4% real module,
+  byte-identical, upstream package ready) / T7 killed (unsound+null)
+  / T8 falsified (wrong kind) / TC endgame (volume x fixed-cost, no
+  hot concentration) / muda floor (~0.3ms per inst-mvar cycle).
+  Playbook: 8 meta-rules + 4 retrospectives. HIGHEST-VALUE PENDING =
+  T6 upstream filing (user-gated; docs/t6-upstream.md ready). Loop
+  continues at reduced cadence for fresh hunts.
