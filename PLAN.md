@@ -1012,3 +1012,19 @@ perf claims, honest retractions.
   project). TC track CLOSED. Remaining queue: dependency-precise
   wakeup (binop% residual — the highest-quality open design), batch
   defaulting, T6 upstream filing (user-gated).
+- 2026-07-19 (iter 69, /loop): T8 DESIGNED+IMPLEMENTED — postponed-
+  resume skip (dependency-precise wakeup v0). DESIGN READ CONVERGED:
+  binop% resume re-elaborates ALL leaves with fresh mvars each pass
+  (toTree -> go -> leaf elab) => T6's residual quadratic AND the
+  mvar-keyed TC query flood are ONE phenomenon; resumePostponed's
+  state rollback makes per-elaborator caching impossible => the
+  scheduler is the right level. FIX (Elab.postponedSkipUnchanged,
+  default off): in postpone-ALLOWED phases only ((← read).mayPostpone),
+  skip resuming a .postponed mvar whose instantiated TYPE (= its
+  expected type, the postpone gate) is unchanged since the last
+  failed attempt; record AFTER the attempt (rollback survives).
+  REUSES the T6 tcSynthAttempt map — no ABI change, corpora stay
+  valid (rule 8 honored by design). Rebuild detached. NEXT WAKE:
+  k-series (prediction: k=16 ON+ON drops 21.2 -> near-linear ~8ms),
+  mutation probe, olean gates, PythagoreanTriples (prediction:
+  beats -7.4%), corpus.
