@@ -1,7 +1,9 @@
 # T6 — the quadratic literal-defaulting loop (queueing-theory / muda transfer)
 
-Status: quadratic **measured and located** (iter 57); fix
-(`Elab.tcSkipUnchanged`) implemented, stage rebuild + validation pending.
+Status: **VALIDATED** (iter 58) — fix eliminates the quadratic (4.7× at
+k=16 on the probe), all soundness gates green including ON-vs-OFF
+byte-identical oleans on a real module; corpus wall neutral on Batteries
+(its statements aren't numeral chains). Upstream-quality candidate.
 Found by following the iter-56 floor decomposition (0.3 ms per
 pending-instance-mvar cycle) to its scaling limit.
 
@@ -56,11 +58,36 @@ stay pending, resolutions happen exactly when the goal actually changes.
 O(k²) cheap instantiate-and-compare checks remain; O(k) expensive synth
 calls replace the former O(k²).
 
-## Validation plan (next wake)
+## Validation (iter 58)
 
-1. Gates: full Batteries corpus builds clean ON; ON-vs-ON olean
-   determinism; ON-vs-OFF olean equality (elaboration results must be
-   byte-identical — the option must only skip *wasted* work).
-2. Falsifiable prediction: the k-series flattens toward linear; k=16
-   per-command 99.6 ms → ~10 ms if the model is right.
-3. Corpus + List.Lemmas wall; then an arithmetic-heavy real module.
+k-series per-command, option OFF → ON:
+
+| k | OFF | ON | speedup |
+|---|---|---|---|
+| 1 | 0.59 ms | 0.42 ms | 1.4× |
+| 4 | 7.21 ms | 3.19 ms | 2.3× |
+| 8 | 26.3 ms | 7.85 ms | 3.4× |
+| 16 | 99.2 ms | **21.2 ms** | **4.7×** |
+
+(The prediction said ~10 ms at k=16; 21 ms observed — the remaining
+superlinear residue is the defaulting outer loop, which still applies one
+default per full pass. A batch-defaulting follow-up could take it further.)
+
+Gates, all green:
+- mutation probe: the broken theorem errors identically ON;
+- full Batteries corpus ON: rc=0, 188 oleans, zero errors
+  (lakefile `leanOptions`);
+- **`List.Lemmas` olean ON vs OFF: byte-identical**, ON-vs-ON
+  deterministic — the option provably elides only wasted work on real code;
+- corpus wall: ON 13.39–13.49 s vs OFF 13.49–13.60 s — neutral on
+  Batteries, as expected (few numeral chains).
+
+## Where the win should land
+
+Numeral-dense corpora: `norm_num`/`decide`-heavy files, `BitVec`/`Fin`
+literal lemmas, polynomial/matrix coefficients — Mathlib territory. The
+built Mathlib slice here is foundation-only, so real-world magnitude is
+unmeasured; that plus a batch-defaulting variant are the follow-ups. As an
+asymptotic fix with a crisp microbench and byte-identical-output proof,
+this is the repo's first genuinely upstreamable *performance* patch
+(lean4 branch commit `T6: Elab.tcSkipUnchanged`).

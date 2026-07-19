@@ -13,6 +13,7 @@ each time a track closes.
 | Nuclear fission (binding energy) | T3 | time-fissility datum; fission criterion ("fissility parameter") transferred cleanly | B+ |
 | CPU RAW hazard / pipeline stall | T4 | **discovery + fix**: the alias cone-drain barrier; gdb methodology | A |
 | Barrier *class* generalization (from one hazard to the family) | T5 | dominant-blocking census; sound core patch; perf-null but killed a false hypothesis | B+ |
+| Muda → queueing (floor decomposition → scaling law) | T6 | **O(k²) defaulting loop found + asymptotic fix** (4.7× at k=16, byte-identical output) — first upstreamable perf patch | A |
 
 ## Meta-lessons (what actually generates value)
 

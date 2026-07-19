@@ -872,3 +872,15 @@ perf claims, honest retractions.
   corpus clean ON, ON-vs-ON determinism, ON-vs-OFF olean EQUALITY,
   then k-series (prediction: k=16 99.6 -> ~10ms) + corpus wall.
   docs/t6-quadratic-defaulting.md.
+- 2026-07-19 (iter 58, /loop): T6 VALIDATED. k-series OFF->ON: 0.59->
+  0.42 / 7.21->3.19 / 26.3->7.85 / 99.2->21.2ms (k=1/4/8/16) = 4.7x
+  at k=16, quadratic eliminated (residue = one-default-per-pass outer
+  loop; batch-defaulting = follow-up). GATES ALL GREEN: mutation
+  probe errors identically; corpus ON clean (188, rc=0, lakefile
+  leanOptions); List.Lemmas olean ON==OFF BYTE-IDENTICAL + ON-vs-ON
+  deterministic (proof the option elides only waste on real code);
+  corpus wall neutral (Batteries has few numeral chains — win lands
+  on norm_num/BitVec/polynomial-dense Mathlib files, unmeasured
+  here). FIRST genuinely upstreamable perf patch of the project.
+  Playbook: queueing/muda analogy chain graded A (anomaly -> scaling
+  law -> located loop -> asymptotic fix with identity proof).
