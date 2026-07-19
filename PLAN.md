@@ -1190,3 +1190,22 @@ perf claims, honest retractions.
   queued). Diagnostic build in flight (telescope+localInsts dump at
   store/hit). NEXT: diff restored vs fresh telescope on the repro,
   find the misalignment, fix, re-gate.
+- 2026-07-20 (iter 77 cont. 2): ROOT CAUSE NAILED — NGEN ROLLBACK VS
+  IO.REF ESCAPE. Bisection chain: restored-vs-fresh telescope dumps
+  IDENTICAL; V2 (decl before instance => fresh full re-elab) STILL
+  fails; V8a/V8b (set_option cache off at/after Subsingleton var)
+  both pass => failure localized to the instance command's SECOND
+  runTermElabM invocation exact-hitting the entry stored by its
+  FIRST invocation (instance-name pre-elaboration), which runs under
+  STATE ROLLBACK: the Command-level ngen rewinds, but the IO.Ref
+  cache keeps the snapshot -> invocation 2's fresh mvar ids collide
+  with ids embedded in the restored mctx (the id that was the
+  Type u_2 M₂ slot becomes an instance mvar => the exact observed
+  error). T7's lesson in new form: any state-rollback boundary
+  invalidates id-based sharing through rollback-escaping channels.
+  FIX: store ngenHi (post-telescope NameGenerator) in the entry; on
+  hit require same namePrefix and FAST-FORWARD current ngen to max
+  idx (rollback-proof by construction); plus never store error-state
+  telescopes (empty per-command log => hasErrors is local). Rebuild
+  in flight; then full battery: repro, probes, k-series, Equiv.Basic
+  A/B + olean gates, corpus.
