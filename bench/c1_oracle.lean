@@ -55,12 +55,41 @@ def moduleConsts (env : Environment) : NameSet := Id.run do
     s := s.insert n
   return s
 
+/-- Like `Frontend.processCommand` but passes a live snapshot bundle so declaration
+elaborators (MutualDef) have somewhere real to log their info trees. -/
+def processCommandWithSnap : FrontendM (Bool × IO.Promise Language.DynamicSnapshot) := do
+  updateCmdPos
+  let cmdState ← getCommandState
+  let ictx ← getInputContext
+  let pstate ← getParserState
+  let scope := cmdState.scopes.head!
+  let pmctx := { env := cmdState.env, options := scope.opts, currNamespace := scope.currNamespace, openDecls := scope.openDecls }
+  let (cmd, ps, messages) := Parser.parseCommand ictx pmctx pstate cmdState.messages
+  modify fun s => { s with commands := s.commands.push cmd }
+  setParserState ps
+  setMessages messages
+  let promise ← IO.Promise.new
+  do
+    let ctx ← read
+    let s ← get
+    let cmdCtx : Command.Context := {
+      cmdPos    := s.cmdPos
+      fileName  := ctx.inputCtx.fileName
+      fileMap   := ctx.inputCtx.fileMap
+      snap?     := some { old? := none, new := promise }
+      cancelTk? := none
+    }
+    match (← liftM <| EIO.toIO' <| ((Command.elabCommandTopLevel cmd) cmdCtx).run s.commandState) with
+    | Except.error e      => throw <| IO.Error.userError s!"unexpected internal error: {← e.toMessageData.toString}"
+    | Except.ok (_, sNew) => setCommandState sNew
+  return (Parser.isTerminalCommand cmd, promise)
+
 partial def oracleLoop (records : Array (Nat × Nat × Name × Array Name × NameSet))
     (prevConsts : NameSet) (i : Nat) :
     FrontendM (Array (Nat × Nat × Name × Array Name × NameSet)) := do
   -- fresh info trees per command
   modify fun s => { s with commandState := { s.commandState with infoState := { enabled := true } } }
-  let done ← processCommand
+  let (done, snapPromise) ← processCommandWithSnap
   let stx := (← get).commands.back!
   let st ← getCommandState
   let newConsts := moduleConsts st.env
@@ -70,7 +99,9 @@ partial def oracleLoop (records : Array (Nat × Nat × Name × Array Name × Nam
       written := written.push n
   let bodies := bodyRanges stx
   let mut reads : NameSet := {}
-  for t in st.infoState.trees do
+  -- deep subtrees are lazy holes until assignments are substituted (cf. Language.Lean:697)
+  let infoSt := st.infoState.substituteLazy.get
+  for t in infoSt.trees do
     reads := collectStmtConsts t bodies none reads
   -- declaration elaboration logs its info into snapshot tasks, not the command tree
   let rec walkSnap (t : Language.SnapshotTree) (acc : NameSet) : NameSet := Id.run do
@@ -83,26 +114,27 @@ partial def oracleLoop (records : Array (Nat × Nat × Name × Array Name × Nam
   for task in st.snapshotTasks do
     reads := walkSnap task.get reads
   modify fun s => { s with commandState := { s.commandState with snapshotTasks := #[] } }
+  -- declaration elaborators log info via the snap? bundle; walk its resolved tree
+  if let some dyn := snapPromise.result?.get then
+    reads := walkSnap (Language.toSnapshotTree dyn) reads
+  if (st.messages.toList.filter (·.severity matches .error)).length > 0 && i < 20 then
+    for m in st.messages.toList.filter (·.severity matches .error) |>.take 2 do
+      IO.println s!"cmd {i} ERROR: {(← m.data.toString).take 150}"
   if i == 11 then
-    let rec cnt (t : InfoTree) (m : List (String × Nat)) : List (String × Nat) :=
+    let rec cntT (t : InfoTree) (n : Nat) : Nat :=
       match t with
-      | .context _ t => cnt t m
+      | .context _ t => cntT t n
       | .node info children => Id.run do
-        let k := match info with
-          | .ofTermInfo _ => "term" | .ofTacticInfo _ => "tactic" | .ofCommandInfo _ => "command"
-          | .ofMacroExpansionInfo _ => "macro" | .ofPartialTermInfo _ => "partialTerm"
-          | .ofCompletionInfo _ => "completion" | _ => "other"
-        let mut m := match m.lookup k with
-          | some v => m.replace (k, v) (k, v+1)
-          | none => (k, 1) :: m
+        let mut n := if let .ofTermInfo _ := info then n + 1 else n
         for c in children do
-          m := cnt c m
-        return m
-      | .hole _ => m
-    let mut m : List (String × Nat) := []
-    for t in st.infoState.trees do
-      m := cnt t m
-    IO.println s!"cmd11 infoKinds={m} snapTasks={st.snapshotTasks.size} reads={reads.size}"
+          n := cntT c n
+        return n
+      | .hole _ => n
+    let mut tc := 0
+    for t in infoSt.trees do
+      tc := cntT t tc
+    let scope := st.scopes.head!
+    IO.println s!"cmd11: substTrees={infoSt.trees.size} termNodes={tc} snapTasks={st.snapshotTasks.size} asyncOpt={Elab.async.get scope.opts} reads={reads.size}"
   let fileMap := (← read).inputCtx.fileMap
   let line := match stx.getPos? with
     | some p => (fileMap.toPosition p).line
@@ -113,12 +145,19 @@ partial def oracleLoop (records : Array (Nat × Nat × Name × Array Name × Nam
 
 unsafe def main (args : List String) : IO Unit := do
   let path :: _ := args | throw <| IO.userError "usage: c1_oracle <file.lean>"
-  initSearchPath (← findSysroot)
+  Lean.enableInitializersExecution
+  let sp := match (← IO.getEnv "LEAN_PATH") with
+    | some p => System.SearchPath.parse p
+    | none => []
+  initSearchPath (← findSysroot) sp
   let input ← IO.FS.readFile path
   let inputCtx := Parser.mkInputContext input path
   let (header, parserState, messages) ← Parser.parseHeader inputCtx
   let opts : Options := (({} : Options).setBool `Elab.async false)
   let (env, messages) ← processHeader header opts messages inputCtx
+  if messages.hasErrors then
+    for m in messages.toList do
+      IO.println s!"HEADER ERROR: {(← m.data.toString).take 200}"
   let cmdState := Command.mkState env messages opts
   let fs : Frontend.State := { commandState := cmdState, parserState, cmdPos := parserState.pos }
   let (records, _) ← (oracleLoop #[] {} 0).run { inputCtx } |>.run fs
