@@ -856,3 +856,19 @@ perf claims, honest retractions.
   playbook meta-rules 6-7. Next rotation: literal fast-path
   (strength reduction aimed at elaborator orchestration), prediction:
   theorem floor -> ~0.5ms. docs/invention-playbook.md updated.
+- 2026-07-19 (iter 57, /loop): T6 QUADRATIC FOUND — the strongest
+  algorithmic finding yet. Scaling series (k literals per side, 200
+  thms): 0.57/2.09/7.17/26.4/99.6 ms per command for k=1/2/4/8/16 =
+  O(k^2) (x3.4-3.8 per doubling). Controls: defs with literals LINEAR;
+  theorems over variables LINEAR => quadratic needs literals+unknown
+  expected type (postpone-until-default path). MECHANISM: synthesize-
+  SyntheticMVars.loop re-attempts EVERY pending TC mvar after each
+  single success; chained literals resolve one per pass => O(k^2)
+  expensive underdetermined synthInstance calls. FIX implemented
+  (lean4 branch): Elab.tcSkipUnchanged (default off) — memoize last
+  failed attempt's instantiated goal per mvar in Term.State, skip
+  re-attempt when unchanged (deterministic outcome => pure waste
+  elision). Rebuild detached (lean4_rebuild_t6.log). NEXT WAKE gates:
+  corpus clean ON, ON-vs-ON determinism, ON-vs-OFF olean EQUALITY,
+  then k-series (prediction: k=16 99.6 -> ~10ms) + corpus wall.
+  docs/t6-quadratic-defaulting.md.

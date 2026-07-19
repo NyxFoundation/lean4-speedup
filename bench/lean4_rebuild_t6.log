@@ -1,0 +1,201 @@
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release'　に入ります
+[  4%] Performing update step for 'cadical'
+-- Already at requested tag: rel-2.1.2
+[  8%] No patch step for 'cadical'
+[ 12%] No configure step for 'cadical'
+[ 16%] Performing build step for 'cadical'
+[ 20%] No install step for 'cadical'
+[ 25%] Completed 'cadical'
+[ 33%] Built target cadical
+[ 37%] Performing configure step for 'stage0'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- stage0 sha1: 24613e574a04b70bc2f9427f0e61e3832de53d50
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage0
+[ 41%] Performing build step for 'stage0'
+[  1%] Built target leanmanifest
+[  3%] Built target leanmain
+[  5%] Built target leanshell
+[  5%] Built target initialize
+[  7%] Built target constructions
+[  7%] Built target copy-leantar
+[ 20%] Built target kernel
+[ 32%] Built target util
+[ 44%] Built target library
+[ 44%] Built target leaninitialize
+[ 45%] Built target leancpp_1
+[ 47%] Built target leancpp
+[ 95%] Built target leanrt
+[100%] Built target leanrt_initial-exec
+[100%] Built target make_stdlib
+[100%] Built target Init_shared
+[100%] Built target leanshared
+[100%] Built target leanir
+[100%] Built target lake_shared
+[100%] Built target lean
+[100%] Built target leanchecker
+[100%] Built target lake
+[ 45%] No install step for 'stage0'
+[ 50%] Completed 'stage0'
+[ 66%] Built target stage0
+[ 70%] Performing configure step for 'stage1'
+-- No build type selected, default to Release
+-- 64-bit machine detected
+-- LIBUV_LDFLAGS: -L/nix/store/8a8rwa6b1sp9pxcp490910ci9pl4yq3g-libuv-1.51.0/lib-luv
+-- LIBUV_INCLUDE_DIRS: /nix/store/2073d0wz3jy20vrrhfp2mxck7qjb3lil-libuv-1.51.0-dev/include
+CMake Warning at CMakeLists.txt:466 (message):
+  Disabling LLVM support
+
+
+-- git commit sha1: 2133503b680a1b36316849a3718f056a1e286796
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1
+[ 87%] Built target stage1-configure
+[ 91%] Performing build step for 'stage1'
+[  0%] Built target leanmanifest
+[  3%] Built target leanmain
+[  6%] Building CXX object CMakeFiles/leanshell.dir/util/shell.cpp.o
+[  6%] Built target initialize
+[ 10%] Built target constructions
+[ 10%] Built target copy-cadical
+[ 10%] Built target copy-leantar
+[ 24%] Built target kernel
+[ 37%] Built target util
+[ 41%] Building CXX object library/CMakeFiles/library.dir/module.cpp.o
+[ 41%] Building CXX object library/CMakeFiles/library.dir/util.cpp.o
+[ 41%] Built target leaninitialize
+[ 41%] Building CXX object runtime/CMakeFiles/leanrt_initial-exec.dir/platform.cpp.o
+[ 44%] Building CXX object runtime/CMakeFiles/leanrt.dir/platform.cpp.o
+[ 44%] Linking CXX static library lib/temp/libleanshell.a
+[ 44%] Built target leanshell
+[ 44%] Linking CXX static library libleanrt_initial-exec.a
+[ 44%] Linking CXX static library ../lib/lean/libleanrt.a
+[ 82%] Built target leanrt_initial-exec
+[ 93%] Built target leanrt
+✔ [2826/5001] Built Lean.ReducibilityAttrs (348ms)
+✔ [3497/5001] Built Lean.DocString.Syntax (308ms)
+✔ [3499/5001] Built LeanChecker (466ms)
+✔ [3503/5001] Built Lean.Parser.Tactic.Doc (573ms)
+✔ [3585/5001] Built Lean.ReducibilityAttrs:c.o (638ms)
+✔ [3586/5001] Built Lean.Meta.Tactic.Simp.RegisterCommand (265ms)
+[100%] Built target library
+[100%] Linking CXX static library lib/lean/libleancpp.a
+[100%] Linking CXX static library lib/temp/libleancpp_1.a
+[100%] Built target leancpp_1
+[100%] Built target leancpp
+✔ [3588/5001] Built Lean.DocString.Parser (1.2s)
+✔ [3590/5001] Built Lean.DocString.Formatter (633ms)
+✔ [3592/5001] Built Lean.Parser.Term (1.9s)
+✔ [3602/5001] Built Lean.Elab.BindersUtil (371ms)
+✔ [3604/5001] Built Lean.Elab.PreDefinition.TerminationHint (526ms)
+✔ [3606/5001] Built Lake.Util.Binder (487ms)
+✔ [3610/5001] Built Lake.Util.OpaqueType (378ms)
+✔ [3612/5001] Built Lake.Config.Opaque (158ms)
+✔ [3620/5001] Built Lean.Parser.Command (1.4s)
+✔ [3638/5001] Built Lean.Parser.Module (349ms)
+✔ [3658/5001] Built Lean.Elab.Util (415ms)
+✔ [3666/5001] Built Lean.Elab.Import (385ms)
+✔ [3668/5001] Built Lean.Server.Completion.ImportCompletion (378ms)
+✔ [3670/5001] Built Lean.Elab.Open (403ms)
+✔ [3672/5001] Built Lake.Config.Meta (996ms)
+✔ [3674/5001] Built Lake.Config.WorkspaceConfig (202ms)
+✔ [3676/5001] Built Lake.Config.InputFileConfig (226ms)
+✔ [3678/5001] Built Lake.Config.LakeConfig (252ms)
+✔ [3682/5001] Built Lake.Config.LeanConfig (427ms)
+✔ [3684/5001] Built Lake.Config.LeanExeConfig (260ms)
+✔ [3686/5001] Built Lake.Config.LeanLibConfig (301ms)
+✔ [3690/5001] Built Lake.CLI.Shake (1.4s)
+✔ [3692/5001] Built Lake.Config.PackageConfig (562ms)
+✔ [3694/5001] Built Lake.Config.Package (390ms)
+✔ [3724/5001] Built Lake.Config.TargetConfig (195ms)
+✔ [3728/5001] Built Lake.CLI.Translate.Toml (817ms)
+✔ [3730/5001] Built Lake.Config.Workspace (712ms)
+✔ [3770/5001] Built Lake.Load.Toml (1.5s)
+✔ [3772/5001] Built Lean.PrettyPrinter.Delaborator.Builtins (4.4s)
+✔ [3890/5001] Built Lean.Meta.Tactic.Simp (199ms)
+✔ [3892/5001] Built Lean.Elab.Tactic.TreeTacAttr (182ms)
+✔ [3894/5001] Built Lean.Meta.Tactic.BVDecide.Normalize.ApplyControlFlow (267ms)
+✔ [3896/5001] Built Lean.Server.GoTo (532ms)
+✔ [3898/5001] Built Lean.Elab.Tactic.Do.LetElim (556ms)
+✔ [3900/5001] Built Lean.Elab.Tactic.Do.Attr (768ms)
+✔ [3902/5001] Built Lean.Elab.Tactic.Do.Internal.VCGen.SpecDB (381ms)
+✔ [3904/5001] Built Lean.Elab.Term.TermElabM (2.5s)
+✔ [3905/5001] Built Lean.Elab.ConfigEval.Types (208ms)
+✔ [3907/5001] Built Lean.Elab.Do.ForwardSyntax (321ms)
+✔ [3909/5001] Built Lean.Elab.DocString.Builtin.Postponed (316ms)
+✔ [3911/5001] Built Lean.Elab.DocString (3.0s)
+✔ [3912/5001] Built Lean.Elab.DocString.Builtin.Scopes (246ms)
+✔ [3914/5001] Built Lean.DocString.Add (614ms)
+✔ [3916/5001] Built Lean.Elab.DeclModifiers (611ms)
+✔ [3918/5001] Built Lean.Elab.Term (236ms)
+✔ [3920/5001] Built Lean.Elab.MatchAltView (267ms)
+✔ [3922/5001] Built Lean.Linter.Util (272ms)
+✔ [3924/5001] Built Lean.Elab.Term.TermElabM:c.o (5.8s)
+✔ [3925/5001] Built Lean.Elab.Arg (361ms)
+✔ [3927/5001] Built Lean.Elab.Quotation.Util (499ms)
+✔ [3929/5001] Built Lean.Elab.DeprecatedArg (482ms)
+✔ [3931/5001] Built Lean.Elab.DocString.Builtin.Keywords (1.8s)
+✔ [3933/5001] Built Lean.IdentifierSuggestion (969ms)
+✔ [3935/5001] Built Lean.Meta.Tactic.SolveByElim (677ms)
+✔ [3936/5001] Built Lean.Elab.MatchExpr (732ms)
+✔ [3938/5001] Built Lean.Elab.Quotation.Precheck (548ms)
+✔ [3940/5001] Built Lean.Elab.Tactic.Basic (1.6s)
+✔ [3941/5001] Built Lean.Meta.Tactic.SolveByElim:c.o (1.0s)
+✔ [3942/5001] Built Lean.Elab.PreDefinition.WF.Basic (333ms)
+✔ [3944/5001] Built Lean.Elab.Tactic.Congr (329ms)
+✔ [3946/5001] Built Lean.Elab.Tactic.Repeat (362ms)
+✔ [3948/5001] Built Lean.Elab.Tactic.FalseOrByContra (398ms)
+✔ [3950/5001] Built Lean.Elab.Task (418ms)
+✔ [3952/5001] Built Lean.Elab.Tactic.ExposeNames (329ms)
+✔ [3954/5001] Built Lean.Elab.Tactic.Classical (475ms)
+✔ [3956/5001] Built Lean.Meta.Tactic.Rfl (549ms)
+✔ [3958/5001] Built Lean.Elab.Tactic.Do.ProofMode.MGoal (664ms)
+✔ [3960/5001] Built Lean.Elab.PatternVar (2.1s)
+✔ [3962/5001] Built Lean.Meta.MkIffOfInductiveProp (992ms)
+✔ [3963/5001] Built Lean.Elab.Tactic.Rfl (406ms)
+✔ [3965/5001] Built Lean.Elab.Tactic.Monotonicity (1.1s)
+✔ [3967/5001] Built Lean.Elab.Tactic.Do.ProofMode.Focus (456ms)
+✔ [3969/5001] Built Lean.Elab.Tactic.Do.ProofMode.Constructor (449ms)
+✔ [3971/5001] Built Lean.Elab.PreDefinition.EqUnfold (533ms)
+✔ [3973/5001] Built Lean.Elab.Tactic.Do.ProofMode.Basic (481ms)
+✔ [3975/5001] Built Lean.Elab.Tactic.Do.ProofMode.LeftRight (484ms)
+✔ [3977/5001] Built Lean.Elab.Tactic.Do.ProofMode.Delab (747ms)
+✔ [3979/5001] Built Lean.Elab.Tactic.Do.ProofMode.Clear (409ms)
+✔ [3981/5001] Built Lean.Elab.Tactic.Do.ProofMode.Exfalso (377ms)
+✔ [3983/5001] Built Lean.Elab.Tactic.Do.ProofMode.Frame (477ms)
+✔ [3985/5001] Built Lean.Elab.Tactic.Do.ProofMode.RenameI (397ms)
+✔ [3987/5001] Built Lean.Elab.Tactic.Do.ProofMode.Revert (544ms)
+✔ [3989/5001] Built Lean.Elab.Parallel (1.3s)
+✔ [3991/5001] Built Lean.Elab.Tactic.Do.ProofMode.Intro (616ms)
+✖ [3993/5001] Building Lean.Elab.SyntheticMVars (1.9s)
+trace: .> LEAN_PATH=/home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean /home/gohan/workspace/lean4-speedup/lean4/build/release/stage0/bin/lean -Dinterpreter.prefer_native=false -Dpp.rawOnError=true /home/gohan/workspace/lean4-speedup/lean4/src/Lean/Elab/SyntheticMVars.lean -o /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/Lean/Elab/SyntheticMVars.olean -i /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/lean/Lean/Elab/SyntheticMVars.ilean -c /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/temp/Lean/Elab/SyntheticMVars.c --setup /home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/lib/temp/Lean/Elab/SyntheticMVars.setup.json --json
+error: Lean/Elab/SyntheticMVars.lean:88:49: Invalid field `find?`: The environment does not contain `Std.TreeMap.find?`, so it is not possible to project the field `find?` from an expression
+  __do_lift✝.tcSynthAttempt
+of type
+  Std.TreeMap MVarId Expr fun x1 x2 => x1.name.quickCmp x2.name
+error: Lean exited with code 1
+✔ [4922/5001] Built Lean.Elab.Tactic.Do.VCGen.SuggestInvariant (1.6s)
+✔ [4934/5001] Built Lean.Meta.MkIffOfInductiveProp:c.o (1.3s)
+✔ [4935/5001] Built Lean.Elab.Tactic.Basic:c.o (3.1s)
+✔ [4936/5001] Built Lean.Elab.DocString:c.o (8.1s)
+✔ [4937/5001] Built Lean.Elab.Do.Legacy (8.3s)
+Some required targets logged failures:
+- Lean.Elab.SyntheticMVars
+error: build failed
+make[6]: *** [/home/gohan/workspace/lean4-speedup/lean4/build/release/stage1/stdlib.make:57: Init] エラー 1
+make[5]: *** [CMakeFiles/make_stdlib.dir/build.make:70: CMakeFiles/make_stdlib] エラー 2
+make[4]: *** [CMakeFiles/Makefile2:1444: CMakeFiles/make_stdlib.dir/all] エラー 2
+make[3]: *** [Makefile:146: all] エラー 2
+make[2]: *** [CMakeFiles/stage1.dir/build.make:95: stage1-prefix/src/stage1-stamp/stage1-build] エラー 2
+make[1]: *** [CMakeFiles/Makefile2:214: CMakeFiles/stage1.dir/all] エラー 2
+make: *** [Makefile:136: all] エラー 2
+make: ディレクトリ '/home/gohan/workspace/lean4-speedup/lean4/build/release' から出ます
