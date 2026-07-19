@@ -1266,3 +1266,64 @@ perf claims, honest retractions.
   elaborations onto workers behind an option. Also pending: T10
   per-decl-tax stamp refinement; byte-reproducibility investigation
   if upstreaming targets default-on.
+- 2026-07-20 (iter 80, /loop): C1 DESIGN BOX (docs/c1-wavefront-design.md).
+  Frontend reality: commands are snapshot tasks chained through cmdState;
+  parsing itself serializes on the env token table (notation commands =
+  parse barriers). Plan: v0 zero-rebuild info-tree oracle with a 1.5x
+  kill gate; v1 depth-1 speculative statement pre-elaboration reusing
+  T10 machinery (telescope cache, snapshot+ngen-fast-forward,
+  addConstAsync env branches), discard-on-fail validation.
+- 2026-07-20 (iter 81, /loop): ORACLE DRIVER to the info-plumbing wall
+  (bench/c1_oracle.lean). Learned en route: TermInfo exprs hold
+  uninstantiated mvars (instantiate via threaded ContextInfo);
+  infoState needs substituteLazy; snap?=none drops MutualDef bundles.
+- 2026-07-20 (iter 82, /loop): ORACLE COMPLETE — the real iter-81
+  blocker was the driver's EMPTY IMPORT ENV (initSearchPath ignores
+  LEAN_PATH + enableInitializersExecution required; header errors were
+  silently swallowed -> 'unknown namespace Function' cascade). Minimal-
+  file ladder cornered it. TRUE read sets on Equiv.Basic (295 cmds, 93
+  decls): 85%/37%/32% (prev-1/prev-8/independent) vs census 80%/30%/24%
+  — census validated. Artifacts: bench/c1_oracle.lean,
+  bench/c1_oracle_equiv_basic.jsonl.
+- 2026-07-20 (iter 83, /loop): EXACT CEILING on oracle-true deps:
+  2.9x/2.3x (16/4 workers), sequential 4,797 -> 1,631ms, 79% time-mass
+  aligned (bench/wavefront_sim_oracle.py). Census-vs-true gap =
+  name-resolution/coercion edges. C1 v1 band: 2.3-2.9x.
+- 2026-07-20 (iter 84, /loop): SPECULATION HARNESSED on real Mathlib —
+  bench/c1_spec_harness.lean (zero rebuild): worker really elaborates
+  cmd N+1 against pre-N state while main runs N; validate (re-parse
+  identity + read/write disjointness + clean spec), discard.
+  Equiv.Basic: 79% valid, 61% of main-thread time hidden (2,870/4,707
+  ms). Mini-file control honestly fails adjacent deps. Missing for
+  production v1: env-branch merge, name-capture formalization,
+  concurrency audit of global side channels.
+- 2026-07-20 (iter 85, /loop): TIMELINE VISUALIZED
+  (docs/assets/c1-spec-timeline.svg): sequential (red) mass CLUSTERS at
+  hub regions; true sequential residue only 1,081/4,712ms (77% hideable
+  with deeper lookahead; 60% figure = depth-1 window cap). README C1
+  row added; per-command data in bench/c1_spec_equiv_basic.jsonl.
+- 2026-07-20 (iter 86, /loop): GENERALITY — valid rate STABLE at 78-79%
+  across Equiv.Basic (79%), Batteries List.Lemmas (78%), Order/Basic
+  (79%); savings track statement-vs-body mass (60%/27%/44%): the
+  harness speculates FULL commands, so List.Lemmas' proof-body reads
+  fail speculation that statement-only v1 would pass (census: 99%
+  statement-independent) — v1 must speculate headers only, as designed.
+  First parse barrier observed: 1/914 commands (~0.1%). PROCESS BUG
+  found+fixed this iteration: PLAN log entries for iters 80-85 had
+  silently failed to land (unverified python str.replace no-ops,
+  cascading) — reconstructed here from commit messages; lesson: verify
+  every log edit (grep after write), prefer append or the Edit tool.
+
+## NEXT SESSION: START HERE (updated iter 86)
+
+C1 v1 proper is the queued deep box: statement-only speculation with
+env-branch MERGE (per docs/c1-wavefront-design.md §v1), building on the
+working harness (bench/c1_spec_harness.lean — 78-79% valid across 3
+modules, 61% hidden on Equiv.Basic). T10 three-hazard law
+(docs/t10-variable-telescope-tax.md) is the safety manual. Working
+setup: lean4 t6-upstream branch (master + T6 + T10 patches, stage1
+built; patchelf revival recipe in memory if nix GC bites again),
+module-built Batteries+Mathlib corpora, 5-run medians + asserted
+harnesses mandatory. Pending queue: T6 PR #14449 review watch, T10
+upstream filing (docs/t10-upstream.md, USER-GATED), T10 per-decl stamp,
+byte-reproducibility for default-on.
