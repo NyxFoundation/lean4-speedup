@@ -917,3 +917,9 @@ perf claims, honest retractions.
   proven. README bottom line updated (T6 broke the wall-neutral
   pattern). Next: upstream writeup for leanprover/lean4 (issue+patch),
   batch-defaulting + dependency-precise wakeup as follow-on tracks.
+- 2026-07-19 (iter 62, /loop): T6 UPSTREAM PACKAGE. Patch exported
+  (patches/0023-t6-tcSkipUnchanged.patch); ready-to-file draft issue/
+  PR text in docs/t6-upstream.md (NOT filed — outward-facing, needs
+  explicit user go-ahead). Added 2 honest scoping datapoints: Nat/Log
+  and Choose/Sum NEUTRAL (single-literal = linear regime) — the win
+  is specific to chained-literal statements; claim scoped accordingly.

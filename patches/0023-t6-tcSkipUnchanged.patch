@@ -1,0 +1,85 @@
+From 2133503b680a1b36316849a3718f056a1e286796 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sun, 19 Jul 2026 13:24:19 +0900
+Subject: [PATCH 1/2] =?UTF-8?q?T6:=20Elab.tcSkipUnchanged=20=E2=80=94=20sk?=
+ =?UTF-8?q?ip=20re-attempting=20pending=20TC=20mvars=20with=20unchanged=20?=
+ =?UTF-8?q?instantiated=20goals=20(resumption=20loop=20is=20quadratic=20in?=
+ =?UTF-8?q?=20chained=20pending=20instances)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ src/Lean/Elab/SyntheticMVars.lean | 11 +++++++++++
+ src/Lean/Elab/Term/TermElabM.lean |  5 +++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index 50bb54f..b1ad06c 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -76,8 +76,19 @@ private def resumePostponed (savedContext : SavedContext) (stx : Syntax) (mvarId
+ /--
+   Similar to `synthesizeInstMVarCore`, but makes sure that `instMVar` local context and instances
+   are used. It also logs any error message produced. -/
++register_builtin_option Elab.tcSkipUnchanged : Bool := {
++  defValue := false
++  descr := "skip re-attempting a pending typeclass metavariable whose instantiated goal     type is unchanged since its last failed attempt (the outcome is deterministic in the     goal, so re-attempting is wasted work; the resumption loop is otherwise quadratic in     the number of chained pending instances)"
++}
++
+ private def synthesizePendingInstMVar (instMVar : MVarId) (extraErrorMsg? : Option MessageData := none): TermElabM Bool :=
+   instMVar.withContext do
++    if Elab.tcSkipUnchanged.get (← getOptions) then
++      let type ← instantiateMVars (← instMVar.getType)
++      if let some prev := (← get).tcSynthAttempt.find? instMVar then
++        if prev == type then
++          return false
++      modify fun s => { s with tcSynthAttempt := s.tcSynthAttempt.insert instMVar type }
+     try
+       synthesizeInstMVarCore instMVar (extraErrorMsg? := extraErrorMsg?)
+     catch
+diff --git a/src/Lean/Elab/Term/TermElabM.lean b/src/Lean/Elab/Term/TermElabM.lean
+index 4d848e0..dc0c25b 100644
+--- a/src/Lean/Elab/Term/TermElabM.lean
++++ b/src/Lean/Elab/Term/TermElabM.lean
+@@ -181,6 +181,11 @@ structure State where
+   levelNames        : List Name       := []
+   syntheticMVars    : MVarIdMap SyntheticMVarDecl := {}
+   pendingMVars      : List MVarId := {}
++  /-- Last instantiated goal type per still-pending `.typeClass` mvar whose synthesis
++  attempt failed; used (option `Elab.tcSkipUnchanged`) to skip re-attempts when the
++  goal is unchanged — the resumption loop otherwise re-tries every pending TC mvar
++  after each single success, which is quadratic in chained-literal statements. -/
++  tcSynthAttempt    : MVarIdMap Expr := {}
+   /-- List of errors associated to a metavariable that are shown to the user if the metavariable could not be fully instantiated -/
+   mvarErrorInfos    : List MVarErrorInfo := []
+   /-- List of data to be able to localize universe level metavariable errors to particular expressions. -/
+-- 
+2.53.0
+
+
+From 41fe971ecf14a2a30b20fe54fad008595bd29265 Mon Sep 17 00:00:00 2001
+From: grandchildrice <kingmasatojames@gmail.com>
+Date: Sun, 19 Jul 2026 13:25:16 +0900
+Subject: [PATCH 2/2] fixup: TreeMap get? not find?
+
+---
+ src/Lean/Elab/SyntheticMVars.lean | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Lean/Elab/SyntheticMVars.lean b/src/Lean/Elab/SyntheticMVars.lean
+index b1ad06c..8e86bc7 100644
+--- a/src/Lean/Elab/SyntheticMVars.lean
++++ b/src/Lean/Elab/SyntheticMVars.lean
+@@ -85,7 +85,7 @@ private def synthesizePendingInstMVar (instMVar : MVarId) (extraErrorMsg? : Opti
+   instMVar.withContext do
+     if Elab.tcSkipUnchanged.get (← getOptions) then
+       let type ← instantiateMVars (← instMVar.getType)
+-      if let some prev := (← get).tcSynthAttempt.find? instMVar then
++      if let some prev := (← get).tcSynthAttempt.get? instMVar then
+         if prev == type then
+           return false
+       modify fun s => { s with tcSynthAttempt := s.tcSynthAttempt.insert instMVar type }
+-- 
+2.53.0
+
