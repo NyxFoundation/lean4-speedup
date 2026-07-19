@@ -1209,3 +1209,23 @@ perf claims, honest retractions.
   telescopes (empty per-command log => hasErrors is local). Rebuild
   in flight; then full battery: repro, probes, k-series, Equiv.Basic
   A/B + olean gates, corpus.
+- 2026-07-20 (iter 77 close): T10 FIX VALIDATED — THE PROJECT'S
+  SECOND REAL WALL WIN, pending final gates. ngen fast-forward fix:
+  repro ON==OFF byte-identical; probes PASS; k-series ON linear
+  (k=256: 1648->257ms). EQUIV.BASIC 5-RUN INTERLEAVED A/B:
+  4.863 -> 4.266s = -12.3% MODULE WALL, distributions fully
+  separated, 10/10 builds green — bigger than T6's -7.4%, on the
+  hottest known Mathlib module, hitting only the variable-chain
+  subset (per-decl telescope tax still unaddressed = more headroom).
+  OPEN GATES before any upstream/default-on claim: (1) ON-vs-ON
+  olean drift 1 run in 5, 27 bytes (hit/miss trace sequences PROVEN
+  identical across runs => suspect pre-existing timing-dependent
+  aux/realization numbering exposed by the faster main thread; OFF
+  10/10 stable at OFF-speed) — needs semantic classification +
+  whether OFF with perturbed timing shows it too; (2) ON==OFF olean
+  differs by 253 bytes (stable alternate normal form? — classify
+  like T2c); (3) Batteries corpus + broader Mathlib cone builds.
+  Patch committed on lean4 t6-upstream branch (7730c797,
+  default-off) incl. the resetDiag allocation guard. NEXT (iter 78):
+  drift classification (decl-level olean diff; OFF-under-load
+  control), corpus gates, then docs/README + upstream package.
