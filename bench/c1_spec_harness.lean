@@ -184,9 +184,16 @@ partial def specLoop (recs : Array Rec') (prev? : Option PrevSpec) (i : Nat) : F
   -- commutativity mode: adopt valid speculations by replaying N on top of the
   -- N+1-first state and skipping N+1's sequential elaboration
   if (← IO.getEnv "C1_COMMUTE") == some "1" then
-    if r.parseOk && r.disjoint && r.specClean then
+    -- gate: only declaration/declaration pairs (no scope interactions)
+    if r.parseOk && r.disjoint && r.specClean
+        && cmdN.getKind == `Lean.Parser.Command.declaration
+        && r.specKind == `Lean.Parser.Command.declaration then
       if let some (cmdSpec, _, stSpec) := specTask.get then
         let (_, stSwapped) ← elabOn ictx pstate.pos cmdN stSpec
+        -- surface replay errors instead of swallowing them
+        for m in stSwapped.messages.toList do
+          if m.severity matches .error then
+            IO.println s!"ADOPT-ERR cmd{i} ({(← m.data.toString).take 100})"
         -- re-parse N+1 from psN to advance the parser (same syntax: parseOk held)
         let scope2 := stPost.scopes.head!
         let pmctx2 := { env := stPost.env, options := scope2.opts,

@@ -1374,3 +1374,16 @@ byte-reproducibility for default-on.
   state replay), with cascade-stop on first invalid. Diagnosis queued
   for the deep box: surface adopted-path errors, gate scope-writers,
   re-run.
+- 2026-07-20 (iter 91, /loop): COMMUTATIVITY CONFIRMED — the iter-90
+  cascade was ENTIRELY scope-pair interactions. Gating adoption to
+  declaration/declaration pairs (scope writers stay sequential — which
+  the wavefront design always specified via the ctx chain): 28
+  adoptions, FULL 293/293 module constants, ZERO adopt-path errors,
+  fingerprint delta consistent with the known defeq-alternate class
+  (iter 89). Real out-of-order elaboration of real Mathlib code
+  produces a complete, error-free, semantically-equivalent module.
+  The C1 zero-rebuild campaign closes POSITIVE: the design's exact
+  constraint set (sequential ctx chain + parallel decl statements +
+  discard-on-fail) is validated end-to-end by five independent
+  instruments. v1 implementation (delta-merge in the frontend) is
+  pure engineering with every semantic question answered.
