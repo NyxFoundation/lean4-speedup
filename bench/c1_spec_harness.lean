@@ -158,3 +158,9 @@ unsafe def main (args : List String) : IO Unit := do
   IO.println s!"commands: {total}; speculated: {withSpec.size}; VALID (parse+disjoint): {valid.size} = {100 * valid.size / (max withSpec.size 1)}%"
   IO.println s!"parse-invalid: {(withSpec.filter (!·.parseOk)).size}; read-write conflicts: {(withSpec.filter fun r => r.parseOk && !r.disjoint).size}; spec-errored: {(withSpec.filter fun r => !r.specClean).size}"
   IO.println s!"main-thread total: {mainTotal / 1000000} ms; overlap saved by valid depth-1 speculation: {savedNs / 1000000} ms ({100 * savedNs / (max mainTotal 1)}%)"
+  IO.FS.withFile "c1_spec_out.jsonl" IO.FS.Mode.write fun out => do
+    for r in recs do
+      out.putStrLn ("{\"i\": " ++ toString r.i ++ ", \"kind\": \"" ++ toString r.kind ++
+        "\", \"mainNs\": " ++ toString r.mainNs ++ ", \"specNs\": " ++ toString r.specNs ++
+        ", \"parseOk\": " ++ toString r.parseOk ++ ", \"disjoint\": " ++ toString r.disjoint ++
+        ", \"specClean\": " ++ toString r.specClean ++ "}")
