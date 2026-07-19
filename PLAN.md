@@ -1028,3 +1028,17 @@ perf claims, honest retractions.
   k-series (prediction: k=16 ON+ON drops 21.2 -> near-linear ~8ms),
   mutation probe, olean gates, PythagoreanTriples (prediction:
   beats -7.4%), corpus.
+- 2026-07-19 (iter 70, /loop): T8 FALSIFIED — honest kill in one
+  wake. T6+T8 identical to T6 (21.32ms both at k=16); resume-count
+  discriminator: 61,680 attempts for 20 commands (~3,084/command) and
+  the counts are IDENTICAL with T8 on — because "resuming" spans all
+  kinds and the traffic is .coe mvars + defaulting ROUNDS (one
+  default per full pass -> O(k) rounds x O(k) cheap .coe isDefEq
+  re-checks), NOT .postponed re-elaboration. iter-59's binop%
+  attribution was partially wrong (Elab.step dominance came from the
+  original elaboration's default rounds). T8 left on branch (default
+  off, harmless no-op); batch-defaulting is the true residual lever
+  but LOW EV (pathological k only — real code's win came from T6).
+  Kind-split verification before scheduler patches = new checklist
+  item. The deep-dive thread (T6 family) is now fully mapped: T6 the
+  win, residual understood, batch-defaulting priced.
