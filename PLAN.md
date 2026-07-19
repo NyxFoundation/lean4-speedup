@@ -1387,3 +1387,14 @@ byte-reproducibility for default-on.
   discard-on-fail) is validated end-to-end by five independent
   instruments. v1 implementation (delta-merge in the frontend) is
   pure engineering with every semantic question answered.
+- 2026-07-20 (iter 92, /loop): V1 ARCHITECTURE SETTLED — speculation
+  as a STATEMENT-ELABORATION CACHE with addDecl replay (design doc
+  updated). Key insights from the commutativity runs: naive replay-
+  adoption pays N twice (no wall win); state-diff merge is unneeded
+  because a decl command's effect decomposes into replayable outputs
+  (constants + attributes + ranges + counters); only CLOSED terms
+  cross the worker boundary, so the T10 hazard surface mostly
+  vanishes; bodies ride the existing async-theorem machinery against
+  the speculated statement. This turns the deep box from 'invent env
+  merging' into 'wire a cache into elabMutualDef's header path' —
+  substantially smaller. Ready for implementation.
