@@ -90,6 +90,23 @@ New meta-rules (both bought with today's mistakes):
    When a result-cache no-ops on a repetitive workload, stop optimizing
    the computation and profile the machinery that schedules it.
 
+## Iter 65-67 retrospective (T7: the flood that wasn't the wall)
+
+The TLB/ASID transfer (prefix-reuse of direct local-instance hits) was
+implemented, fired (2.5k hits/module) — and was **unsound** (fvar reuse
+across metavar-context boundaries; caught by the olean gate + a real
+elaboration error) and **null** (wall unchanged: the avoided searches were
+the cheap ones). Two self-inflicted lessons, both already in the rules:
+
+- **Rule 2 violated by its own author**: the iter-64 "60 % of queries"
+  census weighted by *count*; the 2.14 s of TC time lives in mvar-laden
+  deep-hierarchy queries, not in the trivial local-hit flood. Time-weight
+  first, always.
+- **New rule 8 — ABI: rebuilding corpora is part of the patch.** Changing a
+  core data structure (`Meta.Cache` field) invalidates downstream oleans;
+  the resulting segfault in A/B looks like a logic bug but is an ABI smell.
+  Rebuild every corpus after every core-struct change, before measuring.
+
 Rotation queue update: next = **literal fast-path** (strength-reduction
 analogy re-aimed at the elaborator): `OfNat Nat` / `HAdd Nat` literal
 instances could short-circuit the postpone/resume dance for the

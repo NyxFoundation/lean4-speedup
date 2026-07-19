@@ -985,3 +985,17 @@ perf claims, honest retractions.
   is an ABI smell, not a logic bug. Mathlib cone rebuilding on the
   T7 binary in background; batteries re-gates + honest T7 verdict
   next wake.
+- 2026-07-19 (iter 67, /loop): T7 KILLED — UNSOUND + NULL. On the
+  rebuilt corpus: 2,536 prefix hits (18% of news) but wall UNCHANGED
+  (4.7s) AND option-ON produces 'unknown free variable _fvar.67460'
+  (Equiv.Basic:360) + olean gate FAIL — the reused fvar crosses a
+  metavar-context boundary the localInsts prefix check cannot see
+  (the synthesized-for mvar has its OWN lctx; array equality of
+  localInsts does not imply the result fvar exists there). DO NOT
+  ENABLE synthInstance.localPrefixReuse; commits left on the branch
+  (default-off, zero effect) pending the next core rebuild to revert
+  cleanly. META-LESSON (rule 2 self-violation): iter-64's "60% of
+  volume" weighted by COUNT; the avoided direct-hit searches are the
+  cheap ones — TC time lives in the mvar-laden deep-hierarchy
+  queries. NEXT: TIME-weighted TC census (trace with per-node times)
+  before any further TC invention.
