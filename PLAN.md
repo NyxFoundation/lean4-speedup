@@ -1358,3 +1358,19 @@ byte-reproducibility for default-on.
   soundness now: 88% byte-identical + 12% defeq-alternate = 100%
   semantically sound on checked speculations. T6 PR: still CI bots
   only.
+- 2026-07-20 (iter 90, /loop): COMMUTATIVITY TEST BUILT — first
+  honest NEGATIVE. New harness mode (C1_COMMUTE=1): valid full-body
+  speculations are ADOPTED by continuing the file from the swapped
+  state (N replayed on top of the N+1-first state), final module
+  constants fingerprinted vs sequential. Result: 102/191 adopted but
+  final state has 164 vs 293 consts and fingerprints differ —
+  swapped-order continuation CASCADES failures the per-pair validation
+  misses (adopted-path errors are currently swallowed; suspects:
+  scope-affecting command pairs not gated, message/error loss in
+  replay, auto-name drift). FINDING: adoption is NOT pairwise-local —
+  the env-merge box must validate the CONTINUATION, not just the pair
+  (or merge diffs instead of replaying states). This sharpens the v1
+  spec: merge = apply N+1's env/scope DELTA onto post-N state (not
+  state replay), with cascade-stop on first invalid. Diagnosis queued
+  for the deep box: surface adopted-path errors, gate scope-writers,
+  re-run.

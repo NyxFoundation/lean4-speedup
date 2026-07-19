@@ -121,7 +121,8 @@ partial def specLoop (recs : Array Rec') (prev? : Option PrevSpec) (i : Nat) : F
     let (cmdSpec, _, _) := Parser.parseCommand ictx pmctx psN stPre.messages
     if Parser.isTerminalCommand cmdSpec then
       return none
-    let cmdSpecStmt := if cmdSpec.getKind == `Lean.Parser.Command.declaration
+    let fullBodies := (← IO.getEnv "C1_COMMUTE") == some "1"
+    let cmdSpecStmt := if cmdSpec.getKind == `Lean.Parser.Command.declaration && !fullBodies
       then sorryBodies cmdSpec else cmdSpec
     let (ns, stSpec) ← elabOn ictx psN.pos cmdSpecStmt stPre
     return some (cmdSpec, ns, stSpec)
@@ -180,6 +181,24 @@ partial def specLoop (recs : Array Rec') (prev? : Option PrevSpec) (i : Nat) : F
           if m.severity matches .error then
             IO.println s!"spec err cmd{r.i}: {(← m.data.toString).take 120}"
     r := { r with disjoint, specClean }
+  -- commutativity mode: adopt valid speculations by replaying N on top of the
+  -- N+1-first state and skipping N+1's sequential elaboration
+  if (← IO.getEnv "C1_COMMUTE") == some "1" then
+    if r.parseOk && r.disjoint && r.specClean then
+      if let some (cmdSpec, _, stSpec) := specTask.get then
+        let (_, stSwapped) ← elabOn ictx pstate.pos cmdN stSpec
+        -- re-parse N+1 from psN to advance the parser (same syntax: parseOk held)
+        let scope2 := stPost.scopes.head!
+        let pmctx2 := { env := stPost.env, options := scope2.opts,
+                        currNamespace := scope2.currNamespace, openDecls := scope2.openDecls }
+        let (_, psSpec, _) := Parser.parseCommand ictx pmctx2 psN stPost.messages
+        setCommandState { stSwapped with messages := stPost.messages }
+        setParserState psSpec
+        modify fun st => { st with commands := st.commands.push cmdSpec }
+        let recs := recs.push { r with specKind := `adopted }
+        if Parser.isTerminalCommand cmdSpec then
+          return recs
+        return ← specLoop recs none (i + 2)
   let recs := recs.push r
   let nextPrev : Option PrevSpec :=
     if let some (_, _, stSpec) := specTask.get then
@@ -209,7 +228,16 @@ unsafe def main (args : List String) : IO Unit := do
   let cmdState := Command.mkState env messages opts
   let cmdState := { cmdState with infoState.enabled := true }
   let fs : Frontend.State := { commandState := cmdState, parserState, cmdPos := parserState.pos }
-  let (recs, _) ← (specLoop #[] none 0).run { inputCtx } |>.run fs
+  let (recs, fsFinal) ← (specLoop #[] none 0).run { inputCtx } |>.run fs
+  -- fingerprint of final module constants (name + type hash), order-insensitive
+  let finalConsts := moduleConsts fsFinal.commandState.env
+  let mut fp : UInt64 := 0
+  let mut cnt := 0
+  for n in finalConsts.toList do
+    if let some ci := fsFinal.commandState.env.find? n then
+      fp := fp ^^^ (mixHash (hash n) (hash ci.type))
+      cnt := cnt + 1
+  IO.println s!"FINAL STATE: {cnt} module consts, type-fingerprint {fp}"
   let total := recs.size
   let withSpec := recs.filter (·.specNs > 0)
   let valid := withSpec.filter fun r => r.parseOk && r.disjoint && r.specClean
@@ -221,6 +249,8 @@ unsafe def main (args : List String) : IO Unit := do
   let eqC := (recs.map (·.eqChecked)).foldl (·+·) 0
   let eqM := (recs.map (·.eqMatched)).foldl (·+·) 0
   IO.println s!"RESULT EQUIVALENCE: {eqM}/{eqC} speculated statement types structurally identical to sequential"
+  let adopted := (recs.filter (·.specKind == `adopted)).size
+  IO.println s!"ADOPTED (commute mode): {adopted}"
   IO.FS.withFile "c1_spec_out.jsonl" IO.FS.Mode.write fun out => do
     for r in recs do
       out.putStrLn ("{\"i\": " ++ toString r.i ++ ", \"kind\": \"" ++ toString r.kind ++
