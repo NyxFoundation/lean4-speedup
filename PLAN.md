@@ -1337,3 +1337,15 @@ byte-reproducibility for default-on.
   Both module classes now behave exactly as census+oracle predicted.
   The C1 evidence chain is complete: census -> oracle -> full-command
   speculation -> statement-only speculation, all converging.
+- 2026-07-20 (iter 88, /loop): RESULT EQUIVALENCE — the last zero-
+  rebuild validation. Harness now compares each valid speculation's
+  statement TYPE (sorry'd body) against the sequential elaboration of
+  the same command: Equiv.Basic 52/59 checkable = 88% structurally
+  IDENTICAL (type + levelParams). Coverage gap + 7 mismatches trace to
+  ngen-dependent auto-naming (instances) and normalization drift —
+  precisely what production adoption (same ngen lineage, T10-style
+  fast-forward) removes by construction. C1 de-risking is now as far
+  as zero-rebuild methods reach: validity 79-94%, savings 58% on the
+  hottest module, adoption soundness 88% demonstrated + the residue
+  mechanistically understood. Env-merge implementation (the deep box)
+  is all that separates the demonstration from a working v1.

@@ -98,8 +98,14 @@ structure Rec' where
   disjoint : Bool := false
   specClean : Bool := false
   specKind : Name := .anonymous
+  eqChecked : Nat := 0
+  eqMatched : Nat := 0
 
-partial def specLoop (recs : Array Rec') (i : Nat) : FrontendM (Array Rec') := do
+structure PrevSpec where
+  specEnv : Environment
+  preConsts : NameSet
+
+partial def specLoop (recs : Array Rec') (prev? : Option PrevSpec) (i : Nat) : FrontendM (Array Rec') := do
   updateCmdPos
   let ictx ← getInputContext
   let stPre ← getCommandState
@@ -125,6 +131,23 @@ partial def specLoop (recs : Array Rec') (i : Nat) : FrontendM (Array Rec') := d
   let mainNs := (← IO.monoNanosNow) - t0
   let stPost ← getCommandState
   let mut r : Rec' := { i, kind := cmdN.getKind, mainNs }
+  -- result-equivalence: compare THIS command's real statement types vs the
+  -- speculation of it launched during the previous command
+  if let some prev := prev?.filter (fun _ => cmdN.getKind == `Lean.Parser.Command.declaration) then
+    let specConsts := moduleConsts prev.specEnv
+    let realNow := moduleConsts stPost.env
+    let mut checked := 0
+    let mut matched := 0
+    for n in realNow.toList do
+      unless prev.preConsts.contains n do
+        if specConsts.contains n then
+          checked := checked + 1
+          match stPost.env.find? n, prev.specEnv.find? n with
+          | some ciReal, some ciSpec =>
+            if ciReal.type == ciSpec.type && ciReal.levelParams == ciSpec.levelParams then
+              matched := matched + 1
+          | _, _ => pure ()
+    r := { r with eqChecked := checked, eqMatched := matched }
   -- join speculation and validate
   if let some (cmdSpec, specNs, stSpec) := specTask.get then
     r := { r with specNs, specKind := cmdSpec.getKind }
@@ -156,9 +179,15 @@ partial def specLoop (recs : Array Rec') (i : Nat) : FrontendM (Array Rec') := d
             IO.println s!"spec err cmd{r.i}: {(← m.data.toString).take 120}"
     r := { r with disjoint, specClean }
   let recs := recs.push r
+  let nextPrev : Option PrevSpec :=
+    if let some (_, _, stSpec) := specTask.get then
+      if r.parseOk && r.disjoint && r.specClean then
+        some { specEnv := stSpec.env, preConsts := moduleConsts stPre.env }
+      else none
+    else none
   if Parser.isTerminalCommand cmdN then
     return recs
-  specLoop recs (i + 1)
+  specLoop recs nextPrev (i + 1)
 
 unsafe def main (args : List String) : IO Unit := do
   let path :: _ := args | throw <| IO.userError "usage: c1_spec_harness <file.lean>"
@@ -178,7 +207,7 @@ unsafe def main (args : List String) : IO Unit := do
   let cmdState := Command.mkState env messages opts
   let cmdState := { cmdState with infoState.enabled := true }
   let fs : Frontend.State := { commandState := cmdState, parserState, cmdPos := parserState.pos }
-  let (recs, _) ← (specLoop #[] 0).run { inputCtx } |>.run fs
+  let (recs, _) ← (specLoop #[] none 0).run { inputCtx } |>.run fs
   let total := recs.size
   let withSpec := recs.filter (·.specNs > 0)
   let valid := withSpec.filter fun r => r.parseOk && r.disjoint && r.specClean
@@ -187,6 +216,9 @@ unsafe def main (args : List String) : IO Unit := do
   IO.println s!"commands: {total}; speculated: {withSpec.size}; VALID (parse+disjoint): {valid.size} = {100 * valid.size / (max withSpec.size 1)}%"
   IO.println s!"parse-invalid: {(withSpec.filter (!·.parseOk)).size}; read-write conflicts: {(withSpec.filter fun r => r.parseOk && !r.disjoint).size}; spec-errored: {(withSpec.filter fun r => !r.specClean).size}"
   IO.println s!"main-thread total: {mainTotal / 1000000} ms; overlap saved by valid depth-1 speculation: {savedNs / 1000000} ms ({100 * savedNs / (max mainTotal 1)}%)"
+  let eqC := (recs.map (·.eqChecked)).foldl (·+·) 0
+  let eqM := (recs.map (·.eqMatched)).foldl (·+·) 0
+  IO.println s!"RESULT EQUIVALENCE: {eqM}/{eqC} speculated statement types structurally identical to sequential"
   IO.FS.withFile "c1_spec_out.jsonl" IO.FS.Mode.write fun out => do
     for r in recs do
       out.putStrLn ("{\"i\": " ++ toString r.i ++ ", \"kind\": \"" ++ toString r.kind ++
