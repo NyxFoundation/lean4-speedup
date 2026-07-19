@@ -1,9 +1,11 @@
 # T5 — env-extension state barriers: the census, and the reducibility root cause
 
-Status: root cause identified + core patch applied (iter 53); rebuild/measure
-in progress. This is T4's general finding turned into a systematic audit —
-and the audit landed on what looks like the mechanism behind the project's
-oldest unexplained numbers.
+Status: **measured, perf-null under strict A/B** (iter 54). The audit and
+mechanism are real; the fix is sound (corpus clean, olean-determinism
+identical) but moves neither the module sweep nor the corpus wall. The
+strict same-stage1 baseline also exposed that the historical
+`--threads` plateau numbers were stale — see the verdict section. This is
+T4's general finding turned into a systematic audit.
 
 ## The audit (bench/t5_barrier_audit.sh)
 
@@ -62,11 +64,36 @@ medians on List.Lemmas (`--threads` sweep — the plateau is the prediction:
 if the mechanism is right, the 2.4× ceiling should lift) and cold corpus
 wall.
 
-## Why this one might actually move wall clock
+## Verdict (iter 54): sound, perf-null — and a stale-baseline catch
 
-Unlike T1–T4, this sits on the *worker* side of the iter-49 frontier: it
-doesn't try to parallelize main-thread command elaboration; it stops the
-already-parallel proof workers from being throttled back to sequential. The
-"blocked" mass (6.65 s cumulative on the hot module) is the budget; any
-fraction recovered is critical-path time on the module that gates the
-Batteries build.
+Gates: corpus clean (188 oleans, rc=0), ON-vs-ON olean hashes **identical**.
+Strict A/B — same stage1, patch present vs reverted (`bench/t5_results.txt`,
+`bench/t5_base_results.txt`), best-of-3 walls on `List.Lemmas`:
+
+| `--threads` | baseline | patched | benchmarks.md §2 (v4.32, stale) |
+|---|---|---|---|
+| 1 | 5.31 s | 5.44 s | 7.16 s |
+| 2 | 3.14 s | 3.32 s | 4.21 s |
+| 4 | 2.15 s | 2.20 s | 3.03 s |
+| 8 | 1.72 s | 1.71 s | 2.96 s |
+| 16 | 1.69 s | 1.67 s | — |
+
+Cold corpus: 13.38–13.49 s vs 13.38–13.70 s. **Identical within noise.**
+
+Two lessons, both worth the rebuilds:
+
+1. **The convoy is momentary and off the critical path.** The census
+   (49 blocked hits) is real, but ~8 threads block *simultaneously* in a few
+   short windows and drain as soon as the producing branch commits; the
+   module's wall is set by the main thread's sequential feed rate (iter 49),
+   which the workers' latency doesn't gate. A blocking census weighted by
+   *time × criticality*, not hit count, would have predicted this.
+2. **The historical plateau was toolchain-stale.** v4.32's 2.96 s @ 8
+   threads is 1.72 s on the current 4.34-pre stage1 — Lean core's own
+   parallelism improved ~40 % on this module between releases. The old §2
+   numbers must not be compared against current measurements.
+
+The patch stays on the lean4 branch (it is semantically sound and
+non-blocking reads are the documented best practice for
+parallel-elaboration-facing extensions) but claims no performance benefit;
+the installed stage1 remains the unpatched baseline.

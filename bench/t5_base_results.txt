@@ -1,0 +1,12 @@
+--- BASELINE threads sweep ---
+threads=1 best-of-3 wall=5.306s
+threads=2 best-of-3 wall=3.137s
+threads=4 best-of-3 wall=2.149s
+threads=8 best-of-3 wall=1.721s
+threads=16 best-of-3 wall=1.690s
+--- BASELINE cold corpus (5 runs) ---
+run1 wall=13.49s rc=0
+run2 wall=13.40s rc=0
+run3 wall=13.38s rc=0
+run4 wall=13.38s rc=0
+run5 wall=13.37s rc=0

@@ -1,0 +1,15 @@
+gate1 corpus: rc=0 oleans=188 wall=13.89s
+gate2 determinism: IDENTICAL (rc2=0)
+--- threads sweep: lake env lean --threads=N List.Lemmas ---
+threads=1 best-of-3 wall=5.437s
+threads=2 best-of-3 wall=3.316s
+threads=4 best-of-3 wall=2.197s
+threads=8 best-of-3 wall=1.708s
+threads=16 best-of-3 wall=1.668s
+--- cold corpus wall (5 runs) ---
+run1 wall=13.38s rc=0
+run2 wall=13.39s rc=0
+run3 wall=13.49s rc=0
+run4 wall=13.59s rc=0
+run5 wall=13.70s rc=0
+done

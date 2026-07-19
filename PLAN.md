@@ -814,3 +814,17 @@ perf claims, honest retractions.
   corpus-clean + olean-determinism gates FIRST, then --threads sweep
   on List.Lemmas (prediction: the 2.4x ceiling lifts) + 5-run cold
   corpus A/B. docs/t5-ext-state-barriers.md; README T4 row added.
+- 2026-07-19 (iter 54): T5 MEASURED — PERF-NULL under strict A/B.
+  Gates passed (corpus 188/rc=0, olean determinism IDENTICAL). Same-
+  stage1 A/B (patched vs reverted+rebuilt): threads sweep and cold
+  corpus IDENTICAL within noise (16thr module wall 1.67 vs 1.69s;
+  corpus ~13.4s both). The 49-hit blocking census was momentary
+  convoying OFF the critical path — ~8 workers block briefly and
+  drain; wall is still set by main-thread feed rate (5th independent
+  confirmation of the iter-49 synthesis). BONUS CATCH: benchmarks §2
+  plateau numbers are TOOLCHAIN-STALE — v4.32's 2.96s @8thr is 1.72s
+  on current 4.34-pre stage1 (Lean core improved ~40% between
+  releases); the strict baseline prevented a false-positive T5 claim.
+  Lesson: weight blocking censuses by time-on-critical-path, not hit
+  count. Patch kept on lean4 branch (sound, best-practice) with no
+  perf claim; installed stage1 = baseline. docs/t5 updated.
