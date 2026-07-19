@@ -828,3 +828,19 @@ perf claims, honest retractions.
   Lesson: weight blocking censuses by time-on-critical-path, not hit
   count. Patch kept on lean4 branch (sound, best-practice) with no
   perf claim; installed stage1 = baseline. docs/t5 updated.
+- 2026-07-19 (iter 55, /loop mathlib-scale): MATHLIB ALIAS VERDICT +
+  PLAYBOOK. Mathlib census: 4875 alias commands, 1524 deprecated-
+  prefixed. Built-deps alias-dense modules (BooleanAlgebra/Set 82,
+  RelClasses 44, Logic/Relation 31, Set/Basic 28, Logic/Basic 28,
+  Order/Basic 26): stalls >=20ms — TWO, both <=28ms. The 394ms
+  Batteries case is an OUTLIER (grind-heavy cone directly above the
+  alias); foundation-module cones drain first. Upstream case honest:
+  fix principled+harmless, wall claim needs Analysis/Topology
+  measurement (deps unbuilt, deferred). SELF-IMPROVEMENT: docs/
+  invention-playbook.md — analogy scoreboard (RAW-hazard grade A;
+  fission/barrier-class B+), meta-rules (analogy = explanation
+  compressor AFTER measurement, not idea generator; weight censuses
+  by critical-path time; sample stacks not timestamps; strict
+  same-binary baselines; measure distributions not outliers), and a
+  next-rotation queue with falsifiable predictions (muda/per-command
+  floor first: is the ~5-8ms trivial-command cost half bookkeeping?).
