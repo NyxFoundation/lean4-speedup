@@ -1,0 +1,933 @@
+[Elab.async] [0.110765] ✅️ elaborating proof of List.mem_findIdxs_iff_getElem_sub_pos
+  [Elab.definition.value] [0.110460] ✅️ List.mem_findIdxs_iff_getElem_sub_pos
+    [Elab.step] [0.110310] ✅️ induction xs generalizing s <;> grind
+      [Elab.step] [0.110302] ✅️ induction xs generalizing s <;> grind
+        [Elab.step] [0.110292] ✅️ induction xs generalizing s <;> grind
+          [Elab.step] [0.110282] ✅️ focus
+                induction xs generalizing s
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.110273] ✅️ 
+                  induction xs generalizing s
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.110264] ✅️ 
+                    induction xs generalizing s
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.109823] ✅️ all_goals grind
+[Elab.async] [0.116768] ✅️ elaborating proof of List.mem_findIdxs_iff_exists_getElem_pos
+  [Elab.definition.value] [0.116609] ✅️ List.mem_findIdxs_iff_exists_getElem_pos
+    [Elab.step] [0.116494] ✅️ grind
+      [Elab.step] [0.116485] ✅️ grind
+        [Elab.step] [0.116474] ✅️ grind
+[Elab.async] [0.109063] ✅️ elaborating proof of List.mem_findIdxs_iff_pos_getElem
+  [Elab.definition.value] [0.108858] ✅️ List.mem_findIdxs_iff_pos_getElem
+    [Elab.step] [0.108734] ✅️ grind
+      [Elab.step] [0.108726] ✅️ grind
+        [Elab.step] [0.108715] ✅️ grind
+[Elab.async] [0.106545] ✅️ elaborating proof of List.ge_of_mem_findIdxs
+  [Elab.definition.value] [0.106361] ✅️ List.ge_of_mem_findIdxs
+    [Elab.step] [0.106267] ✅️ grind
+      [Elab.step] [0.106259] ✅️ grind
+        [Elab.step] [0.106247] ✅️ grind
+[Elab.async] [0.106504] ✅️ elaborating proof of List.lt_add_of_mem_findIdxs
+  [Elab.definition.value] [0.106300] ✅️ List.lt_add_of_mem_findIdxs
+    [Elab.step] [0.106208] ✅️ grind
+      [Elab.step] [0.106200] ✅️ grind
+        [Elab.step] [0.106188] ✅️ grind
+[Elab.async] [0.117796] ✅️ elaborating proof of List.findIdxs_eq_nil_iff
+  [Elab.definition.value] [0.117598] ✅️ List.findIdxs_eq_nil_iff
+    [Elab.step] [0.117481] ✅️ induction xs generalizing s <;> grind
+      [Elab.step] [0.117474] ✅️ induction xs generalizing s <;> grind
+        [Elab.step] [0.117466] ✅️ induction xs generalizing s <;> grind
+          [Elab.step] [0.117457] ✅️ focus
+                induction xs generalizing s
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.117450] ✅️ 
+                  induction xs generalizing s
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.117445] ✅️ 
+                    induction xs generalizing s
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.117111] ✅️ all_goals grind
+[Elab.async] [0.103092] ✅️ elaborating proof of List.pairwise_findIdxs
+  [Elab.definition.value] [0.102874] ✅️ List.pairwise_findIdxs
+    [Elab.step] [0.102770] ✅️ induction xs generalizing s <;> grind [pairwise_cons]
+      [Elab.step] [0.102763] ✅️ induction xs generalizing s <;> grind [pairwise_cons]
+        [Elab.step] [0.102755] ✅️ induction xs generalizing s <;> grind [pairwise_cons]
+          [Elab.step] [0.102747] ✅️ focus
+                induction xs generalizing s
+                with_annotate_state"<;>" skip
+                all_goals grind [pairwise_cons]
+            [Elab.step] [0.102740] ✅️ 
+                  induction xs generalizing s
+                  with_annotate_state"<;>" skip
+                  all_goals grind [pairwise_cons]
+              [Elab.step] [0.102735] ✅️ 
+                    induction xs generalizing s
+                    with_annotate_state"<;>" skip
+                    all_goals grind [pairwise_cons]
+                [Elab.step] [0.102475] ✅️ all_goals grind [pairwise_cons]
+[Elab.async] [0.100918] ✅️ elaborating proof of List.isChain_findIdxs
+  [Elab.definition.value] [0.100761] ✅️ List.isChain_findIdxs
+    [Elab.step] [0.100705] ✅️ expected type: IsChain (fun x1 x2 => x1 < x2) (findIdxs p xs s), term
+        pairwise_findIdxs.isChain
+[Elab.async] [0.100632] ✅️ elaborating proof of List.nodup_findIdxs
+  [Elab.definition.value] [0.100460] ✅️ List.nodup_findIdxs
+[Elab.async] [0.102001] ✅️ elaborating proof of List.getElem_findIdxs_lt
+  [Elab.definition.value] [0.101820] ✅️ List.getElem_findIdxs_lt
+    [Elab.step] [0.101693] ✅️ grind [getElem_mem]
+      [Elab.step] [0.101683] ✅️ grind [getElem_mem]
+        [Elab.step] [0.101663] ✅️ grind [getElem_mem]
+[Elab.command] [0.122182] ✅️ theorem getElem_filter_eq_getElem_getElem_findIdxs_sub (s : Nat)
+        (h : i < ((xs : List α).filter p).length) :
+        (xs.filter p)[i] = xs[(xs.findIdxs p s)[i]'(by grind) - s]'(by grind) := by
+      induction xs generalizing i s <;> grind
+  [Elab.definition.header] [0.122027] ✅️ List.getElem_filter_eq_getElem_getElem_findIdxs_sub
+    [Elab.step] [0.103018] ✅️ grind
+      [Elab.step] [0.103013] ✅️ grind
+        [Elab.step] [0.103005] ✅️ grind
+[Elab.async] [0.224498] ✅️ elaborating proof of List.getElem_filter_eq_getElem_getElem_findIdxs_sub
+  [Elab.definition.value] [0.224026] ✅️ List.getElem_filter_eq_getElem_getElem_findIdxs_sub
+    [Elab.step] [0.223803] ✅️ induction xs generalizing i s <;> grind
+      [Elab.step] [0.223794] ✅️ induction xs generalizing i s <;> grind
+        [Elab.step] [0.223783] ✅️ induction xs generalizing i s <;> grind
+          [Elab.step] [0.223770] ✅️ focus
+                induction xs generalizing i s
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.223758] ✅️ 
+                  induction xs generalizing i s
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.223752] ✅️ 
+                    induction xs generalizing i s
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.223223] ✅️ all_goals grind
+                  [Elab.step] [0.204886] ✅️ grind
+                    [Elab.step] [0.204876] ✅️ grind
+                      [Elab.step] [0.204861] ✅️ grind
+[Elab.async] [0.221241] ✅️ elaborating proof of List.findIdxNth_cons
+  [Elab.definition.value] [0.220785] ✅️ List.findIdxNth_cons
+    [Elab.step] [0.220571] ✅️ 
+          have H : ∀ n s, findIdxNth.go (p : α → Bool) xs n s = (xs : List α).findIdxNth p n + s := by
+            induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat]
+          cases n <;> grind [findIdxNth, findIdxNth.go]
+      [Elab.step] [0.220562] ✅️ 
+            have H : ∀ n s, findIdxNth.go (p : α → Bool) xs n s = (xs : List α).findIdxNth p n + s := by
+              induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat]
+            cases n <;> grind [findIdxNth, findIdxNth.go]
+        [Elab.step] [0.199382] ✅️ have H :
+              ∀ n s, findIdxNth.go (p : α → Bool) xs n s = (xs : List α).findIdxNth p n + s := by
+              induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat]
+          [Elab.step] [0.199369] ✅️ focus
+                refine
+                  no_implicit_lambda%
+                    (have H : ∀ n s, findIdxNth.go (p : α → Bool) xs n s = (xs : List α).findIdxNth p n + s := ?body✝;
+                    ?_)
+                case body✝ => with_annotate_state"by" (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+            [Elab.step] [0.199361] ✅️ 
+                  refine
+                    no_implicit_lambda%
+                      (have H : ∀ n s, findIdxNth.go (p : α → Bool) xs n s = (xs : List α).findIdxNth p n + s := ?body✝;
+                      ?_)
+                  case body✝ => with_annotate_state"by" (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+              [Elab.step] [0.199353] ✅️ 
+                    refine
+                      no_implicit_lambda%
+                        (have H : ∀ n s, findIdxNth.go (p : α → Bool) xs n s = (xs : List α).findIdxNth p n + s :=
+                          ?body✝;
+                        ?_)
+                    case body✝ =>
+                      with_annotate_state"by" (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+                [Elab.step] [0.198421] ✅️ case body✝ =>
+                      with_annotate_state"by" (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+                  [Elab.step] [0.198397] ✅️ with_annotate_state"by"
+                          (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+                    [Elab.step] [0.198393] ✅️ with_annotate_state"by"
+                            (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+                      [Elab.step] [0.198388] ✅️ with_annotate_state"by"
+                            (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+                        [Elab.step] [0.198383] ✅️ (induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat])
+                          [Elab.step] [0.198379] ✅️ induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat]
+                            [Elab.step] [0.198375] ✅️ induction xs <;> grind [findIdxNth, findIdxNth.go, cases Nat]
+                              [Elab.step] [0.198367] ✅️ (induction xs) <;> grind [findIdxNth, findIdxNth.go, cases Nat]
+                                [Elab.step] [0.198360] ✅️ focus
+                                      induction xs
+                                      with_annotate_state"<;>" skip
+                                      all_goals grind [findIdxNth, findIdxNth.go, cases Nat]
+                                  [Elab.step] [0.198353] ✅️ 
+                                        induction xs
+                                        with_annotate_state"<;>" skip
+                                        all_goals grind [findIdxNth, findIdxNth.go, cases Nat]
+                                    [Elab.step] [0.198347] ✅️ 
+                                          induction xs
+                                          with_annotate_state"<;>" skip
+                                          all_goals grind [findIdxNth, findIdxNth.go, cases Nat]
+                                      [Elab.step] [0.198098] ✅️ all_goals grind [findIdxNth, findIdxNth.go, cases Nat]
+                                        [Elab.step] [0.172555] ✅️ grind [findIdxNth, findIdxNth.go, cases Nat]
+                                          [Elab.step] [0.172547] ✅️ grind [findIdxNth, findIdxNth.go, cases Nat]
+                                            [Elab.step] [0.172528] ✅️ grind [findIdxNth, findIdxNth.go, cases Nat]
+[Elab.async] [0.221836] ✅️ elaborating proof of List.findIdxNth_cons_zero
+  [Elab.definition.value] [0.221650] ✅️ List.findIdxNth_cons_zero
+    [Elab.step] [0.221524] ✅️ grind
+      [Elab.step] [0.221514] ✅️ grind
+        [Elab.step] [0.221501] ✅️ grind
+[Elab.async] [0.219050] ✅️ elaborating proof of List.findIdxNth_cons_succ
+  [Elab.definition.value] [0.218834] ✅️ List.findIdxNth_cons_succ
+    [Elab.step] [0.218685] ✅️ grind
+      [Elab.step] [0.218673] ✅️ grind
+        [Elab.step] [0.218660] ✅️ grind
+[Elab.async] [0.219165] ✅️ elaborating proof of List.findIdxNth_cons_of_neg
+  [Elab.definition.value] [0.218955] ✅️ List.findIdxNth_cons_of_neg
+    [Elab.step] [0.218842] ✅️ grind
+      [Elab.step] [0.218833] ✅️ grind
+        [Elab.step] [0.218821] ✅️ grind
+[Elab.async] [0.216995] ✅️ elaborating proof of List.findIdxNth_cons_of_pos
+  [Elab.definition.value] [0.216772] ✅️ List.findIdxNth_cons_of_pos
+    [Elab.step] [0.216651] ✅️ grind
+      [Elab.step] [0.216643] ✅️ grind
+        [Elab.step] [0.216632] ✅️ grind
+[Elab.async] [0.209388] ✅️ elaborating proof of List.findIdxNth_cons_zero_of_pos
+  [Elab.definition.value] [0.209139] ✅️ List.findIdxNth_cons_zero_of_pos
+    [Elab.step] [0.209015] ✅️ grind
+      [Elab.step] [0.209005] ✅️ grind
+        [Elab.step] [0.208991] ✅️ grind
+[Elab.async] [0.207047] ✅️ elaborating proof of List.findIdxNth_cons_succ_of_pos
+  [Elab.definition.value] [0.206828] ✅️ List.findIdxNth_cons_succ_of_pos
+    [Elab.step] [0.206709] ✅️ grind
+      [Elab.step] [0.206700] ✅️ grind
+        [Elab.step] [0.206688] ✅️ grind
+[Elab.async] [0.259016] ✅️ elaborating proof of List.getElem_findIdxs_eq_findIdxNth_add
+  [Elab.definition.value] [0.258726] ✅️ List.getElem_findIdxs_eq_findIdxNth_add
+    [Elab.step] [0.258574] ✅️ induction xs generalizing n s <;> grind
+      [Elab.step] [0.258567] ✅️ induction xs generalizing n s <;> grind
+        [Elab.step] [0.258558] ✅️ induction xs generalizing n s <;> grind
+          [Elab.step] [0.258551] ✅️ focus
+                induction xs generalizing n s
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.258543] ✅️ 
+                  induction xs generalizing n s
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.258536] ✅️ 
+                    induction xs generalizing n s
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.258128] ✅️ all_goals grind
+                  [Elab.step] [0.238748] ✅️ grind
+                    [Elab.step] [0.238739] ✅️ grind
+                      [Elab.step] [0.238727] ✅️ grind
+[Elab.async] [0.242181] ✅️ elaborating proof of List.pos_findIdxNth_getElem
+  [Elab.definition.value] [0.241886] ✅️ List.pos_findIdxNth_getElem
+    [Elab.step] [0.241733] ✅️ induction xs generalizing n <;> grind
+      [Elab.step] [0.241722] ✅️ induction xs generalizing n <;> grind
+        [Elab.step] [0.241710] ✅️ induction xs generalizing n <;> grind
+          [Elab.step] [0.241700] ✅️ focus
+                induction xs generalizing n
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.241689] ✅️ 
+                  induction xs generalizing n
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.241682] ✅️ 
+                    induction xs generalizing n
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.241360] ✅️ all_goals grind
+                  [Elab.step] [0.237092] ✅️ grind
+                    [Elab.step] [0.237083] ✅️ grind
+                      [Elab.step] [0.237070] ✅️ grind
+[Elab.async] [0.198453] ✅️ elaborating proof of List.findIdxNth_zero
+  [Elab.definition.value] [0.198202] ✅️ List.findIdxNth_zero
+    [Elab.step] [0.198099] ✅️ induction xs <;> grind
+      [Elab.step] [0.198090] ✅️ induction xs <;> grind
+        [Elab.step] [0.198080] ✅️ (induction xs) <;> grind
+          [Elab.step] [0.198072] ✅️ focus
+                induction xs
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.198065] ✅️ 
+                  induction xs
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.198060] ✅️ 
+                    induction xs
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.197745] ✅️ all_goals grind
+                  [Elab.step] [0.195033] ✅️ grind
+                    [Elab.step] [0.195021] ✅️ grind
+                      [Elab.step] [0.195012] ✅️ grind
+[Elab.async] [0.234949] ✅️ elaborating proof of List.findIdxNth_lt_length_iff
+  [Elab.definition.value] [0.234689] ✅️ List.findIdxNth_lt_length_iff
+    [Elab.step] [0.234566] ✅️ induction xs generalizing n <;> grind
+      [Elab.step] [0.234557] ✅️ induction xs generalizing n <;> grind
+        [Elab.step] [0.234545] ✅️ induction xs generalizing n <;> grind
+          [Elab.step] [0.234534] ✅️ focus
+                induction xs generalizing n
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.234525] ✅️ 
+                  induction xs generalizing n
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.234518] ✅️ 
+                    induction xs generalizing n
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.234156] ✅️ all_goals grind
+                  [Elab.step] [0.227385] ✅️ grind
+                    [Elab.step] [0.227370] ✅️ grind
+                      [Elab.step] [0.227339] ✅️ grind
+[Elab.async] [0.268894] ✅️ elaborating proof of List.findIdxNth_eq_length_iff
+  [Elab.definition.value] [0.268662] ✅️ List.findIdxNth_eq_length_iff
+    [Elab.step] [0.268553] ✅️ induction xs generalizing n <;> grind
+      [Elab.step] [0.268545] ✅️ induction xs generalizing n <;> grind
+        [Elab.step] [0.268530] ✅️ induction xs generalizing n <;> grind
+          [Elab.step] [0.268522] ✅️ focus
+                induction xs generalizing n
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.268511] ✅️ 
+                  induction xs generalizing n
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.268502] ✅️ 
+                    induction xs generalizing n
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.268197] ✅️ all_goals grind
+                  [Elab.step] [0.235063] ✅️ grind
+                    [Elab.step] [0.235057] ✅️ grind
+                      [Elab.step] [0.235044] ✅️ grind
+[Elab.async] [0.274232] ✅️ elaborating proof of List.findIdxNth_le_length
+  [Elab.definition.value] [0.274037] ✅️ List.findIdxNth_le_length
+    [Elab.step] [0.269933] ✅️ grind
+      [Elab.step] [0.269921] ✅️ grind
+        [Elab.step] [0.269908] ✅️ grind
+[Elab.async] [0.274026] ✅️ elaborating proof of List.findIdxNth_lt_length_of_lt_countP
+  [Elab.definition.value] [0.273816] ✅️ List.findIdxNth_lt_length_of_lt_countP
+    [Elab.step] [0.273719] ✅️ grind
+      [Elab.step] [0.273709] ✅️ grind
+        [Elab.step] [0.273693] ✅️ grind
+[Elab.async] [0.272406] ✅️ elaborating proof of List.findIdxNth_eq_length_of_ge_countP
+  [Elab.definition.value] [0.272234] ✅️ List.findIdxNth_eq_length_of_ge_countP
+    [Elab.step] [0.272119] ✅️ grind
+      [Elab.step] [0.272110] ✅️ grind
+        [Elab.step] [0.272096] ✅️ grind
+[Elab.async] [0.323280] ✅️ elaborating proof of List.findIdxNth_le_findIdxNth_iff
+  [Elab.definition.value] [0.321773] ✅️ List.findIdxNth_le_findIdxNth_iff
+    [Elab.step] [0.321019] ✅️ induction xs generalizing n m with
+          | nil => grind
+          | cons a xs IH => cases h : p a <;> cases n <;> cases m <;> simp [h, IH]
+      [Elab.step] [0.321012] ✅️ induction xs generalizing n m with
+            | nil => grind
+            | cons a xs IH => cases h : p a <;> cases n <;> cases m <;> simp [h, IH]
+        [Elab.step] [0.320999] ✅️ induction xs generalizing n m with
+            | nil => grind
+            | cons a xs IH => cases h : p a <;> cases n <;> cases m <;> simp [h, IH]
+          [Elab.step] [0.268289] ✅️ grind
+            [Elab.step] [0.268276] ✅️ grind
+              [Elab.step] [0.268264] ✅️ grind
+[Elab.async] [0.265192] ✅️ elaborating proof of List.findIdxNth_lt_findIdxNth_iff_of_lt_countP
+  [Elab.definition.value] [0.265024] ✅️ List.findIdxNth_lt_findIdxNth_iff_of_lt_countP
+    [Elab.step] [0.264912] ✅️ grind [findIdxNth_lt_findIdxNth_iff]
+      [Elab.step] [0.264904] ✅️ grind [findIdxNth_lt_findIdxNth_iff]
+        [Elab.step] [0.264872] ✅️ grind [findIdxNth_lt_findIdxNth_iff]
+[Elab.async] [0.249172] ✅️ elaborating proof of List.findIdxNth_mono
+  [Elab.definition.value] [0.248963] ✅️ List.findIdxNth_mono
+    [Elab.step] [0.248865] ✅️ grind [Nat.le_iff_lt_or_eq, findIdxNth_lt_findIdxNth_iff, findIdxNth_eq_findIdxNth_iff]
+      [Elab.step] [0.248855] ✅️ grind [Nat.le_iff_lt_or_eq, findIdxNth_lt_findIdxNth_iff, findIdxNth_eq_findIdxNth_iff]
+        [Elab.step] [0.248842] ✅️ grind [Nat.le_iff_lt_or_eq, findIdxNth_lt_findIdxNth_iff,
+              findIdxNth_eq_findIdxNth_iff]
+[Elab.async] [0.267444] ✅️ elaborating proof of List.findIdxNth_eq_findIdxNth_iff_of_left_lt_countP
+  [Elab.definition.value] [0.267311] ✅️ List.findIdxNth_eq_findIdxNth_iff_of_left_lt_countP
+    [Elab.step] [0.267201] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+      [Elab.step] [0.267193] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+        [Elab.step] [0.267182] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+[Elab.async] [0.261808] ✅️ elaborating proof of List.findIdxNth_eq_findIdxNth_iff_of_right_lt_countP
+  [Elab.definition.value] [0.261662] ✅️ List.findIdxNth_eq_findIdxNth_iff_of_right_lt_countP
+    [Elab.step] [0.261517] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+      [Elab.step] [0.261507] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+        [Elab.step] [0.261494] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+[Elab.async] [0.249116] ✅️ elaborating proof of List.findIdxNth_eq_findIdxNth_of_ge_countP_ge_countP
+  [Elab.definition.value] [0.248944] ✅️ List.findIdxNth_eq_findIdxNth_of_ge_countP_ge_countP
+    [Elab.step] [0.248798] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+      [Elab.step] [0.248787] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+        [Elab.step] [0.248772] ✅️ grind [findIdxNth_eq_findIdxNth_iff]
+[Elab.command] [0.404762] ✅️ @[deprecated (since := "2025-11-06")]
+    alias idxOf_eq_idxOf? := idxOf_eq_getD_idxOf?
+[Elab.async] [0.130063] ✅️ elaborating proof of List.getElem_idxOf_eq_idxOfNth_add
+  [Elab.definition.value] [0.129662] ✅️ List.getElem_idxOf_eq_idxOfNth_add
+    [Elab.step] [0.129444] ✅️ induction xs generalizing n s <;> grind
+      [Elab.step] [0.129434] ✅️ induction xs generalizing n s <;> grind
+        [Elab.step] [0.129422] ✅️ induction xs generalizing n s <;> grind
+          [Elab.step] [0.129409] ✅️ focus
+                induction xs generalizing n s
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.129394] ✅️ 
+                  induction xs generalizing n s
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.129383] ✅️ 
+                    induction xs generalizing n s
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.128956] ✅️ all_goals grind
+                  [Elab.step] [0.102222] ✅️ grind
+                    [Elab.step] [0.102213] ✅️ grind
+                      [Elab.step] [0.102200] ✅️ grind
+[Elab.async] [0.185897] ✅️ elaborating proof of List.countPBefore_cons
+  [Elab.definition.value] [0.185475] ✅️ List.countPBefore_cons
+    [Elab.step] [0.185275] ✅️ 
+          have H : ∀ i s, countPBefore.go (p : α → Bool) xs i s = countPBefore.go p xs i 0 + s := by
+            induction xs <;> grind [countPBefore, countPBefore.go, cases Nat]
+          cases i <;> grind [countPBefore, countPBefore.go]
+      [Elab.step] [0.185265] ✅️ 
+            have H : ∀ i s, countPBefore.go (p : α → Bool) xs i s = countPBefore.go p xs i 0 + s := by
+              induction xs <;> grind [countPBefore, countPBefore.go, cases Nat]
+            cases i <;> grind [countPBefore, countPBefore.go]
+        [Elab.step] [0.159514] ✅️ have H :
+              ∀ i s, countPBefore.go (p : α → Bool) xs i s = countPBefore.go p xs i 0 + s := by
+              induction xs <;> grind [countPBefore, countPBefore.go, cases Nat]
+          [Elab.step] [0.159498] ✅️ focus
+                refine
+                  no_implicit_lambda%
+                    (have H : ∀ i s, countPBefore.go (p : α → Bool) xs i s = countPBefore.go p xs i 0 + s := ?body✝;
+                    ?_)
+                case body✝ =>
+                  with_annotate_state"by" (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+            [Elab.step] [0.159488] ✅️ 
+                  refine
+                    no_implicit_lambda%
+                      (have H : ∀ i s, countPBefore.go (p : α → Bool) xs i s = countPBefore.go p xs i 0 + s := ?body✝;
+                      ?_)
+                  case body✝ =>
+                    with_annotate_state"by" (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+              [Elab.step] [0.159482] ✅️ 
+                    refine
+                      no_implicit_lambda%
+                        (have H : ∀ i s, countPBefore.go (p : α → Bool) xs i s = countPBefore.go p xs i 0 + s := ?body✝;
+                        ?_)
+                    case body✝ =>
+                      with_annotate_state"by" (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+                [Elab.step] [0.158479] ✅️ case body✝ =>
+                      with_annotate_state"by" (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+                  [Elab.step] [0.158451] ✅️ with_annotate_state"by"
+                          (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+                    [Elab.step] [0.158446] ✅️ with_annotate_state"by"
+                            (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+                      [Elab.step] [0.158440] ✅️ with_annotate_state"by"
+                            (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+                        [Elab.step] [0.158434] ✅️ (induction xs <;> grind [countPBefore, countPBefore.go, cases Nat])
+                          [Elab.step] [0.158427] ✅️ induction xs <;> grind [countPBefore, countPBefore.go, cases Nat]
+                            [Elab.step] [0.158422] ✅️ induction xs <;> grind [countPBefore, countPBefore.go, cases Nat]
+                              [Elab.step] [0.158413] ✅️ (induction xs) <;>
+                                    grind [countPBefore, countPBefore.go, cases Nat]
+                                [Elab.step] [0.158404] ✅️ focus
+                                      induction xs
+                                      with_annotate_state"<;>" skip
+                                      all_goals grind [countPBefore, countPBefore.go, cases Nat]
+                                  [Elab.step] [0.158396] ✅️ 
+                                        induction xs
+                                        with_annotate_state"<;>" skip
+                                        all_goals grind [countPBefore, countPBefore.go, cases Nat]
+                                    [Elab.step] [0.158390] ✅️ 
+                                          induction xs
+                                          with_annotate_state"<;>" skip
+                                          all_goals grind [countPBefore, countPBefore.go, cases Nat]
+                                      [Elab.step] [0.158071] ✅️ all_goals
+                                            grind [countPBefore, countPBefore.go, cases Nat]
+                                        [Elab.step] [0.136410] ✅️ grind [countPBefore, countPBefore.go, cases Nat]
+                                          [Elab.step] [0.136401] ✅️ grind [countPBefore, countPBefore.go, cases Nat]
+                                            [Elab.step] [0.136388] ✅️ grind [countPBefore, countPBefore.go, cases Nat]
+[Elab.async] [0.186999] ✅️ elaborating proof of List.countPBefore_cons_zero
+  [Elab.definition.value] [0.186832] ✅️ List.countPBefore_cons_zero
+    [Elab.step] [0.186715] ✅️ grind
+      [Elab.step] [0.186707] ✅️ grind
+        [Elab.step] [0.186695] ✅️ grind
+[Elab.async] [0.185274] ✅️ elaborating proof of List.countPBefore_cons_succ
+  [Elab.definition.value] [0.185061] ✅️ List.countPBefore_cons_succ
+    [Elab.step] [0.184909] ✅️ grind
+      [Elab.step] [0.184899] ✅️ grind
+        [Elab.step] [0.184885] ✅️ grind
+[Elab.async] [0.180714] ✅️ elaborating proof of List.countPBefore_zero
+  [Elab.definition.value] [0.180510] ✅️ List.countPBefore_zero
+    [Elab.step] [0.180384] ✅️ grind [cases List]
+      [Elab.step] [0.180367] ✅️ grind [cases List]
+        [Elab.step] [0.180352] ✅️ grind [cases List]
+[Elab.async] [0.204720] ✅️ elaborating proof of List.countPBefore_succ
+  [Elab.definition.value] [0.204474] ✅️ List.countPBefore_succ
+    [Elab.step] [0.204342] ✅️ grind [cases List]
+      [Elab.step] [0.204334] ✅️ grind [cases List]
+        [Elab.step] [0.204322] ✅️ grind [cases List]
+[Elab.async] [0.210673] ✅️ elaborating proof of List.countPBefore_cons_succ_of_neg
+  [Elab.definition.value] [0.210474] ✅️ List.countPBefore_cons_succ_of_neg
+    [Elab.step] [0.210348] ✅️ grind
+      [Elab.step] [0.210339] ✅️ grind
+        [Elab.step] [0.210326] ✅️ grind
+[Elab.async] [0.207109] ✅️ elaborating proof of List.countPBefore_cons_succ_of_pos
+  [Elab.definition.value] [0.206933] ✅️ List.countPBefore_cons_succ_of_pos
+    [Elab.step] [0.206808] ✅️ grind
+      [Elab.step] [0.206799] ✅️ grind
+        [Elab.step] [0.206787] ✅️ grind
+[Elab.async] [0.296417] ✅️ elaborating proof of List.countPBefore_eq_countP_take
+  [Elab.definition.value] [0.296209] ✅️ List.countPBefore_eq_countP_take
+    [Elab.step] [0.296084] ✅️ induction xs generalizing i <;> grind [cases Nat]
+      [Elab.step] [0.296076] ✅️ induction xs generalizing i <;> grind [cases Nat]
+        [Elab.step] [0.296066] ✅️ induction xs generalizing i <;> grind [cases Nat]
+          [Elab.step] [0.296056] ✅️ focus
+                induction xs generalizing i
+                with_annotate_state"<;>" skip
+                all_goals grind [cases Nat]
+            [Elab.step] [0.296048] ✅️ 
+                  induction xs generalizing i
+                  with_annotate_state"<;>" skip
+                  all_goals grind [cases Nat]
+              [Elab.step] [0.296043] ✅️ 
+                    induction xs generalizing i
+                    with_annotate_state"<;>" skip
+                    all_goals grind [cases Nat]
+                [Elab.step] [0.295703] ✅️ all_goals grind [cases Nat]
+                  [Elab.step] [0.203161] ✅️ grind [cases Nat]
+                    [Elab.step] [0.203153] ✅️ grind [cases Nat]
+                      [Elab.step] [0.203139] ✅️ grind [cases Nat]
+[Elab.async] [0.339663] ✅️ elaborating proof of List.findIdxNth_countPBefore_of_lt_length_of_pos
+  [Elab.definition.value] [0.339370] ✅️ List.findIdxNth_countPBefore_of_lt_length_of_pos
+    [Elab.step] [0.339181] ✅️ induction xs generalizing i <;> grind
+      [Elab.step] [0.339171] ✅️ induction xs generalizing i <;> grind
+        [Elab.step] [0.339159] ✅️ induction xs generalizing i <;> grind
+          [Elab.step] [0.339149] ✅️ focus
+                induction xs generalizing i
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.339139] ✅️ 
+                  induction xs generalizing i
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.339132] ✅️ 
+                    induction xs generalizing i
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.338718] ✅️ all_goals grind
+                  [Elab.step] [0.194708] ✅️ grind
+                    [Elab.step] [0.194701] ✅️ grind
+                      [Elab.step] [0.194690] ✅️ grind
+                  [Elab.step] [0.143989] ✅️ grind
+                    [Elab.step] [0.143978] ✅️ grind
+                      [Elab.step] [0.143966] ✅️ grind
+[Elab.async] [0.465397] ✅️ elaborating proof of List.countPBefore_findIdxNth_of_lt_countP
+  [Elab.definition.value] [0.465190] ✅️ List.countPBefore_findIdxNth_of_lt_countP
+    [Elab.step] [0.465064] ✅️ induction xs generalizing n <;> grind
+      [Elab.step] [0.465056] ✅️ induction xs generalizing n <;> grind
+        [Elab.step] [0.465046] ✅️ induction xs generalizing n <;> grind
+          [Elab.step] [0.465037] ✅️ focus
+                induction xs generalizing n
+                with_annotate_state"<;>" skip
+                all_goals grind
+            [Elab.step] [0.465029] ✅️ 
+                  induction xs generalizing n
+                  with_annotate_state"<;>" skip
+                  all_goals grind
+              [Elab.step] [0.465023] ✅️ 
+                    induction xs generalizing n
+                    with_annotate_state"<;>" skip
+                    all_goals grind
+                [Elab.step] [0.464736] ✅️ all_goals grind
+                  [Elab.step] [0.341418] ✅️ grind
+                    [Elab.step] [0.341412] ✅️ grind
+                      [Elab.step] [0.341402] ✅️ grind
+                  [Elab.step] [0.123302] ✅️ grind
+                    [Elab.step] [0.123294] ✅️ grind
+                      [Elab.step] [0.123283] ✅️ grind
+[Elab.async] [0.474662] ✅️ elaborating proof of List.pos_iff_exists_findIdxNth
+  [Elab.definition.value] [0.474480] ✅️ List.pos_iff_exists_findIdxNth
+    [Elab.step] [0.465102] ✅️ grind
+      [Elab.step] [0.465091] ✅️ grind
+        [Elab.step] [0.465082] ✅️ grind
+[Elab.async] [0.208907] ✅️ elaborating proof of List.dropPrefix?_eq_some_iff
+  [Elab.def.processPreDef] [0.147194] ✅️ process pre-definitions
+[Elab.async] [0.508295] ✅️ elaborating proof of List.dropInfix?_go_eq_some_iff
+  [Elab.definition.value] [0.263683] ✅️ List.dropInfix?_go_eq_some_iff
+    [Elab.step] [0.257798] ✅️ 
+          unfold dropInfix?.go
+          split
+          · simp only [isEmpty_iff, ite_none_right_eq_some, some.injEq, Prod.mk.injEq, nil_eq, append_assoc,
+              append_eq_nil_iff, ge_iff_le, and_imp]
+            constructor
+            · rintro ⟨rfl, rfl, rfl⟩
+              simp
+            · rintro ⟨p', rfl, ⟨_, ⟨rfl, rfl, rfl⟩, h⟩, w⟩
+              simp_all
+          · rename_i a t
+            split <;> rename_i h
+            · rw [dropInfix?_go_eq_some_iff]
+              constructor
+              · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                refine ⟨a :: p', ?_⟩
+                simp [h₂]
+                intro p'' i'' s'' h₁ h₂
+                rw [cons_eq_append_iff] at h₁
+                obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                · rw [append_assoc, ← h₁] at h
+                  have := dropPrefix?_append_of_beq s'' h₂
+                  simp_all
+                · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+              · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                rw [cons_eq_append_iff] at h₁
+                simp at h₁
+                obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                  simp only [h₂] at h
+                  simp at h
+                · rw [append_eq_cons_iff] at h₁
+                  obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                  · rw [← cons_append] at h
+                    have := dropPrefix?_append_of_beq s h₂
+                    simp_all
+                  · refine ⟨p', ?_⟩
+                    simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                      append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                    refine ⟨h₂, ?_⟩
+                    intro p'' i'' s'' h₃ h₄
+                    rw [← append_assoc] at h₃
+                    rw [h₃] at w
+                    simpa using w (a :: p'') i'' s'' (by simp) h₄
+            · rename_i s'
+              simp only [some.injEq, Prod.mk.injEq, append_assoc, ge_iff_le]
+              rw [dropPrefix?_eq_some_iff] at h
+              obtain ⟨p', h, w⟩ := h
+              constructor
+              · rintro ⟨rfl, rfl⟩
+                simpa using ⟨p', by simp_all⟩
+              · rintro ⟨p'', rfl, ⟨i', h₁, h₂⟩, w'⟩
+                specialize w' [] p' s' (by simpa using h) w
+                simp at w'
+                simp [w'] at h₁ ⊢
+                rw [h] at h₁
+                apply append_inj_right h₁
+                replace w := length_eq_of_beq w
+                replace h₂ := length_eq_of_beq h₂
+                simp_all
+      [Elab.step] [0.257789] ✅️ 
+            unfold dropInfix?.go
+            split
+            · simp only [isEmpty_iff, ite_none_right_eq_some, some.injEq, Prod.mk.injEq, nil_eq, append_assoc,
+                append_eq_nil_iff, ge_iff_le, and_imp]
+              constructor
+              · rintro ⟨rfl, rfl, rfl⟩
+                simp
+              · rintro ⟨p', rfl, ⟨_, ⟨rfl, rfl, rfl⟩, h⟩, w⟩
+                simp_all
+            · rename_i a t
+              split <;> rename_i h
+              · rw [dropInfix?_go_eq_some_iff]
+                constructor
+                · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                  refine ⟨a :: p', ?_⟩
+                  simp [h₂]
+                  intro p'' i'' s'' h₁ h₂
+                  rw [cons_eq_append_iff] at h₁
+                  obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                  · rw [append_assoc, ← h₁] at h
+                    have := dropPrefix?_append_of_beq s'' h₂
+                    simp_all
+                  · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+                · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                  rw [cons_eq_append_iff] at h₁
+                  simp at h₁
+                  obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                  · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                    simp only [h₂] at h
+                    simp at h
+                  · rw [append_eq_cons_iff] at h₁
+                    obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                    · rw [← cons_append] at h
+                      have := dropPrefix?_append_of_beq s h₂
+                      simp_all
+                    · refine ⟨p', ?_⟩
+                      simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                        append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                      refine ⟨h₂, ?_⟩
+                      intro p'' i'' s'' h₃ h₄
+                      rw [← append_assoc] at h₃
+                      rw [h₃] at w
+                      simpa using w (a :: p'') i'' s'' (by simp) h₄
+              · rename_i s'
+                simp only [some.injEq, Prod.mk.injEq, append_assoc, ge_iff_le]
+                rw [dropPrefix?_eq_some_iff] at h
+                obtain ⟨p', h, w⟩ := h
+                constructor
+                · rintro ⟨rfl, rfl⟩
+                  simpa using ⟨p', by simp_all⟩
+                · rintro ⟨p'', rfl, ⟨i', h₁, h₂⟩, w'⟩
+                  specialize w' [] p' s' (by simpa using h) w
+                  simp at w'
+                  simp [w'] at h₁ ⊢
+                  rw [h] at h₁
+                  apply append_inj_right h₁
+                  replace w := length_eq_of_beq w
+                  replace h₂ := length_eq_of_beq h₂
+                  simp_all
+        [Elab.step] [0.159522] ✅️ ·
+              rename_i a t
+              split <;> rename_i h
+              · rw [dropInfix?_go_eq_some_iff]
+                constructor
+                · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                  refine ⟨a :: p', ?_⟩
+                  simp [h₂]
+                  intro p'' i'' s'' h₁ h₂
+                  rw [cons_eq_append_iff] at h₁
+                  obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                  · rw [append_assoc, ← h₁] at h
+                    have := dropPrefix?_append_of_beq s'' h₂
+                    simp_all
+                  · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+                · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                  rw [cons_eq_append_iff] at h₁
+                  simp at h₁
+                  obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                  · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                    simp only [h₂] at h
+                    simp at h
+                  · rw [append_eq_cons_iff] at h₁
+                    obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                    · rw [← cons_append] at h
+                      have := dropPrefix?_append_of_beq s h₂
+                      simp_all
+                    · refine ⟨p', ?_⟩
+                      simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                        append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                      refine ⟨h₂, ?_⟩
+                      intro p'' i'' s'' h₃ h₄
+                      rw [← append_assoc] at h₃
+                      rw [h₃] at w
+                      simpa using w (a :: p'') i'' s'' (by simp) h₄
+              · rename_i s'
+                simp only [some.injEq, Prod.mk.injEq, append_assoc, ge_iff_le]
+                rw [dropPrefix?_eq_some_iff] at h
+                obtain ⟨p', h, w⟩ := h
+                constructor
+                · rintro ⟨rfl, rfl⟩
+                  simpa using ⟨p', by simp_all⟩
+                · rintro ⟨p'', rfl, ⟨i', h₁, h₂⟩, w'⟩
+                  specialize w' [] p' s' (by simpa using h) w
+                  simp at w'
+                  simp [w'] at h₁ ⊢
+                  rw [h] at h₁
+                  apply append_inj_right h₁
+                  replace w := length_eq_of_beq w
+                  replace h₂ := length_eq_of_beq h₂
+                  simp_all
+          [Elab.step] [0.159451] ✅️ 
+                rename_i a t
+                split <;> rename_i h
+                · rw [dropInfix?_go_eq_some_iff]
+                  constructor
+                  · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                    refine ⟨a :: p', ?_⟩
+                    simp [h₂]
+                    intro p'' i'' s'' h₁ h₂
+                    rw [cons_eq_append_iff] at h₁
+                    obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                    · rw [append_assoc, ← h₁] at h
+                      have := dropPrefix?_append_of_beq s'' h₂
+                      simp_all
+                    · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+                  · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                    rw [cons_eq_append_iff] at h₁
+                    simp at h₁
+                    obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                    · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                      simp only [h₂] at h
+                      simp at h
+                    · rw [append_eq_cons_iff] at h₁
+                      obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                      · rw [← cons_append] at h
+                        have := dropPrefix?_append_of_beq s h₂
+                        simp_all
+                      · refine ⟨p', ?_⟩
+                        simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                          append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                        refine ⟨h₂, ?_⟩
+                        intro p'' i'' s'' h₃ h₄
+                        rw [← append_assoc] at h₃
+                        rw [h₃] at w
+                        simpa using w (a :: p'') i'' s'' (by simp) h₄
+                · rename_i s'
+                  simp only [some.injEq, Prod.mk.injEq, append_assoc, ge_iff_le]
+                  rw [dropPrefix?_eq_some_iff] at h
+                  obtain ⟨p', h, w⟩ := h
+                  constructor
+                  · rintro ⟨rfl, rfl⟩
+                    simpa using ⟨p', by simp_all⟩
+                  · rintro ⟨p'', rfl, ⟨i', h₁, h₂⟩, w'⟩
+                    specialize w' [] p' s' (by simpa using h) w
+                    simp at w'
+                    simp [w'] at h₁ ⊢
+                    rw [h] at h₁
+                    apply append_inj_right h₁
+                    replace w := length_eq_of_beq w
+                    replace h₂ := length_eq_of_beq h₂
+                    simp_all
+            [Elab.step] [0.159441] ✅️ 
+                  rename_i a t
+                  split <;> rename_i h
+                  · rw [dropInfix?_go_eq_some_iff]
+                    constructor
+                    · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                      refine ⟨a :: p', ?_⟩
+                      simp [h₂]
+                      intro p'' i'' s'' h₁ h₂
+                      rw [cons_eq_append_iff] at h₁
+                      obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                      · rw [append_assoc, ← h₁] at h
+                        have := dropPrefix?_append_of_beq s'' h₂
+                        simp_all
+                      · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+                    · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                      rw [cons_eq_append_iff] at h₁
+                      simp at h₁
+                      obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                      · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                        simp only [h₂] at h
+                        simp at h
+                      · rw [append_eq_cons_iff] at h₁
+                        obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                        · rw [← cons_append] at h
+                          have := dropPrefix?_append_of_beq s h₂
+                          simp_all
+                        · refine ⟨p', ?_⟩
+                          simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                            append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                          refine ⟨h₂, ?_⟩
+                          intro p'' i'' s'' h₃ h₄
+                          rw [← append_assoc] at h₃
+                          rw [h₃] at w
+                          simpa using w (a :: p'') i'' s'' (by simp) h₄
+                  · rename_i s'
+                    simp only [some.injEq, Prod.mk.injEq, append_assoc, ge_iff_le]
+                    rw [dropPrefix?_eq_some_iff] at h
+                    obtain ⟨p', h, w⟩ := h
+                    constructor
+                    · rintro ⟨rfl, rfl⟩
+                      simpa using ⟨p', by simp_all⟩
+                    · rintro ⟨p'', rfl, ⟨i', h₁, h₂⟩, w'⟩
+                      specialize w' [] p' s' (by simpa using h) w
+                      simp at w'
+                      simp [w'] at h₁ ⊢
+                      rw [h] at h₁
+                      apply append_inj_right h₁
+                      replace w := length_eq_of_beq w
+                      replace h₂ := length_eq_of_beq h₂
+                      simp_all
+              [Elab.step] [0.102790] ✅️ ·
+                    rw [dropInfix?_go_eq_some_iff]
+                    constructor
+                    · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                      refine ⟨a :: p', ?_⟩
+                      simp [h₂]
+                      intro p'' i'' s'' h₁ h₂
+                      rw [cons_eq_append_iff] at h₁
+                      obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                      · rw [append_assoc, ← h₁] at h
+                        have := dropPrefix?_append_of_beq s'' h₂
+                        simp_all
+                      · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+                    · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                      rw [cons_eq_append_iff] at h₁
+                      simp at h₁
+                      obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                      · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                        simp only [h₂] at h
+                        simp at h
+                      · rw [append_eq_cons_iff] at h₁
+                        obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                        · rw [← cons_append] at h
+                          have := dropPrefix?_append_of_beq s h₂
+                          simp_all
+                        · refine ⟨p', ?_⟩
+                          simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                            append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                          refine ⟨h₂, ?_⟩
+                          intro p'' i'' s'' h₃ h₄
+                          rw [← append_assoc] at h₃
+                          rw [h₃] at w
+                          simpa using w (a :: p'') i'' s'' (by simp) h₄
+                [Elab.step] [0.102741] ✅️ 
+                      rw [dropInfix?_go_eq_some_iff]
+                      constructor
+                      · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                        refine ⟨a :: p', ?_⟩
+                        simp [h₂]
+                        intro p'' i'' s'' h₁ h₂
+                        rw [cons_eq_append_iff] at h₁
+                        obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                        · rw [append_assoc, ← h₁] at h
+                          have := dropPrefix?_append_of_beq s'' h₂
+                          simp_all
+                        · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+                      · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                        rw [cons_eq_append_iff] at h₁
+                        simp at h₁
+                        obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                        · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                          simp only [h₂] at h
+                          simp at h
+                        · rw [append_eq_cons_iff] at h₁
+                          obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                          · rw [← cons_append] at h
+                            have := dropPrefix?_append_of_beq s h₂
+                            simp_all
+                          · refine ⟨p', ?_⟩
+                            simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                              append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                            refine ⟨h₂, ?_⟩
+                            intro p'' i'' s'' h₃ h₄
+                            rw [← append_assoc] at h₃
+                            rw [h₃] at w
+                            simpa using w (a :: p'') i'' s'' (by simp) h₄
+                  [Elab.step] [0.102734] ✅️ 
+                        rw [dropInfix?_go_eq_some_iff]
+                        constructor
+                        · rintro ⟨p', rfl, ⟨i', rfl, h₂⟩, w⟩
+                          refine ⟨a :: p', ?_⟩
+                          simp [h₂]
+                          intro p'' i'' s'' h₁ h₂
+                          rw [cons_eq_append_iff] at h₁
+                          obtain (⟨rfl, h₁⟩ | ⟨p'', rfl, h₁⟩) := h₁
+                          · rw [append_assoc, ← h₁] at h
+                            have := dropPrefix?_append_of_beq s'' h₂
+                            simp_all
+                          · simpa using w p'' i'' s'' (by simpa using h₁) h₂
+                        · rintro ⟨p', rfl, ⟨i', h₁, h₂⟩, w⟩
+                          rw [cons_eq_append_iff] at h₁
+                          simp at h₁
+                          obtain (⟨⟨rfl, rfl⟩, rfl⟩ | ⟨a', h₁, rfl⟩) := h₁
+                          · simp only [nil_beq_eq, isEmpty_iff] at h₂
+                            simp only [h₂] at h
+                            simp at h
+                          · rw [append_eq_cons_iff] at h₁
+                            obtain (⟨rfl, rfl⟩ | ⟨p', rfl, rfl⟩) := h₁
+                            · rw [← cons_append] at h
+                              have := dropPrefix?_append_of_beq s h₂
+                              simp_all
+                            · refine ⟨p', ?_⟩
+                              simp only [reverse_cons, append_assoc, singleton_append, append_cancel_left_eq,
+                                append_cancel_right_eq, exists_eq_left', ge_iff_le, true_and]
+                              refine ⟨h₂, ?_⟩
+                              intro p'' i'' s'' h₃ h₄
+                              rw [← append_assoc] at h₃
+                              rw [h₃] at w
+                              simpa using w (a :: p'') i'' s'' (by simp) h₄
+  [Elab.def.processPreDef] [0.240127] ✅️ process pre-definitions

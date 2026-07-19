@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="320" font-family="ui-monospace,monospace" font-size="13">
+<rect width="760" height="320" fill="#ffffff"/>
+<text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2328">T3 module fission: Batteries.Data.List.Lemmas → 3 independent fragments</text>
+<text x="20" y="58" fill="#57606a">294 line-mapped decls, 84 dependency components, zero cross-fragment edges</text>
+<rect x="20" y="70" width="296" height="40" fill="#8250df" rx="4"/>
+<text x="168" y="95" fill="#fff" text-anchor="middle">Lemmas1 · 174</text>
+<rect x="322" y="70" width="104" height="40" fill="#1f6feb" rx="4"/>
+<text x="374" y="95" fill="#fff" text-anchor="middle">Lemmas2 · 61</text>
+<rect x="432" y="70" width="100" height="40" fill="#2da44e" rx="4"/>
+<text x="482" y="95" fill="#fff" text-anchor="middle">Lemmas3 · 59</text>
+<text x="542" y="95" fill="#57606a">decls (main-thread weight)</text>
+<text x="20" y="158" fill="#57606a">cold `lake build Batteries` wall, 5-run medians, 16 cores</text>
+<rect x="110" y="170" width="560" height="36" fill="#8c959f" rx="4"/>
+<text x="100" y="193" text-anchor="end" fill="#1f2328">baseline</text>
+<text x="678" y="193" fill="#1f2328">13.79s</text>
+<rect x="110" y="222" width="560" height="36" fill="#2da44e" rx="4"/>
+<text x="100" y="245" text-anchor="end" fill="#1f2328">fissioned</text>
+<text x="678" y="245" fill="#1f2328">13.79s</text>
+<text x="110" y="288" fill="#1f2328" font-weight="bold">Δ wall: +0.00s (0.0%)</text>
+</svg>

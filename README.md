@@ -99,6 +99,7 @@ honestly — including where it does *not* help.
 | **T1 — global synthInstance cache** | cross-command instance reuse (pointer-identity + shape keys + record-and-replay revalidation) | **CPU-real, wall-neutral.** −47 % typeclass CPU on the hot module, sound + deterministic; but typeclass work rides worker threads, so single-module wall is unchanged. |
 | **T2c — async inductive kernel processing** | move `inductive`/`structure` kernel work off the main thread (module system included; byte-exact Lean-side recursor builder) | **Sound, perf-null.** The motivating "sync kernel" signal was queue-wait, not work. Includes a documented retraction after a measurement-harness flaw. |
 | **T2a — async by-proofs** | elaborate `by` blocks as async auxiliary theorems | **Sound subset perf-null; general case blocked.** Under-context proofs are entangled with the def's metavariable web and can't be soundly outlined. |
+| **T3 — critical-path module fission** ([doc](docs/t3-module-fission.md)) | split the hottest critical-path module into dependency-independent fragments (build-level command parallelism, zero compiler changes) | **Mechanism validated, perf-neutral.** Fragments compile concurrently and downstream builds clean, but the giant dependency component (59 % of decls) holds 86 % of the time — time-fissility, not count-fissility, is the limit, re-confirming the synthesis from a fourth angle. |
 
 ## Conclusion: the wall-clock lever, located
 

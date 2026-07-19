@@ -748,3 +748,19 @@ perf claims, honest retractions.
   sequentially by design (macro/env ordering). Highest lever,
   hardest change. Docs updated. This fully closes the diagnostic
   arc: measured, charted, and the frontier named precisely.
+- 2026-07-19 (iter 50): T3 MODULE FISSION — new track (nuclear-fission
+  transfer: split the heavy critical-path nucleus iff fragment binding
+  is weak). Measured fissility of List.Lemmas via a decl-DAG extractor
+  (bench/DeclDag.lean): 339 decls / 347 edges / longest chain 11 —
+  wide+shallow, 84 components. Component-packed 3-way split
+  (bench/fission_split.py: block granularity, hoisted naked attribute
+  lines, open-Option scope repair) + re-exporting stub; full corpus
+  builds CLEAN (191 oleans, rc=0). A/B (5-run medians, cold lake
+  build): 13.79 vs 13.79 s — WALL-NEUTRAL. Mechanism works (Lemmas1
+  3.2s ∥ Lemmas2 1.8s ∥ Lemmas3 1.1s vs monolith 3.7s) but the giant
+  dependency component = 59% of decls carries 86% of time: TIME-
+  fissility is the limit, not count-fissility. Fourth independent
+  confirmation of the iter-48/49 synthesis (the decl-dependency core
+  IS the wall) — and the cheapest probe of it (zero compiler changes).
+  Docs: docs/t3-module-fission.md + chart; batteries tree restored
+  pristine (split regenerable from scripts).
