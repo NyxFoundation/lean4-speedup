@@ -1140,3 +1140,28 @@ perf claims, honest retractions.
   patch since T6; gates per playbook (probes, olean determinism,
   k-scaling series on a synthetic variable-heavy file, Equiv.Basic
   A/B, corpus).
+- 2026-07-20 (iter 77, /loop): T10 IMPLEMENTED + INFRA RESCUE. (a) The
+  nightly nix GC collected the devshell glibc/cmake -> stage1 toolchain
+  dead ("no such file or directory" on an existing binary); revived in
+  seconds via patchelf (live glibc interpreter + 64-bit libuv/gmp
+  rpath — beware 32-bit store libs, check ELF class); recipe saved to
+  memory. (b) Baseline quadratic isolated: M_t10_scale_k (k variable
+  commands, one Mul binder each): 88/336/1422ms net of startup for
+  k=64/128/256 = clean 4x per doubling. (c) T10 v1 IMPLEMENTED in
+  Command.lean on the t6-upstream branch (option
+  Elab.varTelescopeCache, default off): elabScopeVarDecls replaces
+  elabBinders scope.varDecls in runTermElabM; single-entry global
+  IO.Ref cache; key = varDecls pointer-prefix + ns/openDecls/
+  levelNames/isNoncomputable/isPublic/isMeta/opts + ENV POINTER stamp
+  (conservative: any intervening decl misses -> v1 targets the
+  variable-chain quadratic, NOT the per-decl telescope tax); value =
+  full (Term.State, Meta.State, lctx, localInstances, xs) snapshot;
+  restore keeps Core.State (env/ngen monotone => cached ids cannot
+  collide — T7 lesson respected by construction); prefix hit
+  elaborates only suffix binders. Probes staged (M_t10_probes.lean:
+  open/instance/universe/set_option/annotation-update/chain axes,
+  ON-vs-OFF byte-diff) + asserted runner (t10_validate.sh). Rebuild
+  running via nix develop (GC also took cmake). NEXT WAKE: compile
+  fixes if any; probe battery; k-series ON/OFF (prediction: k=256
+  1600ms -> ~250ms, near-linear); then Equiv.Basic wall A/B + olean
+  gates + corpus.
