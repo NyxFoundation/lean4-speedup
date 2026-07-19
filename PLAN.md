@@ -923,3 +923,16 @@ perf claims, honest retractions.
   explicit user go-ahead). Added 2 honest scoping datapoints: Nat/Log
   and Choose/Sum NEUTRAL (single-literal = linear regime) — the win
   is specific to chained-literal statements; claim scoped accordingly.
+- 2026-07-19 (iter 63, /loop): MATHLIB CORPUS CENSUS. Hottest module
+  Algebra.Module.Equiv.Basic: wall 4.7s ~serial (threads no-op);
+  categories: TC INFERENCE 2.14s dominant, elaboration 1.18s,
+  interpretation 0.69s. T1 cache A/B: NEUTRAL — counters explain it:
+  14,250 fresh derivations vs 230 global + 4 shape hits per module.
+  Two hypotheses: (a) the module declares instances mid-file -> v0's
+  pointer-identity stamps invalidate wholesale on every instance add
+  (List.Lemmas declared none — that's why Batteries hit); TESTABLE:
+  count instance decls + try the v2 record-and-replay revalidation
+  options; (b) deeper: Mathlib's TC wall is 14k DISTINCT hierarchy
+  searches per module, not duplicates — caching can't fix search
+  volume; invention direction = subgoal-tree sharing / hierarchy path
+  precompilation. Next: test (a), then structure-census the 14k.
