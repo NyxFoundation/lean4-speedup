@@ -1,5 +1,11 @@
 # Invention playbook — analogy retrospectives and the evolving method
 
+> **2026-07-19 update**: this playbook turned out to be the *selection*
+> half of the method only. Why iterations 50–73 produced diagnostics and
+> bug fixes but no invention — and the generation-side protocol v2 (five
+> delta operators, budgeted blind variance, C-expansion) — is in
+> [invention-theory.md](invention-theory.md).
+
 Self-improvement log for the ideation method itself (directive 2026-07-19:
 rotate lateral-thinking sources *and* improve how they're chosen). Updated
 each time a track closes.

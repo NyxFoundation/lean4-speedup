@@ -1073,3 +1073,19 @@ perf claims, honest retractions.
   leanprover/lean4#14448, PR: leanprover/lean4#14449 (branch
   t6-upstream on grandchildrice/lean4). Next: respond to maintainer
   review; CI is the remaining gate.
+- 2026-07-19 (iter 74): INVENTION THEORY RESEARCHED + PROTOCOL v2.
+  Literature synthesis (TRIZ / C-K / Arthur / BVSR / Uzzi 2013 /
+  Fleming 2001) x case studies (Einstein 1905: zero new math, delta =
+  subtraction+status-change+reinterpretation; von Neumann EDVAC:
+  delta = the REPRESENTATION itself) x our own iter 50-73 data.
+  STRUCTURAL DIAGNOSIS: the loop applied selection discipline at the
+  GENERATION stage -> optimized the mean, killed the variance ->
+  mass-produced bug fixes, structurally excluded inventions (Fleming:
+  breakthroughs live in the variance tail). Five delta operators
+  extracted (subtraction / status change / re-representation /
+  unification / decomposition-of-the-obvious) + protocol v2 with
+  budgeted blind variance and C-expansion generators.
+  docs/invention-theory.md; playbook cross-linked as the selection
+  half. Notable: the status-change operator applied to our measured
+  command-independence phenomenon points at speculative command
+  elaboration — theory and diagnostics now agree on the target.
