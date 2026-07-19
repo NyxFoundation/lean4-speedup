@@ -66,12 +66,30 @@ their hubs commit. In the ideal, a 164-step sequential phase becomes a
 depth-3 wave — and the statement-phase TC volume (the measured Mathlib
 wall, 1.3–1.7 cores) spreads across all cores.
 
-## Next discriminating step (before any compiler surgery)
+## The gate result (iter 76): C1 FUNDED
 
-Schedule simulator: per-command main-thread elaboration times (needs one
-profile run with command spans) + this DAG → predicted module wall under
-wavefront scheduling vs measured sequential wall. If the predicted ceiling
-is <2×, the invention dies cheaply; if ≥2×, it justifies the deep
-implementation box. Also owed: C5 context-writer census (how often do
-open/variable/attribute/macro commands interleave the spokes) and the
-upstream prior-art check.
+Simulator (`bench/wavefront_sim.py` on `bench/equiv_basic_cmdprof.txt`,
+240 `[Elab.command]` spans ≥1 ms, 5,969 ms total; 142/155 census decls
+mapped): sequential 5,969 ms → wavefront critical path **1,477 ms (4.0×)**
+with 16 workers 1,509 ms (4.0×), 8 workers 3.4×, 4 workers 2.5×. Model:
+true ctx writers (bare variable/open/section/end — `variable … in` counts
+as a decl command) form a sequential chain each command depends on;
+census statement deps add decl→decl edges; simps-generated decls ride
+their parent's command. Honest error bars: 33 ambiguous-name skips and
+unmatched commands lose census edges (optimistic), repair/commit costs
+unmodeled (optimistic), fully-sequential ctx chain (pessimistic).
+Gate threshold was ≥2× → **C1 funded for a deep prototype box**.
+
+Two by-catches from the critical chain:
+
+1. The chain is dominated by the ctx-writer chain — 82 bare `variable`
+   commands, 1,306 ms (22 % of the module), growing 20→81 ms within a
+   section and resetting at section boundaries: a second T6-class
+   quadratic, mechanism located in core. Split out as
+   [t10-variable-telescope-tax.md](t10-variable-telescope-tax.md) — and
+   T10's fix is a *prerequisite* for cheap C1 scope materialization.
+2. Prior-art (searches, 2026-07): upstream parallelism (4.17–4.19 series)
+   covers proof bodies + kernel + generators; out-of-order command
+   elaboration is unclaimed; the community explicitly notes the
+   `variable` design "conflicts with parallel compilation". C1's atypical
+   ingredient is open ground.

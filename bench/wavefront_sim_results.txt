@@ -1,0 +1,9 @@
+trace commands: 240 (sum 5969 ms); census decls mapped: 142/155 (ambiguous-name skips: 33)
+
+sequential: 5969 ms
+critical path (inf workers): 1477 ms -> 4.0x
+16 workers: 1509 ms -> 4.0x
+ 8 workers: 1751 ms -> 3.4x
+ 4 workers: 2368 ms -> 2.5x
+
+true ctx writers: 82, chain mass 1306 ms

@@ -1112,3 +1112,31 @@ perf claims, honest retractions.
   main-thread times, replay under wavefront order, kill-or-fund C1;
   plus C5 context-writer census + upstream prior-art check
   (parallel command elaboration in Lean RFCs/zulip).
+- 2026-07-19 (iter 76, /loop): C1 GATE PASSED + T10 FOUND (the second
+  T6-class quadratic). Wavefront simulator (bench/wavefront_sim.py;
+  trace.profiler command spans on Equiv.Basic, 240 cmds/5,969ms,
+  142/155 census decls mapped): sequential 5,969ms -> critical path
+  1,477ms = 4.0x ceiling (16w 4.0x, 8w 3.4x, 4w 2.5x) => C1 FUNDED
+  (threshold 2x). Modeling gotchas fixed en route: Mathlib's
+  `variable (R) in def` must count as decl not ctx-writer; simps-
+  generated decls ride the parent command; wrapped nested-trace lines
+  pollute [Elab.command] snippets. BY-CATCH T10: the critical chain
+  was full of bare `variable` commands — 82 of them, 1,306ms = 22% of
+  the module, cost growing 20->81ms within a section, resetting at
+  boundaries. MECHANISM LOCATED: runTermElabM (Command.lean:774-778)
+  elaborates the ENTIRE accumulated scope.varDecls per command;
+  elabVariable's sanity check (BuiltinCommand.lean:415-430) pays it
+  per variable command => O(k^2)/section; trace shows the 81ms
+  variable command re-elaborating earlier commands' RingHomInvPair
+  binders. UNIFIES iter-64's Semiring flood (binder stages = telescope
+  re-elaborations) + part of the Mathlib statement wall. Prior art:
+  known pain point (zulip variable discussion; survival guide:
+  "conflicts with parallel compilation"), NO fix on master 2026-07;
+  upstream parallelism covers bodies/kernel only — out-of-order
+  command elaboration unclaimed. docs/t10-variable-telescope-tax.md
+  (fix designs: v0 new-binders-only sanity check, v1 stamped telescope
+  cache — T1 machinery reapplies; T10 fix is a C1 prerequisite).
+  NEXT (iter 77): T10 v0/v1 implementation box — the highest-EV core
+  patch since T6; gates per playbook (probes, olean determinism,
+  k-scaling series on a synthetic variable-heavy file, Equiv.Basic
+  A/B, corpus).
