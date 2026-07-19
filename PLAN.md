@@ -1327,3 +1327,13 @@ module-built Batteries+Mathlib corpora, 5-run medians + asserted
 harnesses mandatory. Pending queue: T6 PR #14449 review watch, T10
 upstream filing (docs/t10-upstream.md, USER-GATED), T10 per-decl stamp,
 byte-reproducibility for default-on.
+- 2026-07-20 (iter 87, /loop): STATEMENT-ONLY SPECULATION VALIDATED —
+  harness now sorry-replaces speculated declaration bodies
+  (declValSimple arity gotcha: 4 children incl. Termination.suffix
+  node) so speculation elaborates statements only = production v1
+  semantics. List.Lemmas validity 78% -> 94% (proof-coupling removed;
+  residual 20 errors = unhandled decl shapes), Equiv.Basic stays 79%
+  (its failures are TRUE statement deps per the DAG) with 58% saved.
+  Both module classes now behave exactly as census+oracle predicted.
+  The C1 evidence chain is complete: census -> oracle -> full-command
+  speculation -> statement-only speculation, all converging.

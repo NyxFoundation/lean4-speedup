@@ -53,6 +53,28 @@ def moduleConsts (env : Environment) : NameSet := Id.run do
     s := s.insert n
   return s
 
+/-- Replace proof/value bodies with `sorry` so speculation elaborates
+STATEMENTS ONLY — the production v1 semantics (bodies stay async/sequential).
+Applies to declValSimple / declValEqns / whereStructInst / byTactic nodes. -/
+partial def sorryBodies (stx : Syntax) : Syntax :=
+  let sorryTerm := Syntax.node .none `Lean.Parser.Term.sorry #[Syntax.atom .none "sorry"]
+  let nullNode := Syntax.node .none nullKind #[]
+  let termSuffix := Syntax.node .none `Lean.Parser.Termination.suffix #[nullNode, nullNode]
+  let sorryVal  := Syntax.node .none `Lean.Parser.Command.declValSimple
+    #[Syntax.atom .none ":=", sorryTerm, termSuffix, nullNode]
+  let rec go (s : Syntax) : Syntax :=
+    match s with
+    | .node info kind args =>
+      if kind == `Lean.Parser.Command.declValSimple || kind == `Lean.Parser.Command.declValEqns
+          || kind == `Lean.Parser.Command.whereStructInst then
+        sorryVal
+      else if kind == `Lean.Parser.Term.byTactic then
+        sorryTerm
+      else
+        .node info kind (args.map go)
+    | s => s
+  go stx
+
 /-- Elaborate one parsed command on a given command state (worker-safe: pure
 state value in, state value out). Returns elapsed nanos and the final state. -/
 def elabOn (inputCtx : Parser.InputContext) (cmdPos : String.Pos.Raw) (stx : Syntax)
@@ -93,7 +115,9 @@ partial def specLoop (recs : Array Rec') (i : Nat) : FrontendM (Array Rec') := d
     let (cmdSpec, _, _) := Parser.parseCommand ictx pmctx psN stPre.messages
     if Parser.isTerminalCommand cmdSpec then
       return none
-    let (ns, stSpec) ← elabOn ictx psN.pos cmdSpec stPre
+    let cmdSpecStmt := if cmdSpec.getKind == `Lean.Parser.Command.declaration
+      then sorryBodies cmdSpec else cmdSpec
+    let (ns, stSpec) ← elabOn ictx psN.pos cmdSpecStmt stPre
     return some (cmdSpec, ns, stSpec)
   -- elaborate N on main
   let t0 ← IO.monoNanosNow
@@ -125,6 +149,11 @@ partial def specLoop (recs : Array Rec') (i : Nat) : FrontendM (Array Rec') := d
       reads := collectStmtConsts t bodies none reads
     let disjoint := writesN.all fun w => !reads.contains w
     let specClean := !(stSpec.messages.toList.any (·.severity matches .error))
+    unless specClean do
+      if r.i < 6 then
+        for m in stSpec.messages.toList do
+          if m.severity matches .error then
+            IO.println s!"spec err cmd{r.i}: {(← m.data.toString).take 120}"
     r := { r with disjoint, specClean }
   let recs := recs.push r
   if Parser.isTerminalCommand cmdN then
