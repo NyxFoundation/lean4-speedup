@@ -1534,3 +1534,20 @@ byte-reproducibility for default-on.
   producer gating (speculate only ascribed single theorems) and/or
   convoy fix. Measurement lesson recorded: direct-file runs need
   -DautoImplicit=false to reflect Mathlib build reality.
+- 2026-07-20 (iter 103, /loop): V0 ECONOMICS FULLY MAPPED — three
+  measured facts set the tuning agenda. (1) ADVERSE SELECTION:
+  main-thread totals ON vs OFF differ by only ~48ms for 21 adoptions
+  (~2.3ms each) — speculation succeeds precisely on statements that
+  were cheap; expensive hub-dependent theorems validly refuse and
+  defs/instances are ineligible. (2) KIND GAP: Set/Basic (234
+  theorems) yields only 5 hits — Mathlib's `lemma` macro's syntax
+  kind isn't `Command.declaration`, so the producer skips it;
+  Equiv.Basic's 43 hits came from literal `theorem`s. (3) OVERHEAD
+  SCALING: +7.5% on the fast module (pure producer waste at near-zero
+  adoption). TUNING AGENDA (in EV order): accept lemma/macro kinds in
+  the producer; cheap producer pre-gates (skip when speculation
+  can't pay); widen adoption eligibility toward the expensive
+  statements (hub theorems currently refused by hygienic/type-miss —
+  the actual value mass). The invention stands sound; v0's scoped
+  perf claim is NOT yet earned — the loop's own gates say so, which
+  is the system working as designed.
