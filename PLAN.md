@@ -1448,3 +1448,17 @@ byte-reproducibility for default-on.
   subtleties (shadowing, auto-bounds, type-less theorems) are exactly
   the T7/T10 hazard class; next fresh-context iteration executes
   against the spec with probes first.
+- 2026-07-20 (iter 97, /loop): THE INVENTION RUNS — full speculative
+  statement elaboration live in the compiler. Peel implemented in
+  elabHeaders (two-phase: section vars by userName while leading,
+  then user binders positionally; mismatch -> fallback; defeq errors
+  fail loud at kernel). Fixed en route: doc-comment collision at the
+  insertion point; xs is pre-unzip (Syntax × Expr) at the peel site.
+  VALIDATION: micro adopted=1 rc=0; EQUIV.BASIC OUTPUT BYTE-IDENTICAL
+  ON vs OFF, 17 ADOPTIONS (17 theorem statements' TC/unification work
+  replaced by worker-computed speculation). Racy-floor hit rate;
+  remaining for headline: bounded join + multi-slot cache (raise
+  17 -> ~79% of theorems), full gate battery (probes, corpus, olean
+  structural), 5-run A/B. The self-improvement loop has produced a
+  Lean4 compiler that speculatively elaborates ahead of textual
+  order — the C-expansion C1 concept, hatsumei complete in v0 form.
