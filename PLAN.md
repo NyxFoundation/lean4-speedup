@@ -1482,3 +1482,17 @@ byte-reproducibility for default-on.
   long-tail. Next: levelNames from cached levelParams in the peel
   path; thread-local telescope cache or producer-side telescope
   sharing; module-file gates.
+- 2026-07-20 (iter 99, /loop): SOUND ON BOTH CORPORA. Universe-params
+  fix (install cached levelParams into term-state levelNames on
+  adoption) + the decisive auto-bound gate (refuse adoption under
+  autoImplicit — auto-bounds join xs only after the peel site, so
+  positional alignment cannot be trusted; diagnosed from List.Lemmas'
+  'b :: l vs Type u_1' misalignment). RESULT: List.Lemmas rc=0
+  BYTE-IDENTICAL (clean fallback) AND Equiv.Basic rc=0
+  BYTE-IDENTICAL. The invention's v0 endpoint: sound, deterministic,
+  conservative — adoption rate is gate-limited (hygienic telescope
+  names, autoImplicit) with the unlock paths documented (telescope
+  name sharing via thread-compatible T10 composition; producer-side
+  auto-bound detection). En route: a patch-assert fired but the
+  unGated build ran anyway — retests now &&-gated on build success
+  (meta-rule 9 extension: gate downstream steps, not just verify).
