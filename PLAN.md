@@ -1437,3 +1437,14 @@ byte-reproducibility for default-on.
   single-slot floor). Remaining for v1: adoption (feed
   commitSignature from the entry + body task from original syntax +
   skip header), bounded join-wait, gates + A/B.
+- 2026-07-20 (iter 96, /loop): ADOPTION MECHANICS SPEC'D from the code
+  (docs/c1-v1-implementation.md §Adoption mechanics): surgical site =
+  elabHeaders' `elabType typeStx` call; adoption = peel the cached
+  closed type (name-map the used-section prefix, positional-map the
+  binder suffix, instantiate bodyType) — no TC, instantiation only;
+  downstream re-close reproduces the cached type by construction.
+  Hazard list + bounded-join requirement recorded. Deliberately NOT
+  rushed at maximum context depth — the peel's binder-mapping
+  subtleties (shadowing, auto-bounds, type-less theorems) are exactly
+  the T7/T10 hazard class; next fresh-context iteration executes
+  against the spec with probes first.

@@ -75,3 +75,34 @@ realization); memory (state copies per speculation — bounded by
 depth 1); the `Language.Lean` incremental/server path must keep
 speculation OFF (server has its own incrementality; guard on
 `Elab.inServer`).
+
+## Adoption mechanics (iter 96 — the last piece, spec'd from code)
+
+Surgical site: `elabHeaders` (MutualDef.lean:263) — `let type ← elabType
+typeStx` is the expensive call; everything around it (binder elaboration
+via `elabBindersEx`, `mkForallFVars'`, header assembly) stays.
+
+On a valid hit, replace `elabType typeStx` with a **peel** of the cached
+closed type: it has shape `∀ usedSectionVars, ∀ userBinders, bodyType`.
+At the site we hold `xs` (user binder fvars) but not the used-section
+subset (normally computed *from* the type later). Peel procedure:
+`forallBoundedTelescope cached.type n` (n = total leading binders),
+map the opened prefix fvars to in-scope section fvars **by binder
+userName** (speculation preserves user names; section var names are
+unique in scope), map the suffix positionally to `xs` (same source
+syntax ⇒ same binder count/order under valid speculation), then
+instantiate `bodyType` with the mapped fvars. Cost: no TC, no
+unification — instantiation only. Downstream `mkForallFVars' xs` +
+`commitSignature`'s section-var close re-produce the cached closed type
+by construction (result-equivalence: 88 % byte-identical, rest defeq).
+
+Hazards to probe before trusting: binder-name shadowing between section
+vars and user binders (map suffix-first, prefer positional); auto-bound
+implicits appearing in `xs` after `addAutoBoundImplicits` (runs AFTER
+the peel site — with `autoImplicit false` xs is binders-only; gate
+adoption on no-auto-bounds as the producer already does); `instance`
+`cleanupOfNat` (theorem-only scope avoids it); `view.type? = none`
+holes (gate: adoption only when an explicit type ascription exists —
+the speculation of a type-less theorem is meaningless anyway).
+Bounded join: probe should `IO.wait`ish the in-flight speculation task
+up to ~5 ms before declaring a miss (the micro-file race, iter 95).
