@@ -1613,3 +1613,19 @@ byte-reproducibility for default-on.
   soundness certified, window solved, economics law derived — a
   complete engineering map from theory to the profit boundary, all
   option-gated on the branch.
+- 2026-07-20 (iter 108, /loop): OVERHEAD SOURCE ISOLATED AND HALVED.
+  Zero-speculation floor measurement (speculateMinSize=100000) was
+  the decisive instrument: Set/Basic +11.8%, Equiv.Basic +2.1% with
+  NO speculation running => the cost was my synchronous PARSE-AHEAD
+  (4 parseCommand per command on main), not the speculation tasks.
+  Fix (parse cache across commands): floor 11.8% -> 5.8% on
+  Set/Basic; full ON +7.1%/+2.6%. Also added Elab.speculateMinSize
+  (cost predictor by syntactic size; monotone improvement
+  +15.5->+11.0 before the parse fix). REMAINING FLOOR, named: one
+  lookahead parse per command still on main (movable into the task)
+  + per-command probe/entry-scan cost. METHOD NOTE: the floor probe
+  (disable the payload, keep the machinery) is the generalizable
+  instrument of this iteration — it converted three iterations of
+  guessing into one measurement. The economics chase continues from
+  a fully-instrumented position; every claim remains gated and no
+  perf win is claimed.
