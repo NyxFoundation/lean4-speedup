@@ -1567,3 +1567,16 @@ byte-reproducibility for default-on.
   sound end-to-end, perf-tuning agenda measured and queued. The loop
   continues; future iterations grind the tuning queue with the same
   gates.
+- 2026-07-20 (iter 105, /loop): SET/BASIC STARVATION NARROWED, NOT
+  SOLVED. Producer funnel (debug build): only ~87 rejections (73
+  skip-kind [kinds unlisted — sed collapsed them], 9 elab-errors, 5
+  not-a-thm) across ~230+ lemma commands — most speculations should
+  store; consumer-side declName fallback (macro-expansion fingerprint
+  mismatch hypothesis) ALSO ineffective (6 hits, +7.1%). Open
+  contradiction: stores expected high, hits stay ~6 → the stored
+  count itself is unverified. NEXT (one batched diagnostic): trace
+  STORE events (fp+declName) and PROBE events (fp+declName+outcome)
+  together on a small Set/Basic excerpt — complete funnel visibility,
+  then fix from data. Monad-lift lessons en route: producer context is
+  LeanProcessingM (lift IO via toBaseIO/discard), MessageData.toString
+  is already BaseIO.
