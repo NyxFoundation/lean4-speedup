@@ -1411,3 +1411,17 @@ byte-reproducibility for default-on.
   theorems (today's elabAsync eligibility = dominant Mathlib mass).
   Producer: parseCmd-adjacent speculation task reusing the harness's
   proven sorry-elab + info-tree collector. Full gate battery specified.
+- 2026-07-20 (iter 94, /loop): C1 V1 PRODUCER LIVE IN THE REAL
+  COMPILER. Language/Lean.lean patch (lean4 branch, option
+  Elab.speculateStatements default off): parseCmd spawns a worker task
+  per command that parses N+1 under the pre-N state and sorry-
+  elaborates single-theorem declarations, caching {fingerprint,
+  baseConsts, readSet, declName, levelParams, type, ngenHi} in a
+  process-global single slot + (attempted, stored) counters. Verified
+  live via in-process #eval reading the counters: OFF 0/0, ON 5
+  attempted / 3 stored on a 4-theorem file (exactly the 3 theorems
+  with a predecessor). Zero behavior change (producer-only; server
+  guarded via Elab.inServer). Build-lint lesson: missing docstrings
+  are build failures in this config. NEXT (iter 95): the consumer —
+  probe + validate + commitSignature adoption in MutualDef's
+  elabAsync branch, then the full gate battery.
