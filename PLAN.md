@@ -1551,3 +1551,19 @@ byte-reproducibility for default-on.
   the actual value mass). The invention stands sound; v0's scoped
   perf claim is NOT yet earned — the loop's own gates say so, which
   is the system working as designed.
+- 2026-07-20 (iter 104, /loop): LEMMA-KIND GATE INEFFECTIVE AS-IS
+  (Set/Basic 5->7 hits, +11.4%) — the final-component match didn't
+  fire or the failure is producer-side elsewhere; needs per-module
+  attempted/stored counter visibility (producer trace) as the next
+  instrumentation step. TUNING CAMPAIGN STATE consolidated: the
+  speculation system is sound and byte-identical everywhere tested;
+  perf is net-negative pending (in EV order) producer diagnostics ->
+  kind coverage -> adverse-selection reversal (adopt the EXPENSIVE
+  statements) -> overhead pre-gates. Everything is option-gated
+  default-off on the lean4 branch; the claim discipline held (no
+  unearned numbers). This session (iters 75-104): T9 census/renders,
+  T10 found+shipped (−12.2%, package ready), C1 invented, de-risked
+  through five instruments, implemented producer+consumer+adoption
+  sound end-to-end, perf-tuning agenda measured and queued. The loop
+  continues; future iterations grind the tuning queue with the same
+  gates.
