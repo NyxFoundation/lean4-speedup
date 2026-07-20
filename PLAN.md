@@ -1496,3 +1496,13 @@ byte-reproducibility for default-on.
   auto-bound detection). En route: a patch-assert fired but the
   unGated build ran anyway — retests now &&-gated on build success
   (meta-rule 9 extension: gate downstream steps, not just verify).
+- 2026-07-20 (iter 100, /loop): SCALE GATE GREEN — full Batteries
+  corpus builds 188/188 oleans rc=0 with Elab.speculateStatements ON
+  (correct fallback everywhere the gates demand). v0 validation
+  complete: micro 3/3 adopted; Equiv.Basic byte-identical; List.Lemmas
+  byte-identical; corpus 188/188. README C1 row updated. One hundred
+  iterations of the self-improvement loop: two compiler patch series
+  shipped on the branch (T6 upstream-filed; T10 −12.2% packaged;
+  C1 speculative elaboration v0 sound end-to-end), the playbook, the
+  invention theory, and the full measured map of Lean 4's
+  parallelism frontier.
