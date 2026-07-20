@@ -1462,3 +1462,23 @@ byte-reproducibility for default-on.
   structural), 5-run A/B. The self-improvement loop has produced a
   Lean4 compiler that speculatively elaborates ahead of textual
   order — the C-expansion C1 concept, hatsumei complete in v0 form.
+- 2026-07-20 (iter 98, /loop): DETERMINISTIC ADOPTION + THE HARDENING
+  FRONTIER MAPPED. Keyed task-cache fix (single slot was
+  deterministically overwritten by the next parse's speculation before
+  the probe — the iter-95 'race' was structural): micro 3/3 adopted
+  rc=0; Equiv.Basic hit 41 adoptions deterministically — which
+  surfaced REAL peel unsoundness the racy 17 had dodged (anonymous
+  instance-binder prefix mapping; hole-typed binders coupled to the
+  ascription). Gates added (mvar-typed binders refuse; hygienic-name
+  MISS refuses; Meta.check failsafe): Equiv.Basic back to IDENTICAL
+  output (1 adoption — gate-limited); T10-cache composition for
+  shared telescope names FAILS (the two caches are not
+  thread-compatible: speculation workers pollute the sequential-only
+  telescope cache — real finding); List.Lemmas 71 adoptions but
+  errors = the next gate classes named: universe-param collection
+  (peel skips elabType's levelNames accumulation) + module
+  visibility. HONEST STATE: invention proven (sound deterministic
+  adoption exists), production hardening = enumerated, diagnosed
+  long-tail. Next: levelNames from cached levelParams in the peel
+  path; thread-local telescope cache or producer-side telescope
+  sharing; module-file gates.
