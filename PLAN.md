@@ -1580,3 +1580,21 @@ byte-reproducibility for default-on.
   then fix from data. Monad-lift lessons en route: producer context is
   LeanProcessingM (lift IO via toBaseIO/discard), MessageData.toString
   is already BaseIO.
+- 2026-07-20 (iter 106, /loop): THE WINDOW IS THE BOTTLENECK — funnel
+  contradiction closed with full store+probe visibility: 198 stores,
+  241 probes, FINGERPRINTS MATCH, but entries are (false, none) =
+  tasks UNFINISHED at probe. The frontend launch-to-probe window =
+  main-thread time of ONE command (1-3ms on lemma combs), while the
+  statement speculation costs ~the statement it replaces; main always
+  outruns it. The harness's 61% overlap assumed the FULL command
+  duration (async off => proofs inline) — the frontend window is 10x
+  smaller. Blocking join waits ≈ the saving (+3.2%); non-blocking
+  starves (6 hits). ARCHITECTURAL CONCLUSION: parse-adjacent depth-1
+  speculation cannot pay on fast-command corpora; paying requires
+  WINDOW WIDENING — deeper lookahead pipelines (launch spec(N+k)
+  during N, k sized to statement cost) with the existing validation
+  already sound for it (writes-diff vs pre-N base covers interloping
+  commands), or launching at the previous command's parse. This is
+  the measured, honest boundary of v0's scheduler — the invention's
+  mechanism is proven; its scheduling depth is the next design
+  variable. All instrumentation remains env-gated on the branch.
