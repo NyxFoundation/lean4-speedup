@@ -1425,3 +1425,15 @@ byte-reproducibility for default-on.
   are build failures in this config. NEXT (iter 95): the consumer —
   probe + validate + commitSignature adoption in MutualDef's
   elabAsync branch, then the full gate battery.
+- 2026-07-20 (iter 95, /loop): SHADOW CONSUMER LIVE — the validation
+  half runs in the real elaborator. Cache refactored to new
+  Lean.Elab.SpeculationCache (import-cycle fix; en route: excision
+  dropped experimental.module — restored, then deduped); MutualDef
+  probes before elabHeaders for single-theorem commands (fingerprint
+  + read/write disjointness), counting without adopting. Live:
+  micro-file attempted=5 stored=3 probed=4 validHits=1 (main outruns
+  speculation on rfl-theorems — expected; production needs a bounded
+  join); EQUIV.BASIC: 18 VALIDATED HITS in the real pipeline (racy
+  single-slot floor). Remaining for v1: adoption (feed
+  commitSignature from the entry + body task from original syntax +
+  skip header), bounded join-wait, gates + A/B.
