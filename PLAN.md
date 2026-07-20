@@ -1519,3 +1519,18 @@ byte-reproducibility for default-on.
   detail) and decide between level-normalized comparison
   (instantiateLevelParams to a canonical sequence before ==) or the
   producer-side telescope-sharing route.
+- 2026-07-20 (iter 102, /loop): FUNNEL DIAGNOSED + FIRST A/B ECONOMICS.
+  The 0-adoption mystery: lake env lean does NOT apply lakefile
+  options — direct runs had autoImplicit=TRUE, tripping the iter-99
+  gate; under Mathlib's REAL config (-DautoImplicit=false): 43 valid
+  hits, 21 ADOPTED, byte-identical, rc=0 — the type-match unlock
+  WORKS. First timing A/B: +3.2% (blocking joins made main wait for
+  every speculation incl. 22 refusals = double-pay); non-blocking
+  adoption (finished-check, unfinished=miss): +1.9%. Cost model:
+  ~21 adoptions x 15-30ms saved vs ~0.5s speculation overhead to
+  locate (suspects: worker ext-state convoys [T5 class], per-command
+  spec cost for never-hit commands, duplicate sync parse). NEXT:
+  trace.profiler ON-vs-OFF breakdown to place the overhead; then
+  producer gating (speculate only ascribed single theorems) and/or
+  convoy fix. Measurement lesson recorded: direct-file runs need
+  -DautoImplicit=false to reflect Mathlib build reality.
