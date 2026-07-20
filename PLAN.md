@@ -1506,3 +1506,16 @@ byte-reproducibility for default-on.
   C1 speculative elaboration v0 sound end-to-end), the playbook, the
   invention theory, and the full measured map of Lean 4's
   parallelism frontier.
+- 2026-07-20 (iter 101, /loop): TYPE-MATCH UNLOCK ATTEMPT — not yet
+  effective. Structural matching for hygienic prefix binders
+  (progressive instantiation makes domains concrete; ambiguity
+  refuses) compiled and stays SOUND (Equiv.Basic byte-identical) but
+  adoptions dropped 1 -> 0: the fvTy == d comparison universally
+  misses. Prime suspect: universe-level names INSIDE instance types
+  (Semiring.{u_spec} vs Semiring.{u_consumer}) — term-level
+  instantiate1 never touches levels, so cross-elaboration level-param
+  names must differ or drift. NEXT: add peel-failure reason traces
+  (which phase, which binder, name vs type miss, level mismatch
+  detail) and decide between level-normalized comparison
+  (instantiateLevelParams to a canonical sequence before ==) or the
+  producer-side telescope-sharing route.
