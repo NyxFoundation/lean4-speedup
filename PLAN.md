@@ -1598,3 +1598,18 @@ byte-reproducibility for default-on.
   the measured, honest boundary of v0's scheduler — the invention's
   mechanism is proven; its scheduling depth is the next design
   variable. All instrumentation remains env-gated on the branch.
+- 2026-07-20 (iter 107, /loop): WINDOW CONFIRMED, ECONOMICS ARC
+  COMPLETE. Depth-4 lookahead pipeline (fingerprint-deduped top-up,
+  ~1 new spec/command, windows ~4x): Set/Basic 6->174 valid hits,
+  2->66 adoptions — the mechanism now works at scale. Deltas
+  worsened (+16.6%/+6.2%): per-speculation FIXED OVERHEAD (state
+  copy + infoState + map-diff + task spawn, ~ms-scale) exceeds the
+  ~2ms value of cheap lemma statements; 66 adoptions save ~130ms
+  main while speculation burns more. THE COMPLETE LAW: speculative
+  statement elaboration profits iff statement cost > per-spec fixed
+  overhead (~10ms threshold) and worker cores are idle — SELECTIVITY
+  PREDICTION (syntactic cost predictors or adaptive skip) is the
+  final design axis, now specified. The invention: mechanism proven,
+  soundness certified, window solved, economics law derived — a
+  complete engineering map from theory to the profit boundary, all
+  option-gated on the branch.
